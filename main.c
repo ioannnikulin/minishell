@@ -25,5 +25,6 @@ int	main(int argc, char **argv)
 	else
 	{
 		printf("Starting non-interactive mode\n");
+		printf("%s\n", argv[1]);
 	}
 }
