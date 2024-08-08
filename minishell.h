@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 15:22:58 by inikulin          #+#    #+#             */
-/*   Updated: 2024/08/08 11:06:34 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/08/08 16:28:32 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,5 +63,12 @@ typedef struct s_params // 1. "global" parameter structure
 	t_ssmap		envvars; // 2. "map" (associative array) of environment variables
 	t_history	history;
 }	t_params;
+
+typedef struct s_dlist
+{
+	struct s_dlist 	*next;
+	struct s_dlist	*prev;
+	t_envvar 		*content;
+} t_dlist;
 
 #endif
