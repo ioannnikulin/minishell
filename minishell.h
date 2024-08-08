@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 15:22:58 by inikulin          #+#    #+#             */
-/*   Updated: 2024/08/03 17:47:58 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/08/08 11:06:34 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ typedef struct s_params // 1. "global" parameter structure
 	int			errno;
 	t_ssmap		envvars; // 2. "map" (associative array) of environment variables
 	t_history	history;
-	
-}	t_param;
+}	t_params;
 
 #endif
