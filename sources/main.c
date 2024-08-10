@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 15:21:17 by inikulin          #+#    #+#             */
-/*   Updated: 2024/08/03 17:41:47 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/08/10 17:43:34 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,10 @@
 
 int	main(int argc, char **argv)
 {
-	t_params	params;
+	t_param	param;
 
-	if (init_params(&params))
+	(void)argv;
+	if (init_param(&param))
 		return (1);
 	if (argc == 1)
 	{

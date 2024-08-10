@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 15:22:58 by inikulin          #+#    #+#             */
-/*   Updated: 2024/08/03 17:47:58 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/08/10 17:49:35 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 # define MINISHELL_H
 
 # include <stdio.h>
-# include <readline/history.h>
-# include <readline/readline.h>
+# include <stdlib.h>
+# include "libft.h"
 
 # define FREE_ENVVARS_DLISTS 1
 # define FREE_ENVVARS_ENTRIES 2
@@ -57,7 +57,7 @@ typedef struct s_line
 	int		commands_size;
 }	t_line;
 
-typedef struct s_params // 1. "global" parameter structure
+typedef struct s_param // 1. "global" parameter structure
 {
 	int			errno;
 	t_ssmap		envvars; // 2. "map" (associative array) of environment variables
@@ -65,4 +65,8 @@ typedef struct s_params // 1. "global" parameter structure
 	
 }	t_param;
 
+int	init_param(t_param *param);
+int	finalize(t_param *param, int mode, char *message, int retval);
+int	ft_free(int choice, void **obj, int bytes, int ret);
+int	insert_envvar(t_param *param, char *key, char *value);
 #endif

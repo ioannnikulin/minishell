@@ -1,3 +1,4 @@
 libft.a
 *.o
 libft/tests/test
+minishell

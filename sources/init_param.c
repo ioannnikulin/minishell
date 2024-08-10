@@ -6,14 +6,15 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 18:10:38 by inikulin          #+#    #+#             */
-/*   Updated: 2024/08/03 18:13:15 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/08/10 17:41:37 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.c"
+#include "minishell.h"
 
-int	init_params(t_params *params)
+int	init_param(t_param *param)
 {
-	if (insert_envvar(params, "PATH", "/usr/local/sbin"))
+	if (insert_envvar(param, "PATH", "/usr/local/sbin"))
 		finalize(0, 0, "Error initializing shell parameters\n", 1);
+	return (0);
 }
