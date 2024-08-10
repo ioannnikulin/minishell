@@ -29,6 +29,13 @@ typedef struct s_envvar // 4. contens of each double-linked list node
 	char	*value;
 }	t_envvar;
 
+typedef struct s_dlist
+{
+	struct s_dlist 	*next;
+	struct s_dlist	*prev;
+	t_envvar 		*content;
+} t_dlist;
+
 typedef struct s_ssmap
 {
 	t_dlist	*head;
@@ -63,14 +70,6 @@ typedef struct s_params // 1. "global" parameter structure
 	int			errno;
 	t_ssmap		envvars; // 2. "map" (associative array) of environment variables
 	t_history	history;
-
 }	t_params;
-
-typedef struct s_dlist
-{
-	struct s_dlist 	*next;
-	struct s_dlist	*prev;
-	t_envvar 		*content;
-} t_dlist;
 
 #endif
