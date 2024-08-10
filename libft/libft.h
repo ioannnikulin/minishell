@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 15:16:17 by inikulin          #+#    #+#             */
-/*   Updated: 2024/08/10 12:35:54 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/08/10 19:26:10 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,4 +141,23 @@ int				ft_printf(const char *s, ...);
 int				ft_fprintf(int fd, const char *s, ...);
 // -------- get_next_line --------
 char			*get_next_line(int fd);
+// -------- maps -----------------
+
+typedef struct s_mapss_entry
+{
+	char	*key;
+	char	*value;
+}	t_mapss_entry;
+
+typedef struct s_ssmap
+{
+	t_dlist	*head;
+	t_dlist *tail; // 3. double-linked list head - for the envvars associative array
+	int		size;
+}	t_ssmap;
+
+int	ft_mapss_finalize(t_ssmap *map, int mode, char *msg, int retval);
+int	ft_mapss_error_decode(int errno, char **msg);
+// -------- misc -------
+int	assign(int *to, int what, int ret);
 #endif
