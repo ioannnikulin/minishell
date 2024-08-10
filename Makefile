@@ -12,7 +12,8 @@ ENDPOINT_NAME = main.c
 SRC_SRCS = $(addprefix $(SOURCES_F)/, $(SRC_NAMES))
 ENDPOINT_SRC = $(addprefix $(SOURCES_F)/, $(ENDPOINT_NAME))
 
-OBJS = $(SRC_SRCS:.c=.o) $(ENDPOINT_SRC:.c=.o)
+OBJS = $(SRC_SRCS:.c=.o)
+ENDPOINT_OBJ = $(ENDPOINT_SRC:.c=.o)
 INCLUDES = -I . -I libft
 
 all: $(NAME)
@@ -20,7 +21,7 @@ all: $(NAME)
 pre:
 	$(PREFIX)cd libft && make all
 
-$(NAME): $(OBJS)
+$(NAME): $(OBJS) $(ENDPOINT_OBJ)
 	$(PREFIX)$(CC) $^ -o $@ $(LINK_LIBFT_FLAGS)
 
 $(OBJS): %.o: %.c
@@ -41,3 +42,9 @@ fclean:
 re: fclean all
 
 PHONY: all pre clean fclean re
+########################################
+
+TANIA_ENDPOINT = sources/create_environ_list.c
+TANIA_ENDPOINT_OBJ = $(TANIA_ENDPOINT:.c=.o)
+
+tania: $(TANIA_ENDPOINT_OBJ) $(OBJS)

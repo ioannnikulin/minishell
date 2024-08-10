@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   envvars.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 16:31:10 by inikulin          #+#    #+#             */
-/*   Updated: 2024/08/10 16:16:31 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/08/10 18:22:54 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,13 @@ t_dlist	*make_node(t_param *param, char *key, char *value)
 
 int	insert_envvar(t_param *param, char *key, char *value)
 {
-	t_dlist *node;
+	t_dlist	*node;
 
 	node = make_node(param, key, value);
 	// TODO: insert into param->envvars
 	(void)node;
+	param->envvars.size ++;
+	create_environ_list(param, node);
 	param->envvars.size ++;
 	return (0);
 }
