@@ -2,3 +2,4 @@ libft.a
 *.o
 libft/tests/test
 .vscode
+minishell

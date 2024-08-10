@@ -1,12 +1,12 @@
 CC = cc
 NAME = minishell
 COMPILE_FLAGS = -Wall -Wextra -Werror
-LINK_LINFT_FLAGS = -lft -Llibft
+LINK_LIBFT_FLAGS = -lft -Llibft
 PREFIX =
 
 SOURCES_F = sources
 
-SRC_NAMES = envvars.c finalize.c init_params.c minishell.c utils.c wrappers.c
+SRC_NAMES = envvars.c finalize.c init_param.c utils.c wrappers.c
 ENDPOINT_NAME = main.c
 
 SRC_SRCS = $(addprefix $(SOURCES_F)/, $(SRC_NAMES))
