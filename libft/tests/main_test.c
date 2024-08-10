@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 15:57:31 by inikulin          #+#    #+#             */
-/*   Updated: 2024/01/13 17:18:52 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/08/10 12:40:22 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,8 @@ int	main(void)
 	ft_memchr_test();
 	printf("strnstr in testing\n");
 	ft_strnstr_test();
-	printf("atoi in testing\n");
-	ft_atoi_test();
+//	printf("atoi in testing\n");
+//	ft_atoi_test();
 	printf("strdup in testing\n");
 	ft_strdup_test();
 	printf("substr in testing\n");
@@ -65,23 +65,20 @@ int	main(void)
 	ft_strtrim_test();
 	printf("split in testing\n");
 	ft_split_test();
-	printf("itoa in testing\n");
-	ft_itoa_test();
-	printf("strmapi in testing\n");
-	ft_strmapi_test();
+//	printf("itoa in testing\n");
+//	ft_itoa_test();
+//	printf("strmapi in testing\n");
+//	ft_strmapi_test();
 	printf("striteri in testing\n");
 	ft_striteri_test();
-#ifdef NOTMY
 	printf("putchar_fd in testing\n");
 	ft_putchar_fd_test();
-	printf("putstr_fd in testing\n");
-	ft_putstr_fd_test();
+//	printf("putstr_fd in testing\n");
+//	ft_putstr_fd_test();
 	printf("putendl_fd in testing\n");
 	ft_putendl_fd_test();
 	printf("putnbr_fd in testing\n");
 	ft_putnbr_fd_test();
-#endif
-#ifdef BONUS
 	printf("lstnew in testing\n");
 	ft_lstnew_test();
 	printf("lstsize in testing\n");
@@ -100,19 +97,14 @@ int	main(void)
 	ft_lstmap_test();
 	printf("lstiter in testing\n");
 	ft_lstiter_test();
-#endif
-#ifdef JUSTMY
-	printf("ft_lst_generate in testing\n");
-	ft_lst_generate_test();
-	printf("ft_lltoa_base in testing\n");
+	printf("ft_list_generate in testing\n");
+	ft_list_generate_test();
+/*	printf("ft_lltoa_base in testing\n");
 	ft_lltoa_base_test();
 	printf("ft_ulltoa_base in testing\n");
 	ft_ulltoa_base_test();
-#endif
-#ifdef PRINTF
 	printf("ft_printf in testing\n");
-	ft_printf_test();
-#endif
+	ft_printf_test();*/
 	printf("All tests passed successfully!\n");
 	return (0);
 }

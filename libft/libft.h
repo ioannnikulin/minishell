@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 15:16:17 by inikulin          #+#    #+#             */
-/*   Updated: 2024/05/01 14:59:25 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/08/10 12:35:54 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,9 @@ char			*ft_strmapi(const char *s, char (*f)(unsigned int, char));
 void			ft_striteri(char *s, void (*f)(unsigned int, char *));
 int				ft_is_in(const char c, const char *set);
 char			*ft_empty_string(void);
+void			*ft_putchar_fd(char c, int fd);
+void			ft_putendl_fd(char *s, int fd);
+void			ft_putnbr_fd(int n, int fd);
 // -------- numbers <> strings --------
 int				ft_atoi(const char *nptr, int *ok);
 char			*ft_itoa(int v);
