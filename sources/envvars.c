@@ -6,11 +6,11 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 16:31:10 by inikulin          #+#    #+#             */
-/*   Updated: 2024/08/03 18:15:25 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/08/10 13:01:25 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.c"
+#include "minishell.h"
 
 t_dlist	*make_node(t_params *params, char *key, char *value)
 {
