@@ -1,34 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   create_environ_list.c                              :+:      :+:    :+:   */
+/*   ft_mapss_insert.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 13:20:33 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/08/10 19:10:18 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/08/13 23:10:20 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-void ft_mapss_print(t_mapss *map)
-{
-	t_dlist *current = map->head;
-	while (current != NULL)
-	{
-		ft_printf("key: %s, value: %s\n", current->content->key, current->content->value);
-		current = current->next;
-	}
-}
+#include "../../../libft.h"
+#include <stdlib.h>
 
 int	ft_mapss_insert(t_mapss *map, t_dlist *node)
 {
-	t_dlist	*current;
-	t_dlist	*tail;
+	t_dlist			*current;
+	t_dlist			*tail;
+	t_mapss_entry	*cur_entry;
+	t_mapss_entry	*node_entry;
+	t_mapss_entry	*tail_entry;
 
 	current = map->head;
 	tail = map->tail;
+	cur_entry = current->content;
+	node_entry = node->content;
+	tail_entry = tail->content;
 	// Case 1: The list is empty
 	if (current == NULL)
 	{
@@ -40,7 +37,7 @@ int	ft_mapss_insert(t_mapss *map, t_dlist *node)
 		return (0);
 	}
 	// Case 2: Insert at the beginning (before the current head)
-	if (ft_strcmp((node->content)->key, (current->content)->key) < 0)
+	if (ft_strcmp(node_entry->key, cur_entry->key) < 0)
 	{
 		node->next = current;
 		node->prev = NULL;
@@ -49,7 +46,7 @@ int	ft_mapss_insert(t_mapss *map, t_dlist *node)
 		return (0);
 	}
 	//Case 3: Insert at the end
-	if (ft_strcmp((node->content)->key, (tail->content)->key) > 0)
+	if (ft_strcmp(node_entry->key, tail_entry->key) > 0)
 	{
 		//printf("Case 3: Insert at the end\n");
 		node->next = NULL;
@@ -63,18 +60,18 @@ int	ft_mapss_insert(t_mapss *map, t_dlist *node)
 	while (current != NULL)
     {
 		// Case 4.1: Overwrite if key already exists
-		if (ft_strcmp((node->content)->key, (current->content)->key) == 0)
+		if (ft_strcmp(node_entry->key, cur_entry->key) == 0)
 		{
 			//printf("Case 4.1\n");
-			free((current->content)->value); // Assuming value was dynamically allocated
-			(current->content)->value = (node->content)->value;
-			free((node->content)->key); // Free the old key if necessary
+			free(cur_entry->value); // Assuming value was dynamically allocated
+			cur_entry->value = node_entry->value;
+			free(node_entry->key); // Free the old key if necessary
 			free(node->content); // Free the new entry structure
 			free(node); // Free the new node
 			return (0);
 		}
 		// Case 4.2: Insert before the current node
-		else if (ft_strcmp((node->content)->key, (current->content)->key) < 0)
+		else if (ft_strcmp(node_entry->key, cur_entry->key) < 0)
 		{
 			//printf("Case 4.2\n");
 			node->next = current;
@@ -92,25 +89,7 @@ int	ft_mapss_insert(t_mapss *map, t_dlist *node)
 			return (0);
 		}
 		current = current->next;
+		cur_entry = current->content;
 	}
 	return (0);
-}
-
-int main()
-{
-	int		result;
-	t_mapss	*map;
-
-	 // Define arrays of keys and values
-	const char *keys[] = {"PATH", "SHELL", "HOME", "USERNAME", "PATH", "SHLVL", "OLDPWD", "DISPLAY", ""};
-	const char *values[] = {"/usr/local/sbin", "/bin/bash", "/home/user", "/usr/local/sbin", "1", "/home/taretiuk/42/student",
-							":0", "X Window", "Error"};
-	int num_entries = sizeof(keys) / sizeof(keys[0]);
-	result = 0;
-
-	// Loop through keys and values arrays
-	for (int i = 0; i < num_entries; i++)
-		ft_mapss_add(map, keys[i], values[i]);
-	printf("Environment list:\n");
-	ft_mapss_print(map);
 }

@@ -1,26 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*   symbols.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inikulin <inikulin@student.42berlin.d      +#+  +:+       +#+        */
+/*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/13 19:01:40 by inikulin          #+#    #+#             */
-/*   Updated: 2024/08/13 21:06:51 by inikulin         ###   ########.fr       */
+/*   Created: 2024/08/13 20:53:17 by inikulin          #+#    #+#             */
+/*   Updated: 2024/08/13 20:54:13 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stddef.h>
-#include <stdlib.h>
-#include "memory.h"
+#ifndef SYMBOLS_H
+# define SYMBOLS_H
+int	ft_isalpha(int c);
+int	ft_isdigit(int c);
+int	ft_isalnum(int c);
+int	ft_isascii(int c);
+int	ft_isprint(int c);
+int	ft_isspace(int c);
+int	ft_tolower(int c);
+int	ft_toupper(int c);
+#endif
 
-void	*ft_calloc(size_t nmemb, size_t size)
-{
-	void	*res;
-
-	res = malloc(nmemb * size);
-	if (!res)
-		return (0);
-	ft_bzero(res, nmemb * size);
-	return (res);
-}

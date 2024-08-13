@@ -1,26 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*   ft_mapss_test.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inikulin <inikulin@student.42berlin.d      +#+  +:+       +#+        */
+/*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/13 19:01:40 by inikulin          #+#    #+#             */
-/*   Updated: 2024/08/13 21:06:51 by inikulin         ###   ########.fr       */
+/*   Created: 2024/08/13 21:34:36 by inikulin          #+#    #+#             */
+/*   Updated: 2024/08/13 22:47:28 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stddef.h>
-#include <stdlib.h>
-#include "memory.h"
+#include "mapss.h"
 
-void	*ft_calloc(size_t nmemb, size_t size)
+void	ft_mapss_test(void)
 {
-	void	*res;
-
-	res = malloc(nmemb * size);
-	if (!res)
-		return (0);
-	ft_bzero(res, nmemb * size);
-	return (res);
+	ft_printf("mapss print in testing\n");
+	ft_mapss_print_test();
+	ft_printf("mapss add in testing\n");
+	ft_mapss_add_test();
+	return ;
 }

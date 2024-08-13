@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 15:57:31 by inikulin          #+#    #+#             */
-/*   Updated: 2024/08/10 12:40:22 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/08/13 22:41:22 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 int	main(void)
 {
+	ft_mapss_test();
+/*
 	printf("isalpha in testing\n");
 	ft_isalpha_test();
 	printf("isdigit in testing\n");

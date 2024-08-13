@@ -6,13 +6,13 @@
 /*   By: inikulin <inikulin@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 14:36:51 by inikulin          #+#    #+#             */
-/*   Updated: 2023/11/24 18:07:59 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/08/13 21:11:00 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stddef.h>
 #include <limits.h>
-#include "libft.h" 
+#include "../memory/memory.h" 
 #define MX 65 
 #define MAXBASE 256
 

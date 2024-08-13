@@ -1,26 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*   ft_mapss_finalize.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inikulin <inikulin@student.42berlin.d      +#+  +:+       +#+        */
+/*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/13 19:01:40 by inikulin          #+#    #+#             */
-/*   Updated: 2024/08/13 21:06:51 by inikulin         ###   ########.fr       */
+/*   Created: 2024/08/13 23:12:55 by inikulin          #+#    #+#             */
+/*   Updated: 2024/08/13 23:15:14 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stddef.h>
-#include <stdlib.h>
-#include "memory.h"
+#include "mapss.h"
 
-void	*ft_calloc(size_t nmemb, size_t size)
+int	ft_mapss_finalize(t_mapss *map, int mode, char *msg, int retval)
 {
-	void	*res;
-
-	res = malloc(nmemb * size);
-	if (!res)
-		return (0);
-	ft_bzero(res, nmemb * size);
-	return (res);
+	(void)map;
+	(void)mode;
+	(void)msg;
+	return (retval);
 }

@@ -6,14 +6,16 @@
 /*   By: inikulin <inikulin@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 12:46:27 by inikulin          #+#    #+#             */
-/*   Updated: 2024/08/10 12:36:12 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/08/13 21:14:52 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef AUX_PRINTF_H
 # define AUX_PRINTF_H
 # include <stdarg.h>
 # include <unistd.h>
-# include "libft.h"
+# include "../strings/strings.h"
+# include "../memory/memory.h"
+# include "../numbers/numbers.h"
 
 typedef struct s_params
 {

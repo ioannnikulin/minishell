@@ -6,13 +6,13 @@
 /*   By: inikulin <inikulin@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 19:01:40 by inikulin          #+#    #+#             */
-/*   Updated: 2024/05/01 15:03:16 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/08/13 21:09:32 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stddef.h>
 #include <limits.h>
-#include "libft.h"
+#include "../symbols/symbols.h"
 
 static char	sign(const char *nptr, size_t *cur)
 {
