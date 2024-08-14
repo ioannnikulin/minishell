@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 16:31:10 by inikulin          #+#    #+#             */
-/*   Updated: 2024/08/13 22:55:30 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/08/14 22:00:11 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,12 @@ static t_dlist	*ft_mapss_node(const char *key, const char *value, int *errno)
 	t_mapss_entry	*entry;
 
 	assign(errno, 0, 0);
-	node = malloc(sizeof(t_dlist));
+	node = ft_calloc_if(sizeof(t_dlist), 1);
 	if (!node)
 		return (null(assign(errno, 1, 0)));
 	node->next = 0;
 	node->prev = 0;
-	entry = malloc(sizeof(t_mapss_entry));
+	entry = ft_calloc_if(sizeof(t_mapss_entry), 1);
 	if (!entry)
 		return (null(assign(errno, 2, 0)));
 	node->content = entry;
@@ -61,6 +61,5 @@ int	ft_mapss_add(t_mapss *map, const char *key, const char *value)
 	}
 	if (ft_mapss_insert(map, node))
 		return (ft_mapss_finalize(map, MAPSS_FULL, "Couldn't insert node\n", 1));
-	map->size ++;
 	return (0);
 }

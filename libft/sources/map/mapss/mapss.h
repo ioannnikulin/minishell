@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 20:41:10 by inikulin          #+#    #+#             */
-/*   Updated: 2024/08/13 22:55:50 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/08/14 21:17:35 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,5 @@ typedef struct s_mapss
 int		ft_mapss_add(t_mapss *map, const char *key, const char *value);
 void	ft_mapss_print(t_mapss *map);
 int		ft_mapss_finalize(t_mapss *map, int mode, char *msg, int retval);
+int		ft_mapss_ncmp(t_mapss *a, t_mapss *b, int n);
 #endif

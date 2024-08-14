@@ -14,7 +14,7 @@ DLIST_NAMES = ft_dlist_add_back.c ft_dlist_add_front.c ft_dlist_clear.c ft_dlist
 DLIST_SRCS = $(addprefix $(SOURCES_F)/$(DLIST_F)/, $(DLIST_NAMES))
 
 MAPSS_F = map/mapss
-MAPSS_NAMES = ft_mapss_print.c ft_mapss_error_decoder.c ft_mapss_add.c ft_mapss_insert.c ft_mapss_finalize.c
+MAPSS_NAMES = ft_mapss_print.c ft_mapss_error_decoder.c ft_mapss_add.c ft_mapss_insert.c ft_mapss_finalize.c ft_mapss_ncmp.c
 MAPSS_SRCS = $(addprefix $(SOURCES_F)/$(MAPSS_F)/, $(MAPSS_NAMES))
 
 MEM_F = memory
