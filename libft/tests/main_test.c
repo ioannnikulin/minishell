@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_test.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inikulin <inikulin@student.42berlin.d      +#+  +:+       +#+        */
+/*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 15:57:31 by inikulin          #+#    #+#             */
-/*   Updated: 2024/08/13 22:41:22 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/08/17 16:11:23 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ int	main(void)
 	ft_lstiter_test();
 	printf("ft_list_generate in testing\n");
 	ft_list_generate_test();
-/*	printf("ft_lltoa_base in testing\n");
+	printf("ft_lltoa_base in testing\n");
 	ft_lltoa_base_test();
 	printf("ft_ulltoa_base in testing\n");
 	ft_ulltoa_base_test();
