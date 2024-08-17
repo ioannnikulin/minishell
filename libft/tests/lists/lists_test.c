@@ -6,11 +6,12 @@
 /*   By: inikulin <inikulin@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 15:57:31 by inikulin          #+#    #+#             */
-/*   Updated: 2024/08/17 12:20:30 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/08/17 18:16:16 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../tests_internal.h"
+#include "lists_test.h"
 
 int	lists_test(void)
 {

@@ -6,11 +6,12 @@
 /*   By: inikulin <inikulin@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 15:56:31 by inikulin          #+#    #+#             */
-/*   Updated: 2023/11/16 17:46:38 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/08/17 19:56:36 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tests.h"
+//#define DEBUG
 
 typedef struct s_testcase
 {
@@ -19,6 +20,7 @@ typedef struct s_testcase
 	size_t	n;
 }	t_testcase;
 
+#define START 0
 #define SZ 32
 
 void	ft_memcmp_test(void)
@@ -62,19 +64,25 @@ void	ft_memcmp_test(void)
 	t[29] = (t_testcase){0, s2, 0};
 	t[30] = (t_testcase){s1, 0, 0};
 	t[31] = (t_testcase){0, 0, 0};
-	for (int i = 0; i < SZ; i ++)
+	for (int i = START; i < SZ; i ++)
 	{
+		char *s11 = (t[i].s1 ? strdup(t[i].s1) : 0);
+		char *s22 = (t[i].s2 ? strdup(t[i].s2) : 0);
 		int std = memcmp(
-				t[i].s1
-				, t[i].s2
+				s11
+				, s22
 				, t[i].n
 				);
 		int custom = ft_memcmp(
-				t[i].s1
-				, t[i].s2
+				s11
+				, s22
 				, t[i].n
 				);
-		//printf("!%i %i %i\n\n", i, std, custom);
+	  #ifdef DEBUG
+		printf("!%i %i %i\n\n", i, std, custom);
+	  #endif
+		free(s11);
+		free(s22);
 		assert(std == custom);
 	}
 }

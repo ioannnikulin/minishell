@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 15:56:43 by inikulin          #+#    #+#             */
-/*   Updated: 2024/08/10 12:02:52 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/08/17 18:22:36 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ typedef struct s_testcase
 	char	*texts[20];
 }	t_testcase;
 
-void	ft_lstlast_test(void)
+void	ft_list_last_test(void)
 {
 	t_testcase	t[SZ];
 	t[0] = (t_testcase){-1, 3, {"hello", "i", "", NULL}};

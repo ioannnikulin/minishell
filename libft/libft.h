@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 15:16:17 by inikulin          #+#    #+#             */
-/*   Updated: 2024/08/17 10:38:06 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/08/17 18:25:10 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 # include <stddef.h>
 # define LLTOA_BASE_MAX_LEN 65
 # include "sources/symbols/symbols.h"
+# include "sources/numbers/numbers.h"
 # include "sources/strings/strings.h"
 # include "sources/memory/memory.h"
 # include "sources/lists/list.h"

@@ -26,7 +26,7 @@ NUM_NAMES = ft_atoi.c ft_itoa.c ft_xtoa_base.c ft_minmax_int.c ft_minmax_double.
 NUM_SRCS = $(addprefix $(SOURCES_F)/$(NUM_F)/, $(NUM_NAMES))
 
 STR_F = strings
-STR_NAMES = ft_empty_string.c ft_split.c ft_strlen.c ft_strchr.c ft_strdup.c ft_striteri.c ft_strjoin.c ft_strlcpy.c ft_strlcat.c ft_strmapi.c ft_strncmp.c ft_strnstr.c ft_strrchr.c ft_strtrim.c ft_substr.c ft_putchar_fd.c ft_putendl_fd.c ft_putnbr_fd.c ft_strcmp.c
+STR_NAMES = ft_empty_string.c ft_split.c ft_strlen.c ft_strchr.c ft_strdup.c ft_striteri.c ft_strjoin.c ft_strlcpy.c ft_strlcat.c ft_strmapi.c ft_strncmp.c ft_strnstr.c ft_strrchr.c ft_strtrim.c ft_substr.c ft_putchar_fd.c ft_putendl_fd.c ft_putnbr_fd.c ft_strcmp.c ft_putstr_fd.c
 STR_SRCS = $(addprefix $(SOURCES_F)/$(STR_F)/, $(STR_NAMES))
 
 SYM_F = symbols
@@ -70,31 +70,31 @@ re: fclean all
 # ------------------------------------------------------------------------------
 TESTF = tests
 
-LIST_TEST_NAMES = $(LIST_NAMES) lists_test.c
-LIST_TEST_SRCS = $(addprefix $(TESTF)/$(LIST_F)/, $(subst .c,_test.c,$(LIST_TEST_NAMES)))
+LIST_TEST_NAMES = $(LIST_NAMES)
+LIST_TEST_SRCS = $(addprefix $(TESTF)/$(LIST_F)/, $(subst .c,_test.c,$(LIST_TEST_NAMES)) lists_test.c)
 
-DLIST_TEST_NAMES = $(DLIST_NAMES) dlists_test.c
-DLIST_TEST_SRCS = $(addprefix $(TESTF)/$(DLIST_F)/, $(subst .c,_test.c,$(DLIST_TEST_NAMES)))
+DLIST_TEST_NAMES = $(DLIST_NAMES)
+DLIST_TEST_SRCS = $(addprefix $(TESTF)/$(DLIST_F)/, $(subst .c,_test.c,$(DLIST_TEST_NAMES)) dlists_test.c)
 
-MAPSS_TEST_NAMES = ft_mapss_test.c ft_mapss_add_test.c ft_mapss_print_test.c
+MAPSS_TEST_NAMES = mapss_test.c ft_mapss_add_test.c ft_mapss_print_test.c
 MAPSS_TEST_SRCS = $(addprefix $(TESTF)/$(MAPSS_F)/, $(MAPSS_TEST_NAMES))
 
-MEM_TEST_NAMES = ft_bzero_test.c ft_memchr_test.c ft_memcmp_test.c ft_memcpy_test.c ft_memmove_test.c ft_memset_test.c
+MEM_TEST_NAMES = ft_bzero_test.c ft_memchr_test.c ft_memcmp_test.c ft_memcpy_test.c ft_memmove_test.c ft_memset_test.c memory_test.c
 MEM_TEST_SRCS = $(addprefix $(TESTF)/$(MEM_F)/, $(MEM_TEST_NAMES))
 
-NUM_TEST_NAMES = $(NUM_NAMES) numbers.c
-NUM_TEST_SRCS = $(addprefix $(TESTF)/$(NUM_F)/, $(subst .c,_test.c,$(NUM_TEST_NAMES)))
+NUM_TEST_NAMES = ft_atoi_test.c ft_itoa_test.c ft_lltoa_base_test.c ft_ulltoa_base_test.c numbers_test.c
+NUM_TEST_SRCS = $(addprefix $(TESTF)/$(NUM_F)/, $(NUM_TEST_NAMES))
 
-STR_TEST_NAMES = ft_split.c ft_strlen.c ft_strchr.c ft_strdup.c ft_striteri.c ft_strjoin.c ft_strlcpy.c ft_strlcat.c ft_strmapi.c ft_strncmp.c ft_strnstr.c ft_strrchr.c ft_strtrim.c ft_substr.c ft_putchar_fd.c ft_putendl_fd.c ft_putnbr_fd.c strings_test.c
-STR_TEST_SRCS = $(addprefix $(TESTF)/$(STR_F)/, $(subst .c,_test.c,$(STR_TEST_NAMES)))
+STR_TEST_NAMES = ft_split.c ft_strlen.c ft_strchr.c ft_strdup.c ft_striteri.c ft_strjoin.c ft_strlcpy.c ft_strlcat.c ft_strmapi.c ft_strncmp.c ft_strnstr.c ft_strrchr.c ft_strtrim.c ft_substr.c ft_putchar_fd.c ft_putendl_fd.c ft_putnbr_fd.c ft_putstr_fd.c
+STR_TEST_SRCS = $(addprefix $(TESTF)/$(STR_F)/, $(subst .c,_test.c,$(STR_TEST_NAMES)) strings_test.c)
 
-SYM_TEST_NAMES = ft_isalpha.c ft_isalnum.c ft_isascii.c ft_isdigit.c ft_isprint.c ft_isspace.c ft_tolower.c ft_toupper.c symbols_test.c
-SYM_TEST_SRCS = $(addprefix $(TESTF)/$(SYM_F)/, $(subst .c,_test.c,$(SYM_TEST_NAMES)))
+SYM_TEST_NAMES = ft_isalpha.c ft_isalnum.c ft_isascii.c ft_isdigit.c ft_isprint.c ft_isspace.c ft_tolower.c ft_toupper.c
+SYM_TEST_SRCS = $(addprefix $(TESTF)/$(SYM_F)/, $(subst .c,_test.c,$(SYM_TEST_NAMES)) symbols_test.c)
 #PRINTF_TEST_SRCS = $(TESTF)/$(PRINTF_F)/ft_printf_test.c
 #GNL_TEST_SRCS = $(addprefix $(TESTF)/$(GNL_F)/, $(subst .c,_test.c,$(GNL_NAMES)))
 MAIN_TEST = $(TESTF)/main_test.c
 
-TESTOBJS = $(MAIN_TEST:.c=.o) $(LIST_TEST_SRCS:.c=.o) $(MAPSS_TEST_SRCS:.c=.o) $(MEM_TEST_SRCS:.c=.o) $(STR_TEST_SRCS:.c=.o) $(SYM_TEST_SRCS:.c=.o) #$(PRINTF_TEST_SRCS:.c=.o) # $(GNL_TEST_SRCS:.c=.o) $(DLIST_TEST_SRCS:.c=.o) $(NUM_TEST_SRCS:.c=.o) 
+TESTOBJS = $(MAIN_TEST:.c=.o) $(LIST_TEST_SRCS:.c=.o) $(MAPSS_TEST_SRCS:.c=.o) $(MEM_TEST_SRCS:.c=.o) $(STR_TEST_SRCS:.c=.o) $(SYM_TEST_SRCS:.c=.o) $(NUM_TEST_SRCS:.c=.o) #$(PRINTF_TEST_SRCS:.c=.o) # $(GNL_TEST_SRCS:.c=.o) $(DLIST_TEST_SRCS:.c=.o)
 TESTNAME = $(TESTF)/test
 TESTFLAGS = -L. -lft -lbsd
 TESTINCLUDES = -I $(TESTF)

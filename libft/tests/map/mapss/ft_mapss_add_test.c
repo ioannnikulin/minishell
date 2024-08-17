@@ -6,12 +6,11 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 21:34:36 by inikulin          #+#    #+#             */
-/*   Updated: 2024/08/14 21:57:30 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/08/17 18:17:32 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <assert.h>
-#include "mapss.h"
+#include "mapss_test.h"
 
 #define SZ 3
 

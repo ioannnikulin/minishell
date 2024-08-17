@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   strings.h                                          :+:      :+:    :+:   */
+/*   strings_test.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: inikulin <inikulin@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 15:57:31 by inikulin          #+#    #+#             */
-/*   Updated: 2024/08/17 17:07:44 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/08/17 18:53:59 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,5 @@ void	ft_putchar_fd_test(void);
 void	ft_putstr_fd_test(void);
 void	ft_putendl_fd_test(void);
 void	ft_putnbr_fd_test(void);
+void	ft_putstr_fd_test(void);
 #endif
