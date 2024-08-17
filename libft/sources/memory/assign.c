@@ -1,25 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncmp.c                                       :+:      :+:    :+:   */
+/*   assign.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inikulin <inikulin@student.42berlin.d      +#+  +:+       +#+        */
+/*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/13 19:01:40 by inikulin          #+#    #+#             */
-/*   Updated: 2024/08/13 23:03:15 by inikulin         ###   ########.fr       */
+/*   Created: 2024/08/13 22:58:25 by inikulin          #+#    #+#             */
+/*   Updated: 2024/08/13 22:58:56 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stddef.h>
-
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
+int	assign(int *where, int what, int retval)
 {
-	size_t	c;
-
-	if (n == 0)
-		return (0);
-	c = 0;
-	while (s1[c] && s2[c] == s1[c] && c < n - 1)
-		c ++;
-	return ((unsigned char)s1[c] - (unsigned char)s2[c]);
+	if (where)
+		*where = what;
+	return (retval);
 }

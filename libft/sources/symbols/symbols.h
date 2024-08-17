@@ -1,25 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncmp.c                                       :+:      :+:    :+:   */
+/*   symbols.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inikulin <inikulin@student.42berlin.d      +#+  +:+       +#+        */
+/*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/13 19:01:40 by inikulin          #+#    #+#             */
-/*   Updated: 2024/08/13 23:03:15 by inikulin         ###   ########.fr       */
+/*   Created: 2024/08/13 20:53:17 by inikulin          #+#    #+#             */
+/*   Updated: 2024/08/13 20:54:13 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stddef.h>
+#ifndef SYMBOLS_H
+# define SYMBOLS_H
+int	ft_isalpha(int c);
+int	ft_isdigit(int c);
+int	ft_isalnum(int c);
+int	ft_isascii(int c);
+int	ft_isprint(int c);
+int	ft_isspace(int c);
+int	ft_tolower(int c);
+int	ft_toupper(int c);
+#endif
 
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
-{
-	size_t	c;
-
-	if (n == 0)
-		return (0);
-	c = 0;
-	while (s1[c] && s2[c] == s1[c] && c < n - 1)
-		c ++;
-	return ((unsigned char)s1[c] - (unsigned char)s2[c]);
-}

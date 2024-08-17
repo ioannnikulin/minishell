@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 15:58:51 by inikulin          #+#    #+#             */
-/*   Updated: 2024/08/10 11:58:54 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/08/13 21:33:59 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <bsd/string.h>
 # include <stdio.h>
 # include "../libft.h"
+# include "map/mapss/mapss.h"
 
 int	bad_alloc(int ret);
 int	segfault_expected(int ret);

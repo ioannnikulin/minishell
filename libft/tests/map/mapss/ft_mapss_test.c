@@ -1,25 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncmp.c                                       :+:      :+:    :+:   */
+/*   ft_mapss_test.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inikulin <inikulin@student.42berlin.d      +#+  +:+       +#+        */
+/*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/13 19:01:40 by inikulin          #+#    #+#             */
-/*   Updated: 2024/08/13 23:03:15 by inikulin         ###   ########.fr       */
+/*   Created: 2024/08/13 21:34:36 by inikulin          #+#    #+#             */
+/*   Updated: 2024/08/14 21:40:03 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stddef.h>
+#include "mapss.h"
 
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
+void	ft_mapss_test(void)
 {
-	size_t	c;
-
-	if (n == 0)
-		return (0);
-	c = 0;
-	while (s1[c] && s2[c] == s1[c] && c < n - 1)
-		c ++;
-	return ((unsigned char)s1[c] - (unsigned char)s2[c]);
+	ft_printf("mapss print in testing\n");
+	ft_mapss_print_test();
+	ft_printf("mapss add in testing\n");
+	ft_mapss_add_test();
+	return ;
 }

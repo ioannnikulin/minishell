@@ -13,8 +13,12 @@ DLIST_F = dlists
 DLIST_NAMES = ft_dlist_add_back.c ft_dlist_add_front.c ft_dlist_clear.c ft_dlist_delone.c ft_dlist_iter.c ft_dlist_generate.c ft_dlist_generate_int.c ft_dlist_last.c ft_dlist_new.c ft_dlist_size.c ft_dlist_map.c ft_dlist_print.c ft_dlist_ncmp.c
 DLIST_SRCS = $(addprefix $(SOURCES_F)/$(DLIST_F)/, $(DLIST_NAMES))
 
+MAPSS_F = map/mapss
+MAPSS_NAMES = ft_mapss_print.c ft_mapss_error_decoder.c ft_mapss_add.c ft_mapss_insert.c ft_mapss_finalize.c ft_mapss_ncmp.c
+MAPSS_SRCS = $(addprefix $(SOURCES_F)/$(MAPSS_F)/, $(MAPSS_NAMES))
+
 MEM_F = memory
-MEM_NAMES = ft_bzero.c ft_calloc.c ft_memchr.c ft_memcmp.c ft_memcpy.c ft_memmove.c ft_memset.c ft_swap.c ft_swap_1.c
+MEM_NAMES = ft_bzero.c ft_calloc.c ft_memchr.c ft_memcmp.c ft_memcpy.c ft_memmove.c ft_memset.c ft_swap.c ft_swap_1.c assign.c
 MEM_SRCS = $(addprefix $(SOURCES_F)/$(MEM_F)/, $(MEM_NAMES))
 
 NUM_F = numbers
@@ -22,13 +26,12 @@ NUM_NAMES = ft_atoi.c ft_itoa.c ft_xtoa_base.c ft_minmax_int.c ft_minmax_double.
 NUM_SRCS = $(addprefix $(SOURCES_F)/$(NUM_F)/, $(NUM_NAMES))
 
 STR_F = strings
-STR_NAMES = ft_empty_string.c ft_split.c ft_strlen.c ft_strchr.c ft_strdup.c ft_striteri.c ft_strjoin.c ft_strlcpy.c ft_strlcat.c ft_strmapi.c ft_strncmp.c ft_strnstr.c ft_strrchr.c ft_strtrim.c ft_substr.c ft_putchar_fd.c ft_putendl_fd.c ft_putnbr_fd.c
+STR_NAMES = ft_empty_string.c ft_split.c ft_strlen.c ft_strchr.c ft_strdup.c ft_striteri.c ft_strjoin.c ft_strlcpy.c ft_strlcat.c ft_strmapi.c ft_strncmp.c ft_strnstr.c ft_strrchr.c ft_strtrim.c ft_substr.c ft_putchar_fd.c ft_putendl_fd.c ft_putnbr_fd.c ft_strcmp.c
 STR_SRCS = $(addprefix $(SOURCES_F)/$(STR_F)/, $(STR_NAMES))
 
 SYM_F = symbols
 SYM_NAMES = ft_isalpha.c ft_isalnum.c ft_isascii.c ft_isdigit.c ft_is_in.c ft_isprint.c ft_isspace.c ft_tolower.c ft_toupper.c
 SYM_SRCS = $(addprefix $(SOURCES_F)/$(SYM_F)/, $(SYM_NAMES))
-
 
 PRINTF_F = printf
 PRINTF_NAMES = aux_printf.c ft_printf.c pad_n_put.c put_c.c put_d.c put_percent.c put_s.c put_u.c put_x.c put_p.c
@@ -38,7 +41,7 @@ GNL_F = get_next_line
 GNL_NAMES = get_next_line_bonus.c get_next_line_utils_bonus.c
 GNL_SRCS = $(addprefix $(SOURCES_F)/$(GNL_F)/, $(GNL_NAMES))
 
-SRCS = $(LIST_SRCS) $(DLIST_SRCS) $(MEM_SRCS) $(NUM_SRCS) $(STR_SRCS) $(SYM_SRCS) $(PRINTF_SRCS) $(GNL_SRCS)
+SRCS = $(LIST_SRCS) $(DLIST_SRCS) $(MAPSS_SRCS) $(MEM_SRCS) $(NUM_SRCS) $(STR_SRCS) $(SYM_SRCS) $(PRINTF_SRCS) $(GNL_SRCS)
 OBJS = $(SRCS:.c=.o)
 INCLUDES = -I .
 PACK = ar rcs
@@ -64,6 +67,8 @@ re: fclean all
 TESTF = tests
 LIST_TEST_SRCS = $(addprefix $(TESTF)/$(LIST_F)/, $(subst .c,_test.c,$(LIST_NAMES)))
 #DLIST_TEST_SRCS = $(addprefix $(TESTF)/$(DLIST_F)/, $(subst .c,_test.c,$(DLIST_NAMES)))
+MAPSS_TEST_NAMES = ft_mapss_test.c ft_mapss_add_test.c ft_mapss_print_test.c
+MAPSS_TEST_SRCS = $(addprefix $(TESTF)/$(MAPSS_F)/, $(MAPSS_TEST_NAMES))
 MEM_TEST_NAMES = ft_bzero_test.c ft_memchr_test.c ft_memcmp_test.c ft_memcpy_test.c ft_memmove_test.c ft_memset_test.c
 MEM_TEST_SRCS = $(addprefix $(TESTF)/$(MEM_F)/, $(MEM_TEST_NAMES))
 #NUM_TEST_SRCS = $(addprefix $(TESTF)/$(NUM_F)/, $(subst .c,_test.c,$(NUM_NAMES))) #atoi
@@ -75,7 +80,7 @@ SYM_TEST_SRCS = $(addprefix $(TESTF)/$(SYM_F)/, $(subst .c,_test.c,$(SYM_TEST_NA
 #GNL_TEST_SRCS = $(addprefix $(TESTF)/$(GNL_F)/, $(subst .c,_test.c,$(GNL_NAMES)))
 MAIN_TEST = $(TESTF)/main_test.c
 
-TESTOBJS = $(MAIN_TEST:.c=.o) $(LIST_TEST_SRCS:.c=.o) $(MEM_TEST_SRCS:.c=.o) $(STR_TEST_SRCS:.c=.o) $(SYM_TEST_SRCS:.c=.o) #$(PRINTF_TEST_SRCS:.c=.o) # $(GNL_TEST_SRCS:.c=.o) $(DLIST_TEST_SRCS:.c=.o) $(NUM_TEST_SRCS:.c=.o) 
+TESTOBJS = $(MAIN_TEST:.c=.o) $(LIST_TEST_SRCS:.c=.o) $(MAPSS_TEST_SRCS:.c=.o) $(MEM_TEST_SRCS:.c=.o) $(STR_TEST_SRCS:.c=.o) $(SYM_TEST_SRCS:.c=.o) #$(PRINTF_TEST_SRCS:.c=.o) # $(GNL_TEST_SRCS:.c=.o) $(DLIST_TEST_SRCS:.c=.o) $(NUM_TEST_SRCS:.c=.o) 
 TESTNAME = $(TESTF)/test
 TESTFLAGS = -L. -lft -lbsd
 TESTINCLUDES = -I $(TESTF)
