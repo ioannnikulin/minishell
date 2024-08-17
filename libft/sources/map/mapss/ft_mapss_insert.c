@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 13:20:33 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/08/17 19:09:56 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/08/17 19:19:55 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,18 +33,13 @@ else if (ft_strcmp(node_entry->key, cur_entry->key) < 0)
 		}
 */
 
-static insert_at_the_end(t_mapss *map, t_dlist *node, t_dlist *cur,  t_dlist *tail)
+static int insert_at_the_end(t_mapss *map, t_dlist *node, t_mapss_entry *node_entry, t_mapss_entry *tail_entry)
 {
-	t_mapss_entry	*node_entry;
-	t_mapss_entry	*tail_entry;
-
-	node_entry = node->content;
-	tail_entry = tail->content;
 	if (ft_strcmp(node_entry->key, tail_entry->key) > 0)
 	{
 		node->next = NULL;
-		node->prev = tail;
-		tail->next = node;
+		node->prev = map->tail;
+		map->tail->next = node;
 		map->tail = node;
 		map->size ++;
 		return (0);
@@ -52,18 +47,22 @@ static insert_at_the_end(t_mapss *map, t_dlist *node, t_dlist *cur,  t_dlist *ta
 	return (1);
 }
 
-static	insert_at_the_beginning(t_mapss *map, t_dlist *node, t_dlist *cur)
+static	int insert_at_the_beginning(t_mapss *map, t_dlist *node, t_mapss_entry *node_entry, t_mapss_entry *head_entry)
 {
-	t_mapss_entry	*cur_entry;
-	t_mapss_entry	*node_entry;
-
-	cur_entry = cur->content;
-	node_entry = node->content;
-	if (ft_strcmp(node_entry->key, cur_entry->key) < 0)
+	if (map->head == NULL)
 	{
-		node->next = cur;
+		map->head = node;
+		map->tail = node;
+		node->next = NULL;
 		node->prev = NULL;
-		cur->prev = node;
+		map->size ++;
+		return (0);
+	}
+	if (ft_strcmp(node_entry->key, head_entry->key) < 0)
+	{
+		node->next = map->head;
+		node->prev = NULL;
+		map->head->prev = node;
 		map->head = node;
 		map->size ++;
 		return (0);
@@ -71,15 +70,12 @@ static	insert_at_the_beginning(t_mapss *map, t_dlist *node, t_dlist *cur)
 	return (1);
 }
 
-static	insert_int_between(t_mapss *map, t_dlist *node, t_dlist *cur, t_dlist *tail)
+static	int insert_int_between(t_mapss *map, t_dlist *node, t_mapss_entry *node_entry, t_mapss_entry *cur_entry)
 {
-	t_mapss_entry	*cur_entry;
-	t_mapss_entry	*node_entry;
-	t_mapss_entry	*tail_entry;
+	t_dlist	*cur;
 
+	cur = map->head;
 	cur_entry = cur->content;
-	node_entry = node->content;
-	tail_entry = tail->content;
 	while (cur != NULL)
 	{
 		if (ft_strcmp(node_entry->key, cur_entry->key) == 0)
@@ -105,39 +101,18 @@ static	insert_int_between(t_mapss *map, t_dlist *node, t_dlist *cur, t_dlist *ta
 	}
 }
 
-static	list_is_empty(t_mapss *map, t_dlist *node, t_dlist *cur, t_dlist *tail)
-{
-	if (cur == NULL)
-	{
-		map->head = node;
-		map->tail = node;
-		node->next = NULL;
-		node->prev = NULL;
-		map->size ++;
-		return (0);
-	}
-	return (1);
-}
-
 int	ft_mapss_insert(t_mapss *map, t_dlist *node)
 {
-	t_dlist			*current;
-	t_dlist			*tail;
+	t_mapss_entry	*cur_entry;
+	t_mapss_entry	*node_entry;
 
-	current = map->head;
-	tail = map->tail;
-	if(!list_is_empty(map, node, current, tail))
-	{
+	node_entry = node->content;
+	cur_entry = map->head->content;
+	if (!insert_at_the_beginning(map, node, node_entry, cur_entry))
 		return (0);
-	}
-	if(!insert_at_the_beginning(map, node, current))
-	{
+	cur_entry = map->tail->content;
+	if (!insert_at_the_end(map, node, node_entry, cur_entry))
 		return (0);
-	}
-	if(!insert_at_the_end(map, node, current, tail))
-	{
-		return (0);
-	}
-	insert_in_between(map, node, current, tail);
+	insert_in_between(map, node, node_entry, cur_entry);
 	return (0);
 }
