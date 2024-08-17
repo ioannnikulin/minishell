@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   strings_test.h                                     :+:      :+:    :+:   */
+/*   strings.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: inikulin <inikulin@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 15:57:31 by inikulin          #+#    #+#             */
-/*   Updated: 2024/08/17 13:36:51 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/08/17 17:07:44 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define STRINGS_TEST_H
 # include "../tests_internal.h"
 
+int		strings_test(void);
 void	ft_strlen_test(void);
 void	ft_strlcpy_test(void);
 void	ft_strlcat_test(void);

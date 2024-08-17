@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 14:00:01 by inikulin          #+#    #+#             */
-/*   Updated: 2024/01/13 20:26:49 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/08/17 16:56:59 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include <unistd.h>
 #include <assert.h>
 #include <limits.h>
-#include "../libft.h"
+#include "../tests_internal.h"
 #define BONUS
 //#define DEBUG
 
