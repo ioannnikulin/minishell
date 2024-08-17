@@ -93,10 +93,11 @@ SYM_TEST_SRCS = $(addprefix $(TESTF)/$(SYM_F)/, $(subst .c,_test.c,$(SYM_TEST_NA
 
 PRINTF_TEST_SRCS = $(TESTF)/$(PRINTF_F)/ft_printf_test.c
 
-#GNL_TEST_SRCS = $(addprefix $(TESTF)/$(GNL_F)/, $(subst .c,_test.c,$(GNL_NAMES)))
+GNL_TEST_NAMES = get_next_line_test.c
+GNL_TEST_SRCS = $(addprefix $(TESTF)/$(GNL_F)/, $(GNL_TEST_NAMES))
 MAIN_TEST = $(TESTF)/main_test.c
 
-TESTOBJS = $(MAIN_TEST:.c=.o) $(LIST_TEST_SRCS:.c=.o) $(MAPSS_TEST_SRCS:.c=.o) $(MEM_TEST_SRCS:.c=.o) $(STR_TEST_SRCS:.c=.o) $(SYM_TEST_SRCS:.c=.o) $(NUM_TEST_SRCS:.c=.o) $(PRINTF_TEST_SRCS:.c=.o) # $(GNL_TEST_SRCS:.c=.o) $(DLIST_TEST_SRCS:.c=.o)
+TESTOBJS = $(MAIN_TEST:.c=.o) $(LIST_TEST_SRCS:.c=.o) $(MAPSS_TEST_SRCS:.c=.o) $(MEM_TEST_SRCS:.c=.o) $(STR_TEST_SRCS:.c=.o) $(SYM_TEST_SRCS:.c=.o) $(NUM_TEST_SRCS:.c=.o) $(PRINTF_TEST_SRCS:.c=.o) $(GNL_TEST_SRCS:.c=.o) #$(DLIST_TEST_SRCS:.c=.o)
 TESTNAME = $(TESTF)/test
 TESTFLAGS = -L. -lft -lbsd
 TESTINCLUDES = -I $(TESTF)
