@@ -1,25 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main_test.c                                        :+:      :+:    :+:   */
+/*   assign.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inikulin <inikulin@student.42berlin.d      +#+  +:+       +#+        */
+/*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/14 15:57:31 by inikulin          #+#    #+#             */
-/*   Updated: 2024/08/17 12:15:46 by inikulin         ###   ########.fr       */
+/*   Created: 2024/08/13 22:58:25 by inikulin          #+#    #+#             */
+/*   Updated: 2024/08/17 10:38:19 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tests.h"
-
-int	main(void)
+int	ft_assign(int *where, int what, int retval)
 {
-	mapss_test();
-	strings_test();
-	numbers_test();
-	symbols_test();
-	memory_test();
-	//printf_test();
-	printf("All tests passed successfully!\n");
-	return (0);
+	if (where)
+		*where = what;
+	return (retval);
 }

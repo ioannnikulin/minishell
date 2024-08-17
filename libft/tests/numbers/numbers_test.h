@@ -1,18 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   assign.c                                           :+:      :+:    :+:   */
+/*   numbers_test.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: inikulin <inikulin@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/13 22:58:25 by inikulin          #+#    #+#             */
-/*   Updated: 2024/08/13 22:58:56 by inikulin         ###   ########.fr       */
+/*   Created: 2023/11/14 15:58:51 by inikulin          #+#    #+#             */
+/*   Updated: 2024/08/17 12:39:02 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	assign(int *where, int what, int retval)
-{
-	if (where)
-		*where = what;
-	return (retval);
-}
+#ifndef TESTS_H
+# define TESTS_H
+# include "../tests_internal.h"
+
+void	ft_atoi_test(void);
+void	ft_itoa_test(void);
+void	ft_lltoa_base_test(void);
+void	ft_ulltoa_base_test(void);
+#endif

@@ -18,7 +18,7 @@ MAPSS_NAMES = ft_mapss_print.c ft_mapss_error_decoder.c ft_mapss_add.c ft_mapss_
 MAPSS_SRCS = $(addprefix $(SOURCES_F)/$(MAPSS_F)/, $(MAPSS_NAMES))
 
 MEM_F = memory
-MEM_NAMES = ft_bzero.c ft_calloc.c ft_memchr.c ft_memcmp.c ft_memcpy.c ft_memmove.c ft_memset.c ft_swap.c ft_swap_1.c assign.c
+MEM_NAMES = ft_bzero.c ft_calloc.c ft_memchr.c ft_memcmp.c ft_memcpy.c ft_memmove.c ft_memset.c ft_swap.c ft_swap_1.c ft_assign.c
 MEM_SRCS = $(addprefix $(SOURCES_F)/$(MEM_F)/, $(MEM_NAMES))
 
 NUM_F = numbers
@@ -41,7 +41,11 @@ GNL_F = get_next_line
 GNL_NAMES = get_next_line_bonus.c get_next_line_utils_bonus.c
 GNL_SRCS = $(addprefix $(SOURCES_F)/$(GNL_F)/, $(GNL_NAMES))
 
-SRCS = $(LIST_SRCS) $(DLIST_SRCS) $(MAPSS_SRCS) $(MEM_SRCS) $(NUM_SRCS) $(STR_SRCS) $(SYM_SRCS) $(PRINTF_SRCS) $(GNL_SRCS)
+FLOW_F = control_flow
+FLOW_NAMES = ft_if.c
+FLOW_SRCS = $(addprefix $(SOURCES_F)/$(FLOW_F)/, $(FLOW_NAMES))
+
+SRCS = $(LIST_SRCS) $(DLIST_SRCS) $(MAPSS_SRCS) $(MEM_SRCS) $(NUM_SRCS) $(STR_SRCS) $(SYM_SRCS)  $(PRINTF_SRCS) $(GNL_SRCS) $(FLOW_SRCS)
 OBJS = $(SRCS:.c=.o)
 INCLUDES = -I .
 PACK = ar rcs
@@ -66,12 +70,12 @@ re: fclean all
 # ------------------------------------------------------------------------------
 TESTF = tests
 LIST_TEST_SRCS = $(addprefix $(TESTF)/$(LIST_F)/, $(subst .c,_test.c,$(LIST_NAMES)))
-#DLIST_TEST_SRCS = $(addprefix $(TESTF)/$(DLIST_F)/, $(subst .c,_test.c,$(DLIST_NAMES)))
+DLIST_TEST_SRCS = $(addprefix $(TESTF)/$(DLIST_F)/, $(subst .c,_test.c,$(DLIST_NAMES)))
 MAPSS_TEST_NAMES = ft_mapss_test.c ft_mapss_add_test.c ft_mapss_print_test.c
 MAPSS_TEST_SRCS = $(addprefix $(TESTF)/$(MAPSS_F)/, $(MAPSS_TEST_NAMES))
 MEM_TEST_NAMES = ft_bzero_test.c ft_memchr_test.c ft_memcmp_test.c ft_memcpy_test.c ft_memmove_test.c ft_memset_test.c
 MEM_TEST_SRCS = $(addprefix $(TESTF)/$(MEM_F)/, $(MEM_TEST_NAMES))
-#NUM_TEST_SRCS = $(addprefix $(TESTF)/$(NUM_F)/, $(subst .c,_test.c,$(NUM_NAMES))) #atoi
+NUM_TEST_SRCS = $(addprefix $(TESTF)/$(NUM_F)/, $(subst .c,_test.c,$(NUM_NAMES)))
 STR_TEST_NAMES = ft_split.c ft_strlen.c ft_strchr.c ft_strdup.c ft_striteri.c ft_strjoin.c ft_strlcpy.c ft_strlcat.c ft_strmapi.c ft_strncmp.c ft_strnstr.c ft_strrchr.c ft_strtrim.c ft_substr.c ft_putchar_fd.c ft_putendl_fd.c ft_putnbr_fd.c
 STR_TEST_SRCS = $(addprefix $(TESTF)/$(STR_F)/, $(subst .c,_test.c,$(STR_TEST_NAMES)))
 SYM_TEST_NAMES = ft_isalpha.c ft_isalnum.c ft_isascii.c ft_isdigit.c ft_isprint.c ft_isspace.c ft_tolower.c ft_toupper.c

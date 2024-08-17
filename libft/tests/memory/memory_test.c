@@ -1,29 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_list_clear_test.c                               :+:      :+:    :+:   */
+/*   memory_test.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: inikulin <inikulin@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/14 15:56:43 by inikulin          #+#    #+#             */
-/*   Updated: 2024/08/17 12:04:54 by inikulin         ###   ########.fr       */
+/*   Created: 2023/11/14 15:57:31 by inikulin          #+#    #+#             */
+/*   Updated: 2024/08/17 12:32:48 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tests.h"
-#define SZ 9
-#define DEBUG
+#include "memory_test.h"
 
-typedef struct s_testcase
+int	memory_test(void)
 {
-	int	end_to;
-	char	*texts[20];
-}	t_testcase;
-
-void	ft_list_clear_test(void)
-{
-	t_list *root = ft_list_new(ft_strdup("one"));
-	root->next = ft_list_new(ft_strdup("two"));
-	root->next->next = ft_list_new(ft_strdup("three"));
-	ft_list_clear(&root, free);
+	printf("memset in testing\n");
+	ft_memset_test();
+	printf("bzero in testing\n");
+	ft_bzero_test();
+	printf("memcpy in testing\n");
+	ft_memcpy_test();
+	printf("memmove in testing\n");
+	ft_memmove_test();
+	printf("memchr in testing\n");
+	ft_memchr_test();
+	printf("strnstr in testing\n");
+	ft_strnstr_test();
+	return (0);
 }
