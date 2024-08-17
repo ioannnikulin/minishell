@@ -90,11 +90,13 @@ STR_TEST_SRCS = $(addprefix $(TESTF)/$(STR_F)/, $(subst .c,_test.c,$(STR_TEST_NA
 
 SYM_TEST_NAMES = ft_isalpha.c ft_isalnum.c ft_isascii.c ft_isdigit.c ft_isprint.c ft_isspace.c ft_tolower.c ft_toupper.c
 SYM_TEST_SRCS = $(addprefix $(TESTF)/$(SYM_F)/, $(subst .c,_test.c,$(SYM_TEST_NAMES)) symbols_test.c)
-#PRINTF_TEST_SRCS = $(TESTF)/$(PRINTF_F)/ft_printf_test.c
+
+PRINTF_TEST_SRCS = $(TESTF)/$(PRINTF_F)/ft_printf_test.c
+
 #GNL_TEST_SRCS = $(addprefix $(TESTF)/$(GNL_F)/, $(subst .c,_test.c,$(GNL_NAMES)))
 MAIN_TEST = $(TESTF)/main_test.c
 
-TESTOBJS = $(MAIN_TEST:.c=.o) $(LIST_TEST_SRCS:.c=.o) $(MAPSS_TEST_SRCS:.c=.o) $(MEM_TEST_SRCS:.c=.o) $(STR_TEST_SRCS:.c=.o) $(SYM_TEST_SRCS:.c=.o) $(NUM_TEST_SRCS:.c=.o) #$(PRINTF_TEST_SRCS:.c=.o) # $(GNL_TEST_SRCS:.c=.o) $(DLIST_TEST_SRCS:.c=.o)
+TESTOBJS = $(MAIN_TEST:.c=.o) $(LIST_TEST_SRCS:.c=.o) $(MAPSS_TEST_SRCS:.c=.o) $(MEM_TEST_SRCS:.c=.o) $(STR_TEST_SRCS:.c=.o) $(SYM_TEST_SRCS:.c=.o) $(NUM_TEST_SRCS:.c=.o) $(PRINTF_TEST_SRCS:.c=.o) # $(GNL_TEST_SRCS:.c=.o) $(DLIST_TEST_SRCS:.c=.o)
 TESTNAME = $(TESTF)/test
 TESTFLAGS = -L. -lft -lbsd
 TESTINCLUDES = -I $(TESTF)

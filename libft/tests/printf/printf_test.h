@@ -1,26 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main_test.c                                        :+:      :+:    :+:   */
+/*   printf_test.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inikulin <inikulin@student.42berlin.d      +#+  +:+       +#+        */
+/*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/14 15:57:31 by inikulin          #+#    #+#             */
-/*   Updated: 2024/08/17 20:05:24 by inikulin         ###   ########.fr       */
+/*   Created: 2024/08/17 20:00:19 by inikulin          #+#    #+#             */
+/*   Updated: 2024/08/17 20:04:30 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tests.h"
+#ifndef PRINTF_TEST_H
+# define PRINTF_TEST_H
 
-int	main(void)
-{
-	mapss_test();
-	strings_test();
-	numbers_test();
-	symbols_test();
-	memory_test();
-	ft_printf("printf in testing\n");
-	ft_printf_test();
-	printf("All tests passed successfully!\n");
-	return (0);
-}
+int	ft_printf_test(void);
+#endif
