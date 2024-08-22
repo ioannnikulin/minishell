@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_test.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inikulin <inikulin@student.42berlin.d      +#+  +:+       +#+        */
+/*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 15:57:31 by inikulin          #+#    #+#             */
-/*   Updated: 2024/08/17 12:15:46 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/08/22 13:34:24 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ int	main(void)
 	numbers_test();
 	symbols_test();
 	memory_test();
-	//printf_test();
 	printf("All tests passed successfully!\n");
 	return (0);
 }
