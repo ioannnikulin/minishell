@@ -1,29 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_list_clear_test.c                               :+:      :+:    :+:   */
+/*   tests_internal.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: inikulin <inikulin@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/14 15:56:43 by inikulin          #+#    #+#             */
-/*   Updated: 2024/08/17 12:04:54 by inikulin         ###   ########.fr       */
+/*   Created: 2023/11/14 15:58:51 by inikulin          #+#    #+#             */
+/*   Updated: 2024/08/17 17:49:34 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tests.h"
-#define SZ 9
-#define DEBUG
+#ifndef TESTS_INTERNAL_H
+# define TESTS_INTERNAL_H
+# include <assert.h>
+# include <stdlib.h>
+# include <string.h>
+# include <bsd/string.h>
+# include <stdio.h>
+# include "../libft.h"
 
-typedef struct s_testcase
-{
-	int	end_to;
-	char	*texts[20];
-}	t_testcase;
-
-void	ft_list_clear_test(void)
-{
-	t_list *root = ft_list_new(ft_strdup("one"));
-	root->next = ft_list_new(ft_strdup("two"));
-	root->next->next = ft_list_new(ft_strdup("three"));
-	ft_list_clear(&root, free);
-}
+int	bad_alloc(int ret);
+int	segfault_expected(int ret);
+int	file_not_created(int ret);
+#endif

@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 14:36:51 by inikulin          #+#    #+#             */
-/*   Updated: 2024/08/13 21:11:00 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/08/17 19:03:58 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,11 @@ static size_t	cut_n_put(unsigned long long nb, char *sym,
 	}
 	while (nb > 0)
 	{
-		(digits)[cur_dig --] = sym[nb % base];
+		digits[cur_dig --] = sym[nb % base];
 		nb = nb / base;
 	}
 	if (neg)
-		(digits)[cur_dig --] = '-';
+		digits[cur_dig --] = '-';
 	return (MX - 1 - cur_dig);
 }
 

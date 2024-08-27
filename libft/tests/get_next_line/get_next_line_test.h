@@ -1,22 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_mapss_test.c                                    :+:      :+:    :+:   */
+/*   get_next_line_test.h                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/13 21:34:36 by inikulin          #+#    #+#             */
-/*   Updated: 2024/08/14 21:40:03 by inikulin         ###   ########.fr       */
+/*   Created: 2024/08/17 20:42:39 by inikulin          #+#    #+#             */
+/*   Updated: 2024/08/17 20:49:28 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mapss.h"
+#ifndef GET_NEXT_LINE_TEST_H
+# define GET_NEXT_LINE_TEST_H
+# include "../tests_internal.h"
+# include "../../sources/get_next_line/get_next_line_bonus.h"
 
-void	ft_mapss_test(void)
-{
-	ft_printf("mapss print in testing\n");
-	ft_mapss_print_test();
-	ft_printf("mapss add in testing\n");
-	ft_mapss_add_test();
-	return ;
-}
+int	get_next_line_test(void);
+#endif

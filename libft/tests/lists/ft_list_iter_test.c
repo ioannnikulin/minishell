@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/18 14:40:54 by inikulin          #+#    #+#             */
-/*   Updated: 2024/08/10 12:02:27 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/08/17 12:06:12 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ typedef struct	s_testcase
 	char	*texts[20];
 }	t_testcase;
 
-void	ft_lstiter_test(void)
+void	ft_list_iter_test(void)
 {
 	t_testcase t[SZ];
 	t[0] = (t_testcase){-1, {"abc", "def", "gh", NULL}};

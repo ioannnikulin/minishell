@@ -1,28 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main_test.c                                        :+:      :+:    :+:   */
+/*   symbols_test.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: inikulin <inikulin@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 15:57:31 by inikulin          #+#    #+#             */
-/*   Updated: 2024/08/17 20:41:27 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/08/17 12:37:04 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tests.h"
+#include "symbols_test.h"
 
-int	main(void)
+int	symbols_test(void)
 {
-	mapss_test();
-	strings_test();
-	numbers_test();
-	symbols_test();
-	memory_test();
-	ft_printf("printf in testing\n");
-	ft_printf_test();
-	ft_printf("get_next_line in testing\n");
-	get_next_line_test();
-	printf("All tests passed successfully!\n");
+	printf("isalpha in testing\n");
+	ft_isalpha_test();
+	printf("isdigit in testing\n");
+	ft_isdigit_test();
+	printf("isalnum in testing\n");
+	ft_isalnum_test();
+	printf("isascii in testing\n");
+	ft_isascii_test();
+	printf("isprint in testing\n");
+	ft_isprint_test();
+	printf("toupper in testing\n");
+	ft_toupper_test();
+	printf("tolower in testing\n");
+	ft_tolower_test();
 	return (0);
 }

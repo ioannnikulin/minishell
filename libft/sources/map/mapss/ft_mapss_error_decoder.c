@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 16:31:10 by inikulin          #+#    #+#             */
-/*   Updated: 2024/08/13 22:56:20 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/08/17 10:39:12 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	err_option(int choice, int *whereint, int whatint, char **wherechar,
 {
 	if (!choice)
 		return ;
-	assign(whereint, whatint, 0);
+	ft_assign(whereint, whatint, 0);
 	if (wherechar && *wherechar && whatchar)
 		*wherechar = whatchar;
 }

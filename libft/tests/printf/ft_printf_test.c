@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 14:00:01 by inikulin          #+#    #+#             */
-/*   Updated: 2024/01/13 20:26:49 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/08/17 20:06:18 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include <unistd.h>
 #include <assert.h>
 #include <limits.h>
-#include "../libft.h"
+#include "../tests_internal.h"
 #define BONUS
 //#define DEBUG
 
@@ -768,7 +768,7 @@ int	b68(void)
 #else
 # define SZ SZ_REG
 #endif
-#define START 0 
+#define START 0
 
 int (*as[SZ])();
 int (*bs[SZ])();
