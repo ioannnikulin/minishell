@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_tree_apply_test.c                               :+:      :+:    :+:   */
+/*   ft_tree_print_test.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/04 19:08:30 by inikulin          #+#    #+#             */
-/*   Updated: 2024/09/04 20:30:37 by inikulin         ###   ########.fr       */
+/*   Created: 2024/09/04 19:34:54 by inikulin          #+#    #+#             */
+/*   Updated: 2024/09/04 20:28:08 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tree_test.h"
+#include "../../libft.h"
 
-int	ft_tree_apply_test(void)
+void	ft_tree_print_test(void)
 {
 	
 }

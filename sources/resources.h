@@ -1,18 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_tree_apply_test.c                               :+:      :+:    :+:   */
+/*   resources.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/04 19:08:30 by inikulin          #+#    #+#             */
-/*   Updated: 2024/09/04 20:30:37 by inikulin         ###   ########.fr       */
+/*   Created: 2024/09/04 14:26:40 by inikulin          #+#    #+#             */
+/*   Updated: 2024/09/04 14:30:06 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tree_test.h"
+#ifndef RESOURCES_H
+# define RESOURCES_H
 
-int	ft_tree_apply_test(void)
-{
-	
-}
+# define ERR_ENVVAR_INSERT "Error initializing environment variables\n"
+#endif
