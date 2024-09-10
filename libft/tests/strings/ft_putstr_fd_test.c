@@ -6,13 +6,13 @@
 /*   By: inikulin <inikulin@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/18 14:40:54 by inikulin          #+#    #+#             */
-/*   Updated: 2023/11/18 17:49:01 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/08/17 18:36:42 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fcntl.h>
 #include <unistd.h>
-#include "tests.h"
+#include "../tests_internal.h"
 //#define DEBUG
 
 #define SZ 5

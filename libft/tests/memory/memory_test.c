@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 15:57:31 by inikulin          #+#    #+#             */
-/*   Updated: 2024/08/17 12:32:48 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/08/17 18:35:12 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	memory_test(void)
 	ft_memmove_test();
 	printf("memchr in testing\n");
 	ft_memchr_test();
-	printf("strnstr in testing\n");
-	ft_strnstr_test();
+	printf("memcmp in testing\n");
+	ft_memcmp_test();
 	return (0);
 }

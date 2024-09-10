@@ -1,24 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   numbers_test.c                                     :+:      :+:    :+:   */
+/*   mapss_test.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inikulin <inikulin@student.42berlin.d      +#+  +:+       +#+        */
+/*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/14 15:57:31 by inikulin          #+#    #+#             */
-/*   Updated: 2024/08/17 18:32:44 by inikulin         ###   ########.fr       */
+/*   Created: 2024/08/13 21:34:36 by inikulin          #+#    #+#             */
+/*   Updated: 2024/08/17 18:17:08 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "numbers_test.h"
+#include "mapss_test.h"
 
-int	numbers_test(void)
+void	mapss_test(void)
 {
-	printf("itoa in testing\n");
-	ft_itoa_test();
-	printf("ft_lltoa_base in testing\n");
-	ft_lltoa_base_test();
-	printf("ft_ulltoa_base in testing\n");
-	ft_ulltoa_base_test();
-	return (0);
+	ft_printf("mapss print in testing\n");
+	ft_mapss_print_test();
+	ft_printf("mapss add in testing\n");
+	ft_mapss_add_test();
+	return ;
 }

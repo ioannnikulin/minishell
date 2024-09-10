@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 15:58:51 by inikulin          #+#    #+#             */
-/*   Updated: 2024/08/17 12:12:28 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/09/08 17:29:06 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,11 @@
 # include "lists/lists_test.h"
 # include "numbers/numbers_test.h"
 # include "strings/strings_test.h"
+# include "symbols/symbols_test.h"
 # include "memory/memory_test.h"
 # include "map/mapss/mapss_test.h"
-//# include "printf/printf_test.h"
-//# include "gnl/gnl_test.h"
+# include "printf/printf_test.h"
+# include "get_next_line/get_next_line_test.h"
 //# include "dlists/dlists_test.h"
 
 #endif

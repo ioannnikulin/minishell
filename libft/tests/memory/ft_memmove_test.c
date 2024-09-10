@@ -6,11 +6,13 @@
 /*   By: inikulin <inikulin@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 15:57:21 by inikulin          #+#    #+#             */
-/*   Updated: 2024/08/10 12:14:25 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/09/09 18:14:13 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tests.h"
+
+//#define DEBUG
 
 typedef struct s_testcase
 {
@@ -41,8 +43,8 @@ void	*ft_memmove_test_prep(t_testcase t)
 void	ft_memmove_test(void)
 {
 	t_testcase t[SZ];
-	t[0] = (t_testcase){10, "abc", 1, 2, 6};
-	t[1] = (t_testcase){10, "abc", 1, 0, 6};
+	t[0] = (t_testcase){10, "abc", 1, 2, 6}; // 01234567890
+	t[1] = (t_testcase){10, "abc", 1, 0, 6}; // .abc..+++..
 	t[2] = (t_testcase){10, "abc", 1, 4, 6};
 	t[3] = (t_testcase){10, "abc", 1, 4, 2};
 	t[4] = (t_testcase){10, "abc", 4, 4, 2};
@@ -50,6 +52,9 @@ void	ft_memmove_test(void)
 	t[6] = (t_testcase){10, "abc", 1, 0, 6};
 	for (int i = 0; i < SZ; i ++)
 	{
+	  #ifdef DEBUG
+		printf("%i\n", i);
+	  #endif
 		char * custom_src = ft_memmove_test_prep(t[i]);
 		char * custom_res = ft_memmove( \
 			&custom_src[t[i].dst_start], \
@@ -67,8 +72,7 @@ void	ft_memmove_test(void)
 			continue;
 		}
 		for (size_t j = 0; j < t[i].global_sz; j ++)
-			assert(custom_res[j] == std_res[j]);
-		assert(&custom_src[t[i].dst_start] == custom_res);
+			assert(custom_src[j] == std_src[j]);
 		free(std_src);
 		free(custom_src);
 	}
