@@ -136,7 +136,7 @@ retest: testfclean test
 go: re retest
 	$(FTPREFIX)tests/test
 	$(FTPREFIX)rm -rf tmp.tst
-	-$(FTPREFIX)valgrind --leak-check=full --show-leak-kinds=all tests/test "memcheck"
+	$(FTPREFIX)valgrind --leak-check=full --show-leak-kinds=all tests/test "memcheck"
 	@# -------- Multiple segfaults expected, which is part of the testing. --------
 	@# -------- Stay calm unless you see an error message in UPPER CASE. --------
 #	$(FTPREFIX)$(SEGFAULTNAMES:%.sf=%.sf ||) true

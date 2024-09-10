@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 16:41:46 by inikulin          #+#    #+#             */
-/*   Updated: 2024/09/08 17:17:31 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/09/10 21:57:35 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,6 +214,7 @@ void	test_error(void)
 		#endif
 		free(r);
 	}
+	free(line);
 	remove("5.tmp");
 }
 

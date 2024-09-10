@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 15:56:31 by inikulin          #+#    #+#             */
-/*   Updated: 2024/09/10 12:33:22 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/09/10 21:56:44 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,4 +110,6 @@ void	ft_memcmp_test(void)
 	  #endif
 		assert(std == custom);
 	}
+	free(s1);
+	free(s2);
 }
