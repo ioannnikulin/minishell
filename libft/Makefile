@@ -133,7 +133,7 @@ test: goodtests #$(SEGFAULTNAMES)
 
 retest: testfclean test
 
-go: re retest
+fulltest: re retest
 	$(FTPREFIX)tests/test
 	$(FTPREFIX)rm -rf tmp.tst
 	$(FTPREFIX)valgrind --leak-check=full --show-leak-kinds=all tests/test "memcheck"
