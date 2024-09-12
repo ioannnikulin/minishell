@@ -1,7 +1,7 @@
 CC = cc
 NAME = libft.a
 CFLAGS = -Wall -Wextra -Werror
-FTPREFIX = 
+FTPREFIX = @
 
 SOURCES_F = sources
 
@@ -18,7 +18,7 @@ MAPSS_NAMES = ft_mapss_print.c ft_mapss_error_decoder.c ft_mapss_add.c ft_mapss_
 MAPSS_SRCS = $(addprefix $(SOURCES_F)/$(MAPSS_F)/, $(MAPSS_NAMES))
 
 MEM_F = memory
-MEM_NAMES = ft_bzero.c ft_calloc.c ft_memchr.c ft_memcmp.c ft_memcpy.c ft_memmove.c ft_memset.c ft_swap.c ft_swap_1.c assign.c
+MEM_NAMES = ft_bzero.c ft_calloc.c ft_memchr.c ft_memcmp.c ft_memcpy.c ft_memmove.c ft_memset.c ft_swap.c ft_swap_1.c ft_assign.c
 MEM_SRCS = $(addprefix $(SOURCES_F)/$(MEM_F)/, $(MEM_NAMES))
 
 NUM_F = numbers
@@ -26,7 +26,7 @@ NUM_NAMES = ft_atoi.c ft_itoa.c ft_xtoa_base.c ft_minmax_int.c ft_minmax_double.
 NUM_SRCS = $(addprefix $(SOURCES_F)/$(NUM_F)/, $(NUM_NAMES))
 
 STR_F = strings
-STR_NAMES = ft_empty_string.c ft_split.c ft_strlen.c ft_strchr.c ft_strdup.c ft_striteri.c ft_strjoin.c ft_strlcpy.c ft_strlcat.c ft_strmapi.c ft_strncmp.c ft_strnstr.c ft_strrchr.c ft_strtrim.c ft_substr.c ft_putchar_fd.c ft_putendl_fd.c ft_putnbr_fd.c ft_strcmp.c
+STR_NAMES = ft_empty_string.c ft_split.c ft_strlen.c ft_strchr.c ft_strdup.c ft_striteri.c ft_strjoin.c ft_strlcpy.c ft_strlcat.c ft_strmapi.c ft_strncmp.c ft_strnstr.c ft_strrchr.c ft_strtrim.c ft_substr.c ft_putchar_fd.c ft_putendl_fd.c ft_putnbr_fd.c ft_strcmp.c ft_putstr_fd.c
 STR_SRCS = $(addprefix $(SOURCES_F)/$(STR_F)/, $(STR_NAMES))
 
 SYM_F = symbols
@@ -41,7 +41,11 @@ GNL_F = get_next_line
 GNL_NAMES = get_next_line_bonus.c get_next_line_utils_bonus.c
 GNL_SRCS = $(addprefix $(SOURCES_F)/$(GNL_F)/, $(GNL_NAMES))
 
-SRCS = $(LIST_SRCS) $(DLIST_SRCS) $(MAPSS_SRCS) $(MEM_SRCS) $(NUM_SRCS) $(STR_SRCS) $(SYM_SRCS) $(PRINTF_SRCS) $(GNL_SRCS)
+FLOW_F = control_flow
+FLOW_NAMES = ft_if.c
+FLOW_SRCS = $(addprefix $(SOURCES_F)/$(FLOW_F)/, $(FLOW_NAMES))
+
+SRCS = $(LIST_SRCS) $(DLIST_SRCS) $(MAPSS_SRCS) $(MEM_SRCS) $(NUM_SRCS) $(STR_SRCS) $(SYM_SRCS)  $(PRINTF_SRCS) $(GNL_SRCS) $(FLOW_SRCS)
 OBJS = $(SRCS:.c=.o)
 INCLUDES = -I .
 PACK = ar rcs
@@ -65,22 +69,35 @@ re: fclean all
 .PHONY: all clean fclean re
 # ------------------------------------------------------------------------------
 TESTF = tests
-LIST_TEST_SRCS = $(addprefix $(TESTF)/$(LIST_F)/, $(subst .c,_test.c,$(LIST_NAMES)))
-#DLIST_TEST_SRCS = $(addprefix $(TESTF)/$(DLIST_F)/, $(subst .c,_test.c,$(DLIST_NAMES)))
-MAPSS_TEST_NAMES = ft_mapss_test.c ft_mapss_add_test.c ft_mapss_print_test.c
+
+LIST_TEST_NAMES = $(LIST_NAMES)
+LIST_TEST_SRCS = $(addprefix $(TESTF)/$(LIST_F)/, $(subst .c,_test.c,$(LIST_TEST_NAMES)) lists_test.c)
+
+DLIST_TEST_NAMES = $(DLIST_NAMES)
+DLIST_TEST_SRCS = $(addprefix $(TESTF)/$(DLIST_F)/, $(subst .c,_test.c,$(DLIST_TEST_NAMES)) dlists_test.c)
+
+MAPSS_TEST_NAMES = mapss_test.c ft_mapss_add_test.c ft_mapss_print_test.c
 MAPSS_TEST_SRCS = $(addprefix $(TESTF)/$(MAPSS_F)/, $(MAPSS_TEST_NAMES))
-MEM_TEST_NAMES = ft_bzero_test.c ft_memchr_test.c ft_memcmp_test.c ft_memcpy_test.c ft_memmove_test.c ft_memset_test.c
+
+MEM_TEST_NAMES = ft_bzero_test.c ft_memchr_test.c ft_memcmp_test.c ft_memcpy_test.c ft_memmove_test.c ft_memset_test.c memory_test.c
 MEM_TEST_SRCS = $(addprefix $(TESTF)/$(MEM_F)/, $(MEM_TEST_NAMES))
-#NUM_TEST_SRCS = $(addprefix $(TESTF)/$(NUM_F)/, $(subst .c,_test.c,$(NUM_NAMES))) #atoi
-STR_TEST_NAMES = ft_split.c ft_strlen.c ft_strchr.c ft_strdup.c ft_striteri.c ft_strjoin.c ft_strlcpy.c ft_strlcat.c ft_strmapi.c ft_strncmp.c ft_strnstr.c ft_strrchr.c ft_strtrim.c ft_substr.c ft_putchar_fd.c ft_putendl_fd.c ft_putnbr_fd.c
-STR_TEST_SRCS = $(addprefix $(TESTF)/$(STR_F)/, $(subst .c,_test.c,$(STR_TEST_NAMES)))
+
+NUM_TEST_NAMES = ft_atoi_test.c ft_itoa_test.c ft_lltoa_base_test.c ft_ulltoa_base_test.c numbers_test.c
+NUM_TEST_SRCS = $(addprefix $(TESTF)/$(NUM_F)/, $(NUM_TEST_NAMES))
+
+STR_TEST_NAMES = ft_split.c ft_strlen.c ft_strchr.c ft_strdup.c ft_striteri.c ft_strjoin.c ft_strlcpy.c ft_strlcat.c ft_strmapi.c ft_strncmp.c ft_strnstr.c ft_strrchr.c ft_strtrim.c ft_substr.c ft_putchar_fd.c ft_putendl_fd.c ft_putnbr_fd.c ft_putstr_fd.c
+STR_TEST_SRCS = $(addprefix $(TESTF)/$(STR_F)/, $(subst .c,_test.c,$(STR_TEST_NAMES)) strings_test.c)
+
 SYM_TEST_NAMES = ft_isalpha.c ft_isalnum.c ft_isascii.c ft_isdigit.c ft_isprint.c ft_isspace.c ft_tolower.c ft_toupper.c
-SYM_TEST_SRCS = $(addprefix $(TESTF)/$(SYM_F)/, $(subst .c,_test.c,$(SYM_TEST_NAMES)))
-#PRINTF_TEST_SRCS = $(TESTF)/$(PRINTF_F)/ft_printf_test.c
-#GNL_TEST_SRCS = $(addprefix $(TESTF)/$(GNL_F)/, $(subst .c,_test.c,$(GNL_NAMES)))
+SYM_TEST_SRCS = $(addprefix $(TESTF)/$(SYM_F)/, $(subst .c,_test.c,$(SYM_TEST_NAMES)) symbols_test.c)
+
+PRINTF_TEST_SRCS = $(TESTF)/$(PRINTF_F)/ft_printf_test.c
+
+GNL_TEST_NAMES = get_next_line_test.c
+GNL_TEST_SRCS = $(addprefix $(TESTF)/$(GNL_F)/, $(GNL_TEST_NAMES))
 MAIN_TEST = $(TESTF)/main_test.c
 
-TESTOBJS = $(MAIN_TEST:.c=.o) $(LIST_TEST_SRCS:.c=.o) $(MAPSS_TEST_SRCS:.c=.o) $(MEM_TEST_SRCS:.c=.o) $(STR_TEST_SRCS:.c=.o) $(SYM_TEST_SRCS:.c=.o) #$(PRINTF_TEST_SRCS:.c=.o) # $(GNL_TEST_SRCS:.c=.o) $(DLIST_TEST_SRCS:.c=.o) $(NUM_TEST_SRCS:.c=.o) 
+TESTOBJS = $(MAIN_TEST:.c=.o) $(LIST_TEST_SRCS:.c=.o) $(MAPSS_TEST_SRCS:.c=.o) $(MEM_TEST_SRCS:.c=.o) $(STR_TEST_SRCS:.c=.o) $(SYM_TEST_SRCS:.c=.o) $(NUM_TEST_SRCS:.c=.o) $(PRINTF_TEST_SRCS:.c=.o) $(GNL_TEST_SRCS:.c=.o) #$(DLIST_TEST_SRCS:.c=.o)
 TESTNAME = $(TESTF)/test
 TESTFLAGS = -L. -lft -lbsd
 TESTINCLUDES = -I $(TESTF)
@@ -116,11 +133,11 @@ test: goodtests #$(SEGFAULTNAMES)
 
 retest: testfclean test
 
-go: re retest
+fulltest: re retest
 	$(FTPREFIX)tests/test
 	$(FTPREFIX)rm -rf tmp.tst
-	#$(FTPREFIX)valgrind --leak-check=full --show-leak-kinds=all tests/test
-	# -------- Multiple segfaults expected, which is part of the testing. --------
-	# -------- Stay calm unless you see an error message in UPPER CASE. --------
+	$(FTPREFIX)valgrind --leak-check=full --show-leak-kinds=all tests/test "memcheck"
+	@# -------- Multiple segfaults expected, which is part of the testing. --------
+	@# -------- Stay calm unless you see an error message in UPPER CASE. --------
 #	$(FTPREFIX)$(SEGFAULTNAMES:%.sf=%.sf ||) true
 	# -------- Testing finished. --------

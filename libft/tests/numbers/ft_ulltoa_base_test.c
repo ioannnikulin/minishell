@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 15:56:43 by inikulin          #+#    #+#             */
-/*   Updated: 2023/11/24 18:05:16 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/08/17 19:05:17 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,6 @@ void	ft_ulltoa_base_test(void)
 		#ifdef DEBUG
 		printf("%i. %s %lu - %s %lu\n\n", i, t[i].res, strlen(t[i].res), &res[MX - sz], sz);
 		#endif
-		assert(strcmp(&res[MX - sz], t[i].res) == 0);
+		assert(strncmp(&res[MX - sz], t[i].res, sz) == 0);
 	}
 }

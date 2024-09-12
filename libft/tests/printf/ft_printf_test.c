@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 14:00:01 by inikulin          #+#    #+#             */
-/*   Updated: 2024/01/13 20:26:49 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/09/08 17:12:16 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include <unistd.h>
 #include <assert.h>
 #include <limits.h>
-#include "../libft.h"
+#include "../tests_internal.h"
 #define BONUS
 //#define DEBUG
 
@@ -120,34 +120,34 @@ int	b7(void)
 
 int	a8(void)
 {
-	return printf("hello% 03.4i world\n", 12435);
+	return printf("hello% 3.4i world\n", 12435);
 }
 
 int	b8(void)
 {
-	return ft_printf("hello% 03.4i world\n", 12435);
+	return ft_printf("hello% 3.4i world\n", 12435);
 }
 
 int	a9(void)
 {
-	return printf("hello%0+3.4d world\n", 12435);
+	return printf("hello%+3.4d world\n", 12435);
 }
 
 int	b9(void)
 {
-	return ft_printf("hello%0+3.4d world\n", 12435);
+	return ft_printf("hello%+3.4d world\n", 12435);
 }
 
 int tst_g = 0;
 
 int	a10(void)
 {
-	return printf("hello%3.p world\n", &tst_g);
+	return printf("hello%p world\n", &tst_g);
 }
 
 int	b10(void)
 {
-	return ft_printf("hello%3.p world\n", &tst_g);
+	return ft_printf("hello%p world\n", &tst_g);
 }
 
 int	a11(void)
@@ -162,22 +162,22 @@ int	b11(void)
 
 int	a12(void)
 {
-	return printf("hel%%lo%---4.3u world\n", 12435);
+	return printf("hel%%lo%-4.3u world\n", 12435);
 }
 
 int	b12(void)
 {
-	return ft_printf("hel%%lo%---4.3u world\n", 12435);
+	return ft_printf("hel%%lo%-4.3u world\n", 12435);
 }
 
 int	a13(void)
 {
-	return printf("hel%%lo%-#--4.3x world\n", 12445);
+	return printf("hel%%lo%-#4.3x world\n", 12445);
 }
 
 int	b13(void)
 {
-	return ft_printf("hel%%lo%-#--4.3x world\n", 12445);
+	return ft_printf("hel%%lo%-#4.3x world\n", 12445);
 }
 
 int	a14(void)
@@ -202,42 +202,42 @@ int	b15(void)
 
 int	a16(void)
 {
-	return printf("hel%%lo%##3.4X world\n", 1);
+	return printf("hel%%lo%#3.4X world\n", 1);
 }
 
 int	b16(void)
 {
-	return ft_printf("hel%%lo%##3.4X world\n", 1);
+	return ft_printf("hel%%lo%#3.4X world\n", 1);
 }
 
 int	a17(void)
 {
-	return printf("hel%%lo%-3.p world\n", &tst_g);
+	return printf("hel%%lo%-p world\n", &tst_g);
 }
 
 int	b17(void)
 {
-	return ft_printf("hel%%lo%-3.p world\n", &tst_g);
+	return ft_printf("hel%%lo%-p world\n", &tst_g);
 }
 
 int	a18(void)
 {
-	return printf("hel%%lo%4.p world\n", &tst_g);
+	return printf("hel%%lo%p world\n", &tst_g);
 }
 
 int	b18(void)
 {
-	return ft_printf("hel%%lo%4.p world\n", &tst_g);
+	return ft_printf("hel%%lo%p world\n", &tst_g);
 }
 
 int	a19(void)
 {
-	return printf("hel%%lo%##13.14X world\n", 12445);
+	return printf("hel%%lo%#13.14X world\n", 12445);
 }
 
 int	b19(void)
 {
-	return ft_printf("hel%%lo%##13.14X world\n", 12445);
+	return ft_printf("hel%%lo%#13.14X world\n", 12445);
 }
 
 int	a20(void)
@@ -280,14 +280,16 @@ int	b23(void)
 	return ft_printf("hel%%lo%.0i world\n", 0);
 }
 
+char *a24s = "";
+
 int	a24(void)
 {
-	return printf("%s", (char*)0);
+	return printf("%s", a24s);
 }
 
 int	b24(void)
 {
-	return ft_printf("%s", (char*)0);
+	return ft_printf("%s", a24s);
 }
 
 int	a25(void)
@@ -502,52 +504,54 @@ char	*s_g = "ab";
 
 int	a43(void)
 {
-	return printf("[%20.p][%20.s][%15.p][%15.s]", s_g, s_g, s_g, s_g);
+	return printf("[%p][%20.s][%p][%15.s]", s_g, s_g, s_g, s_g);
 }
 
 int	b43(void)
 {
-	return ft_printf("[%20.p][%20.s][%15.p][%15.s]", s_g, s_g, s_g, s_g);
+	return ft_printf("[%p][%20.s][%p][%15.s]", s_g, s_g, s_g, s_g);
 }
 
 int	a44(void)
 {
-	return printf("[%#3.4x][%#4.3x][%-#3.4x][%0#4.3X]", 0xf, 0xf, 0xf, 0xf);
+	return printf("[%#3.4x][%#4.3x][%-#3.4x][%#4.3X]", 0xf, 0xf, 0xf, 0xf);
 }
 
 int	b44(void)
 {
-	return ft_printf("[%#3.4x][%#4.3x][%-#3.4x][%0#4.3X]", 0xf, 0xf, 0xf, 0xf);
+	return ft_printf("[%#3.4x][%#4.3x][%-#3.4x][%#4.3X]", 0xf, 0xf, 0xf, 0xf);
 }
+
+char *a45s = "";
 
 int	a45(void)
 {
-	return printf("[%.03s][%3.1s][%9.1s][%-3.1s][%-9.1s]", (char *)0, (char *)0, (char *)0, (char *)0, (char *)0);
+	return printf("[%.03s][%3.1s][%9.1s][%-3.1s][%-9.1s]", a45s, a45s, a45s, a45s, a45s);
 }
 
 int	b45(void)
 {
-	return ft_printf("[%.03s][%3.1s][%9.1s][%-3.1s][%-9.1s]", (char *)0, (char *)0, (char *)0, (char *)0, (char *)0);
+	return ft_printf("[%.03s][%3.1s][%9.1s][%-3.1s][%-9.1s]", a45s, a45s, a45s, a45s, a45s);
 }
 
 int	a46(void)
 {
-	return printf("[%-s][%s][%2s][%-3s][%10s][%-10s]", (char *)0, (char *)0, (char *)0, (char *)0, (char *)0, (char *)0);
+	return printf("[%-s][%s][%2s][%-3s][%10s][%-10s]", a45s, a45s, a45s, a45s, a45s, a45s);
 }
 
 int	b46(void)
 {
-	return ft_printf("[%-s][%s][%2s][%-3s][%10s][%-10s]", (char *)0, (char *)0, (char *)0, (char *)0, (char *)0, (char *)0);
+	return ft_printf("[%-s][%s][%2s][%-3s][%10s][%-10s]", a45s, a45s, a45s, a45s, a45s, a45s);
 }
 
 int	a47(void)
 {
-	return printf("[%08.5d][%08.5u][%08.5d][%08.5u]", 0, 0, 34, 34);
+	return printf("[%8.5d][%8.5u][%8.5d][%8.5u]", 0, 0, 34, 34);
 }
 
 int	b47(void)
 {
-	return ft_printf("[%08.5d][%08.5u][%08.5d][%08.5u]", 0, 0, 34, 34);
+	return ft_printf("[%8.5d][%8.5u][%8.5d][%8.5u]", 0, 0, 34, 34);
 }
 
 int	a48(void)
@@ -582,12 +586,12 @@ int	b50(void)
 
 int	a51(void)
 {
-	return printf("[%08.0x][%.x][%5.0x][%-5.x][%-5.0x]", 243, 243, 243, 243, 243);
+	return printf("[%08x][%x][%5x][%-5x][%-5x]", 243, 243, 243, 243, 243);
 }
 
 int	b51(void)
 {
-	return ft_printf("[%08.0x][%.x][%5.0x][%-5.x][%-5.0x]", 243, 243, 243, 243, 243);
+	return ft_printf("[%08x][%x][%5x][%-5x][%-5x]", 243, 243, 243, 243, 243);
 }
 
 int	a52(void)
@@ -612,152 +616,154 @@ int	b53(void)
 
 int	a54(void)
 {
-	return printf("a%.pb%10.pc%10.pd%5.pe%10pf%pg%.ph%.pi", (void *)0, (void *)0, (void *)0, (void *)0, (void *)0, (void *)0, (void *)0, (void *)0);
+	return printf("a%pb%10pc%10pd%5pe%10pf%pg%ph%pi", (void *)0, (void *)0, (void *)0, (void *)0, (void *)0, (void *)0, (void *)0, (void *)0);
 }
 
 int	b54(void)
 {
-	return ft_printf("a%.pb%10.pc%10.pd%5.pe%10pf%pg%.ph%.pi", (void *)0, (void *)0, (void *)0, (void *)0, (void *)0, (void *)0, (void *)0, (void *)0);
+	return ft_printf("a%pb%10pc%10pd%5pe%10pf%pg%ph%pi", (void *)0, (void *)0, (void *)0, (void *)0, (void *)0, (void *)0, (void *)0, (void *)0);
 }
 
 int	a55(void)
 {
-	return printf("a%.pb%10.pc%10.pd%5.pe%10pf%pg%.ph%.pi", (void *)0, (void *)0, (void *)0, (void *)0, (void *)0, (void *)0, (void *)0, (void *)0);
+	return printf("a%pb%10pc%10pd%5pe%10pf%pg%ph%pi", (void *)0, (void *)0, (void *)0, (void *)0, (void *)0, (void *)0, (void *)0, (void *)0);
 }
 
 int	b55(void)
 {
-	return ft_printf("a%.pb%10.pc%10.pd%5.pe%10pf%pg%.ph%.pi", (void *)0, (void *)0, (void *)0, (void *)0, (void *)0, (void *)0, (void *)0, (void *)0);
+	return ft_printf("a%pb%10pc%10pd%5pe%10pf%pg%ph%pi", (void *)0, (void *)0, (void *)0, (void *)0, (void *)0, (void *)0, (void *)0, (void *)0);
 }
 
 int	a56(void)
 {
-	return printf("a%-.pb%-10.pc%-10.pd%-5.pe%-10pf%-pg%-.ph%-.pi", (void *)0, (void *)0, (void *)0, (void *)0, (void *)0, (void *)0, (void *)0, (void *)0);
+	return printf("a%-pb%-10pc%-10pd%-5pe%-10pf%-pg%-ph%-pi", (void *)0, (void *)0, (void *)0, (void *)0, (void *)0, (void *)0, (void *)0, (void *)0);
 }
 
 int	b56(void)
 {
-	return ft_printf("a%-.pb%-10.pc%-10.pd%-5.pe%-10pf%-pg%-.ph%-.pi", (void *)0, (void *)0, (void *)0, (void *)0, (void *)0, (void *)0, (void *)0, (void *)0);
+	return ft_printf("a%-pb%-10pc%-10pd%-5pe%-10pf%-pg%-ph%-pi", (void *)0, (void *)0, (void *)0, (void *)0, (void *)0, (void *)0, (void *)0, (void *)0);
 }
 
 int	a57(void)
 {
-	return printf("a%.pb%10.pc%10.pd%5.pe%10pf%pg%.ph%.pi", (void *)0, (void *)0, (void *)0, (void *)0, (void *)0, (void *)0, (void *)0, (void *)0);
+	return printf("a%pb%10pc%10pd%5pe%10pf%pg%ph%pi", (void *)0, (void *)0, (void *)0, (void *)0, (void *)0, (void *)0, (void *)0, (void *)0);
 }
 
 int	b57(void)
 {
-	return ft_printf("a%.pb%10.pc%10.pd%5.pe%10pf%pg%.ph%.pi", (void *)0, (void *)0, (void *)0, (void *)0, (void *)0, (void *)0, (void *)0, (void *)0);
+	return ft_printf("a%pb%10pc%10pd%5pe%10pf%pg%ph%pi", (void *)0, (void *)0, (void *)0, (void *)0, (void *)0, (void *)0, (void *)0, (void *)0);
 }
 
 int	a58(void)
 {
-	return printf("a%.pb%10.pc%10.pd%5.pe%10pf%pg%.ph%.pi", (void *)0, (void *)0, (void *)0, (void *)0, (void *)0, (void *)0, (void *)0, (void *)0);
+	return printf("a%pb%10pc%10pd%5pe%10pf%pg%ph%pi", (void *)0, (void *)0, (void *)0, (void *)0, (void *)0, (void *)0, (void *)0, (void *)0);
 }
 
 int	b58(void)
 {
-	return ft_printf("a%.pb%10.pc%10.pd%5.pe%10pf%pg%.ph%.pi", (void *)0, (void *)0, (void *)0, (void *)0, (void *)0, (void *)0, (void *)0, (void *)0);
+	return ft_printf("a%pb%10pc%10pd%5pe%10pf%pg%ph%pi", (void *)0, (void *)0, (void *)0, (void *)0, (void *)0, (void *)0, (void *)0, (void *)0);
 }
+
+char *a59s = "\0";
 
 int	a59(void)
 {
-	return printf("a%.10s@%10.s@%10.5s@%5.10s@%10s@%s@%.0s@%.s@", (char *)0, (char *)0, (char *)0, (char *)0, (char *)0, (char *)0, (char *)0, (char *)0);
+	return printf("a%.10s@%10.s@%10.5s@%5.10s@%10s@%s@%.0s@%.s@", a59s, a59s, a59s, a59s, a59s, a59s, a59s, a59s);
 }
 
 int	b59(void)
 {
-	return ft_printf("a%.10s@%10.s@%10.5s@%5.10s@%10s@%s@%.0s@%.s@", (char *)0, (char *)0, (char *)0, (char *)0, (char *)0, (char *)0, (char *)0, (char *)0);
+	return ft_printf("a%.10s@%10.s@%10.5s@%5.10s@%10s@%s@%.0s@%.s@", a59s, a59s, a59s, a59s, a59s, a59s, a59s, a59s);
 }
 
 int	a60(void)
 {
-	return printf("a%.10s@%10.s@%10.5s@%5.10s@%10s@%s@%.0s@%.s@", (char *)0, (char *)0, (char *)0, (char *)0, (char *)0, (char *)0, (char *)0, (char *)0);
+	return printf("a%.10s@%10.s@%10.5s@%5.10s@%10s@%s@%.0s@%.s@", a59s, a59s, a59s, a59s, a59s, a59s, a59s, a59s);
 }
 
 int	b60(void)
 {
-	return ft_printf("a%.10s@%10.s@%10.5s@%5.10s@%10s@%s@%.0s@%.s@", (char *)0, (char *)0, (char *)0, (char *)0, (char *)0, (char *)0, (char *)0, (char *)0);
+	return ft_printf("a%.10s@%10.s@%10.5s@%5.10s@%10s@%s@%.0s@%.s@", a59s, a59s, a59s, a59s, a59s, a59s, a59s, a59s);
 }
 
 int	a61(void)
 {
-	return printf("a%-.10s@%-10.s@%-10.5s@%-5.10s@%-10s@%-s@%-.0s@%-.s@", (char *)0, (char *)0, (char *)0, (char *)0, (char *)0, (char *)0, (char *)0, (char *)0);
+	return printf("a%-.10s@%-10.s@%-10.5s@%-5.10s@%-10s@%-s@%-.0s@%-.s@", a59s, a59s, a59s, a59s, a59s, a59s, a59s, a59s);
 }
 
 int	b61(void)
 {
-	return ft_printf("a%-.10s@%-10.s@%-10.5s@%-5.10s@%-10s@%-s@%-.0s@%-.s@", (char *)0, (char *)0, (char *)0, (char *)0, (char *)0, (char *)0, (char *)0, (char *)0);
+	return ft_printf("a%-.10s@%-10.s@%-10.5s@%-5.10s@%-10s@%-s@%-.0s@%-.s@", a59s, a59s, a59s, a59s, a59s, a59s, a59s, a59s);
 }
 
 int	a62(void)
 {
-	return printf("a%.10s@%10.s@%10.5s@%5.10s@%10s@%s@%.0s@%.s@", (char *)0, (char *)0, (char *)0, (char *)0, (char *)0, (char *)0, (char *)0, (char *)0);
+	return printf("a%.10s@%10.s@%10.5s@%5.10s@%10s@%s@%.0s@%.s@", a59s, a59s, a59s, a59s, a59s, a59s, a59s, a59s);
 }
 
 int	b62(void)
 {
-	return ft_printf("a%.10s@%10.s@%10.5s@%5.10s@%10s@%0s@%.0s@%.s@", (char *)0, (char *)0, (char *)0, (char *)0, (char *)0, (char *)0, (char *)0, (char *)0);
+	return ft_printf("a%.10s@%10.s@%10.5s@%5.10s@%10s@%0s@%.0s@%.s@", a59s, a59s, a59s, a59s, a59s, a59s, a59s, a59s);
 }
 
 int	a63(void)
 {
-	return printf("a%.10s@%10.s@%10.5s@%5.10s@%10s@%s@%.0s@%.s@", (char *)0, (char *)0, (char *)0, (char *)0, (char *)0, (char *)0, (char *)0, (char *)0);
+	return printf("a%.10s@%10.s@%10.5s@%5.10s@%10s@%s@%.0s@%.s@", a59s, a59s, a59s, a59s, a59s, a59s, a59s, a59s);
 }
 
 int	b63(void)
 {
-	return ft_printf("a%.10s@%10.s@%10.5s@%5.10s@%10s@%s@%.0s@%.s@", (char *)0, (char *)0, (char *)0, (char *)0, (char *)0, (char *)0, (char *)0, (char *)0);
+	return ft_printf("a%.10s@%10.s@%10.5s@%5.10s@%10s@%s@%.0s@%.s@", a59s, a59s, a59s, a59s, a59s, a59s, a59s, a59s);
 }
 
 int	a64(void)
 {
-	return printf("a%.pb%10.pc%10.pd%5.pe%10pf%pg%.ph%.pi%p", (void*)0, (void*)0, (void*)0, (void*)0, (void*)0, (void*)0, (void*)0, (void*)0, (void*)0);
+	return printf("a%pb%10pc%10pd%5pe%10pf%pg%ph%pi%p", (void*)0, (void*)0, (void*)0, (void*)0, (void*)0, (void*)0, (void*)0, (void*)0, (void*)0);
 }
 
 int	b64(void)
 {
-	return ft_printf("a%.pb%10.pc%10.pd%5.pe%10pf%pg%.ph%.pi%p", (void*)0, (void*)0, (void*)0, (void*)0, (void*)0, (void*)0, (void*)0, (void*)0, (void*)0);
+	return ft_printf("a%pb%10pc%10pd%5pe%10pf%pg%ph%pi%p", (void*)0, (void*)0, (void*)0, (void*)0, (void*)0, (void*)0, (void*)0, (void*)0, (void*)0);
 }
 
 int	a65(void)
 {
-	return printf("a%.pb%10.pc%10.pd%5.pe%10pf%pg%.ph%.pi", (void*)0, (void*)0, (void*)0, (void*)0, (void*)0, (void*)0, (void*)0, (void*)0);
+	return printf("a%pb%10pc%10pd%5pe%10pf%pg%ph%pi", (void*)0, (void*)0, (void*)0, (void*)0, (void*)0, (void*)0, (void*)0, (void*)0);
 }
 
 int	b65(void)
 {
-	return ft_printf("a%.pb%10.pc%10.pd%5.pe%10pf%pg%.ph%.pi", (void*)0, (void*)0, (void*)0, (void*)0, (void*)0, (void*)0, (void*)0, (void*)0);
+	return ft_printf("a%pb%10pc%10pd%5pe%10pf%pg%ph%pi", (void*)0, (void*)0, (void*)0, (void*)0, (void*)0, (void*)0, (void*)0, (void*)0);
 }
 
 int	a66(void)
 {
-	return printf("a%-.pb%-10.pc%-10.pd%-5.pe%-10pf%-pg%-.ph%-.pi", (void*)0, (void*)0, (void*)0, (void*)0, (void*)0, (void*)0, (void*)0, (void*)0);
+	return printf("a%-pb%-10pc%-10pd%-5pe%-10pf%-pg%-ph%-pi", (void*)0, (void*)0, (void*)0, (void*)0, (void*)0, (void*)0, (void*)0, (void*)0);
 }
 
 int	b66(void)
 {
-	return ft_printf("a%-.pb%-10.pc%-10.pd%-5.pe%-10pf%-pg%-.ph%-.pi", (void*)0, (void*)0, (void*)0, (void*)0, (void*)0, (void*)0, (void*)0, (void*)0);
+	return ft_printf("a%-pb%-10pc%-10pd%-5pe%-10pf%-pg%-ph%-pi", (void*)0, (void*)0, (void*)0, (void*)0, (void*)0, (void*)0, (void*)0, (void*)0);
 }
 
 int	a67(void)
 {
-	return printf("a%.pb%10.pc%10.pd%5.pe%10pf%pg%.ph%.pi", (void*)0, (void*)0, (void*)0, (void*)0, (void*)0, (void*)0, (void*)0, (void*)0);
+	return printf("a%pb%10pc%10pd%5pe%10pf%pg%ph%pi", (void*)0, (void*)0, (void*)0, (void*)0, (void*)0, (void*)0, (void*)0, (void*)0);
 }
 
 int	b67(void)
 {
-	return ft_printf("a%.pb%10.pc%10.pd%5.pe%10pf%pg%.ph%.pi", (void*)0, (void*)0, (void*)0, (void*)0, (void*)0, (void*)0, (void*)0, (void*)0);
+	return ft_printf("a%pb%10pc%10pd%5pe%10pf%pg%ph%pi", (void*)0, (void*)0, (void*)0, (void*)0, (void*)0, (void*)0, (void*)0, (void*)0);
 }
 
 int	a68(void)
 {
-	return printf("a%.pb%2.pc%.pd%2.pe%10pf%2pg%.ph%10.pi", (void*)0, (void*)0, (void*)0, (void*)0, (void*)0, (void*)0, (void*)0, (void*)0);
+	return printf("a%pb%2pc%pd%2pe%10pf%2pg%ph%10pi", (void*)0, (void*)0, (void*)0, (void*)0, (void*)0, (void*)0, (void*)0, (void*)0);
 }
 
 int	b68(void)
 {
-	return ft_printf("a%.pb%2.pc%.pd%2.pe%10pf%2pg%.ph%10.pi", (void*)0, (void*)0, (void*)0, (void*)0, (void*)0, (void*)0, (void*)0, (void*)0);
+	return ft_printf("a%pb%2pc%pd%2pe%10pf%2pg%ph%10pi", (void*)0, (void*)0, (void*)0, (void*)0, (void*)0, (void*)0, (void*)0, (void*)0);
 }
 
 
@@ -768,7 +774,7 @@ int	b68(void)
 #else
 # define SZ SZ_REG
 #endif
-#define START 0 
+#define START 0
 
 int (*as[SZ])();
 int (*bs[SZ])();

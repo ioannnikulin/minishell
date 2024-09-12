@@ -1,20 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mapss.h                                            :+:      :+:    :+:   */
+/*   ft_if.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/13 21:34:36 by inikulin          #+#    #+#             */
-/*   Updated: 2024/08/14 21:40:41 by inikulin         ###   ########.fr       */
+/*   Created: 2024/08/17 10:57:29 by inikulin          #+#    #+#             */
+/*   Updated: 2024/08/17 11:52:42 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAPSS_TEST_H
-# define MAPSS_TEST_H
-# include "../../../libft.h"
+int	ft_if_i(int choice, int a, int b)
+{
+	if (choice)
+		return (a);
+	return (b);
+}
 
-void	ft_mapss_test(void);
-void	ft_mapss_print_test(void);
-void	ft_mapss_add_test(void);
-#endif
+char	ft_if_c(int choice, char a, char b)
+{
+	if (choice)
+		return (a);
+	return (b);
+}

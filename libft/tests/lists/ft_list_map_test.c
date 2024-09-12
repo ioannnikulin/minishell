@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 15:56:43 by inikulin          #+#    #+#             */
-/*   Updated: 2024/08/10 12:04:18 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/08/17 12:06:28 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static void	*b(void *oc)
 	return (ft_strdup("."));
 }
 
-void	ft_lstmap_test(void)
+void	ft_list_map_test(void)
 {
 	t_testcase	t[SZ];
 	t[0] = (t_testcase){-1, a, free, {"hello", "i", "", NULL}, {"hello", "i", "", NULL}};

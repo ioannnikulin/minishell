@@ -3,110 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   main_test.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inikulin <inikulin@student.42berlin.d      +#+  +:+       +#+        */
+/*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 15:57:31 by inikulin          #+#    #+#             */
-/*   Updated: 2024/08/13 22:41:22 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/09/08 17:46:36 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tests.h"
-#include <stdio.h>
 
-int	main(void)
+int	memcheck_enabled;
+
+int	main(int argc, char **argv)
 {
-	ft_mapss_test();
-/*
-	printf("isalpha in testing\n");
-	ft_isalpha_test();
-	printf("isdigit in testing\n");
-	ft_isdigit_test();
-	printf("isalnum in testing\n");
-	ft_isalnum_test();
-	printf("isascii in testing\n");
-	ft_isascii_test();
-	printf("isprint in testing\n");
-	ft_isprint_test();
-	printf("strlen in testing\n");
-	ft_strlen_test();
-	printf("memset in testing\n");
-	ft_memset_test();
-	printf("bzero in testing\n");
-	ft_bzero_test();
-	printf("memcpy in testing\n");
-	ft_memcpy_test();
-	printf("memmove in testing\n");
-	ft_memmove_test();
-	printf("strlcpy in testing\n");
-	ft_strlcpy_test();
-	printf("strlcat in testing\n");
-	ft_strlcat_test();
-	printf("toupper in testing\n");
-	ft_toupper_test();
-	printf("tolower in testing\n");
-	ft_tolower_test();
-	printf("strchr in testing\n");
-	ft_strchr_test();
-	printf("strrchr in testing\n");
-	ft_strrchr_test();
-	printf("strncmp in testing\n");
-	ft_strncmp_test();
-	printf("memchr in testing\n");
-	ft_memchr_test();
-	printf("strnstr in testing\n");
-	ft_strnstr_test();
-//	printf("atoi in testing\n");
-//	ft_atoi_test();
-	printf("strdup in testing\n");
-	ft_strdup_test();
-	printf("substr in testing\n");
-	ft_substr_test();
-	printf("strjoin in testing\n");
-	ft_strjoin_test();
-	printf("strtrim in testing\n");
-	ft_strtrim_test();
-	printf("split in testing\n");
-	ft_split_test();
-//	printf("itoa in testing\n");
-//	ft_itoa_test();
-//	printf("strmapi in testing\n");
-//	ft_strmapi_test();
-	printf("striteri in testing\n");
-	ft_striteri_test();
-	printf("putchar_fd in testing\n");
-	ft_putchar_fd_test();
-//	printf("putstr_fd in testing\n");
-//	ft_putstr_fd_test();
-	printf("putendl_fd in testing\n");
-	ft_putendl_fd_test();
-	printf("putnbr_fd in testing\n");
-	ft_putnbr_fd_test();
-	printf("lstnew in testing\n");
-	ft_lstnew_test();
-	printf("lstsize in testing\n");
-	ft_lstsize_test();
-	printf("lstadd_front in testing\n");
-	ft_lstadd_front_test();
-	printf("lstclear in testing\n");
-	ft_lstclear_test();
-	printf("ft_lstlast in testing\n");
-	ft_lstlast_test();
-	printf("lstadd_back in testing\n");
-	ft_lstadd_back_test();
-	printf("lstdelone in testing\n");
-	ft_lstdelone_test();
-	printf("lstmap in testing\n");
-	ft_lstmap_test();
-	printf("lstiter in testing\n");
-	ft_lstiter_test();
-	printf("ft_list_generate in testing\n");
-	ft_list_generate_test();
-/*	printf("ft_lltoa_base in testing\n");
-	ft_lltoa_base_test();
-	printf("ft_ulltoa_base in testing\n");
-	ft_ulltoa_base_test();
-	printf("ft_printf in testing\n");
-	ft_printf_test();*/
+	memcheck_enabled = 0;
+	if (argc > 1)
+	{
+		for (int i = 1; i < argc; i ++)
+		{
+			if (ft_strncmp(argv[i], "memcheck", 9) == 0)
+			{
+				memcheck_enabled = 1;
+				break;
+			}
+		}
+	}
+	mapss_test();
+	strings_test();
+	numbers_test();
+	symbols_test();
+	memory_test();
+	ft_printf("printf in testing\n");
+	ft_printf_test();
+	ft_printf("get_next_line in testing\n");
+	get_next_line_test();
 	printf("All tests passed successfully!\n");
 	return (0);
 }

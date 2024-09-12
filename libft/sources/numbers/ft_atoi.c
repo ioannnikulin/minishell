@@ -6,13 +6,13 @@
 /*   By: inikulin <inikulin@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 19:01:40 by inikulin          #+#    #+#             */
-/*   Updated: 2024/08/13 21:09:32 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/08/17 18:28:22 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stddef.h>
 #include <limits.h>
-#include "../symbols/symbols.h"
+#include "libft.h"
 
 static char	sign(const char *nptr, size_t *cur)
 {
@@ -30,29 +30,23 @@ static char	sign(const char *nptr, size_t *cur)
 	return (res);
 }
 
-static int	ret(int what, int *ok, int okv)
-{
-	if (ok)
-		*ok = okv;
-	return (what);
-}
-
-int	ft_atoi(const char *nptr, int *ok)
+int	ft_atoi(const char *nptr, int *errno)
 {
 	long	res;
 	char	sgn;
 	size_t	cur;
 
+	ft_assign(errno, 0, 0);
 	res = 0;
 	cur = 0;
 	sgn = sign(nptr, &cur);
 	if (!sgn)
-		return (ret(0, ok, 0));
+		return (ft_assign(errno, 1, 0));
 	while (nptr[cur] && ft_isdigit(nptr[cur]))
 	{
 		res = res * 10 + nptr[cur ++] - '0';
 		if ((sgn == 1 && res > INT_MAX) || - res < INT_MIN)
-			return (ret(0, ok, 0));
+			return (ft_assign(errno, 2, 0));
 	}
-	return (ret((int)(sgn * res), ok, 1));
+	return ((int)(sgn * res));
 }

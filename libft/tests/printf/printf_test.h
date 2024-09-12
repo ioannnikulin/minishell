@@ -1,18 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   assign.c                                           :+:      :+:    :+:   */
+/*   printf_test.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/13 22:58:25 by inikulin          #+#    #+#             */
-/*   Updated: 2024/08/13 22:58:56 by inikulin         ###   ########.fr       */
+/*   Created: 2024/08/17 20:00:19 by inikulin          #+#    #+#             */
+/*   Updated: 2024/08/17 20:04:30 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	assign(int *where, int what, int retval)
-{
-	if (where)
-		*where = what;
-	return (retval);
-}
+#ifndef PRINTF_TEST_H
+# define PRINTF_TEST_H
+
+int	ft_printf_test(void);
+#endif
