@@ -1,20 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_param.c                                       :+:      :+:    :+:   */
+/*   resources.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/03 18:10:38 by inikulin          #+#    #+#             */
-/*   Updated: 2024/09/04 14:29:49 by inikulin         ###   ########.fr       */
+/*   Created: 2024/09/04 14:26:40 by inikulin          #+#    #+#             */
+/*   Updated: 2024/09/04 14:30:06 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#ifndef RESOURCES_H
+# define RESOURCES_H
 
-int	init_param(t_param *param)
-{
-	if (insert_envvar(param, "PATH", "/usr/local/sbin"))
-		finalize(0, 0, ERR_ENVVAR_INSERT, 1);
-	return (0);
-}
+# define ERR_ENVVAR_INSERT "Error initializing environment variables\n"
+#endif
