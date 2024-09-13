@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 15:56:31 by inikulin          #+#    #+#             */
-/*   Updated: 2024/08/10 12:22:49 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/09/08 17:49:31 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,9 @@ typedef struct s_testcase
 	size_t	n;
 }	t_testcase;
 
-# define SZ 27
-
+//#define DEBUG
+#define SZ 27
+extern int memcheck_enabled;
 void	ft_strncmp_test(void)
 {
 	t_testcase t[SZ];
@@ -53,6 +54,8 @@ void	ft_strncmp_test(void)
 	t[26] = (t_testcase){"!@#", "$%*&", 0};
 	for (int i = 0; i < SZ; i ++)
 	{
+		if (memcheck_enabled && (i == 3 || i == 4 || i == 8 || i == 9 || i == 15 || i == 16 || i == 20 || i == 21 || i == 23))
+			continue ;
 		int std = strncmp(
 				t[i].s1
 				, t[i].s2
@@ -63,7 +66,9 @@ void	ft_strncmp_test(void)
 				, t[i].s2
 				, t[i].n
 				);
-		//printf("!%i %i %i\n\n", i, std, custom);
+	  #ifdef DEBUG
+		printf("!%i %i %i\n\n", i, std, custom);
+	  #endif
 		assert(std == custom);
 	}
 }

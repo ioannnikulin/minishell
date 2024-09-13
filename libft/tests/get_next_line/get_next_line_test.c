@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 16:41:46 by inikulin          #+#    #+#             */
-/*   Updated: 2024/08/17 21:19:42 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/09/10 21:57:35 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include <assert.h>
 #include <stdlib.h>
 #include "get_next_line_test.h"
-//#define DEBUG
+// #define DEBUG
 
 int	gfs[10] = {0,0,0,0,0,0,0,0,0,0};
 int curfs = 0;
@@ -64,11 +64,11 @@ void	test_emptylines(void)
 	int fs = open("4.tmp", O_RDONLY);
 	assert(fs != -1);
 	char *r;
-	char *exp[5] = {"\n", "\n", " \n", " ", 0};
+	char *exp[6] = {"\n", "\n", " \n", " ", 0, 0};
 	for (int i = 0; i < 6; i ++)
 	{
 		r = get_next_line(fs);
-		assert(!r && !exp[i] || r && exp[i] && strcmp(r, exp[i]) == 0);
+		assert((!r && !exp[i]) || (r && exp[i] && strcmp(r, exp[i]) == 0));
 	  #ifdef DEBUG
 		if (!r)
 			printf("%d NULL\n", i);
@@ -214,6 +214,7 @@ void	test_error(void)
 		#endif
 		free(r);
 	}
+	free(line);
 	remove("5.tmp");
 }
 

@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 15:56:31 by inikulin          #+#    #+#             */
-/*   Updated: 2024/08/17 19:56:36 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/09/10 21:56:44 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,22 @@ typedef struct s_testcase
 
 #define START 0
 #define SZ 32
+
+static char *ext_strdup(char *orig, int sz)
+{
+	int mem = strlen(orig);
+	if (mem < sz)
+		mem = sz;
+	char *res = malloc(mem);
+	if (!res)
+		return (0);
+	int i = -1;
+	while (orig[++i])
+		res[i] = orig[i];
+	while (++i < sz)
+		res[i] = 0;
+	return (res);
+}
 
 void	ft_memcmp_test(void)
 {
@@ -50,10 +66,20 @@ void	ft_memcmp_test(void)
 	t[21] = (t_testcase){"ab", "abc", 4};
 	t[22] = (t_testcase){"!@#", "$%*&", 0};
 	t[23] = (t_testcase){"!@#", "$%*&", 1};
-	char s1[20] = "abcdefghijk";
-	char s2[20] = "abcdefghijiK";
+	char *s1 = malloc(20);
+	assert(s1 != NULL);
+	strcpy(s1, "abcdefghijk");
+	char *s2 = malloc(20);
+	assert(s2 != NULL);
+	strcpy(s2, "abcdefghijiK");
+	for (int i = 12; i < 20; i++)
+	{
+		s1[i] = 0;
+		s2[i] = 0;
+	}
 	s1[5] = 0;
 	s1[6] = 0;
+	s1[11] = 0;
 	s2[5] = 0;
 	s2[6] = 0;
 	t[24] = (t_testcase){s1, s2, 0};
@@ -66,23 +92,24 @@ void	ft_memcmp_test(void)
 	t[31] = (t_testcase){0, 0, 0};
 	for (int i = START; i < SZ; i ++)
 	{
-		char *s11 = (t[i].s1 ? strdup(t[i].s1) : 0);
-		char *s22 = (t[i].s2 ? strdup(t[i].s2) : 0);
+	  #ifdef DEBUG
+		printf("#%i\n", i);
+	  #endif
 		int std = memcmp(
-				s11
-				, s22
+				t[i].s1
+				, t[i].s2
 				, t[i].n
 				);
 		int custom = ft_memcmp(
-				s11
-				, s22
+				t[i].s1
+				, t[i].s2
 				, t[i].n
 				);
 	  #ifdef DEBUG
-		printf("!%i %i %i\n\n", i, std, custom);
+		printf("%i %i\n", std, custom);
 	  #endif
-		free(s11);
-		free(s22);
 		assert(std == custom);
 	}
+	free(s1);
+	free(s2);
 }

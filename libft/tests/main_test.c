@@ -3,17 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   main_test.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inikulin <inikulin@student.42berlin.d      +#+  +:+       +#+        */
+/*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 15:57:31 by inikulin          #+#    #+#             */
-/*   Updated: 2024/08/17 20:41:27 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/09/08 17:46:36 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tests.h"
 
-int	main(void)
+int	memcheck_enabled;
+
+int	main(int argc, char **argv)
 {
+	memcheck_enabled = 0;
+	if (argc > 1)
+	{
+		for (int i = 1; i < argc; i ++)
+		{
+			if (ft_strncmp(argv[i], "memcheck", 9) == 0)
+			{
+				memcheck_enabled = 1;
+				break;
+			}
+		}
+	}
 	mapss_test();
 	strings_test();
 	numbers_test();
