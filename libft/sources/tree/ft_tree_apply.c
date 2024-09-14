@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tree_add.c                                         :+:      :+:    :+:   */
+/*   ft_tree_apply.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 18:47:29 by inikulin          #+#    #+#             */
-/*   Updated: 2024/09/04 19:05:10 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/09/14 20:13:06 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,25 +16,27 @@
 static int	deep(t_treenode *n, int (*check)(t_treenode*), int (*apply)(t_treenode*),
 				t_tree_traversal_mode mode)
 {
-	int	i;
-	int	applied;
+	t_treenode	*child;
+	int			applied;
+	int			applied_total;
 
-	i = -1;
-	applied = 0;
-	while (++ i < n.children_sz && mode.max_applications > 0)
+	child = n->child;
+	applied_total = 0;
+	while (child && mode.max_applications > 0)
 	{
 		if (mode.max_applications > 0)
 		{
+			applied = deep(child, check, apply, mode);
 			mode.max_applications -= applied;
-			applied += deep(n->children[i], check, apply, mode);
+			applied_total += applied;
 		}
 	}
 	if (mode.max_applications > 0 && check(n))
 	{
 		apply(n);
-		applied ++;
+		applied_total ++;
 	}
-	return (applied);
+	return (applied_total);
 }
 
 int	ft_tree_apply(t_tree *tgt, int (*check)(t_treenode*), int (*apply)(t_treenode*),
@@ -42,8 +44,8 @@ int	ft_tree_apply(t_tree *tgt, int (*check)(t_treenode*), int (*apply)(t_treenod
 {
 	int	applied;
 
-	if (mode.mode == TREE_DEPTH_FIRSTH)
-		applied = deep(tgt.root, check, apply, mode);
+	if (mode.mode == TREE_DEPTH_FIRST)
+		applied = deep(tgt->root, check, apply, mode);
 	else
 		return (-1);
 	return (applied);
