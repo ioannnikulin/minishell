@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 18:40:45 by inikulin          #+#    #+#             */
-/*   Updated: 2024/09/04 19:42:47 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/09/12 20:37:13 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ typedef struct s_treenode
 	t_treenode	*child;
 	int			siblings_qtty;
 	int			depth;
+	int			(*freecontent)(void*);
 }	t_treenode;
 
 typedef struct s_tree
