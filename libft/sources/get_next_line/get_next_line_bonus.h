@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 18:29:00 by inikulin          #+#    #+#             */
-/*   Updated: 2024/02/17 17:29:52 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/09/14 16:07:30 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 # include <stddef.h>
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 80
+# endif
+# ifndef NOTHING
 # endif
 
 typedef struct s_lefts
