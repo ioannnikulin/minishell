@@ -6,12 +6,13 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 20:59:34 by inikulin          #+#    #+#             */
-/*   Updated: 2024/08/14 21:02:18 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/09/14 13:55:10 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MEMORY_H
 # define MEMORY_H
+
 void	*ft_memchr(const void *s, int c, size_t n);
 void	*ft_memset(void *s, int c, size_t n);
 void	*ft_bzero(void *s, size_t n);
