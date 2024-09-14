@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 20:41:10 by inikulin          #+#    #+#             */
-/*   Updated: 2024/08/14 21:17:35 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/09/14 13:59:27 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ typedef struct s_mapss_entry
 typedef struct s_mapss
 {
 	t_dlist	*head;
-	t_dlist *tail;
+	t_dlist	*tail;
 	int		size;
 }	t_mapss;
 

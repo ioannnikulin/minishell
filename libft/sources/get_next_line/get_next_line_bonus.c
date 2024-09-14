@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 15:40:15 by inikulin          #+#    #+#             */
-/*   Updated: 2023/12/30 17:33:06 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/08/17 21:46:33 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ char	*get_next_line(int fd)
 
 	if (fd < 0 || fd > 1023)
 		return (0);
-	bufs = malloc(sizeof(t_bufs));
+	bufs = ft_calloc_if(sizeof(t_bufs), 1);
 	if (!bufs)
 	{
 		free(bufs);
