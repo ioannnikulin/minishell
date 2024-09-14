@@ -6,15 +6,15 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 18:47:29 by inikulin          #+#    #+#             */
-/*   Updated: 2024/09/14 20:13:06 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/09/14 22:34:59 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tree.h"
 #include "../../libft.h"
 
-static int	deep(t_treenode *n, int (*check)(t_treenode*), int (*apply)(t_treenode*),
-				t_tree_traversal_mode mode)
+static int	deep(t_treenode *n, int (*check)(t_treenode*),
+				int (*apply)(t_treenode*), t_tree_traversal_mode mode)
 {
 	t_treenode	*child;
 	int			applied;
@@ -39,8 +39,8 @@ static int	deep(t_treenode *n, int (*check)(t_treenode*), int (*apply)(t_treenod
 	return (applied_total);
 }
 
-int	ft_tree_apply(t_tree *tgt, int (*check)(t_treenode*), int (*apply)(t_treenode*),
-				t_tree_traversal_mode mode)
+int	ft_tree_apply(t_tree *tgt, int (*check)(t_treenode*),
+				int (*apply)(t_treenode*), t_tree_traversal_mode mode)
 {
 	int	applied;
 

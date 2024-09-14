@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 14:00:52 by inikulin          #+#    #+#             */
-/*   Updated: 2024/09/14 22:23:34 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/09/14 22:31:45 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	ft_treenode_insert_child_idx_test(void)
 		#ifdef DEBUG
 		ft_printf("\n");
 		#endif
-		assert(j == t[i].exp_sz && !cur);
+		assert(tgt->children_qtty == j && j == t[i].exp_sz && !cur);
 		assert(t[i].exp_ret == ret);
 	}
 	ft_treenode_free_rec(&tgt);

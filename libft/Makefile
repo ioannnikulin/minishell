@@ -142,7 +142,7 @@ retest: testfclean test
 
 fulltest: re retest
 	#$(FTPREFIX)norminette libft.h sources/* #tanya this is for you
-	$(PREFIX)norminette libft.h sources/control_flow/*.c sources/dlists/*.c sources/get_next_line/*.c sources/lists/*.c sources/memory/*.c sources/numbers/*.c sources/printf/*.c sources/printf/*.c sources/strings/*.c sources/symbols/*.c sources/map/mapss/ft_mapss_error_decoder.c sources/map/mapss/ft_mapss_finalize.c sources/map/mapss/ft_mapss_ncmp.c sources/map/mapss/ft_mapss_print.c sources/map/mapss/*.h
+	$(PREFIX)norminette libft.h sources/control_flow/*.c sources/dlists/*.c sources/get_next_line/*.c sources/lists/*.c sources/memory/*.c sources/numbers/*.c sources/printf/*.c sources/printf/*.c sources/strings/*.c sources/symbols/*.c sources/map/mapss/ft_mapss_error_decoder.c sources/map/mapss/ft_mapss_finalize.c sources/map/mapss/ft_mapss_ncmp.c sources/map/mapss/ft_mapss_print.c sources/map/mapss/*.h sources/tree/*.c
 	$(FTPREFIX)tests/test
 	$(FTPREFIX)rm -rf tmp.tst
 	$(FTPREFIX)valgrind --leak-check=full --show-leak-kinds=all tests/test "memcheck"
