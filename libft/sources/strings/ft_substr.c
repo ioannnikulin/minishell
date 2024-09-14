@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 19:01:40 by inikulin          #+#    #+#             */
-/*   Updated: 2024/08/13 21:12:04 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/08/17 21:44:07 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	*ft_substr(const char *s, unsigned int start, size_t len)
 		l = l - start;
 	else
 		l = len;
-	res = malloc((l + 1) * sizeof(char));
+	res = ft_calloc_if((l + 1) * sizeof(char), 1);
 	if (!res)
 		return (0);
 	ft_memcpy(res, &s[start], l);

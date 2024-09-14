@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 15:40:15 by inikulin          #+#    #+#             */
-/*   Updated: 2023/12/30 17:26:24 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/08/17 21:38:27 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	*rebuf(t_bufs *b, char **wh, int sz, char *ret)
 		*wh = 0;
 		if (!sz)
 			return (ret);
-		*wh = malloc(sz);
+		*wh = ft_calloc_if(sz, 1);
 		if (!*wh)
 			return (rebuf(b, 0, -7, ret));
 	}

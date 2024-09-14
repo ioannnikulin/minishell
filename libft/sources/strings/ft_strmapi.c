@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 19:01:40 by inikulin          #+#    #+#             */
-/*   Updated: 2023/11/18 15:03:15 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/08/17 21:43:12 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	*ft_strmapi(const char *s, char (*f)(unsigned int, char))
 	if (!s || !s[0])
 		return (ft_empty_string());
 	l = ft_strlen((char *)s);
-	res = malloc((l + 1) * sizeof(char));
+	res = ft_calloc_if((l + 1) * sizeof(char), 1);
 	if (!res)
 		return (0);
 	res[l --] = 0;
