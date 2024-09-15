@@ -1,24 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   symbols.h                                          :+:      :+:    :+:   */
+/*   ft_cmp.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/13 20:53:17 by inikulin          #+#    #+#             */
-/*   Updated: 2024/09/14 13:54:52 by inikulin         ###   ########.fr       */
+/*   Created: 2024/09/04 18:43:58 by inikulin          #+#    #+#             */
+/*   Updated: 2024/09/14 22:32:25 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SYMBOLS_H
-# define SYMBOLS_H
+int	ft_cmp_pvoid_pi(void *a, void *b)
+{
+	int	aa;
+	int	bb;
 
-int	ft_isalpha(int c);
-int	ft_isdigit(int c);
-int	ft_isalnum(int c);
-int	ft_isascii(int c);
-int	ft_isprint(int c);
-int	ft_isspace(int c);
-int	ft_tolower(int c);
-int	ft_toupper(int c);
-#endif
+	aa = *(int *)a;
+	bb = *(int *)b;
+	return (aa - bb);
+}
+
+int	ft_less_eq_pvoid_pi(void *a, void *b)
+{
+	return (ft_cmp_pvoid_pi(a, b) <= 0);
+}

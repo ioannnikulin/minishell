@@ -1,24 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   symbols.h                                          :+:      :+:    :+:   */
+/*   tree_test.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/13 20:53:17 by inikulin          #+#    #+#             */
-/*   Updated: 2024/09/14 13:54:52 by inikulin         ###   ########.fr       */
+/*   Created: 2024/09/12 19:27:04 by inikulin          #+#    #+#             */
+/*   Updated: 2024/09/14 20:14:01 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include "tree_test.h"
 
-#ifndef SYMBOLS_H
-# define SYMBOLS_H
-
-int	ft_isalpha(int c);
-int	ft_isdigit(int c);
-int	ft_isalnum(int c);
-int	ft_isascii(int c);
-int	ft_isprint(int c);
-int	ft_isspace(int c);
-int	ft_tolower(int c);
-int	ft_toupper(int c);
-#endif
+int	tree_test(void)
+{
+	ft_printf("tree: ft_treenode_insert_child_idx in testing\n");
+	ft_treenode_insert_child_idx_test();
+	ft_printf("tree: ft_treenode_insert_child_before_first in testing\n");
+	ft_treenode_insert_child_before_first_test();
+	return (0);
+}

@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 16:31:10 by inikulin          #+#    #+#             */
-/*   Updated: 2024/08/17 10:39:51 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/09/14 13:59:06 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ static t_dlist	*ft_mapss_node(const char *key, const char *value, int *errno)
 	return (node);
 }
 
+/* this desctruction is all wrong. node constructor should free its memory,
+ * and the finalize mode should be the same always */
 int	ft_mapss_add(t_mapss *map, const char *key, const char *value)
 {
 	t_dlist	*node;
@@ -52,14 +54,14 @@ int	ft_mapss_add(t_mapss *map, const char *key, const char *value)
 	int		finalize_mode;
 	char	*error_msg;
 
-
 	node = ft_mapss_node(key, value, &errno);
 	if (!node)
 	{
 		error_msg = ft_mapss_error_decoder(errno, &finalize_mode);
-		return (ft_mapss_finalize(map, finalize_mode, error_msg, -1));	// this is all wrong. node constructor should free its memory, and the finalize mode should be the same always
+		return (ft_mapss_finalize(map, finalize_mode, error_msg, -1));
 	}
 	if (ft_mapss_insert(map, node))
-		return (ft_mapss_finalize(map, MAPSS_FULL, "Couldn't insert node\n", 1));
+		return (ft_mapss_finalize(map, MAPSS_FULL,
+				"Couldn't insert node\n", 1));
 	return (0);
 }

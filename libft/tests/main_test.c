@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 15:57:31 by inikulin          #+#    #+#             */
-/*   Updated: 2024/09/08 17:46:36 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/09/12 19:29:54 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int	main(int argc, char **argv)
 			}
 		}
 	}
+	tree_test();
 	mapss_test();
 	strings_test();
 	numbers_test();

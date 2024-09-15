@@ -17,8 +17,12 @@ MAPSS_F = map/mapss
 MAPSS_NAMES = ft_mapss_print.c ft_mapss_error_decoder.c ft_mapss_add.c ft_mapss_insert.c ft_mapss_finalize.c ft_mapss_ncmp.c
 MAPSS_SRCS = $(addprefix $(SOURCES_F)/$(MAPSS_F)/, $(MAPSS_NAMES))
 
+TREE_F = tree
+TREE_NAMES = ft_tree_print.c ft_treenode_free.c ft_treenode_insert.c ft_tree_make.c ft_tree_apply.c ft_tree_print_wrappers.c
+TREE_SRCS = $(addprefix $(SOURCES_F)/$(TREE_F)/, $(TREE_NAMES))
+
 MEM_F = memory
-MEM_NAMES = ft_bzero.c ft_calloc.c ft_memchr.c ft_memcmp.c ft_memcpy.c ft_memmove.c ft_memset.c ft_swap.c ft_swap_1.c ft_assign.c
+MEM_NAMES = ft_bzero.c ft_calloc.c ft_memchr.c ft_memcmp.c ft_memcpy.c ft_memmove.c ft_memset.c ft_swap.c ft_swap_1.c ft_assign.c ft_cmp.c ft_new.c ft_free.c
 MEM_SRCS = $(addprefix $(SOURCES_F)/$(MEM_F)/, $(MEM_NAMES))
 
 NUM_F = numbers
@@ -45,14 +49,14 @@ FLOW_F = control_flow
 FLOW_NAMES = ft_if.c
 FLOW_SRCS = $(addprefix $(SOURCES_F)/$(FLOW_F)/, $(FLOW_NAMES))
 
-SRCS = $(LIST_SRCS) $(DLIST_SRCS) $(MAPSS_SRCS) $(MEM_SRCS) $(NUM_SRCS) $(STR_SRCS) $(SYM_SRCS)  $(PRINTF_SRCS) $(GNL_SRCS) $(FLOW_SRCS)
+SRCS = $(LIST_SRCS) $(DLIST_SRCS) $(MAPSS_SRCS) $(TREE_SRCS) $(MEM_SRCS) $(NUM_SRCS) $(STR_SRCS) $(SYM_SRCS)  $(PRINTF_SRCS) $(GNL_SRCS) $(FLOW_SRCS)
 OBJS = $(SRCS:.c=.o)
 INCLUDES = -I .
 PACK = ar rcs
 
 all: $(NAME)
 
-$(NAME): clean $(OBJS) 
+$(NAME): clean $(OBJS)
 	$(FTPREFIX)$(PACK) $(NAME) $(OBJS)
 
 $(OBJS): %.o: %.c
@@ -79,6 +83,9 @@ DLIST_TEST_SRCS = $(addprefix $(TESTF)/$(DLIST_F)/, $(subst .c,_test.c,$(DLIST_T
 MAPSS_TEST_NAMES = mapss_test.c ft_mapss_add_test.c ft_mapss_print_test.c
 MAPSS_TEST_SRCS = $(addprefix $(TESTF)/$(MAPSS_F)/, $(MAPSS_TEST_NAMES))
 
+TREE_TEST_NAMES = tree_test.c ft_tree_print_test.c ft_treenode_insert_child_before_first_test.c ft_treenode_insert_child_idx_test.c
+TREE_TEST_SRCS = $(addprefix $(TESTF)/$(TREE_F)/, $(TREE_TEST_NAMES))
+
 MEM_TEST_NAMES = ft_bzero_test.c ft_memchr_test.c ft_memcmp_test.c ft_memcpy_test.c ft_memmove_test.c ft_memset_test.c memory_test.c
 MEM_TEST_SRCS = $(addprefix $(TESTF)/$(MEM_F)/, $(MEM_TEST_NAMES))
 
@@ -97,7 +104,7 @@ GNL_TEST_NAMES = get_next_line_test.c
 GNL_TEST_SRCS = $(addprefix $(TESTF)/$(GNL_F)/, $(GNL_TEST_NAMES))
 MAIN_TEST = $(TESTF)/main_test.c
 
-TESTOBJS = $(MAIN_TEST:.c=.o) $(LIST_TEST_SRCS:.c=.o) $(MAPSS_TEST_SRCS:.c=.o) $(MEM_TEST_SRCS:.c=.o) $(STR_TEST_SRCS:.c=.o) $(SYM_TEST_SRCS:.c=.o) $(NUM_TEST_SRCS:.c=.o) $(PRINTF_TEST_SRCS:.c=.o) $(GNL_TEST_SRCS:.c=.o) #$(DLIST_TEST_SRCS:.c=.o)
+TESTOBJS = $(MAIN_TEST:.c=.o) $(LIST_TEST_SRCS:.c=.o) $(MAPSS_TEST_SRCS:.c=.o) $(TREE_TEST_SRCS:.c=.o) $(MEM_TEST_SRCS:.c=.o) $(STR_TEST_SRCS:.c=.o) $(SYM_TEST_SRCS:.c=.o) $(NUM_TEST_SRCS:.c=.o) $(PRINTF_TEST_SRCS:.c=.o) $(GNL_TEST_SRCS:.c=.o) #$(DLIST_TEST_SRCS:.c=.o)
 TESTNAME = $(TESTF)/test
 TESTFLAGS = -L. -lft -lbsd
 TESTINCLUDES = -I $(TESTF)
@@ -133,7 +140,9 @@ test: goodtests #$(SEGFAULTNAMES)
 
 retest: testfclean test
 
-go: re retest
+fulltest: re retest
+	#$(FTPREFIX)norminette libft.h sources/* #tanya this is for you
+	$(PREFIX)norminette libft.h sources/control_flow/*.c sources/dlists/*.c sources/get_next_line/*.c sources/lists/*.c sources/memory/*.c sources/numbers/*.c sources/printf/*.c sources/printf/*.c sources/strings/*.c sources/symbols/*.c sources/map/mapss/ft_mapss_error_decoder.c sources/map/mapss/ft_mapss_finalize.c sources/map/mapss/ft_mapss_ncmp.c sources/map/mapss/ft_mapss_print.c sources/map/mapss/*.h sources/tree/*.c
 	$(FTPREFIX)tests/test
 	$(FTPREFIX)rm -rf tmp.tst
 	$(FTPREFIX)valgrind --leak-check=full --show-leak-kinds=all tests/test "memcheck"

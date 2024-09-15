@@ -1,24 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   symbols.h                                          :+:      :+:    :+:   */
+/*   ft_free.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/13 20:53:17 by inikulin          #+#    #+#             */
-/*   Updated: 2024/09/14 13:54:52 by inikulin         ###   ########.fr       */
+/*   Created: 2024/09/04 18:43:58 by inikulin          #+#    #+#             */
+/*   Updated: 2024/09/14 20:51:28 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SYMBOLS_H
-# define SYMBOLS_H
+#include "../../libft.h"
 
-int	ft_isalpha(int c);
-int	ft_isdigit(int c);
-int	ft_isalnum(int c);
-int	ft_isascii(int c);
-int	ft_isprint(int c);
-int	ft_isspace(int c);
-int	ft_tolower(int c);
-int	ft_toupper(int c);
-#endif
+void	ft_free_s(void **c)
+{
+	char	*cc;
+
+	cc = *c;
+	free(cc);
+	*c = 0;
+}
+
+void	ft_free_nop(void **c)
+{
+	(void)c;
+}
+
+void	ft_free_pi(void **p)
+{
+	int	*pp;
+
+	pp = *p;
+	free(pp);
+	*p = 0;
+}
