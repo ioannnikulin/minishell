@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 15:22:58 by inikulin          #+#    #+#             */
-/*   Updated: 2024/08/10 18:21:33 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/09/15 12:13:22 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,16 @@ typedef struct s_ssmap
 	int		size;
 }	t_ssmap;
 
+typedef struct s_history_entry
+{
+	char					*text;
+	struct s_history_entry	*next;
+	struct s_history_entry	*prev;
+}	t_history_entry;
+
 typedef  struct s_history
 {
-	char	**commands;
-	int		top;
+	s_history_entry	*last;
 }	t_history;
 
 typedef struct s_command
@@ -70,11 +76,14 @@ typedef struct s_param // 1. "global" parameter structure
 	int			errno;
 	t_ssmap		envvars; // 2. "map" (associative array) of environment variables
 	t_history	history;
-
+	t_tree		*text_tree;
 }	t_param;
+
+# define TEXT_TREE_ROOT "ROOT"
 
 int	init_param(t_param *param);
 int	finalize(t_param *param, int mode, char *message, int retval);
 int	ft_free(int choice, void **obj, int bytes, int ret);
 int	insert_envvar(t_param *param, char *key, char *value);
+int	input_to_text_tree(t_param *param);
 #endif
