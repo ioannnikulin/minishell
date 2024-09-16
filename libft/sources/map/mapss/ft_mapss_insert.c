@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 13:20:33 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/09/14 16:37:57 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/09/16 12:54:19 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,10 +109,10 @@ int	ft_mapss_insert(t_mapss *map, t_dlist *node)
 	node_entry = node->content;
 	cur_entry = map->head->content;
 	if (!insert_at_the_beginning(map, node, node_entry, cur_entry))
-		return (0);
+		return (1);
 	cur_entry = map->tail->content;
 	if (!insert_at_the_end(map, node, node_entry, cur_entry))
-		return (0);
+		return (1);
 	insert_in_between(map, node, node_entry, cur_entry);
 	return (0);
 }
