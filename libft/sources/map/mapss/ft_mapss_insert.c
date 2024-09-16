@@ -33,44 +33,7 @@ else if (ft_strcmp(node_entry->key, cur_entry->key) < 0)
 		}
 */
 
-static int insert_at_the_end(t_mapss *map, t_dlist *node, t_mapss_entry *node_entry, t_mapss_entry *tail_entry)
-{
-	if (ft_strcmp(node_entry->key, tail_entry->key) > 0)
-	{
-		node->next = NULL;
-		node->prev = map->tail;
-		map->tail->next = node;
-		map->tail = node;
-		map->size ++;
-		return (0);
-	}
-	return (1);
-}
-
-static	int insert_at_the_beginning(t_mapss *map, t_dlist *node, t_mapss_entry *node_entry, t_mapss_entry *head_entry)
-{
-	if (map->head == NULL)
-	{
-		map->head = node;
-		map->tail = node;
-		node->next = NULL;
-		node->prev = NULL;
-		map->size ++;
-		return (0);
-	}
-	if (ft_strcmp(node_entry->key, head_entry->key) < 0)
-	{
-		node->next = map->head;
-		node->prev = NULL;
-		map->head->prev = node;
-		map->head = node;
-		map->size ++;
-		return (0);
-	}
-	return (1);
-}
-
-static int	insert_int_between(t_mapss *map, t_dlist *node, t_mapss_entry *node_entry, t_mapss_entry *cur_entry)
+static int	insert_in_between(t_mapss *map, t_dlist *node, t_mapss_entry *node_entry, t_mapss_entry *cur_entry)
 {
 	t_dlist	*cur;
 
@@ -99,6 +62,45 @@ static int	insert_int_between(t_mapss *map, t_dlist *node, t_mapss_entry *node_e
 		cur = cur->next;
 		cur_entry = cur->content;
 	}
+	return (1);
+}
+
+static int insert_at_the_end(t_mapss *map, t_dlist *node, t_mapss_entry *node_entry, t_mapss_entry *tail_entry)
+{
+	if (ft_strcmp(node_entry->key, tail_entry->key) > 0)
+	{
+		node->next = NULL;
+		node->prev = map->tail;
+		map->tail->next = node;
+		map->tail = node;
+		map->size ++;
+		return (0);
+	}
+	return (1);
+}
+
+static	int insert_at_the_beginning(t_mapss *map, t_dlist *node, 
+			t_mapss_entry *node_entry, t_mapss_entry *head_entry)
+{
+	if (map->head == NULL)
+	{
+		map->head = node;
+		map->tail = node;
+		node->next = NULL;
+		node->prev = NULL;
+		map->size ++;
+		return (0);
+	}
+	if (ft_strcmp(node_entry->key, head_entry->key) < 0)
+	{
+		node->next = map->head;
+		node->prev = NULL;
+		map->head->prev = node;
+		map->head = node;
+		map->size ++;
+		return (0);
+	}
+	return (1);
 }
 
 int	ft_mapss_insert(t_mapss *map, t_dlist *node)
