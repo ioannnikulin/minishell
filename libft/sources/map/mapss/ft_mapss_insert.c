@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 13:20:33 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/08/17 19:19:55 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/09/16 12:54:19 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ static	int insert_at_the_beginning(t_mapss *map, t_dlist *node, t_mapss_entry *n
 	return (1);
 }
 
-static	int insert_int_between(t_mapss *map, t_dlist *node, t_mapss_entry *node_entry, t_mapss_entry *cur_entry)
+static int	insert_int_between(t_mapss *map, t_dlist *node, t_mapss_entry *node_entry, t_mapss_entry *cur_entry)
 {
 	t_dlist	*cur;
 
@@ -109,10 +109,10 @@ int	ft_mapss_insert(t_mapss *map, t_dlist *node)
 	node_entry = node->content;
 	cur_entry = map->head->content;
 	if (!insert_at_the_beginning(map, node, node_entry, cur_entry))
-		return (0);
+		return (1);
 	cur_entry = map->tail->content;
 	if (!insert_at_the_end(map, node, node_entry, cur_entry))
-		return (0);
+		return (1);
 	insert_in_between(map, node, node_entry, cur_entry);
 	return (0);
 }
