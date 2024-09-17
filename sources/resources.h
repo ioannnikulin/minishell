@@ -1,22 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_mapss_test.c                                    :+:      :+:    :+:   */
+/*   resources.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/13 21:34:36 by inikulin          #+#    #+#             */
-/*   Updated: 2024/08/14 21:40:03 by inikulin         ###   ########.fr       */
+/*   Created: 2024/09/04 14:26:40 by inikulin          #+#    #+#             */
+/*   Updated: 2024/09/04 14:30:06 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mapss.h"
+#ifndef RESOURCES_H
+# define RESOURCES_H
 
-void	ft_mapss_test(void)
-{
-	ft_printf("mapss print in testing\n");
-	ft_mapss_print_test();
-	ft_printf("mapss add in testing\n");
-	ft_mapss_add_test();
-	return ;
-}
+# define ERR_ENVVAR_INSERT "Error initializing environment variables\n"
+#endif

@@ -1,25 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncmp.c                                       :+:      :+:    :+:   */
+/*   symbols_test.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: inikulin <inikulin@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/13 19:01:40 by inikulin          #+#    #+#             */
-/*   Updated: 2023/11/23 12:14:53 by inikulin         ###   ########.fr       */
+/*   Created: 2023/11/14 15:58:51 by inikulin          #+#    #+#             */
+/*   Updated: 2024/08/17 17:47:47 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stddef.h>
+#ifndef SYMBOLS_TEST_H
+# define SYMBOLS_TEST_H
+# include "../tests_internal.h"
 
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
-{
-	size_t	c;
-
-	if (n == 0)
-		return (0);
-	c = 0;
-	while (s1[c] && s2[c] == s1[c] && c < n - 1)
-		c ++;
-	return ((unsigned char)s1[c] - (unsigned char)s2[c]);
-}
+int 	symbols_test(void);
+void	ft_isalpha_test(void);
+void	ft_isdigit_test(void);
+void	ft_isalnum_test(void);
+void	ft_isascii_test(void);
+void	ft_isprint_test(void);
+void	ft_isspace_test(void);
+void	ft_toupper_test(void);
+void	ft_tolower_test(void);
+#endif

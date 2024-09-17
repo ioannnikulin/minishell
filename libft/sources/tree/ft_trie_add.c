@@ -1,18 +1,13 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   assign.c                                           :+:      :+:    :+:   */
+/*   ft_trie_add.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/13 22:58:25 by inikulin          #+#    #+#             */
-/*   Updated: 2024/08/13 22:58:56 by inikulin         ###   ########.fr       */
+/*   Created: 2024/09/04 19:31:24 by inikulin          #+#    #+#             */
+/*   Updated: 2024/09/14 22:37:57 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	assign(int *where, int what, int retval)
-{
-	if (where)
-		*where = what;
-	return (retval);
-}
+#include "tree.h"

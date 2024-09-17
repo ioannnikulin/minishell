@@ -6,12 +6,11 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 21:34:36 by inikulin          #+#    #+#             */
-/*   Updated: 2024/08/17 18:10:45 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/08/22 13:41:14 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <assert.h>
-#include "mapss.h"
+#include "mapss_test.h"
 
 #define SZ 9
 #undef DEBUG

@@ -41,6 +41,9 @@ fclean:
 
 re: fclean all
 
+fulltest:
+	$(PREFIX)cd libft && make fulltest
+
 PHONY: all pre clean fclean re
 ########################################
 

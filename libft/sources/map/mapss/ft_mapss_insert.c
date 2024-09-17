@@ -43,6 +43,7 @@ static int	insert_in_between(t_mapss *map, t_dlist *node, t_mapss_entry *node_en
 	{
 		if (ft_strcmp(node_entry->key, cur_entry->key) == 0)
 		{
+			//printf("Case 4.1\n");
 			free(cur_entry->value); // Assuming value was dynamically allocated
 			cur_entry->value = node_entry->value;
 			free(node_entry->key); // Free the old key if necessary
@@ -50,12 +51,22 @@ static int	insert_in_between(t_mapss *map, t_dlist *node, t_mapss_entry *node_en
 			free(node); // Free the new node
 			return (0);
 		}
+		// Case 4.2: Insert before the current node
 		else if (ft_strcmp(node_entry->key, cur_entry->key) < 0)
 		{
-			node->next = cur;
-			node->prev = cur->prev;
-			cur->prev->next = node;
-			cur->prev = node;
+			//printf("Case 4.2\n");
+			node->next = current;
+			node->prev = current->prev;
+			if (current->prev != NULL)
+			{
+				current->prev->next = node;
+			}
+			else
+			{
+				// Inserting at the beginning
+				map->head = node;
+			}
+			current->prev = node;
 			map->size ++;
 			return (0);
 		}

@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 15:56:43 by inikulin          #+#    #+#             */
-/*   Updated: 2024/08/10 12:01:19 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/08/17 12:04:54 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ typedef struct s_testcase
 	char	*texts[20];
 }	t_testcase;
 
-void	ft_lstclear_test(void)
+void	ft_list_clear_test(void)
 {
 	t_list *root = ft_list_new(ft_strdup("one"));
 	root->next = ft_list_new(ft_strdup("two"));

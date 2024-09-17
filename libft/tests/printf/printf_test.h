@@ -1,20 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mapss.h                                            :+:      :+:    :+:   */
+/*   printf_test.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/13 21:34:36 by inikulin          #+#    #+#             */
-/*   Updated: 2024/08/14 21:40:41 by inikulin         ###   ########.fr       */
+/*   Created: 2024/08/17 20:00:19 by inikulin          #+#    #+#             */
+/*   Updated: 2024/08/17 20:04:30 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAPSS_TEST_H
-# define MAPSS_TEST_H
-# include "../../../libft.h"
+#ifndef PRINTF_TEST_H
+# define PRINTF_TEST_H
 
-void	ft_mapss_test(void);
-void	ft_mapss_print_test(void);
-void	ft_mapss_add_test(void);
+int	ft_printf_test(void);
 #endif

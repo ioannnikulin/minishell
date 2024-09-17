@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 19:01:40 by inikulin          #+#    #+#             */
-/*   Updated: 2024/08/13 21:10:38 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/08/17 21:44:46 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static char	*zero(void)
 {
 	char	*res;
 
-	res = malloc(2 * sizeof(char));
+	res = ft_calloc_if(2 * sizeof(char), 1);
 	if (!res)
 		return (0);
 	ft_strlcpy(res, "0", 2);
@@ -35,7 +35,7 @@ static char	*go(long nn, int is_neg, size_t c, char buf[21])
 		buf[-- c] = '0' + nn % 10;
 		nn /= 10;
 	}
-	res = malloc((is_neg + 21 - c) * sizeof(char));
+	res = ft_calloc_if((is_neg + 21 - c) * sizeof(char), 1);
 	if (!res)
 		return (0);
 	res[0] = '-';
