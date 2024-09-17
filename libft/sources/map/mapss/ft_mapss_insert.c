@@ -13,119 +13,117 @@
 #include "../../../libft.h"
 #include <stdlib.h>
 
-/*
-else if (ft_strcmp(node_entry->key, cur_entry->key) < 0)
-		{
-			node->next = cur;
-			node->prev = cur->prev;
-			if (cur->prev != NULL)
-			{
-				cur->prev->next = node;
-			}
-			else
-			{
-				// Inserting at the beginning
-				map->head = node;
-			}
-			cur->prev = node;
-			map->size ++;
-			return (0);
-		}
-*/
+// static int insert_at_the_end(t_mapss *map, t_dlist *node, t_mapss_entry *node_entry, t_mapss_entry *tail_entry)
+// {
+// 	if (ft_strcmp(node_entry->key, tail_entry->key) > 0)
+// 	{
+// 		node->next = NULL;
+// 		node->prev = map->tail;
+// 		map->tail->next = node;
+// 		map->tail = node;
+// 		map->size ++;
+// 		return (0);
+// 	}
+// 	return (1);
+// }
 
-static int	insert_in_between(t_mapss *map, t_dlist *node, t_mapss_entry *node_entry, t_mapss_entry *cur_entry)
+// static	int	insert_at_the_beginning(t_mapss *map, t_dlist *node, 
+// 			t_mapss_entry *node_entry, t_mapss_entry *head_entry)
+// {
+// 	node->next = map->head;
+// 	node->prev = NULL;
+// 	map->head->prev = node;
+// 	map->head = node;
+// 	map->size ++;
+// 	return (0);
+// }
+
+static int	insert_in_between(t_mapss *map, t_dlist *node, t_mapss_entry *node_entry)
 {
-	t_dlist	*cur;
+    t_dlist *cur = map->head;
+    t_mapss_entry *cur_entry;
 
-	cur = map->head;
-	cur_entry = cur->content;
-	while (cur != NULL)
-	{
-		if (ft_strcmp(node_entry->key, cur_entry->key) == 0)
-		{
-			//printf("Case 4.1\n");
-			free(cur_entry->value); // Assuming value was dynamically allocated
-			cur_entry->value = node_entry->value;
-			free(node_entry->key); // Free the old key if necessary
-			free(node->content); // Free the new entry structure
-			free(node); // Free the new node
-			return (0);
-		}
-		// Case 4.2: Insert before the current node
-		else if (ft_strcmp(node_entry->key, cur_entry->key) < 0)
-		{
-			//printf("Case 4.2\n");
-			node->next = current;
-			node->prev = current->prev;
-			if (current->prev != NULL)
-			{
-				current->prev->next = node;
-			}
-			else
-			{
-				// Inserting at the beginning
-				map->head = node;
-			}
-			current->prev = node;
-			map->size ++;
-			return (0);
-		}
-		cur = cur->next;
-		cur_entry = cur->content;
-	}
-	return (1);
+    // Traverse the list from the head
+    while (cur != NULL)
+    {
+        cur_entry = cur->content;
+        // If the keys are the same, update the current node's value
+        if (ft_strcmp(node_entry->key, cur_entry->key) == 0)
+        {
+            free(cur_entry->value);  // Free old value
+            cur_entry->value = node_entry->value;  // Update with new value
+            free(node_entry->key);  // Free the key of the new node
+            free(node->content);  // Free the structure of the new node
+            free(node);  // Free the new node itself
+            return (0);
+        }
+        // If the new node's key is less than the current node's key, insert before the current node
+        if (ft_strcmp(node_entry->key, cur_entry->key) < 0)
+        {
+            node->next = cur;
+            node->prev = cur->prev;
+            if (cur->prev != NULL)
+            {
+                cur->prev->next = node;
+            }
+            else
+            {
+                // Inserting at the beginning, so update the head
+                map->head = node;
+            }
+            cur->prev = node;
+            map->size++;
+            return (0);
+        }
+        // Move to the next node
+        cur = cur->next;
+    }
+    // If we reach the end of the list, insert the new node at the tail
+    node->next = NULL;
+    node->prev = map->tail;
+    map->tail->next = node;
+    map->tail = node;
+    map->size++;
+    return (0);
 }
 
-static int insert_at_the_end(t_mapss *map, t_dlist *node, t_mapss_entry *node_entry, t_mapss_entry *tail_entry)
+static int insert_new_head(t_mapss *map, t_dlist *node)
 {
-	if (ft_strcmp(node_entry->key, tail_entry->key) > 0)
-	{
-		node->next = NULL;
-		node->prev = map->tail;
-		map->tail->next = node;
-		map->tail = node;
-		map->size ++;
-		return (0);
-	}
-	return (1);
-}
-
-static	int insert_at_the_beginning(t_mapss *map, t_dlist *node, 
-			t_mapss_entry *node_entry, t_mapss_entry *head_entry)
-{
-	if (map->head == NULL)
-	{
-		map->head = node;
-		map->tail = node;
-		node->next = NULL;
-		node->prev = NULL;
-		map->size ++;
-		return (0);
-	}
-	if (ft_strcmp(node_entry->key, head_entry->key) < 0)
-	{
-		node->next = map->head;
-		node->prev = NULL;
-		map->head->prev = node;
-		map->head = node;
-		map->size ++;
-		return (0);
-	}
-	return (1);
+    // If the list is empty, make the new node both head and tail
+    if (map->head == NULL)
+    {
+        map->head = node;
+        map->tail = node;
+        node->next = NULL;
+        node->prev = NULL;
+        map->size++;
+        return (0);
+    }
+    return (1);  // If the list isn't empty, return an error code
 }
 
 int	ft_mapss_insert(t_mapss *map, t_dlist *node)
 {
-	t_mapss_entry	*cur_entry;
-	t_mapss_entry	*node_entry;
+    t_mapss_entry *node_entry = node->content;
 
-	node_entry = node->content;
-	cur_entry = map->head->content;
-	if (!insert_at_the_beginning(map, node, node_entry, cur_entry))
-		return (1);
-	cur_entry = map->tail->content;
-	if (!insert_at_the_end(map, node, node_entry, cur_entry))
-		return (1);
-	insert_in_between(map, node, node_entry, cur_entry);
-	return (0);
+    // If the list is empty, insert the new node as the head
+    if (insert_new_head(map, node) == 0)
+    {
+        return 0;
+    }
+    // If the list isn't empty, try to insert the node in the correct position
+    return insert_in_between(map, node, node_entry);
 }
+	
+	// Check if the list is empty and insert at the beginning
+    // if (map->head == NULL)
+    //     return insert_new_head(map, node, node_entry, NULL);
+	// cur_entry = map->head->content;
+	// if (insert_at_the_beginning(map, node, node_entry, cur_entry) == 0)
+	// 	return (0);
+	// cur_entry = map->tail->content;
+	// if (insert_at_the_end(map, node, node_entry, cur_entry) == 0)
+	// 	return (0);
+	// if (insert_in_between(map, node, node_entry, cur_entry) == 0)
+	// 	return (0);
+	// return (1);

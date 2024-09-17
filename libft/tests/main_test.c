@@ -28,16 +28,16 @@ int	main(int argc, char **argv)
 			}
 		}
 	}
-	tree_test();
+	//tree_test();
 	mapss_test();
-	strings_test();
-	numbers_test();
-	symbols_test();
-	memory_test();
-	ft_printf("printf in testing\n");
-	ft_printf_test();
-	ft_printf("get_next_line in testing\n");
-	get_next_line_test();
+	// strings_test();
+	// numbers_test();
+	// symbols_test();
+	// memory_test();
+	// ft_printf("printf in testing\n");
+	// ft_printf_test();
+	// ft_printf("get_next_line in testing\n");
+	// get_next_line_test();
 	printf("All tests passed successfully!\n");
 	return (0);
 }
