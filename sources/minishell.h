@@ -22,6 +22,7 @@
 # define FREE_ENVVARS_KEYS 4
 # define FREE_ENVVARS_VALUES 8
 # define STAGE_FULL 15
+# define ERR_ENVVAR_INSERT "Failed to insert environment variable"
 
 typedef struct s_envvar // 4. contens of each double-linked list node
 {
@@ -29,12 +30,12 @@ typedef struct s_envvar // 4. contens of each double-linked list node
 	char	*value;
 }	t_envvar;
 
-typedef struct s_dlist
-{
-	struct s_dlist 	*next;
-	struct s_dlist	*prev;
-	t_envvar 		*content;
-} t_dlist;
+// typedef struct s_dlist
+// {
+// 	struct s_dlist 	*next;
+// 	struct s_dlist	*prev;
+// 	t_envvar 		*content;
+// } t_dlist;
 
 typedef struct s_ssmap
 {
