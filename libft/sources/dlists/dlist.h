@@ -26,6 +26,7 @@ typedef struct s_dlist
 	struct s_dlist	*prev;
 	struct s_dlist	*next;
 }	t_dlist;
+
 t_dlist	*ft_dlist_new(void *content);
 t_dlist	*ft_dlist_generate(char *texts[], int end_to);
 t_dlist	*ft_dlist_generate_int(int nums[], int sz, int end_to);

@@ -15,6 +15,10 @@
 extern int memcheck_enabled;
 void	mapss_test(void)
 {
+	t_dlist *current;
+	t_mapss	*map;
+
+	current = map->head;
 	ft_printf("mapss print in testing\n");
 	ft_mapss_print_test();
 	if (!memcheck_enabled)

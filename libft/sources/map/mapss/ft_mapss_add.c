@@ -61,7 +61,9 @@ int	ft_mapss_add(t_mapss *map, const char *key, const char *value)
 		return (ft_mapss_finalize(map, finalize_mode, error_msg, -1));
 	}
 	if (ft_mapss_insert(map, node))
+	{
 		return (ft_mapss_finalize(map, MAPSS_FULL,
 				"Couldn't insert node\n", 1));
+	}	
 	return (0);
 }
