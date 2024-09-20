@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 16:31:10 by inikulin          #+#    #+#             */
-/*   Updated: 2024/09/14 13:59:06 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/09/20 12:30:39 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,6 @@ int	ft_mapss_add(t_mapss *map, const char *key, const char *value)
 	{
 		return (ft_mapss_finalize(map, MAPSS_FULL,
 				"Couldn't insert node\n", 1));
-	}	
+	}
 	return (0);
 }

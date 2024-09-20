@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 21:34:36 by inikulin          #+#    #+#             */
-/*   Updated: 2024/08/22 13:41:14 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/09/20 12:44:18 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,29 @@ typedef struct s_testcase
 	char	*keys_expected[20];
 	char	*values_expected[20];
 }	t_testcase;
+
+void print_mapss(t_mapss *map)
+{
+	t_dlist			*current = map->head;
+	t_mapss_entry	*entry;
+
+	printf("Printing all map nodes:\n");
+	while (current != NULL)
+	{
+		entry = (t_mapss_entry *)current->content;
+		if (entry != NULL)
+		{
+			printf("Key: %s, Value: %s\n", entry->key, entry->value);
+		}
+		else
+		{
+			printf("Node with no entry\n");
+		}
+
+		current = current->next;
+	}
+	printf("Total nodes: %d\n", map->size);
+}
 
 static void	generate_tests(t_testcase *tests)
 {
@@ -76,4 +99,5 @@ void	ft_mapss_add_test(void)
 		ft_printf("\n");
 		#endif
 	}
+	print_mapss(map);
 }
