@@ -18,7 +18,7 @@ MAPSS_NAMES = ft_mapss_print.c ft_mapss_error_decoder.c ft_mapss_add.c ft_mapss_
 MAPSS_SRCS = $(addprefix $(SOURCES_F)/$(MAPSS_F)/, $(MAPSS_NAMES))
 
 TREE_F = tree
-TREE_NAMES = ft_tree_print.c ft_treenode_free.c ft_treenode_insert.c ft_tree_make.c ft_tree_apply.c ft_tree_print_wrappers.c
+TREE_NAMES = ft_tree_print.c ft_treenode_free.c ft_treenode_insert.c ft_tree_make.c ft_tree_apply.c ft_tree_print_wrappers.c ft_treenode_insert_wrappers.c
 TREE_SRCS = $(addprefix $(SOURCES_F)/$(TREE_F)/, $(TREE_NAMES))
 
 MEM_F = memory

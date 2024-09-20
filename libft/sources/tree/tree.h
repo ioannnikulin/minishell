@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 18:40:45 by inikulin          #+#    #+#             */
-/*   Updated: 2024/09/14 22:36:36 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/09/21 00:30:28 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,10 @@ int			ft_treenode_insert_child_before_first(t_treenode *parent,
 				t_treenode *child, int (*cmp)(void *, void *));
 int			ft_treenode_insert_child_idx(t_treenode *parent,
 				t_treenode *child, int before_idx);
+int			ft_treenode_insert_child_idx_s_free(t_treenode *parent, char *s,
+		int before_idx);
+int			ft_treenode_insert_child_idx_s_nop(t_treenode *parent, char *s,
+		int before_idx);
+int			ft_treenode_insert_child_idx_s_dup(t_treenode *parent, char *s,
+		int before_idx);
 #endif

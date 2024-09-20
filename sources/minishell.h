@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 15:22:58 by inikulin          #+#    #+#             */
-/*   Updated: 2024/09/15 12:13:22 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/09/21 00:39:36 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include "libft.h"
+# include "resources.h"
 
 # define FREE_ENVVARS_DLISTS 1
 # define FREE_ENVVARS_ENTRIES 2
@@ -28,13 +29,6 @@ typedef struct s_envvar // 4. contens of each double-linked list node
 	char	*key;
 	char	*value;
 }	t_envvar;
-
-typedef struct s_dlist
-{
-	struct s_dlist 	*next;
-	struct s_dlist	*prev;
-	t_envvar 		*content;
-} t_dlist;
 
 typedef struct s_ssmap
 {
@@ -52,7 +46,7 @@ typedef struct s_history_entry
 
 typedef  struct s_history
 {
-	s_history_entry	*last;
+	t_history_entry	*last;
 }	t_history;
 
 typedef struct s_command
@@ -84,6 +78,5 @@ typedef struct s_param // 1. "global" parameter structure
 int	init_param(t_param *param);
 int	finalize(t_param *param, int mode, char *message, int retval);
 int	ft_free(int choice, void **obj, int bytes, int ret);
-int	insert_envvar(t_param *param, char *key, char *value);
 int	input_to_text_tree(t_param *param);
 #endif

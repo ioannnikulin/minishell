@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_param.c                                       :+:      :+:    :+:   */
+/*   tests_common.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/03 18:10:38 by inikulin          #+#    #+#             */
-/*   Updated: 2024/09/21 00:39:52 by inikulin         ###   ########.fr       */
+/*   Created: 2024/09/21 00:04:08 by inikulin          #+#    #+#             */
+/*   Updated: 2024/09/21 00:38:25 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#ifndef TESTS_COMMON_H
+# define TESTS_COMMON_H
+# include "../sources/minishell.h"
+# include <assert.h>
 
-int	init_param(t_param *param)
-{
-	(void)param;
-	return (0);
-}
+int	input_to_text_tree_test(void);
+#endif

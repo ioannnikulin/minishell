@@ -1,27 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   input_to_text_tree.c                               :+:      :+:    :+:   */
+/*   mock_2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 23:07:09 by inikulin          #+#    #+#             */
-/*   Updated: 2024/09/21 00:22:24 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/09/21 00:28:33 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-#include "input_to_text_tree_mocks/input_to_text_tree_mock.h"
+#include "input_to_text_tree_mock_internal.h"
 
-int	input_to_text_tree(t_param *param)
+/* returns 1 on success - to allow condition usage outside */
+int	mock_2(char *input, t_treenode *root)
 {
-	t_tree	*tree;
-	char	*s;
-	int		ret;
-
-	s = param->history.last->text;
-	ret = input_to_text_tree_mock(&tree, s);
-	ft_treenode_free_rec(&param->text_tree->root);
-	param->text_tree = tree;
-	return (ret);
+	if (ft_strcmp(input, "\echo \"1   2\"   3") != 0)
+		return (0);
+	ft_treenode_insert_child_idx_s_dup(root, "echo", 0);
+	ft_treenode_insert_child_idx_s_dup(root->child, "1   2", 0);
+	ft_treenode_insert_child_idx_s_dup(root->child, "3", 1);
+	return (1);
 }

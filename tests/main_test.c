@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_param.c                                       :+:      :+:    :+:   */
+/*   main_test.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/03 18:10:38 by inikulin          #+#    #+#             */
-/*   Updated: 2024/09/21 00:39:52 by inikulin         ###   ########.fr       */
+/*   Created: 2024/09/21 00:03:03 by inikulin          #+#    #+#             */
+/*   Updated: 2024/09/21 00:03:52 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "tests_common.h"
 
-int	init_param(t_param *param)
+int	main(void)
 {
-	(void)param;
+	input_to_text_tree_test();
 	return (0);
 }

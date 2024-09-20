@@ -1,27 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   input_to_text_tree.c                               :+:      :+:    :+:   */
+/*   input_to_text_tree_mock_internal.h                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/14 23:07:09 by inikulin          #+#    #+#             */
-/*   Updated: 2024/09/21 00:22:24 by inikulin         ###   ########.fr       */
+/*   Created: 2024/09/21 00:19:45 by inikulin          #+#    #+#             */
+/*   Updated: 2024/09/21 00:25:51 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-#include "input_to_text_tree_mocks/input_to_text_tree_mock.h"
+#ifndef INPUT_TO_TEXT_TREE_MOCK_INTERNAL_H
+# define INPUT_TO_TEXT_TREE_MOCK_INTERNAL_H
+# include "../minishell.h"
 
-int	input_to_text_tree(t_param *param)
-{
-	t_tree	*tree;
-	char	*s;
-	int		ret;
-
-	s = param->history.last->text;
-	ret = input_to_text_tree_mock(&tree, s);
-	ft_treenode_free_rec(&param->text_tree->root);
-	param->text_tree = tree;
-	return (ret);
-}
+int	mock_1(char *input, t_treenode *root);
+int	mock_2(char *input, t_treenode *root);
+int	mock_3(char *input, t_treenode *root);
+int	mock_4(char *input, t_treenode *root);
+int	mock_5(char *input, t_treenode *root);
+int	mock_6(char *input, t_treenode *root);
+#endif
