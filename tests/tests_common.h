@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tests_common.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 00:04:08 by inikulin          #+#    #+#             */
-/*   Updated: 2024/09/21 00:38:25 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/09/21 12:53:47 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,4 +16,5 @@
 # include <assert.h>
 
 int	input_to_text_tree_test(void);
+int	ft_split_buf_test();
 #endif
