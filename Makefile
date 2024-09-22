@@ -21,11 +21,11 @@ OBJS = $(SRC_SRCS:.c=.o)
 ENDPOINT_OBJ = $(ENDPOINT_SRC:.c=.o)
 INCLUDES = -I . -I libft
 
-TEST_NAMES = main_test.c input_to_text_tree_test.c
+TEST_NAMES = main_test.c input_to_text_tree_test.c ft_split_buf_test.c
 TEST_SRCS = $(addprefix $(TEST_F)/, $(TEST_NAMES))
 TEST_OBJS = $(TEST_SRCS:.c=.o)
 
-all: $(NAME)
+all: pre $(NAME)
 
 pre:
 	$(PREFIX)cd libft && make all
@@ -46,10 +46,11 @@ prefclean:
 	$(PREFIX)cd libft && make fclean
 
 clean:
-	$(PREFIX)rm -f $(OBJS)
+	$(PREFIX)rm -f $(OBJS) $(TEST_OBJS)
 
 fclean:
-	$(PREFIX)rm -f $(NAME)
+	$(PREFIX)rm -f $(NAME) $(TEST_OBJS)
+	$(PREFIX)rm -f $(OBJS)
 
 re: fclean all
 

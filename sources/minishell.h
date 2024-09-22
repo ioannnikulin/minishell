@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 15:22:58 by inikulin          #+#    #+#             */
-/*   Updated: 2024/09/21 00:39:36 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/09/22 16:07:51 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include <stdio.h>
 # include <stdlib.h>
-# include "libft.h"
+# include "../libft/libft.h"
 # include "resources.h"
 
 # define FREE_ENVVARS_DLISTS 1
