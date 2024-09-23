@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 20:55:01 by inikulin          #+#    #+#             */
-/*   Updated: 2024/08/17 18:37:38 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/09/22 22:35:17 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ char	*ft_strnstr(const char *big, const char *little, size_t len);
 char	*ft_strdup(const char *s);
 char	*ft_substr(const char *s, unsigned int start, size_t len);
 char	*ft_strjoin(const char *s1, const char *s2);
+char	*ft_strjoin_multi(const char **ss, int sz, const char *delim);
 char	*ft_strtrim(const char *s1, const char *set);
 char	**ft_split_set(const char *s, const char *charset, int *sz);
 char	**ft_split(const char *s, char delim, int *sz);

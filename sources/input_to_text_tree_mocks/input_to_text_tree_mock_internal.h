@@ -6,14 +6,15 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 00:19:45 by inikulin          #+#    #+#             */
-/*   Updated: 2024/09/21 00:25:51 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/09/21 14:24:46 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef INPUT_TO_TEXT_TREE_MOCK_INTERNAL_H
 # define INPUT_TO_TEXT_TREE_MOCK_INTERNAL_H
-# include "../minishell.h"
+# include "input_to_text_tree_mock.h"
 
+int	mock_0(char *input, t_treenode *root);
 int	mock_1(char *input, t_treenode *root);
 int	mock_2(char *input, t_treenode *root);
 int	mock_3(char *input, t_treenode *root);
