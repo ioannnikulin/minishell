@@ -21,7 +21,7 @@ OBJS = $(SRC_SRCS:.c=.o)
 ENDPOINT_OBJ = $(ENDPOINT_SRC:.c=.o)
 INCLUDES = -I . -I libft
 
-TEST_NAMES = main_test.c input_to_text_tree_test.c ft_split_buf_test.c
+TEST_NAMES = main_test.c input_to_text_tree_test.c ft_split_buf_test.c ft_split_buf.c
 TEST_SRCS = $(addprefix $(TEST_F)/, $(TEST_NAMES))
 TEST_OBJS = $(TEST_SRCS:.c=.o)
 
