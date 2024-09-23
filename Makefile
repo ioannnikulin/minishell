@@ -53,7 +53,7 @@ prere:
 	$(PREFIX)cd libft && make re
 
 clean:
-	$(PREFIX)rm -f $(OBJS)
+	$(PREFIX)rm -f $(OBJS) $(VANIA_ENDPOINT_OBJ) $(TANIA_ENDPOINT_OBJ)
 
 fclean: clean
 	$(PREFIX)rm -f $(NAME)
@@ -83,7 +83,20 @@ fulltest:
 PHONY: all pre clean fclean re test fulltest testclean testfclean retest
 ########################################
 
-TANIA_ENDPOINT = sources/create_environ_list.c
+TANIA_ENDPOINT = sources/tanya_main.c
 TANIA_ENDPOINT_OBJ = $(TANIA_ENDPOINT:.c=.o)
 
+$(TANIA_ENDPOINT_OBJ): %.o: %.c
+	$(PREFIX)$(CC) $(COMPILE_FLAGS) $< -o $@ $(INCLUDES)
+
 tania: $(TANIA_ENDPOINT_OBJ) $(OBJS)
+	$(PREFIX)$(CC) $^ -o $(NAME) $(LINK_LIBFT_FLAGS)
+
+VANIA_ENDPOINT = sources/vanya_main.c
+VANIA_ENDPOINT_OBJ = $(VANIA_ENDPOINT:.c=.o)
+
+$(VANIA_ENDPOINT_OBJ): %.o: %.c
+	$(PREFIX)$(CC) $(COMPILE_FLAGS) $< -o $@ $(INCLUDES)
+
+vania: $(VANIA_ENDPOINT_OBJ) $(OBJS)
+	$(PREFIX)$(CC) $^ -o $(NAME) $(LINK_LIBFT_FLAGS)
