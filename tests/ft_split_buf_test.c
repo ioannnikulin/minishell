@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 11:13:18 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/09/23 12:26:10 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/09/23 12:34:17 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static int	test_1(int sz_1, int sz_2)
 static char	**generate_test_1(int *sz)
 {
 	size_t	size = 0;
-	int		count = 0, i =0;
+	int	count = 0, i =0;
 	static char *test_arr[] = {"mkdir", "testf", "&&", "cd", "-L", "|", "testf",
 			"||", "mkdir", "f1"};
 
