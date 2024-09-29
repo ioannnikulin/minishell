@@ -6,13 +6,12 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 15:21:17 by inikulin          #+#    #+#             */
-/*   Updated: 2024/09/23 23:53:06 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/09/29 23:30:00 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/* didn't use printf because can't force to flush */
 static int	interactive(t_param *param)
 {
 	int	ret;
@@ -20,10 +19,9 @@ static int	interactive(t_param *param)
 	printf("Starting interactive mode\n");
 	while (1)
 	{
-		write(1, TXT_INVITATION, ft_strlen(TXT_INVITATION));
-		ret = history_add(param, get_next_line(0));
-		if (ret)
-			break ;
+		free(param->cur_command);
+		param->cur_command = readline(TXT_INVITATION);
+		add_history(param->cur_command);
 		ret = input_to_text_tree(param);
 		if (ret)
 			break ;
@@ -37,7 +35,7 @@ static int	interactive(t_param *param)
 static int	noninteractive(t_param *param, int sz, const char **ss)
 {
 	printf("Starting non-interactive mode\n");
-	history_add(param, ft_strjoin_multi(ss, sz, " "));
+	param->cur_command = ft_strjoin_multi(ss, sz, " ");
 	input_to_text_tree(param);
 	exec_text_tree(param);
 	finalize(param, 0, 0, 0);

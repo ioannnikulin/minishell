@@ -1,7 +1,7 @@
 CC = cc
 NAME = minishell
 COMPILE_FLAGS = -Wall -Wextra -Werror -g -c
-LINK_LIBFT_FLAGS = -lft -Llibft
+LINK_FLAGS = -lft -Llibft -lreadline
 PREFIX =
 MOCK_FLAG =
 
@@ -12,7 +12,7 @@ INPUT_TO_TEXT_TREE_MOCK_NAMES = input_to_text_tree_mock.c mock_0.c mock_1.c mock
 INPUT_TO_TEXT_TREE_MOCK_F = input_to_text_tree_mocks
 INPUT_TO_TEXT_TREE_MOCK_SRCS = $(addprefix $(INPUT_TO_TEXT_TREE_MOCK_F)/, $(INPUT_TO_TEXT_TREE_MOCK_NAMES))
 
-SRC_NAMES = finalize.c init_param.c utils.c wrappers.c input_to_text_tree.c $(INPUT_TO_TEXT_TREE_MOCK_SRCS) history_add.c exec_text_tree.c
+SRC_NAMES = finalize.c init_param.c utils.c wrappers.c input_to_text_tree.c $(INPUT_TO_TEXT_TREE_MOCK_SRCS) exec_text_tree.c
 ENDPOINT_NAME = main.c
 
 SRC_SRCS = $(addprefix $(SOURCE_F)/, $(SRC_NAMES))
@@ -33,7 +33,7 @@ pre:
 	$(PREFIX)cd libft && make all
 
 $(NAME): $(OBJS) $(ENDPOINT_OBJ)
-	$(PREFIX)$(CC) $^ -o $@ $(LINK_LIBFT_FLAGS)
+	$(PREFIX)$(CC) $^ -o $@ $(LINK_FLAGS)
 
 $(OBJS): %.o: %.c
 	$(PREFIX)$(CC) $(COMPILE_FLAGS) $< -o $@ $(INCLUDES) $(MOCK_FLAG)
@@ -62,7 +62,7 @@ fclean: clean
 re: fclean all
 
 test: $(OBJS) $(TEST_OBJS)
-	$(PREFIX)$(CC) $^ -o $(TEST_FNAME) $(LINK_LIBFT_FLAGS)
+	$(PREFIX)$(CC) $^ -o $(TEST_FNAME) $(LINK_FLAGS)
 
 testclean:
 	$(PREFIX)rm -f $(TEST_OBJS)
@@ -92,7 +92,7 @@ $(TANIA_ENDPOINT_OBJ): %.o: %.c
 	$(PREFIX)$(CC) $(COMPILE_FLAGS) $< -o $@ $(INCLUDES)
 
 tania: $(TANIA_ENDPOINT_OBJ) $(OBJS)
-	$(PREFIX)$(CC) $^ -o $(NAME) $(LINK_LIBFT_FLAGS)
+	$(PREFIX)$(CC) $^ -o $(NAME) $(LINK_FLAGS)
 
 ########################################
 

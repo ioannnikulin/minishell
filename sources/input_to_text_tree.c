@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 23:07:09 by inikulin          #+#    #+#             */
-/*   Updated: 2024/09/29 22:36:42 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/09/29 23:28:43 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	input_to_text_tree(t_param *param)
 	char	*s;
 	int		ret;
 
-	s = param->history.last->text;
+	s = param->cur_command;
 	ret = input_to_text_tree_mock(&tree, s);
 	ft_tree_free(&param->text_tree);
 	param->text_tree = tree;
