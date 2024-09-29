@@ -6,12 +6,13 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 23:07:09 by inikulin          #+#    #+#             */
-/*   Updated: 2024/09/21 14:34:29 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/09/29 22:36:42 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "input_to_text_tree_mocks/input_to_text_tree_mock.h"
+#ifdef MOCK_TANIA
+# include "input_to_text_tree_mocks/input_to_text_tree_mock.h"
 
 int	input_to_text_tree(t_param *param)
 {
@@ -25,3 +26,12 @@ int	input_to_text_tree(t_param *param)
 	param->text_tree = tree;
 	return (ret);
 }
+
+#else
+
+int	input_to_text_tree(t_param *param)
+{
+	(void)param;
+	return (0);
+}
+#endif

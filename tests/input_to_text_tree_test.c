@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 23:53:00 by inikulin          #+#    #+#             */
-/*   Updated: 2024/09/21 21:30:26 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/09/29 22:42:19 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,10 @@ static int	a_test(t_param *param, char *input, void (*treegen)(t_treenode *), in
 	treegen(exp_node);
 	param->history.last->text = input;
 	assert(input_to_text_tree(param) == 0);
+	#ifdef DEBUG
+	ft_tree_print_s(exp_tree);
+	ft_tree_print_s(param->text_tree);
+	#endif
 	assert(ft_tree_cmp_s(exp_tree, param->text_tree) == 0);
 	ft_tree_free(&exp_tree);
 	return (0);

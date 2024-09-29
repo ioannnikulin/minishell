@@ -3,6 +3,7 @@ NAME = minishell
 COMPILE_FLAGS = -Wall -Wextra -Werror -g -c
 LINK_LIBFT_FLAGS = -lft -Llibft
 PREFIX =
+MOCK_FLAG =
 
 SOURCE_F = sources
 TEST_F = tests
@@ -35,10 +36,10 @@ $(NAME): $(OBJS) $(ENDPOINT_OBJ)
 	$(PREFIX)$(CC) $^ -o $@ $(LINK_LIBFT_FLAGS)
 
 $(OBJS): %.o: %.c
-	$(PREFIX)$(CC) $(COMPILE_FLAGS) $< -o $@ $(INCLUDES)
+	$(PREFIX)$(CC) $(COMPILE_FLAGS) $< -o $@ $(INCLUDES) $(MOCK_FLAG)
 
 $(ENDPOINT_OBJ): %.o: %.c
-	$(PREFIX)$(CC) $(COMPILE_FLAGS) $< -o $@ $(INCLUDES)
+	$(PREFIX)$(CC) $(COMPILE_FLAGS) $< -o $@ $(INCLUDES) $(MOCK_FLAG)
 
 $(TEST_OBJS): %.o: %.c
 	$(PREFIX)$(CC) $(COMPILE_FLAGS) $< -o $@ $(INCLUDES)
@@ -78,9 +79,10 @@ fulltest:
 	$(PREFIX)cd libft && make fulltest
 	$(PREFIX)make fclean testfclean
 	$(PREFIX)cd sources && norminette
-	$(PREFIX)make all test memcheck
+	$(PREFIX)make vania test memcheck
 
 PHONY: all pre clean fclean re test fulltest testclean testfclean retest
+
 ########################################
 
 TANIA_ENDPOINT = sources/tanya_main.c
@@ -92,11 +94,7 @@ $(TANIA_ENDPOINT_OBJ): %.o: %.c
 tania: $(TANIA_ENDPOINT_OBJ) $(OBJS)
 	$(PREFIX)$(CC) $^ -o $(NAME) $(LINK_LIBFT_FLAGS)
 
-VANIA_ENDPOINT = sources/vanya_main.c
-VANIA_ENDPOINT_OBJ = $(VANIA_ENDPOINT:.c=.o)
+########################################
 
-$(VANIA_ENDPOINT_OBJ): %.o: %.c
-	$(PREFIX)$(CC) $(COMPILE_FLAGS) $< -o $@ $(INCLUDES)
-
-vania: $(VANIA_ENDPOINT_OBJ) $(OBJS)
-	$(PREFIX)$(CC) $^ -o $(NAME) $(LINK_LIBFT_FLAGS)
+vania: MOCK_FLAG += -DMOCK_TANIA
+vania: all
