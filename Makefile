@@ -12,7 +12,7 @@ INPUT_TO_TEXT_TREE_MOCK_NAMES = input_to_text_tree_mock.c mock_0.c mock_1.c mock
 INPUT_TO_TEXT_TREE_MOCK_F = input_to_text_tree_mocks
 INPUT_TO_TEXT_TREE_MOCK_SRCS = $(addprefix $(INPUT_TO_TEXT_TREE_MOCK_F)/, $(INPUT_TO_TEXT_TREE_MOCK_NAMES))
 
-SRC_NAMES = finalize.c init_param.c utils.c wrappers.c input_to_text_tree.c $(INPUT_TO_TEXT_TREE_MOCK_SRCS) exec_text_tree.c
+SRC_NAMES = finalize.c init_param.c utils.c wrappers.c input_to_text_tree.c $(INPUT_TO_TEXT_TREE_MOCK_SRCS) exec_text_tree.c option_cd.c option_echo.c option_env.c option_exit.c option_export.c option_pwd.c option_unset.c option_external.c
 ENDPOINT_NAME = main.c
 
 SRC_SRCS = $(addprefix $(SOURCE_F)/, $(SRC_NAMES))
