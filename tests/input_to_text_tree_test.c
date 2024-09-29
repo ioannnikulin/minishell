@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 23:53:00 by inikulin          #+#    #+#             */
-/*   Updated: 2024/09/29 22:42:19 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/09/29 23:33:40 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static int	a_test(t_param *param, char *input, void (*treegen)(t_treenode *), in
 	assert(exp_node);
 	exp_tree->root = exp_node;
 	treegen(exp_node);
-	param->history.last->text = input;
+	param->cur_command = input;
 	assert(input_to_text_tree(param) == 0);
 	#ifdef DEBUG
 	ft_tree_print_s(exp_tree);
@@ -40,7 +40,6 @@ static int	a_test(t_param *param, char *input, void (*treegen)(t_treenode *), in
 int	input_to_text_tree_test(void)
 {
 	t_param	*param = ft_calloc_if(sizeof(t_param), 1);
-	param->history.last = ft_calloc_if(sizeof(t_history_entry), 1);
 	param->text_tree = ft_tree_make();
 	assert(a_test(param, MOCK_0_TEXT, mock_0_tree, 0) == 0);
 	assert(a_test(param, MOCK_1_TEXT, mock_1_tree, 1) == 0);
@@ -50,7 +49,6 @@ int	input_to_text_tree_test(void)
 	assert(a_test(param, MOCK_5_TEXT, mock_5_tree, 5) == 0);
 	assert(a_test(param, MOCK_6_TEXT, mock_6_tree, 6) == 0);
 	ft_tree_free(&param->text_tree);
-	free(param->history.last);
 	free(param);
 	return (0);
 }
