@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 19:01:40 by inikulin          #+#    #+#             */
-/*   Updated: 2024/08/17 21:42:54 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/09/23 23:47:09 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,45 @@ char	*ft_strjoin(const char *s1, const char *s2)
 	ft_strlcpy(res, s1, l + 1);
 	ft_strlcpy(&res[l], s2, r + 1);
 	res[l + r] = 0;
+	return (res);
+}
+
+static char	*alloc(const char **ss, int sz, const char *delim, int *delim_len)
+{
+	int		i;
+	char	*res;
+	int		len;
+
+	*delim_len = ft_strlen(delim);
+	i = -1;
+	while (++i < sz)
+		len += ft_strlen(ss[i]);
+	len += *delim_len * (sz - 1) + 1;
+	res = ft_calloc_if(len * sizeof(char), 1);
+	return (res);
+}
+
+char	*ft_strjoin_multi(const char **ss, int sz, const char *delim)
+{
+	char	*res;
+	int		delim_len;
+	int		i;
+	int		cur_len;
+	int		app_len;
+
+	res = alloc(ss, sz, delim, &delim_len);
+	if (!res)
+		return (0);
+	i = -1;
+	cur_len = 0;
+	while (++i < sz)
+	{
+		app_len = ft_strlen(ss[i]);
+		ft_strlcpy(&res[cur_len], ss[i], app_len + 1);
+		cur_len += app_len;
+		if (i != sz - 1)
+			ft_strlcpy(&res[cur_len], delim, delim_len + 1);
+		cur_len += delim_len;
+	}
 	return (res);
 }

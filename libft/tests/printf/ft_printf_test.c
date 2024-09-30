@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 14:00:01 by inikulin          #+#    #+#             */
-/*   Updated: 2024/09/08 17:12:16 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/09/23 23:30:30 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -397,11 +397,8 @@ int	a35(void)
 {
 	char			d;
 	unsigned int	u;
-	int				pf;
-	int				fp;
 	int				num;
 	char			*s = "@@@";
-	char			*s2 = NULL;
 
 	g_c = 'a';
 	d = 'b';
@@ -413,11 +410,8 @@ int	b35(void)
 {
 	char			d;
 	unsigned int	u;
-	int				pf;
-	int				fp;
 	int				num;
 	char			*s = "@@@";
-	char			*s2 = NULL;
 
 	g_c = 'a';
 	d = 'b';

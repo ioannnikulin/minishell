@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 18:43:58 by inikulin          #+#    #+#             */
-/*   Updated: 2024/09/14 22:51:21 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/09/21 13:21:28 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	ft_treenode_insert_child_idx(t_treenode *parent, t_treenode *child,
 	after = parent->child;
 	if (!after || before_idx <= 0)
 	{
-		if (before_idx <= 0)
+		if (after && before_idx <= 0)
 		{
 			child->sibling_next = parent->child;
 			parent->child->sibling_prev = child;

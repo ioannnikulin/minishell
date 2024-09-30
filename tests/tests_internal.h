@@ -1,20 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   resources.h                                        :+:      :+:    :+:   */
+/*   tests_common.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/04 14:26:40 by inikulin          #+#    #+#             */
-/*   Updated: 2024/09/21 21:57:15 by inikulin         ###   ########.fr       */
+/*   Created: 2024/09/21 00:04:08 by inikulin          #+#    #+#             */
+/*   Updated: 2024/09/21 00:38:25 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RESOURCES_H
-# define RESOURCES_H
+#ifndef TESTS_COMMON_H
+# define TESTS_COMMON_H
+# include "../sources/minishell.h"
+# include <assert.h>
 
-# define ERR_ENVVAR_INSERT "Error initializing environment variables\n"
-# define ERR_COMMAND_NOT_FOUND "command not found"
-
-# define TXT_INVITATION "> "
+int	input_to_text_tree_test(void);
 #endif

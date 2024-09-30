@@ -1,20 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   resources.h                                        :+:      :+:    :+:   */
+/*   main_test.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/04 14:26:40 by inikulin          #+#    #+#             */
-/*   Updated: 2024/09/21 21:57:15 by inikulin         ###   ########.fr       */
+/*   Created: 2024/09/21 00:03:03 by inikulin          #+#    #+#             */
+/*   Updated: 2024/09/23 13:43:18 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RESOURCES_H
-# define RESOURCES_H
+#include "tests_internal.h"
 
-# define ERR_ENVVAR_INSERT "Error initializing environment variables\n"
-# define ERR_COMMAND_NOT_FOUND "command not found"
-
-# define TXT_INVITATION "> "
-#endif
+int	main(void)
+{
+	printf("input_to_text_tree in testing\n");
+	input_to_text_tree_test();
+	printf("testing complete\n");
+	return (0);
+}

@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 21:34:36 by inikulin          #+#    #+#             */
-/*   Updated: 2024/08/22 13:41:14 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/09/23 23:28:58 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,6 @@ void	ft_mapss_add_test(void)
 		#ifdef DEBUG
 		ft_printf("%i\n", i);
 		#endif
-		if (i == 8)
-		{
-			int abc = 0;
-		}
 		ft_mapss_add(map, tests[i].key, tests[i].value);
 		assert(map->size == tests[i].size_expected);
 		t_dlist *node = map->head;
