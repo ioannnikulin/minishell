@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/09/30 17:24:41 by taretiuk         ###   ########.fr       */
+/*   Created: 2023/11/13 19:01:40 by inikulin          #+#    #+#             */
+/*   Updated: 2024/09/30 17:27:26 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ static char	*alloc(const char **ss, int sz, const char *delim, int *delim_len)
 	char	*res;
 	int		len;
 
-	len = 0;
 	len = 0;
 	*delim_len = ft_strlen(delim);
 	i = -1;
