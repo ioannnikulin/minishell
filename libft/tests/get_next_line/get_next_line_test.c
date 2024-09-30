@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 16:41:46 by inikulin          #+#    #+#             */
-/*   Updated: 2024/09/10 21:57:35 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/09/23 23:31:16 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,7 @@ void	test_multiple(void)
 	for (int i = 0; i < 10; i ++)
 	{
 		r = get_next_line(fs[from[i]]);
-		assert(!r && !exp[i] || r && exp[i] && strcmp(r, exp[i]) == 0);
+		assert((!r && !exp[i]) || (r && exp[i] && strcmp(r, exp[i]) == 0));
 	  #ifdef DEBUG
 		if (!r)
 			printf("%d NULL\n", i);
@@ -205,7 +205,7 @@ void	test_error(void)
 			remove("5.tmp");
 		}
 		r = get_next_line(fs);
-		assert(!r && !exp[i] || r && exp[i] && strcmp(r, exp[i]) == 0);
+		assert((!r && !exp[i]) || (r && exp[i] && strcmp(r, exp[i]) == 0));
 		#ifdef DEBUG
 		if (!r)
 			printf("%d NULL\n", i);

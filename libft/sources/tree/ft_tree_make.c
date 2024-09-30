@@ -6,12 +6,11 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 18:43:58 by inikulin          #+#    #+#             */
-/*   Updated: 2024/09/14 22:37:48 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/09/21 13:52:15 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tree.h"
-#include "../../libft.h"
 
 t_tree	*ft_tree_make(void)
 {

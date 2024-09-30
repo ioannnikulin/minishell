@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 20:59:34 by inikulin          #+#    #+#             */
-/*   Updated: 2024/09/14 22:25:47 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/09/21 13:51:52 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int		ft_assign(int *where, int what, int retval);
 
 int		ft_cmp_pvoid_pi(void *a, void *b);
 int		ft_less_eq_pvoid_pi(void *a, void *b);
+int		ft_cmp_pvoid_s(void *a, void *b);
 
 void	*ft_new_pi_pvoid(int i);
 int		*ft_new_pi(int i);

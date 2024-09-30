@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 15:56:31 by inikulin          #+#    #+#             */
-/*   Updated: 2024/09/10 21:56:44 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/09/23 23:29:37 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ typedef struct s_testcase
 #define START 0
 #define SZ 32
 
-static char *ext_strdup(char *orig, int sz)
+/*static char *ext_strdup(char *orig, int sz)
 {
 	int mem = strlen(orig);
 	if (mem < sz)
@@ -37,7 +37,7 @@ static char *ext_strdup(char *orig, int sz)
 	while (++i < sz)
 		res[i] = 0;
 	return (res);
-}
+}*/
 
 void	ft_memcmp_test(void)
 {

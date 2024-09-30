@@ -1,30 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mock_1.c                                           :+:      :+:    :+:   */
+/*   mock_0.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 23:07:09 by inikulin          #+#    #+#             */
-/*   Updated: 2024/09/21 21:08:52 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/09/21 14:19:19 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "input_to_text_tree_mock_internal.h"
 
-void	mock_1_tree(t_treenode *root)
+void	mock_0_tree(t_treenode *root)
 {
 	ft_treenode_insert_child_idx_s_dup(root, "echo", 0);
-	ft_treenode_insert_child_idx_s_dup(root->child, "hello\\n", 0);
-	ft_treenode_insert_child_idx_s_dup(root->child, "myn", 1);
-	ft_treenode_insert_child_idx_s_dup(root->child, "openworld", 2);
+	ft_treenode_insert_child_idx_s_dup(root->child, "hello", 0);
+	ft_treenode_insert_child_idx_s_dup(root->child, "world", 1);
 }
 
 /* returns 1 on success - to allow condition usage outside */
-int	mock_1(char *input, t_treenode *root)
+int	mock_0(char *input, t_treenode *root)
 {
-	if (ft_strcmp(input, MOCK_1_TEXT) != 0)
+	if (ft_strcmp(input, MOCK_0_TEXT) != 0)
 		return (0);
-	mock_1_tree(root);
+	mock_0_tree(root);
 	return (1);
 }

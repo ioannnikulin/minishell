@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 18:40:45 by inikulin          #+#    #+#             */
-/*   Updated: 2024/09/21 00:30:28 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/09/21 14:03:16 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ typedef struct s_tree_traversal_mode
 t_tree		*ft_tree_make(void);
 t_treenode	*ft_treenode_make(void *c, t_treenode *p, int d,
 				void (*freecontent)(void **));
+int			ft_tree_free(t_tree **t);
 int			ft_treenode_free(t_treenode **n);
 int			ft_treenode_free_rec(t_treenode **n);
 
@@ -53,6 +54,7 @@ int			ft_tree_print_c(t_tree *tree);
 
 int			ft_tree_apply(t_tree *tgt, int (*check)(t_treenode*),
 				int (*apply)(t_treenode*), t_tree_traversal_mode mode);
+
 int			ft_treenode_insert_child_before_first(t_treenode *parent,
 				t_treenode *child, int (*cmp)(void *, void *));
 int			ft_treenode_insert_child_idx(t_treenode *parent,
@@ -63,4 +65,7 @@ int			ft_treenode_insert_child_idx_s_nop(t_treenode *parent, char *s,
 		int before_idx);
 int			ft_treenode_insert_child_idx_s_dup(t_treenode *parent, char *s,
 		int before_idx);
+
+int			ft_tree_cmp(t_tree *a, t_tree *b, int (*cmp)(void *, void *));
+int			ft_tree_cmp_s(t_tree *a, t_tree *b);
 #endif

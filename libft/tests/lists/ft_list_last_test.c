@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 15:56:43 by inikulin          #+#    #+#             */
-/*   Updated: 2024/08/17 18:22:36 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/09/23 23:28:39 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,15 +60,17 @@ void	ft_list_last_test(void)
 		t_list *root = n;
 		t_list *prev = NULL;
 		t_list *ans = ft_list_last(root);
+#ifdef DEBUG
 		t_list *loop_start = NULL;
+#endif
 		for (int j = 0; t[i].texts[j] != NULL; j ++)
 		{
 #ifdef DEBUG
 			printf("%p [%s] -> ", n, (char*)n->content);
 			fflush(stdout);
-#endif
 			if (t[i].end_to == j)
 				loop_start = n;
+#endif
 			prev = n;
 			n = n->next;
 		}

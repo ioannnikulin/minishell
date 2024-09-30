@@ -6,15 +6,16 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 00:03:03 by inikulin          #+#    #+#             */
-/*   Updated: 2024/09/23 16:12:39 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/09/30 12:27:09 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tests_common.h"
+#include "tests_internal.h"
 
 int	main(void)
 {
-	//input_to_text_tree_test();
-	ft_split_buf_test();
+	printf("input_to_text_tree in testing\n");
+	input_to_text_tree_test();
+	printf("testing complete\n");
 	return (0);
 }
