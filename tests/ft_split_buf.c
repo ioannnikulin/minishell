@@ -6,17 +6,11 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 14:08:20 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/09/23 18:57:33 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/09/30 10:53:43 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tests_common.h"
-
-/**/
-/*allocate memory for words number + delimeters*/
-/*count the words and delimeters*/
-/*define the delimeteres*/
-// Function prototypes
 
 int find_operator(const char *str, operator_array *op_array, size_t *op_len)
 {
@@ -24,11 +18,10 @@ int find_operator(const char *str, operator_array *op_array, size_t *op_len)
 	{
 		size_t	len = strlen(op_array->operators[i].operator);
 		// Compare the operator with the current substring
-		if (strncmp(str, op_array->operators[i].operator, len) == 0)
+		if (ft_strncmp(str, op_array->operators[i].operator, len) == 0)
 		{
 			*op_len = len;  // Length of the matched operator
-			//printf("Current operator: %s, id: %zi len is %d\n", op_array->operators[i].operator, i, (int)len);
-			return (1);       // Operator found
+			return (1); // Operator found
 		}
 	}
 	*op_len = 0;
@@ -46,7 +39,7 @@ static void	extract_word(char **res, const char **str, operator_array *op_array)
 		*res = (char *) ft_calloc_if((op_len + 1) * sizeof(char), 1);
 		if (*res == 0)
 			return;
-		strncpy(*res, *str, op_len);
+		ft_strncpy(*res, *str, op_len);
 		(*res)[op_len] = '\0';  // Null-terminate the operator string
 		*str += op_len;         // Move the string pointer forward by operator length
 	}

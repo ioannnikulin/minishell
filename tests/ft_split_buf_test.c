@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 11:13:18 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/09/23 19:05:34 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/09/30 10:49:49 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,10 @@ operator_array create_operator_array()
 	op_array.operators[1].operator = ">";
 	op_array.operators[2].operator = "<<";
 	op_array.operators[3].operator = "<";
-	op_array.operators[5].operator = "|";
 	op_array.operators[4].operator = "||";
-	op_array.operators[7].operator = "&";
+	op_array.operators[5].operator = "|";
 	op_array.operators[6].operator = "&&";
+	op_array.operators[7].operator = "&";
 	op_array.operators[8].operator = "(";
 	op_array.operators[9].operator = ")";
 
@@ -114,7 +114,7 @@ void	ft_split_buf_test(void)
 		free(str_arr.strings[i].string);
 	}
 	free(str_arr.strings);  // Free the string array itself
-	free(op_ar.operators);   // Free the operator array
+	free(op_ar.operators);  // Free the operator array
 	// assert(test_1(input, sz_1) == 0);
 	// // Test 2: Check the content of the result
 	// //assert(test_2(result, expect_arr, sz_2) == 0);
