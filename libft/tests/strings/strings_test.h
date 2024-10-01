@@ -27,6 +27,7 @@ void	ft_substr_test(void);
 void	ft_strjoin_test(void);
 void	ft_strtrim_test(void);
 void	ft_split_test(void);
+void	ft_split_buf_test(void);
 void	ft_strmapi_test(void);
 void	ft_striteri_test(void);
 void	ft_putchar_fd_test(void);

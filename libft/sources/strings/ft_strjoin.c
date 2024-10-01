@@ -6,9 +6,10 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 19:01:40 by inikulin          #+#    #+#             */
-/*   Updated: 2024/09/30 14:40:29 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/09/30 17:27:26 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include <stddef.h>
 #include <stdlib.h>
