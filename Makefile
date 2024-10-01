@@ -27,7 +27,7 @@ TEST_SRCS = $(addprefix $(TEST_F)/, $(TEST_NAMES))
 TEST_OBJS = $(TEST_SRCS:.c=.o)
 TEST_FNAME = $(TEST_F)/test
 
-all: $(NAME)
+all: pre $(NAME)
 
 pre:
 	$(PREFIX)cd libft && make all
@@ -54,10 +54,11 @@ prere:
 	$(PREFIX)cd libft && make re
 
 clean:
-	$(PREFIX)rm -f $(OBJS) $(VANIA_ENDPOINT_OBJ) $(TANIA_ENDPOINT_OBJ)
+	$(PREFIX)rm -f $(OBJS) $(ENDPOINT_OBJ) $(VANIA_ENDPOINT_OBJ) $(TANIA_ENDPOINT_OBJ)
 
 fclean: clean
 	$(PREFIX)rm -f $(NAME)
+	$(PREFIX)rm -f $(ENDPOINT_OBJ)
 
 re: fclean all
 
@@ -69,6 +70,9 @@ testclean:
 
 testfclean: testclean
 	$(PREFIX)rm -f $(TEST_FNAME)
+
+test_libft_fclean:
+	$(PREFIX)cd libft && make testfclean
 
 retest: testfclean test
 
