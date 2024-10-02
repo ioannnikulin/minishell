@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:39:01 by inikulin          #+#    #+#             */
-/*   Updated: 2024/09/30 00:33:01 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/10/02 15:06:42 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,11 @@ int	exec_text_tree(t_param *param)
 	char	*res;
 
 	ft_tree_print_s(param->text_tree);
+	if (!param || !param->text_tree || !param->text_tree->root)
+	{
+		printf("%s\n", ERR_TEXT_TREE_EMPTY);
+		return (1);
+	}
 	res = execute_text_tree_node(param, param->text_tree->root->child);
 	free(res);
 	return (0);

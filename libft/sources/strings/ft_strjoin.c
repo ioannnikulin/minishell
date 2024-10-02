@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 19:01:40 by inikulin          #+#    #+#             */
-/*   Updated: 2024/09/23 23:47:09 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/09/30 11:23:23 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ static char	*alloc(const char **ss, int sz, const char *delim, int *delim_len)
 
 	*delim_len = ft_strlen(delim);
 	i = -1;
+	len = 0;
 	while (++i < sz)
 		len += ft_strlen(ss[i]);
 	len += *delim_len * (sz - 1) + 1;
