@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   option_cd.c                                        :+:      :+:    :+:   */
+/*   option_external.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/30 00:08:15 by inikulin          #+#    #+#             */
-/*   Updated: 2024/09/30 00:30:39 by inikulin         ###   ########.fr       */
+/*   Created: 2024/09/30 00:10:22 by inikulin          #+#    #+#             */
+/*   Updated: 2024/10/02 22:56:42 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "commands.h"
 
-int	option_cd(int choice, t_treenode *node, t_param *param, char **out)
+int	option_external(int choice, t_treenode *node, t_param *param, char **out)
 {
 	if (!choice)
 		return (0);
 	(void)node;
 	(void)param;
-	*out = ft_strdup("cd");
+	*out = ft_strdup("external");
 	return (1);
 }

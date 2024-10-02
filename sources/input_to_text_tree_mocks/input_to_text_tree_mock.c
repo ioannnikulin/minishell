@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 23:07:09 by inikulin          #+#    #+#             */
-/*   Updated: 2024/09/21 21:54:47 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/10/02 21:05:00 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,9 @@ int	input_to_text_tree_mock(t_tree **tree, char *input)
 		|| mock_3(input, (*tree)->root)
 		|| mock_4(input, (*tree)->root)
 		|| mock_5(input, (*tree)->root)
-		|| mock_6(input, (*tree)->root))
+		|| mock_6(input, (*tree)->root)
+		|| mock_7(input, (*tree)->root)
+	)
 		return (0);
 	printf("%s: %s\n", input, ERR_COMMAND_NOT_FOUND);
 	return (3);

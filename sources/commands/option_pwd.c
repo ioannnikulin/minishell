@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   option_env.c                                       :+:      :+:    :+:   */
+/*   option_pwd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/30 00:08:59 by inikulin          #+#    #+#             */
-/*   Updated: 2024/09/30 00:30:02 by inikulin         ###   ########.fr       */
+/*   Created: 2024/09/30 00:09:44 by inikulin          #+#    #+#             */
+/*   Updated: 2024/10/02 22:56:52 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "commands.h"
 
-int	option_env(int choice, t_treenode *node, t_param *param, char **out)
+int	option_pwd(int choice, t_treenode *node, t_param *param, char **out)
 {
 	if (!choice)
 		return (0);
 	(void)node;
 	(void)param;
-	*out = ft_strdup("env");
+	*out = ft_strdup("pwd");
 	return (1);
 }
