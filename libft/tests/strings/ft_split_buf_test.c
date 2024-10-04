@@ -6,37 +6,38 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 11:13:18 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/10/02 19:39:34 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/10/04 16:25:55 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../../sources/strings/strings_internal.h"
 #include "tests.h"
 
 #define NUM_TEST_CASES 8
 #define MAX_ARGS 10
 
-t_operator_array create_operator_array()
+t_delims create_operator_array()
 {
-	t_operator_array op_array;
-	op_array.count = 10;
-	op_array.ops = (t_operator *)malloc(op_array.count * sizeof(t_operator));
+	t_delims delim_array;
+	delim_array.count = 10;
+	delim_array.delims = (t_delim *)malloc(sizeof(t_delims) * delim_array.count);
 
-	op_array.ops[0].op = ">>";
-	op_array.ops[1].op = ">";
-	op_array.ops[2].op = "<<";
-	op_array.ops[3].op = "<";
-	op_array.ops[4].op = "||";
-	op_array.ops[9].op = "|";
-	op_array.ops[6].op = "&&";
-	op_array.ops[7].op = "&";
-	op_array.ops[8].op = "(";
-	op_array.ops[5].op = ")";
-	return (op_array);
+	delim_array.delims[0].delim = ">>";
+	delim_array.delims[1].delim = ">";
+	delim_array.delims[2].delim = "<<";
+	delim_array.delims[3].delim = "<";
+	delim_array.delims[4].delim = "||";
+	delim_array.delims[9].delim = "|";
+	delim_array.delims[6].delim = "&&";
+	delim_array.delims[7].delim = "&";
+	delim_array.delims[8].delim = "(";
+	delim_array.delims[5].delim = ")";
+	return (delim_array);
 }
 
-t_string_array	create_string_array()
+t_strings	create_string_array()
 {
-	t_string_array	str_array;
+	t_strings	str_array;
 	str_array.count = 9;
 	str_array.strs = (t_string *)malloc(str_array.count * sizeof(t_string));
 
@@ -53,8 +54,8 @@ t_string_array	create_string_array()
 
 void	ft_split_buf_test(void)
 {
-	t_operator_array	op_arr = create_operator_array();
-	t_string_array		str_arr = create_string_array();
+	t_delims	op_arr = create_operator_array();
+	t_strings	str_arr = create_string_array();
 
 	 char *t[NUM_TEST_CASES][MAX_ARGS] =
 	 {
@@ -75,7 +76,7 @@ void	ft_split_buf_test(void)
 		{
 			if (split_op[j] == NULL || t[i][j] == NULL)
 			{
-				printf("Error: NULL pointer detected in 2\n");
+				ft_printf("Error: NULL pointer detected in 2\n");
 				continue;
 			}
 			assert((split_op[j] == NULL) == (t[i][j] == NULL));
