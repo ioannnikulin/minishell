@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 00:10:22 by inikulin          #+#    #+#             */
-/*   Updated: 2024/10/02 22:56:42 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/10/06 23:01:13 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ int	option_external(int choice, t_treenode *node, t_param *param, char **out)
 	if (!choice)
 		return (0);
 	(void)node;
-	(void)param;
+	printf("searching for command in folders:\ncurrent\n");
+	ft_dlist_print_s(param->envvar_path_head, "\n");
 	*out = ft_strdup("external");
 	return (1);
 }

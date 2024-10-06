@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 20:59:34 by inikulin          #+#    #+#             */
-/*   Updated: 2024/09/21 13:51:52 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/10/06 22:57:10 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,9 @@ int		ft_cmp_pvoid_s(void *a, void *b);
 void	*ft_new_pi_pvoid(int i);
 int		*ft_new_pi(int i);
 
-void	ft_free_s(void **c);
+void	ft_free_s_null(void **c);
+void	ft_free_s(void *c);
 void	ft_free_nop(void **c);
-void	ft_free_pi(void **p);
+void	ft_free_pi_null(void **p);
+void	ft_free_pi(void *p);
 #endif

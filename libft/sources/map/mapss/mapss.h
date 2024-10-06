@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 20:41:10 by inikulin          #+#    #+#             */
-/*   Updated: 2024/09/14 13:59:27 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/10/06 20:48:50 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,5 @@ int		ft_mapss_add(t_mapss *map, const char *key, const char *value);
 void	ft_mapss_print(t_mapss *map);
 int		ft_mapss_finalize(t_mapss *map, int mode, char *msg, int retval);
 int		ft_mapss_ncmp(t_mapss *a, t_mapss *b, int n);
+char	*ft_mapss_get(t_mapss *map, char *key);
 #endif
