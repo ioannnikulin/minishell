@@ -1,29 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mock_0.c                                           :+:      :+:    :+:   */
+/*   option_cd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/14 23:07:09 by inikulin          #+#    #+#             */
-/*   Updated: 2024/10/02 21:03:39 by inikulin         ###   ########.fr       */
+/*   Created: 2024/09/30 00:08:15 by inikulin          #+#    #+#             */
+/*   Updated: 2024/10/02 22:54:00 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "input_to_text_tree_mock_internal.h"
+#include "commands.h"
 
-void	mock_0_tree(t_treenode *root)
+int	option_cd(int choice, t_treenode *node, t_param *param, char **out)
 {
-	ft_treenode_insert_child_idx_s_dup(root, "echo", 0);
-	ft_treenode_insert_child_idx_s_dup(root->child, "hello", 0);
-	ft_treenode_insert_child_idx_s_dup(root->child, "world", 1);
-}
-
-/* returns 1 on success - to allow condition usage outside */
-int	mock_0(char *input, t_treenode *root)
-{
-	if (ft_strcmp(input, MOCK_0_TEXT) != 0)
+	if (!choice)
 		return (0);
-	mock_0_tree(root);
+	(void)node;
+	(void)param;
+	*out = ft_strdup("cd");
 	return (1);
 }

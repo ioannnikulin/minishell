@@ -40,6 +40,7 @@ static char	*alloc(const char **ss, int sz, const char *delim, int *delim_len)
 	len = 0;
 	*delim_len = ft_strlen(delim);
 	i = -1;
+	len = 0;
 	while (++i < sz)
 		len += ft_strlen(ss[i]);
 	len += *delim_len * (sz - 1) + 1;
