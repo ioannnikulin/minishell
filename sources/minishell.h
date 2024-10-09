@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 15:22:58 by inikulin          #+#    #+#             */
-/*   Updated: 2024/10/06 22:48:58 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/10/10 00:26:46 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,9 @@
 # define FREE_ENVVARS_KEYS 4
 # define FREE_ENVVARS_VALUES 8
 # define STAGE_FULL 15
+# define ULL unsigned long long
+
+# define DBG_EXTERNAL_SEARCH_FOLDERS 1
 
 typedef struct s_param
 {
@@ -35,6 +38,7 @@ typedef struct s_param
 	t_dlist		*envvar_path_head;
 	char		*cur_command;
 	t_tree		*text_tree;
+	ULL			debug_output_level;
 }	t_param;
 
 # define TEXT_TREE_ROOT "ROOT"

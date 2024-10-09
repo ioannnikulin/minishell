@@ -22,7 +22,7 @@ TREE_NAMES = ft_tree_print.c ft_treenode_free.c ft_treenode_insert.c ft_tree_mak
 TREE_SRCS = $(addprefix $(SOURCES_F)/$(TREE_F)/, $(TREE_NAMES))
 
 MEM_F = memory
-MEM_NAMES = ft_bzero.c ft_calloc.c ft_memchr.c ft_memcmp.c ft_memcpy.c ft_memmove.c ft_memset.c ft_swap.c ft_swap_1.c ft_assign.c ft_cmp.c ft_new.c ft_free.c
+MEM_NAMES = ft_bzero.c ft_calloc.c ft_memchr.c ft_memcmp.c ft_memcpy.c ft_memmove.c ft_memset.c ft_swap.c ft_swap_1.c ft_assign.c ft_cmp.c ft_new.c ft_free.c ft_tuples.c
 MEM_SRCS = $(addprefix $(SOURCES_F)/$(MEM_F)/, $(MEM_NAMES))
 
 NUM_F = numbers

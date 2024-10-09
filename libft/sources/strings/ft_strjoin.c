@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 19:01:40 by inikulin          #+#    #+#             */
-/*   Updated: 2024/09/30 14:40:29 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/10/10 01:39:05 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	*ft_strjoin(const char *s1, const char *s2)
 	return (res);
 }
 
-static char	*alloc(const char **ss, int sz, const char *delim, int *delim_len)
+static char	*alloc(char **ss, int sz, const char *delim, int *delim_len)
 {
 	int		i;
 	char	*res;
@@ -48,7 +48,7 @@ static char	*alloc(const char **ss, int sz, const char *delim, int *delim_len)
 	return (res);
 }
 
-char	*ft_strjoin_multi(const char **ss, int sz, const char *delim)
+char	*ft_strjoin_multi(char **ss, int sz, const char *delim)
 {
 	char	*res;
 	int		delim_len;
@@ -70,5 +70,17 @@ char	*ft_strjoin_multi(const char **ss, int sz, const char *delim)
 			ft_strlcpy(&res[cur_len], delim, delim_len + 1);
 		cur_len += delim_len;
 	}
+	return (res);
+}
+
+char	*ft_strjoin_multi_free(char **ss, int sz, const char *delim)
+{
+	char	*res;
+	int		i;
+
+	res = ft_strjoin_multi(ss, sz, delim);
+	i = -1;
+	while (++i < sz)
+		free(ss[i]);
 	return (res);
 }
