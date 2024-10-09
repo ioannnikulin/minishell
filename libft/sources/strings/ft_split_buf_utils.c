@@ -6,11 +6,11 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 15:51:25 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/10/04 16:42:01 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/10/09 11:43:26 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../sources/strings/strings_internal.h"
+#include "strings_internal.h"
 
 int	find_delimiter(const char *s, t_delims *ar, size_t *op_len)
 {

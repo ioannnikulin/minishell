@@ -6,8 +6,6 @@
 # include "strings.h"
 # include "../memory/memory.h"
 
-#define MAX_OP 10
-
 typedef struct s_delim
 {
 	char *delim;

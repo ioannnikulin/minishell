@@ -6,11 +6,11 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 14:08:20 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/10/04 16:42:25 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/10/09 11:43:18 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../sources/strings/strings_internal.h"
+#include "strings_internal.h"
 
 static int	check_edges(char **res, int *cwi)
 {
@@ -32,11 +32,9 @@ static int	check_edges(char **res, int *cwi)
 static void	calc_tokens(const char *pp, int *token_q, t_delims *ar)
 {
 	size_t		op_len;
-	int			last_op;
 	const char	*p;
 
 	*token_q = 0;
-	last_op = 0;
 	p = pp;
 	while (*p)
 	{
@@ -46,7 +44,6 @@ static void	calc_tokens(const char *pp, int *token_q, t_delims *ar)
 		{
 			(*token_q)++;
 			p += op_len;
-			last_op = 1;
 		}
 		else
 		{

@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 11:13:18 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/10/04 16:25:55 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/10/09 11:54:58 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,9 @@ void	ft_split_buf_test(void)
 			}
 			assert((split_op[j] == NULL) == (t[i][j] == NULL));
 			if (split_op[j] == NULL)
+			{
 				break;
+			}
 			assert(strcmp(split_op[j], t[i][j]) == 0);
 		}
 	}

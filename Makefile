@@ -71,7 +71,7 @@ testclean:
 testfclean: testclean
 	$(PREFIX)rm -f $(TEST_FNAME)
 
-test_libft_fclean:
+pretestfclean:
 	$(PREFIX)cd libft && make testfclean
 
 retest: testfclean test

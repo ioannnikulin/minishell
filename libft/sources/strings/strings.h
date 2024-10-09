@@ -6,12 +6,14 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 20:55:01 by inikulin          #+#    #+#             */
-/*   Updated: 2024/10/03 15:07:27 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/10/09 11:46:13 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRINGS_H
 # define STRINGS_H
+
+#include "strings_internal.h"
 
 char	*ft_strchr(const char *s, int c);
 char	*ft_strrchr(const char *s, int c);
@@ -28,7 +30,7 @@ char	*ft_strjoin_multi(const char **ss, int sz, const char *delim);
 char	*ft_strtrim(const char *s1, const char *set);
 char	**ft_split_set(const char *s, const char *charset, int *sz);
 char	**ft_split(const char *s, char delim, int *sz);
-char	**ft_split_buf(const char *str, void *op_array, int *sz);
+char	**ft_split_buf(const char *s, void *delim_arr, int *sz);
 char	*ft_strmapi(const char *s, char (*f)(unsigned int, char));
 void	ft_striteri(char *s, void (*f)(unsigned int, char *));
 int		ft_is_in(const char c, const char *set);
