@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 15:21:17 by inikulin          #+#    #+#             */
-/*   Updated: 2024/09/29 23:30:00 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/10/02 15:11:15 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ static int	noninteractive(t_param *param, int sz, const char **ss)
 	param->cur_command = ft_strjoin_multi(ss, sz, " ");
 	input_to_text_tree(param);
 	exec_text_tree(param);
-	finalize(param, 0, 0, 0);
 	return (0);
 }
 
@@ -54,5 +53,6 @@ int	main(int argc, const char **argv)
 		interactive(param);
 	else
 		noninteractive(param, argc - 1, &argv[1]);
+	finalize(param, 0, 0, 0);
 	return (0);
 }

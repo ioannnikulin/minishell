@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 15:22:58 by inikulin          #+#    #+#             */
-/*   Updated: 2024/09/29 23:26:22 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/10/02 21:19:15 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <readline/history.h>
 # include "../libft/libft.h"
 # include "resources.h"
+# include "commands/commands.h"
 
 # define FREE_ENVVARS_DLISTS 1
 # define FREE_ENVVARS_ENTRIES 2
