@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 19:01:40 by inikulin          #+#    #+#             */
-/*   Updated: 2024/08/17 18:28:22 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/10/10 00:34:58 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,17 +36,17 @@ int	ft_atoi(const char *nptr, int *errno)
 	char	sgn;
 	size_t	cur;
 
-	ft_assign(errno, 0, 0);
+	ft_assign_i(errno, 0, 0);
 	res = 0;
 	cur = 0;
 	sgn = sign(nptr, &cur);
 	if (!sgn)
-		return (ft_assign(errno, 1, 0));
+		return (ft_assign_i(errno, 1, 0));
 	while (nptr[cur] && ft_isdigit(nptr[cur]))
 	{
 		res = res * 10 + nptr[cur ++] - '0';
 		if ((sgn == 1 && res > INT_MAX) || - res < INT_MIN)
-			return (ft_assign(errno, 2, 0));
+			return (ft_assign_i(errno, 2, 0));
 	}
 	return ((int)(sgn * res));
 }

@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 16:31:10 by inikulin          #+#    #+#             */
-/*   Updated: 2024/09/14 13:59:06 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/10/10 00:34:10 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,22 +26,22 @@ static t_dlist	*ft_mapss_node(const char *key, const char *value, int *errno)
 	t_dlist			*node;
 	t_mapss_entry	*entry;
 
-	ft_assign(errno, 0, 0);
+	ft_assign_i(errno, 0, 0);
 	node = ft_calloc_if(sizeof(t_dlist), 1);
 	if (!node)
-		return (null(ft_assign(errno, 1, 0)));
+		return (null(ft_assign_i(errno, 1, 0)));
 	node->next = 0;
 	node->prev = 0;
 	entry = ft_calloc_if(sizeof(t_mapss_entry), 1);
 	if (!entry)
-		return (null(ft_assign(errno, 2, 0)));
+		return (null(ft_assign_i(errno, 2, 0)));
 	node->content = entry;
 	entry->key = ft_strdup(key);
 	if (!entry->key)
-		return (null(ft_assign(errno, 3, 0)));
+		return (null(ft_assign_i(errno, 3, 0)));
 	entry->value = ft_strdup(value);
 	if (!entry->value)
-		return (null(ft_assign(errno, 4, 0)));
+		return (null(ft_assign_i(errno, 4, 0)));
 	return (node);
 }
 

@@ -1,46 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free.c                                          :+:      :+:    :+:   */
+/*   ft_tuples.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/04 18:43:58 by inikulin          #+#    #+#             */
-/*   Updated: 2024/10/06 22:40:21 by inikulin         ###   ########.fr       */
+/*   Created: 2024/10/10 01:13:02 by inikulin          #+#    #+#             */
+/*   Updated: 2024/10/10 01:42:12 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../libft.h"
 
-void	ft_free_s_null(void **c)
+char	**ft_s2(char *s1, char *s2)
 {
-	ft_free_s(*((char **)c));
-	*c = 0;
+	char	**res;
+
+	res = ft_calloc_if(sizeof(char *) * 2, 1);
+	if (!res)
+		return (0);
+	res[0] = s1;
+	res[1] = s2;
+	return (res);
 }
 
-void	ft_free_s(void *c)
+char	**ft_s3(char *s1, char *s2, char *s3)
 {
-	char	*cc;
+	char	**res;
 
-	cc = c;
-	free(cc);
-}
-
-void	ft_free_nop(void **c)
-{
-	(void)c;
-}
-
-void	ft_free_pi_null(void **p)
-{
-	ft_free_pi(*(int **)p);
-	*p = 0;
-}
-
-void	ft_free_pi(void *p)
-{
-	int	*pp;
-
-	pp = p;
-	free(pp);
+	res = ft_calloc_if(sizeof(char *) * 3, 1);
+	if (!res)
+		return (0);
+	res[0] = s1;
+	res[1] = s2;
+	res[2] = s3;
+	return (res);
 }

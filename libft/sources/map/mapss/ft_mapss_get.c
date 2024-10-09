@@ -1,46 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free.c                                          :+:      :+:    :+:   */
+/*   ft_mapss_get.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/04 18:43:58 by inikulin          #+#    #+#             */
-/*   Updated: 2024/10/06 22:40:21 by inikulin         ###   ########.fr       */
+/*   Created: 2024/10/06 20:49:20 by inikulin          #+#    #+#             */
+/*   Updated: 2024/10/06 22:33:42 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../libft.h"
+#include "../../../libft.h"
 
-void	ft_free_s_null(void **c)
+char	*ft_mapss_get(t_mapss *map, char *key)
 {
-	ft_free_s(*((char **)c));
-	*c = 0;
-}
+	t_dlist	*cur;
 
-void	ft_free_s(void *c)
-{
-	char	*cc;
-
-	cc = c;
-	free(cc);
-}
-
-void	ft_free_nop(void **c)
-{
-	(void)c;
-}
-
-void	ft_free_pi_null(void **p)
-{
-	ft_free_pi(*(int **)p);
-	*p = 0;
-}
-
-void	ft_free_pi(void *p)
-{
-	int	*pp;
-
-	pp = p;
-	free(pp);
+	if (!map || !map->head || !key)
+		return (0);
+	cur = map->head;
+	while (ft_strcmp(key, ((t_mapss_entry*)cur)->key) < 0)
+		cur = cur->next;
+	if (ft_strcmp(key, ((t_mapss_entry*)cur)->key) == 0)
+		return (((t_mapss_entry*)cur)->value);
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 16:31:10 by inikulin          #+#    #+#             */
-/*   Updated: 2024/09/14 14:01:01 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/10/10 00:33:10 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void	err_option(int choice, int *whereint,
 	(void)ignore;
 	if (!choice)
 		return ;
-	ft_assign(whereint, whatint, 0);
+	ft_assign_i(whereint, whatint, 0);
 }
 
 char	*ft_mapss_error_decoder(int errno, int *finalize_mode)
