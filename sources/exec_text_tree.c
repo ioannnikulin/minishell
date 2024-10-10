@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:39:01 by inikulin          #+#    #+#             */
-/*   Updated: 2024/10/02 15:06:42 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/10/10 01:57:42 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 
 static char	*execute_text_tree_node(t_param *param, t_treenode *node)
 {
-	char	*out;
-	char	*cmd;
+	char				*out;
+	char				*cmd;
+	t_execution_result	res;
 
 	cmd = node->content;
 	out = 0;
@@ -26,7 +27,7 @@ static char	*execute_text_tree_node(t_param *param, t_treenode *node)
 	option_export(!out && ft_strncmp(cmd, "export", 7) == 0, node, param, &out);
 	option_pwd(!out && ft_strncmp(cmd, "pwd", 4) == 0, node, param, &out);
 	option_unset(!out && ft_strncmp(cmd, "unset", 6) == 0, node, param, &out);
-	option_external(!out, node, param, &out);
+	option_external(!out, node, param, &res);
 	if (!out)
 		printf("%s: %s\n", cmd, ERR_COMMAND_NOT_FOUND);
 	else

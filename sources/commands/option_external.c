@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 00:10:22 by inikulin          #+#    #+#             */
-/*   Updated: 2024/10/10 00:57:32 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/10/10 01:59:29 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,11 @@
 
 static char	*find_executable(char *tgt, t_dlist *path)
 {
-	char		*fullpath;
-	const char	*join_args[2];
+	char	*fullpath;
 
-	join_args[1] = tgt;
 	while (path)
 	{
-		join_args[0] = path->content;
-		fullpath = ft_strjoin_multi(join_args, 2, "/");
+		fullpath = ft_strjoin_multi_free(ft_s2(path->content, tgt), 2, "/");
 		if (access(fullpath, X_OK) == 0)
 			return (fullpath);
 		free(fullpath);
@@ -32,7 +29,7 @@ static char	*find_executable(char *tgt, t_dlist *path)
 
 static int	run_executable(char *fullpath, t_param *param)
 {
-	char *argv[2];
+	char	*argv[2];
 
 	argv[0] = fullpath;
 	argv[1] = 0;
