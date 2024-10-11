@@ -126,11 +126,6 @@ void	ft_split_buf_test(void)
 		char **split_op = ft_split_buf(str_arr.strs[i].str, &op_arr, &sz);
 		for (int j = 0; j < sz; j ++)
 		{
-			if (split_op[j] == NULL || t[i][j] == NULL)
-			{
-				ft_printf("Error: NULL pointer detected in 2\n");
-				continue;
-			}
 			assert((split_op[j] == NULL) == (t[i][j] == NULL));
 			if (split_op[j] == NULL)
 			{

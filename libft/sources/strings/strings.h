@@ -13,8 +13,6 @@
 #ifndef STRINGS_H
 # define STRINGS_H
 
-#include "strings_internal.h"
-
 char	*ft_strchr(const char *s, int c);
 char	*ft_strrchr(const char *s, int c);
 size_t	ft_strlen(const char *s);
