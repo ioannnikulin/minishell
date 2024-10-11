@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 15:22:58 by inikulin          #+#    #+#             */
-/*   Updated: 2024/10/10 01:55:53 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/10/12 01:15:53 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,21 @@
 # include "../minishell.h"
 
 typedef struct s_param	t_param;
-typedef struct s_execution_result
+typedef struct s_control
 {
-	int		retval;
-	char	*output;
-}	t_execution_result;
+	int	choice;
+	int	*retval;
+	int	*found;
+}	t_control;
 
-int		option_cd(int choice, t_treenode *node, t_param *param, char **out);
-int		option_echo(int choice, t_treenode *node, t_param *param, char **out);
-int		option_env(int choice, t_treenode *node, t_param *param, char **out);
-int		option_exit(int choice, t_treenode *node, t_param *param, char **out);
-int		option_export(int choice, t_treenode *node, t_param *param, char **out);
-int		option_pwd(int choice, t_treenode *node, t_param *param, char **out);
-int		option_unset(int choice, t_treenode *node, t_param *param, char **out);
-int		option_external(int choice, t_treenode *node, t_param *param,
-			t_execution_result *res);
+int		option_cd(t_control ctrl, t_treenode *node, t_param *param);
+int		option_echo(t_control ctrl, t_treenode *node, t_param *param);
+int		option_env(t_control ctrl, t_treenode *node, t_param *param);
+int		option_exit(t_control ctrl, t_treenode *node, t_param *param);
+int		option_export(t_control ctrl, t_treenode *node, t_param *param);
+int		option_pwd(t_control ctrl, t_treenode *node, t_param *param);
+int		option_unset(t_control ctrl, t_treenode *node, t_param *param);
+int		option_external(t_control ctrl, t_treenode *node, t_param *param);
 
 char	**get_envvars_for_execve(t_param *param);
 #endif

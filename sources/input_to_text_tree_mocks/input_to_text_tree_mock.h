@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 00:19:45 by inikulin          #+#    #+#             */
-/*   Updated: 2024/10/02 21:00:42 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/10/11 23:22:36 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 # include "../minishell.h"
 
 # define MOCK_0_TEXT "echo hello world"
-# define MOCK_1_TEXT "   echo hello\\n		my\n ope\nworld "
-# define MOCK_2_TEXT "\echo \"1   2\"   3"
+# define MOCK_1_TEXT "   echo hello\\n		my openworld "
+# define MOCK_2_TEXT "echo \"1   2\"   3"
 # define MOCK_3_TEXT "mkdir testf && cd -L testf &&\
 mkdir f1 f2 && touch 1 && touch 11 2 && ls -a -fh -c | grep 1 >> out.txt"
 # define MOCK_4_TEXT "echo 1 || echo 2 && echo 3 && echo 4 || echo 5 && echo 6"

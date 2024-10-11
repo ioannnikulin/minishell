@@ -6,38 +6,58 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:39:01 by inikulin          #+#    #+#             */
-/*   Updated: 2024/10/10 01:57:42 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/10/12 01:23:48 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char	*execute_text_tree_node(t_param *param, t_treenode *node)
+static t_control	control(int choice, int *retval, int *found)
 {
-	char				*out;
-	char				*cmd;
-	t_execution_result	res;
+	t_control	res;
 
-	cmd = node->content;
-	out = 0;
-	option_cd(ft_strncmp(cmd, "cd", 3) == 0, node, param, &out);
-	option_echo(!out && ft_strncmp(cmd, "echo", 5) == 0, node, param, &out);
-	option_env(!out && ft_strncmp(cmd, "env", 4) == 0, node, param, &out);
-	option_exit(!out && ft_strncmp(cmd, "exit", 5) == 0, node, param, &out);
-	option_export(!out && ft_strncmp(cmd, "export", 7) == 0, node, param, &out);
-	option_pwd(!out && ft_strncmp(cmd, "pwd", 4) == 0, node, param, &out);
-	option_unset(!out && ft_strncmp(cmd, "unset", 6) == 0, node, param, &out);
-	option_external(!out, node, param, &res);
-	if (!out)
-		printf("%s: %s\n", cmd, ERR_COMMAND_NOT_FOUND);
-	else
-		printf("%s\n", out);
-	return (out);
+	res.choice = choice;
+	res.retval = retval;
+	res.found = found;
+	return (res);
 }
 
+static int	is(char *a, char *b, int c)
+{
+	return (ft_strncmp(a, b, c) == 0);
+}
+
+static int	execute_text_tree_node(t_param *param, t_treenode *node)
+{
+	int		res;
+	char	*cmd;
+	int		found;
+
+	if (!node || !node->content)
+	{
+		printf("%s\n", ERR_NO_COMMAND_FOUND);
+		return (0);
+	}
+	cmd = node->content;
+	found = 0;
+	res = 0;
+	option_cd(control(is(cmd, "cd", 3), &res, &found), node, param);
+	option_echo(control(is(cmd, "echo", 5), &res, &found), node, param);
+	option_env(control(is(cmd, "env", 4), &res, &found), node, param);
+	option_exit(control(is(cmd, "exit", 5), &res, &found), node, param);
+	option_export(control(is(cmd, "export", 7), &res, &found), node, param);
+	option_pwd(control(is(cmd, "pwd", 4), &res, &found), node, param);
+	option_unset(control(is(cmd, "unset", 6), &res, &found), node, param);
+	option_external(control(!found, &res, &found), node, param);
+	if (!found)
+		printf("%s: %s\n", cmd, ERR_COMMAND_NOT_FOUND);
+	return (res);
+}
+
+/* complex navigation here later */
 int	exec_text_tree(t_param *param)
 {
-	char	*res;
+	int	res;
 
 	ft_tree_print_s(param->text_tree);
 	if (!param || !param->text_tree || !param->text_tree->root)
@@ -46,6 +66,5 @@ int	exec_text_tree(t_param *param)
 		return (1);
 	}
 	res = execute_text_tree_node(param, param->text_tree->root->child);
-	free(res);
-	return (0);
+	return (res);
 }

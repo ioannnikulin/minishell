@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 15:22:58 by inikulin          #+#    #+#             */
-/*   Updated: 2024/10/10 01:55:21 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/10/11 20:43:38 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 # define STAGE_FULL 15
 
 # define DBG_EXTERNAL_SEARCH_FOLDERS 1
+# define DBG_FULL 1
 
 typedef unsigned long long	t_ull;
 

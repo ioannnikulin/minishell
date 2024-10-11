@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 00:10:22 by inikulin          #+#    #+#             */
-/*   Updated: 2024/10/11 19:54:50 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/10/12 01:19:09 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,13 @@ static int	run_executable(char *fullpath, t_param *param)
 
 /* test with empty path, found in first, found in last, not found,
  * found but not allowed, empty command */
-int	option_external(int choice, t_treenode *node, t_param *param,
-					t_execution_result *res)
+int	option_external(t_control control, t_treenode *node, t_param *param)
 {
 	char	*fullpath;
 
-	if (!choice)
+	if (*control.found || !control.choice)
 		return (0);
+	*control.found = 1;
 	if (param->debug_output_level & DBG_EXTERNAL_SEARCH_FOLDERS)
 	{
 		printf("searching for command in folders:\ncurrent\n");
@@ -55,8 +55,7 @@ int	option_external(int choice, t_treenode *node, t_param *param,
 	fullpath = find_executable(node->content, param->envvar_path_head);
 	if (!fullpath)
 		return (0);
-	res->retval = run_executable(fullpath, param);
-	res->output = ft_strdup(fullpath);
+	*control.retval = run_executable(fullpath, param);
 	free(fullpath);
 	return (1);
 }
