@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   strings_test.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inikulin <inikulin@student.42berlin.d      +#+  +:+       +#+        */
+/*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 15:57:31 by inikulin          #+#    #+#             */
-/*   Updated: 2024/08/17 18:53:59 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/10/02 11:49:24 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	ft_substr_test(void);
 void	ft_strjoin_test(void);
 void	ft_strtrim_test(void);
 void	ft_split_test(void);
+void	ft_split_buf_test(void);
 void	ft_strmapi_test(void);
 void	ft_striteri_test(void);
 void	ft_putchar_fd_test(void);
