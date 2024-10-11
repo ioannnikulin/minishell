@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 19:01:40 by inikulin          #+#    #+#             */
-/*   Updated: 2024/10/10 02:03:57 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/10/11 19:49:36 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ char	*ft_strjoin_multi(const char **ss, int sz, const char *delim)
 	return (res);
 }
 
-char	*ft_strjoin_multi_free(char **ss, int sz, const char *delim)
+char	*ft_strjoin_multi_free_outer(char **ss, int sz, const char *delim)
 {
 	char		*res;
 	int			i;
@@ -86,9 +86,19 @@ char	*ft_strjoin_multi_free(char **ss, int sz, const char *delim)
 	while (++i < sz)
 		sss[i] = ss[i];
 	res = ft_strjoin_multi(sss, sz, delim);
-	i = -1;
-	while (++i < sz)
-		free(ss[i]);
 	free(sss);
 	return (res);
 }
+
+char	*ft_strjoin_multi_free_full(char **ss, int sz, const char *delim)
+{
+	char	*res;
+	int		i;
+
+	res = ft_strjoin_multi_free_outer(ss, sz, delim);
+	i = -1;
+	while (++i < sz)
+		free(ss[i]);
+	return (res);
+}
+

@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 23:38:22 by inikulin          #+#    #+#             */
-/*   Updated: 2024/10/10 01:49:17 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/10/11 19:51:26 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static int	collect_map(t_mapss *map, char **res)
 	while (node)
 	{
 		entry = node->content;
-		text = ft_strjoin_multi_free(ft_s2(entry->key, entry->value), 2, "=");
+		text = ft_strjoin_multi_free_outer(ft_s2(entry->key, entry->value), 2, "=");
 		if (!text)
 			return (free_upto(res, i, 1));
 		res[i ++] = text;
@@ -61,7 +61,7 @@ int	collect_path(t_dlist *head, char **where)
 		subs[i ++] = head->content;
 		head = head->next;
 	}
-	*where = ft_strjoin_multi_free(subs, sz, ":");
+	*where = ft_strjoin_multi_free_outer(subs, sz, ":");
 	if (!*where)
 		return (2);
 	return (0);
