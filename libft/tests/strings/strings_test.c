@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   strings_test.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inikulin <inikulin@student.42berlin.d      +#+  +:+       +#+        */
+/*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 15:57:31 by inikulin          #+#    #+#             */
-/*   Updated: 2024/09/08 17:29:26 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/10/11 16:42:27 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,5 +50,7 @@ int	strings_test(void)
 	ft_putendl_fd_test();
 	printf("putnbr_fd in testing\n");
 	ft_putnbr_fd_test();
+	printf("split_buf in testing\n");
+	ft_split_buf_test();
 	return (0);
 }
