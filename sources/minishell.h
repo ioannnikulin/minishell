@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 15:22:58 by inikulin          #+#    #+#             */
-/*   Updated: 2024/10/02 21:19:15 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/10/10 01:55:21 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,19 +28,25 @@
 # define FREE_ENVVARS_VALUES 8
 # define STAGE_FULL 15
 
+# define DBG_EXTERNAL_SEARCH_FOLDERS 1
+
+typedef unsigned long long	t_ull;
+
 typedef struct s_param
 {
 	int			errno;
 	t_mapss		envvars;
+	t_dlist		*envvar_path_head;
 	char		*cur_command;
 	t_tree		*text_tree;
+	t_ull		debug_output_level;
 }	t_param;
 
 # define TEXT_TREE_ROOT "ROOT"
 
-t_param	*init_param(void);
+t_param	*param_init(void);
+int		param_get_envvars(t_param *param);
 int		finalize(t_param *param, int mode, char *message, int retval);
-//int	ft_free(int choice, void **obj, int bytes, int ret);
 int		input_to_text_tree(t_param *param);
 int		exec_text_tree(t_param *param);
 #endif

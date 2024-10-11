@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 15:21:17 by inikulin          #+#    #+#             */
-/*   Updated: 2024/10/02 15:11:15 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/10/06 20:43:59 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	main(int argc, const char **argv)
 	t_param	*param;
 
 	(void)argv;
-	param = init_param();
+	param = param_init();
 	if (!param)
 		return (1);
 	if (argc == 1)
