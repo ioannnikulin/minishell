@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:39:01 by inikulin          #+#    #+#             */
-/*   Updated: 2024/10/12 02:21:03 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/10/12 02:27:29 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int	exec_rec(t_param *param, t_treenode *node)
 	if (!ft_strcmp(node->content, "("))
 		return (exec_rec(param, node->child));
 	t.root = node;
-	if (!(param->debug_output_level & DBG_PRINT_NODE_BEFORE_EXEC))
+	if (param->debug_output_level & DBG_PRINT_NODE_BEFORE_EXEC)
 		ft_tree_print_s(&t);
 	res = execute_text_tree_node(param, node);
 	node = node->sibling_next;
@@ -50,7 +50,7 @@ int	exec_text_tree(t_param *param)
 		printf("%s\n", ERR_TEXT_TREE_EMPTY);
 		return (1);
 	}
-	if (!(param->debug_output_level & DBG_PRINT_TREE_BEFORE_EXEC))
+	if (param->debug_output_level & DBG_PRINT_TREE_BEFORE_EXEC)
 		ft_tree_print_s(param->text_tree);
 	res = exec_rec(param, param->text_tree->root->child);
 	return (res);
