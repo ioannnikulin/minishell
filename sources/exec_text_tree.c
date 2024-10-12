@@ -6,65 +6,47 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:39:01 by inikulin          #+#    #+#             */
-/*   Updated: 2024/10/12 01:23:48 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/10/12 02:07:34 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static t_control	control(int choice, int *retval, int *found)
-{
-	t_control	res;
-
-	res.choice = choice;
-	res.retval = retval;
-	res.found = found;
-	return (res);
-}
-
-static int	is(char *a, char *b, int c)
-{
-	return (ft_strncmp(a, b, c) == 0);
-}
-
-static int	execute_text_tree_node(t_param *param, t_treenode *node)
+static int	exec_rec(t_param *param, t_treenode *node)
 {
 	int		res;
-	char	*cmd;
-	int		found;
+	t_tree	t;
 
-	if (!node || !node->content)
-	{
-		printf("%s\n", ERR_NO_COMMAND_FOUND);
+	if (!node)
 		return (0);
-	}
-	cmd = node->content;
-	found = 0;
-	res = 0;
-	option_cd(control(is(cmd, "cd", 3), &res, &found), node, param);
-	option_echo(control(is(cmd, "echo", 5), &res, &found), node, param);
-	option_env(control(is(cmd, "env", 4), &res, &found), node, param);
-	option_exit(control(is(cmd, "exit", 5), &res, &found), node, param);
-	option_export(control(is(cmd, "export", 7), &res, &found), node, param);
-	option_pwd(control(is(cmd, "pwd", 4), &res, &found), node, param);
-	option_unset(control(is(cmd, "unset", 6), &res, &found), node, param);
-	option_external(control(!found, &res, &found), node, param);
-	if (!found)
-		printf("%s: %s\n", cmd, ERR_COMMAND_NOT_FOUND);
-	return (res);
+	if (!ft_strcmp(node->content, "("))
+		return (exec_rec(param, node->child));
+	t.root = node;
+	if (!(param->debug_output_level & DBG_PRINT_NODE_BEFORE_EXEC))
+		ft_tree_print_s(&t);
+	res = execute_text_tree_node(param, node);
+	node = node->sibling_next;
+	while (!res && node && !ft_strcmp(node->content, "&&") && node->sibling_next)
+		node = node->sibling_next->sibling_next;
+	while (res && node && !ft_strcmp(node->content, "||") && node->sibling_next)
+		node = node->sibling_next->sibling_next;
+	if (!node || !node->sibling_next)
+		return (res);
+	return (exec_rec(param, node->sibling_next));
 }
 
-/* complex navigation here later */
 int	exec_text_tree(t_param *param)
 {
-	int	res;
+	int			res;
 
-	ft_tree_print_s(param->text_tree);
-	if (!param || !param->text_tree || !param->text_tree->root)
+	if (!param || !param->text_tree || !param->text_tree->root
+		|| !param->text_tree->root->child)
 	{
 		printf("%s\n", ERR_TEXT_TREE_EMPTY);
 		return (1);
 	}
-	res = execute_text_tree_node(param, param->text_tree->root->child);
+	if (!(param->debug_output_level & DBG_PRINT_TREE_BEFORE_EXEC))
+		ft_tree_print_s(param->text_tree);
+	res = exec_rec(param, param->text_tree->root->child);
 	return (res);
 }

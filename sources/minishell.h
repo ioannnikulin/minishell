@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 15:22:58 by inikulin          #+#    #+#             */
-/*   Updated: 2024/10/11 20:43:38 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/10/12 01:55:35 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,9 @@
 # define STAGE_FULL 15
 
 # define DBG_EXTERNAL_SEARCH_FOLDERS 1
-# define DBG_FULL 1
+# define DBG_PRINT_TREE_BEFORE_EXEC 2
+# define DBG_PRINT_NODE_BEFORE_EXEC 4
+# define DBG_FULL 7
 
 typedef unsigned long long	t_ull;
 
@@ -50,4 +52,5 @@ int		param_get_envvars(t_param *param);
 int		finalize(t_param *param, int mode, char *message, int retval);
 int		input_to_text_tree(t_param *param);
 int		exec_text_tree(t_param *param);
+int		execute_text_tree_node(t_param *param, t_treenode *node);
 #endif
