@@ -6,11 +6,16 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:39:01 by inikulin          #+#    #+#             */
-/*   Updated: 2024/10/12 02:07:34 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/10/12 02:21:03 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static int	is(char *a, char *b)
+{
+	return (ft_strcmp(a, b));
+}
 
 static int	exec_rec(t_param *param, t_treenode *node)
 {
@@ -26,9 +31,9 @@ static int	exec_rec(t_param *param, t_treenode *node)
 		ft_tree_print_s(&t);
 	res = execute_text_tree_node(param, node);
 	node = node->sibling_next;
-	while (!res && node && !ft_strcmp(node->content, "&&") && node->sibling_next)
+	while (!res && node && !is(node->content, "&&") && node->sibling_next)
 		node = node->sibling_next->sibling_next;
-	while (res && node && !ft_strcmp(node->content, "||") && node->sibling_next)
+	while (res && node && !is(node->content, "||") && node->sibling_next)
 		node = node->sibling_next->sibling_next;
 	if (!node || !node->sibling_next)
 		return (res);
