@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 23:07:09 by inikulin          #+#    #+#             */
-/*   Updated: 2024/09/21 21:41:54 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/10/12 02:14:01 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,7 @@ static t_treenode	*p1(t_treenode *cur, t_treenode *root)
 
 static t_treenode	*p2(t_treenode *cur)
 {
-	ft_treenode_insert_child_idx_s_dup(cur, "(", 0);
-	ft_treenode_insert_child_idx_s_dup(cur->child, "echo", 0);
-	cur = cur->child;
+	ft_treenode_insert_child_idx_s_dup(cur, "echo", 0);
 	ft_treenode_insert_child_idx_s_dup(cur->child, "3", 0);
 	ft_treenode_insert_child_idx_s_dup(cur, "&&", 1);
 	ft_treenode_insert_child_idx_s_dup(cur, "echo", 2);
@@ -45,9 +43,8 @@ static t_treenode	*p2(t_treenode *cur)
 static t_treenode	*p3(t_treenode *cur)
 {
 	cur = cur->sibling_next->sibling_next;
-	ft_treenode_insert_child_idx_s_dup(cur, "(", 0);
-	ft_treenode_insert_child_idx_s_dup(cur->child, "echo", 0);
-	ft_treenode_insert_child_idx_s_dup(cur->child->child, "5", 0);
+	ft_treenode_insert_child_idx_s_dup(cur, "echo", 0);
+	ft_treenode_insert_child_idx_s_dup(cur->child, "5", 0);
 	ft_treenode_insert_child_idx_s_dup(cur, "&&", 1);
 	ft_treenode_insert_child_idx_s_dup(cur, "echo", 2);
 	cur = cur->child->sibling_next->sibling_next;

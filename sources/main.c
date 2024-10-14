@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 15:21:17 by inikulin          #+#    #+#             */
-/*   Updated: 2024/10/06 20:43:59 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/10/12 02:30:42 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ static int	interactive(t_param *param)
 {
 	int	ret;
 
-	printf("Starting interactive mode\n");
 	while (1)
 	{
 		free(param->cur_command);
@@ -34,7 +33,6 @@ static int	interactive(t_param *param)
 
 static int	noninteractive(t_param *param, int sz, const char **ss)
 {
-	printf("Starting non-interactive mode\n");
 	param->cur_command = ft_strjoin_multi(ss, sz, " ");
 	input_to_text_tree(param);
 	exec_text_tree(param);

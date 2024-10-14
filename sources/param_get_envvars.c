@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/06 20:45:38 by inikulin          #+#    #+#             */
-/*   Updated: 2024/10/06 22:46:33 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/10/11 23:24:38 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int	param_get_envvars(t_param *param)
 /* returns error code */
 int	param_get_envvars(t_param *param)
 {
+	(void)param;
 	return (0);
 }
 

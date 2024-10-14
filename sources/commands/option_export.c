@@ -6,18 +6,19 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 00:09:30 by inikulin          #+#    #+#             */
-/*   Updated: 2024/10/02 22:56:32 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/10/12 01:15:00 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "commands.h"
 
-int	option_export(int choice, t_treenode *node, t_param *param, char **out)
+int	option_export(t_control control, t_treenode *node, t_param *param)
 {
-	if (!choice)
+	if (*control.found || !control.choice)
 		return (0);
+	*control.found = 1;
 	(void)node;
 	(void)param;
-	*out = ft_strdup("export");
+	*control.retval = 1;
 	return (1);
 }
