@@ -45,19 +45,15 @@ pre:
 $(NAME): $(OBJS) $(ENDPOINT_OBJ)
 	$(PREFIX)$(CC) $^ -o $@ $(LINK_FLAGS)
 
-# Rule to compile source files from sources/ directory into obj/
 $(OBJ_F)%.o: $(SOURCE_F)/%.c
 	$(PREFIX)$(CC) $(COMPILE_FLAGS) $< -o $@ $(INCLUDES) $(MOCK_FLAG)
 
-# Rule to compile files from commands/ directory into obj/
 $(OBJ_F)%.o: $(COMMANDS_F)/%.c
 	$(PREFIX)$(CC) $(COMPILE_FLAGS) $< -o $@ $(INCLUDES) $(MOCK_FLAG)
 
-# Rule to compile files from input_to_text_tree_mocks/ directory into obj/
 $(OBJ_F)%.o: $(INPUT_TO_TEXT_TREE_MOCK_F)/%.c
 	$(PREFIX)$(CC) $(COMPILE_FLAGS) $< -o $@ $(INCLUDES) $(MOCK_FLAG)
 
-# Rule to compile test files into obj/
 $(OBJ_F)%.o: $(TEST_F)/%.c
 	$(PREFIX)$(CC) $(COMPILE_FLAGS) $< -o $@ $(INCLUDES)
 
