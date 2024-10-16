@@ -6,12 +6,11 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 16:11:49 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/10/15 16:47:58 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/10/16 10:58:02 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-#include "../libft/sources/strings/strings_internal.h"
+#include "parsing.h"
 
 t_delims create_operator_array()
 {

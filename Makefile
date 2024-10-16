@@ -8,15 +8,23 @@ MOCK_FLAG =
 SOURCE_F = sources
 TEST_F = tests
 
-INPUT_TO_TEXT_TREE_MOCK_NAMES = input_to_text_tree_mock.c mock_0.c mock_1.c mock_2.c mock_3.c mock_4.c mock_5.c mock_6.c mock_7.c
-INPUT_TO_TEXT_TREE_MOCK_F = input_to_text_tree_mocks
-INPUT_TO_TEXT_TREE_MOCK_SRCS = $(addprefix $(INPUT_TO_TEXT_TREE_MOCK_F)/, $(INPUT_TO_TEXT_TREE_MOCK_NAMES))
-
 COMMANDS_NAMES = option_cd.c option_echo.c option_env.c option_exit.c option_export.c option_external.c option_pwd.c option_unset.c get_envvars_for_execve.c
 COMMANDS_F = commands
 COMMANDS_SRCS = $(addprefix $(COMMANDS_F)/,$(COMMANDS_NAMES))
 
-SRC_NAMES = finalize.c param_init.c param_get_envvars.c wrappers.c input_to_text_tree.c $(INPUT_TO_TEXT_TREE_MOCK_SRCS) exec_text_tree.c exec_text_tree_node.c $(COMMANDS_SRCS)
+INPUT_TO_TEXT_TREE_MOCK_NAMES = input_to_text_tree_mock.c mock_0.c mock_1.c mock_2.c mock_3.c mock_4.c mock_5.c mock_6.c mock_7.c
+INPUT_TO_TEXT_TREE_MOCK_F = input_to_text_tree_mocks
+INPUT_TO_TEXT_TREE_MOCK_SRCS = $(addprefix $(INPUT_TO_TEXT_TREE_MOCK_F)/, $(INPUT_TO_TEXT_TREE_MOCK_NAMES))
+
+PARSING_NAMES = parse_command.c
+PARSING_F = parsing
+PARSING_SRCS = $(addprefix $(PARSING_F)/, $(PARSING_NAMES))
+
+TREE_CREATION_NAMES = input_to_text_tree_mock.c input_to_text_tree.c
+TREE_CREATION_F = tree_creation
+TREE_CREATION_SRCS = $(addprefix $(TREE_CREATION_F)/, $(TREE_CREATION_NAMES))
+
+SRC_NAMES = finalize.c param_init.c param_get_envvars.c wrappers.c input_to_text_tree.c $(INPUT_TO_TEXT_TREE_MOCK_SRCS) exec_text_tree.c exec_text_tree_node.c $(COMMANDS_SRCS) $(PARSING_NAMES)
 ENDPOINT_NAME = main.c
 
 SRC_SRCS = $(addprefix $(SOURCE_F)/, $(SRC_NAMES))
@@ -32,7 +40,8 @@ TEST_SRCS = $(addprefix $(TEST_F)/, $(TEST_NAMES))
 TEST_OBJS = $(addprefix $(OBJ_F), $(TEST_NAMES:.c=.o))
 TEST_FNAME = $(TEST_F)/test
 
-DIRS = $(OBJ_F) $(OBJ_F)$(COMMANDS_F) $(OBJ_F)$(INPUT_TO_TEXT_TREE_MOCK_F)
+DIRS = $(OBJ_F) $(OBJ_F)$(COMMANDS_F) $(OBJ_F)$(INPUT_TO_TEXT_TREE_MOCK_F) $(OBJ_F)$(PARSING_F) \
+		$(OBJ_F)$(TREE_CREATION_F)
 
 all: pre $(DIRS) $(NAME)
 
@@ -52,6 +61,9 @@ $(OBJ_F)%.o: $(COMMANDS_F)/%.c
 	$(PREFIX)$(CC) $(COMPILE_FLAGS) $< -o $@ $(INCLUDES) $(MOCK_FLAG)
 
 $(OBJ_F)%.o: $(INPUT_TO_TEXT_TREE_MOCK_F)/%.c
+	$(PREFIX)$(CC) $(COMPILE_FLAGS) $< -o $@ $(INCLUDES) $(MOCK_FLAG)
+
+$(OBJ_F)%.o: $(PARSING_F)/%.c
 	$(PREFIX)$(CC) $(COMPILE_FLAGS) $< -o $@ $(INCLUDES) $(MOCK_FLAG)
 
 $(OBJ_F)%.o: $(TEST_F)/%.c
@@ -104,7 +116,7 @@ PHONY: all pre clean fclean re test fulltest testclean testfclean retest
 
 ########################################
 
-TANIA_ENDPOINT = sources/tanya_main.c
+TANIA_ENDPOINT = sources/tania_main.c
 TANIA_ENDPOINT_OBJ = $(OBJ_F)$(TANIA_ENDPOINT:.c=.o)
 
 $(TANIA_ENDPOINT_OBJ): $(OBJ_F)%.o: %.c

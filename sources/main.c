@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 15:21:17 by inikulin          #+#    #+#             */
-/*   Updated: 2024/10/12 02:30:42 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/10/16 11:22:26 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,15 @@
 static int	interactive(t_param *param)
 {
 	int	ret;
+	char	**tokens;
 
 	while (1)
 	{
 		free(param->cur_command);
 		param->cur_command = readline(TXT_INVITATION);
+		tokens = parse_command(param->cur_command);
+		if (tokens == NULL)
+			break ;
 		add_history(param->cur_command);
 		ret = input_to_text_tree(param);
 		if (ret)

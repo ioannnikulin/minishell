@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 15:22:58 by inikulin          #+#    #+#             */
-/*   Updated: 2024/10/12 02:30:26 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/10/16 11:01:27 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include "../libft/libft.h"
 # include "resources.h"
 # include "commands/commands.h"
+# include "parsing/parsing.h"
 
 # define FREE_ENVVARS_DLISTS 1
 # define FREE_ENVVARS_ENTRIES 2
@@ -48,6 +49,7 @@ typedef struct s_param
 # define TEXT_TREE_ROOT "ROOT"
 
 t_param	*param_init(void);
+char    **parse_command(char *s);
 int		param_get_envvars(t_param *param);
 int		finalize(t_param *param, int mode, char *message, int retval);
 int		input_to_text_tree(t_param *param);
