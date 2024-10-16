@@ -26,10 +26,15 @@ OBJS = $(SRC_SRCS:.c=.o)
 ENDPOINT_OBJ = $(ENDPOINT_SRC:.c=.o)
 INCLUDES = -I . -I libft
 
-TEST_NAMES = main_test.c input_to_text_tree_test.c
+TEST_NAMES = main_test.c input_to_text_tree_test.c env_vars_test.c
 TEST_SRCS = $(addprefix $(TEST_F)/, $(TEST_NAMES))
 TEST_OBJS = $(TEST_SRCS:.c=.o)
 TEST_FNAME = $(TEST_F)/test
+
+TEST_TOOL_NAMES = tool_print_environment.c
+TEST_TOOL_SRCS = $(addprefix $(TEST_F)/, $(TEST_TOOL_NAMES))
+TEST_TOOL_OBJS = $(TEST_TOOL_SRCS:.c=.o)
+TEST_TOOL
 
 all: pre $(NAME)
 
