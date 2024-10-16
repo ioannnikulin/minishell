@@ -16,7 +16,7 @@ INPUT_TO_TEXT_TREE_MOCK_NAMES = input_to_text_tree_mock.c mock_0.c mock_1.c mock
 INPUT_TO_TEXT_TREE_MOCK_F = input_to_text_tree_mocks
 INPUT_TO_TEXT_TREE_MOCK_SRCS = $(addprefix $(INPUT_TO_TEXT_TREE_MOCK_F)/, $(INPUT_TO_TEXT_TREE_MOCK_NAMES))
 
-PARSING_NAMES = parse_command.c
+PARSING_NAMES = parse_command.c parse_commands_utils.c
 PARSING_F = parsing
 PARSING_SRCS = $(addprefix $(PARSING_F)/, $(PARSING_NAMES))
 
@@ -35,7 +35,7 @@ OBJS = $(addprefix $(OBJ_F), $(SRC_NAMES:.c=.o))
 ENDPOINT_OBJ = $(OBJ_F)$(ENDPOINT_NAME:.c=.o)
 INCLUDES = -I . -I libft
 
-TEST_NAMES = main_test.c input_to_text_tree_test.c
+TEST_NAMES = main_test.c input_to_text_tree_test.c parse_command_test.c
 TEST_SRCS = $(addprefix $(TEST_F)/, $(TEST_NAMES))
 TEST_OBJS = $(addprefix $(OBJ_F), $(TEST_NAMES:.c=.o))
 TEST_FNAME = $(TEST_F)/test

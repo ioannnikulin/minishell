@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_split_buf.c                                     :+:      :+:    :+:   */
+/*   ft_split_str.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 14:08:20 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/10/16 15:26:02 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/10/16 17:53:58 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ static int	extract_token(char **res, const char **s, int token_q, t_delims *ar)
 	return (0);
 }
 
-char	**ft_split_buf(const char *s, const void *delim_ar, int *sz)
+char	**ft_split_str(const char *s, const void *delim_ar, int *sz)
 {
 	char		**res;
 	int			token_q;

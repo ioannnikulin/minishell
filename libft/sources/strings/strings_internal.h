@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 16:40:11 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/10/16 15:26:10 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/10/16 18:04:59 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,10 @@ typedef struct s_string_array
 	size_t		count;
 }	t_strings;
 
-char	**ft_split_buf(const char *s, const void *delim_ar, int *sz);
-int	find_delimiter(const char *s, t_delims *array, size_t *op_len);
-int	extract_plain_token(char **res, const char **s,
+char	**ft_split_str(const char *s, const void *delim_ar, int *sz);
+int		find_delimiter(const char *s, t_delims *array, size_t *op_len);
+int		extract_plain_token(char **res, const char **s,
 		t_delims *array, int cwi);
-int	extract_delimiter(char **res, const char **s,
+int		extract_delimiter(char **res, const char **s,
 		size_t op_len, int cwi);
 #endif

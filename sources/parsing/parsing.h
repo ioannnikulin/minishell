@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 16:40:11 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/10/16 10:58:57 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/10/16 18:51:51 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,6 @@ typedef struct s_delims
 	size_t		count;
 }	t_delims;
 
-char    **parse_command(char *s);
+char    	**parse_command(char *s);
+t_delims	create_operator_array(void);
 #endif
