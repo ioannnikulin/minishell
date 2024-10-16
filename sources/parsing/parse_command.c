@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 16:11:49 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/10/16 10:58:02 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/10/16 16:34:06 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,29 +36,95 @@ t_delims create_operator_array()
 	return (delim_array);
 }
 
+static void calculate_spaces(char **s, int *total_sz)
+{
+    int i = 0;
+    int j;
+    int sz;
+    char **tok_space;
+
+    *total_sz = 0;
+
+    while (s[i] != NULL)
+    {
+        tok_space = ft_split(s[i], ' ', &sz);
+        if (tok_space == NULL)
+            return;
+        
+        *total_sz += sz;
+        j = 0;
+        while (j < sz)
+        {
+            free(tok_space[j++]);
+        }
+        free(tok_space);
+        i++;
+    }
+}
+
+char	**split_by_space(char **s)
+{
+	int		sz;
+	int		i;
+	int		j;
+	int		res_i;
+	int		total_sz;
+	char 	**temp_split;
+	char	**result;
+	
+	calculate_spaces(s, &total_sz);
+	result = malloc(sizeof(char *) * (total_sz + 1));
+	if (!result)
+		return (NULL);
+	i = 0;
+	res_i = 0;
+	while(s[i] != NULL)
+	{
+		temp_split = ft_split(s[i++], ' ', &sz);
+		j = 0;
+		while (j < sz)
+		{
+			result[res_i++] = temp_split[j++];
+		}
+		free(temp_split);
+	}
+	result[res_i] = NULL;
+	free(s);
+	return (result);
+}
+
+char	**split_by_operators(char *s, t_delims *arr)
+{
+	char	    **tok_oper;
+	int 	    sz;
+
+    tok_oper = ft_split_buf(s, arr, &sz);
+    if (!tok_oper)
+    {
+        free(arr->delims);
+        return (NULL);
+    }
+	return(tok_oper);	
+}
+
 char    **parse_command(char *s)
 {
     t_delims	op_arr;
     char	    **tok_oper;
 	char	    **tok_space;
-	int 	    sz_1;
-	int         sz_2;
 
-    op_arr = create_operator_array();
+	op_arr = create_operator_array();
     if (op_arr.error)
-        return (NULL);
-    tok_oper = ft_split_buf(s, (void *)&op_arr, &sz_1);
-    if (!tok_oper)
+	{
+		return (NULL);
+	}
+	tok_oper = split_by_operators(s, &op_arr);
+	if (!tok_oper)
     {
         free(op_arr.delims);
-        return (NULL);
+        return NULL;
     }
-	tok_space = ft_split(tok_oper, ' ', &sz_2);
-    if (!tok_space) 
-    {
-        free(op_arr.delims);
-        free(tok_oper);
-        return (NULL);
-    }
+	tok_space = split_by_space(tok_oper);
+	free(op_arr.delims);
     return (tok_space);
 }

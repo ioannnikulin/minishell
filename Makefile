@@ -24,7 +24,7 @@ TREE_CREATION_NAMES = input_to_text_tree_mock.c input_to_text_tree.c
 TREE_CREATION_F = tree_creation
 TREE_CREATION_SRCS = $(addprefix $(TREE_CREATION_F)/, $(TREE_CREATION_NAMES))
 
-SRC_NAMES = finalize.c param_init.c param_get_envvars.c wrappers.c input_to_text_tree.c $(INPUT_TO_TEXT_TREE_MOCK_SRCS) exec_text_tree.c exec_text_tree_node.c $(COMMANDS_SRCS) $(PARSING_NAMES)
+SRC_NAMES = finalize.c param_init.c param_get_envvars.c wrappers.c input_to_text_tree.c $(INPUT_TO_TEXT_TREE_MOCK_SRCS) exec_text_tree.c exec_text_tree_node.c $(COMMANDS_SRCS) $(PARSING_SRCS)
 ENDPOINT_NAME = main.c
 
 SRC_SRCS = $(addprefix $(SOURCE_F)/, $(SRC_NAMES))
@@ -46,7 +46,7 @@ DIRS = $(OBJ_F) $(OBJ_F)$(COMMANDS_F) $(OBJ_F)$(INPUT_TO_TEXT_TREE_MOCK_F) $(OBJ
 all: pre $(DIRS) $(NAME)
 
 $(DIRS):
-	@mkdir -p $(DIRS)
+	$(PREFIX)mkdir -p $(DIRS)
 
 pre:
 	$(PREFIX)cd libft && make all

@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 11:13:18 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/10/09 18:12:59 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/10/16 12:26:48 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,18 @@
 
 #define NUM_TEST_CASES 11
 #define MAX_ARGS 10
+
+typedef struct s_delim
+{
+	char	*delim;
+}	t_delim;
+
+typedef struct s_delims
+{
+	t_delim		*delims;
+	int			error;
+	size_t		count;
+}	t_delims;
 
 t_delims create_operator_array()
 {
