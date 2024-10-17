@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_split_buf_test.c                                :+:      :+:    :+:   */
+/*   ft_split_str_test.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 11:13:18 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/10/09 18:12:59 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/10/17 17:26:53 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../sources/strings/strings_internal.h"
+#include "../../sources/strings/strings.h"
 #include "tests.h"
 
 #define NUM_TEST_CASES 11
@@ -46,7 +46,7 @@ t_strings	create_string_array()
 	t_strings	str_array;
 	str_array.count = 11;
 	str_array.error = 0;
-	str_array.strs = (t_string *)malloc(str_array.count * sizeof(t_string));
+	str_array.strs = ft_calloc_if(sizeof(t_string) * str_array.count, 1);;
 	if (str_array.strs == NULL)
 	{
 		fprintf(stderr, "Memory allocation failed for str_array.strs\n");
@@ -95,7 +95,7 @@ void	free_string_array(t_strings str_array)
 	free(str_array.strs);
 }
 
-void	ft_split_buf_test(void)
+void	ft_split_str_test(void)
 {
 	t_delims	op_arr = create_operator_array();
 	t_strings	str_arr = create_string_array();
@@ -123,7 +123,7 @@ void	ft_split_buf_test(void)
 	for (int i = 0; i < NUM_TEST_CASES; i ++)
 	{
 		int sz = 0;
-		char **split_op = ft_split_buf(str_arr.strs[i].str, &op_arr, &sz);
+		char **split_op = ft_split_str(str_arr.strs[i].str, &op_arr, &sz);
 		for (int j = 0; j < sz; j ++)
 		{
 			assert((split_op[j] == NULL) == (t[i][j] == NULL));

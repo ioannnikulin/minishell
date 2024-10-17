@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   input_to_text_tree.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 23:07:09 by inikulin          #+#    #+#             */
-/*   Updated: 2024/09/29 23:28:43 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/10/17 18:59:41 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "parsing/input_processing_internal.h"
 #ifdef MOCK_TANIA
 # include "input_to_text_tree_mocks/input_to_text_tree_mock.h"
 
@@ -21,6 +22,7 @@ int	input_to_text_tree(t_param *param)
 	int		ret;
 
 	s = param->cur_command;
+	tree = ft_tree_make();
 	ret = input_to_text_tree_mock(&tree, s);
 	ft_tree_free(&param->text_tree);
 	param->text_tree = tree;
@@ -31,7 +33,12 @@ int	input_to_text_tree(t_param *param)
 
 int	input_to_text_tree(t_param *param)
 {
+	char	**tokens;
+
 	(void)param;
+	tokens = parse_command(param->cur_command);
+	if (tokens == NULL)
+		return (1);
 	return (0);
 }
 #endif
