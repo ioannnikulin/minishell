@@ -6,11 +6,11 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 18:49:54 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/10/16 18:50:12 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/10/17 19:50:41 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
+#include "input_processing_internal.h"
 
 t_delims	create_operator_array(void)
 {
@@ -18,7 +18,7 @@ t_delims	create_operator_array(void)
 
 	delim_array.count = 10;
 	delim_array.error = 0;
-	delim_array.delims = (t_delim *)malloc(sizeof(t_delim) * delim_array.count);
+	delim_array.delims = ft_calloc_if(sizeof(t_delim) * delim_array.count, 1);
 	if (delim_array.delims == NULL)
 	{
 		delim_array.error = 1;

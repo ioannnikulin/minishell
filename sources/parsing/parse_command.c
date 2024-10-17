@@ -6,24 +6,24 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 16:11:49 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/10/16 19:04:21 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/10/17 19:07:32 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
+#include "input_processing_internal.h"
 
 static char	**split_excluding_quotes(char **result, char **s, int sz)
 {
 	int		i;
 	int		j;
 	int		res_i;
-	char 	**temp_split;
-	
+	char	**temp_split;
+
 	i = 0;
 	res_i = 0;
-	while(s[i] != NULL)
+	while (s[i] != NULL)
 	{
-		temp_split = ft_split_ex(s[i++], ' ', &sz);
+		temp_split = ft_split_ex(s[i++], ' ', '"', &sz);
 		j = 0;
 		while (j < sz)
 		{
@@ -38,14 +38,14 @@ static char	**split_excluding_quotes(char **result, char **s, int sz)
 static void	calculate_spaces(char **s, int *sz, int *total_sz)
 {
 	int		i;
-    int		j;
-    char	**tok_space;
+	int		j;
+	char	**tok_space;
 
 	i = 0;
 	*total_sz = 0;
 	while (s[i] != NULL)
 	{
-		tok_space = ft_split_ex(s[i], ' ', sz);
+		tok_space = ft_split_ex(s[i], ' ', '"', sz);
 		if (tok_space == NULL)
 			return ;
 		*total_sz += *sz;
@@ -64,9 +64,10 @@ char	**split_by_space(char **s)
 	int		sz;
 	int		total_sz;
 	char	**result;
-	
+
+	sz = 0;
 	calculate_spaces(s, &sz, &total_sz);
-	result = malloc(sizeof(char *) * (total_sz + 1));
+	result = ft_calloc_if((total_sz + 1) * sizeof(char *), 1);
 	if (!result)
 		return (NULL);
 	result = split_excluding_quotes(result, s, sz);
@@ -74,38 +75,39 @@ char	**split_by_space(char **s)
 	return (result);
 }
 
-char	**split_by_operators(char *s, t_delims *arr)
+char	**split_by_operators(const char *s, t_delims *arr)
 {
-	char	    **tok_oper;
-	int 	    sz;
+	char	**tok_oper;
+	int		sz;
 
-    tok_oper = ft_split_str(s, arr, &sz);
-    if (!tok_oper)
-    {
-        free(arr->delims);
-        return (NULL);
-    }
-	return(tok_oper);	
+	sz = 0;
+	tok_oper = ft_split_str(s, arr, &sz);
+	if (!tok_oper)
+	{
+		free(arr->delims);
+		return (NULL);
+	}
+	return (tok_oper);
 }
 
-char    **parse_command(char *s)
+char	**parse_command(const char *s)
 {
-    t_delims	op_arr;
-    char	    **tok_oper;
-	char	    **tok_space;
+	t_delims	op_arr;
+	char		**tok_oper;
+	char		**tok_space;
 
 	op_arr = create_operator_array();
-    if (op_arr.error)
+	if (op_arr.error)
 	{
 		return (NULL);
 	}
 	tok_oper = split_by_operators(s, &op_arr);
 	if (!tok_oper)
-    {
-        free(op_arr.delims);
-        return NULL;
-    }
+	{
+		free(op_arr.delims);
+		return (NULL);
+	}
 	tok_space = split_by_space(tok_oper);
 	free(op_arr.delims);
-    return (tok_space);
+	return (tok_space);
 }

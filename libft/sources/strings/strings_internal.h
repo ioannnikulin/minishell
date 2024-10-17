@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 16:40:11 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/10/16 18:04:59 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/10/17 20:09:55 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,37 +15,16 @@
 
 # include <stddef.h>
 # include <stdlib.h>
+# include <stdbool.h>
 # include "strings.h"
 # include "../memory/memory.h"
 
-typedef struct s_delim
-{
-	char	*delim;
-}	t_delim;
-
-typedef struct s_delims
-{
-	t_delim		*delims;
-	int			error;
-	size_t		count;
-}	t_delims;
-
-typedef struct s_string
-{
-	char	*str;
-}	t_string;
-
-typedef struct s_string_array
-{
-	t_string	*strs;
-	int			error;
-	size_t		count;
-}	t_strings;
-
-char	**ft_split_str(const char *s, const void *delim_ar, int *sz);
 int		find_delimiter(const char *s, t_delims *array, size_t *op_len);
 int		extract_plain_token(char **res, const char **s,
-		t_delims *array, int cwi);
+			t_delims *array, int cwi);
 int		extract_delimiter(char **res, const char **s,
-		size_t op_len, int cwi);
+			size_t op_len, int cwi);
+void	copy_word(char **res, char **from, const char *charset,
+			const char ex);
+bool	is_in_quotes(char **p, const char ex, int *in_quotes);
 #endif
