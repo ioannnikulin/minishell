@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 23:07:09 by inikulin          #+#    #+#             */
-/*   Updated: 2024/10/17 18:59:41 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/10/18 11:14:42 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,20 @@ int	input_to_text_tree(t_param *param)
 
 #else
 
+// to parse cur->command.
+// first i parse to array of strings splited by tokens and by spaces second.
+// then i allocate space for tree in input_to_text_tree().
+// then i pass one by one each token to input_text_tree_mocks to create nodes.
 int	input_to_text_tree(t_param *param)
 {
 	char	**tokens;
+	t_tree	*res;
 
 	(void)param;
 	tokens = parse_command(param->cur_command);
 	if (tokens == NULL)
+		return (1);
+	if (res = ft_calloc_if(sizeof(t_tree), 1) == 0)
 		return (1);
 	return (0);
 }
