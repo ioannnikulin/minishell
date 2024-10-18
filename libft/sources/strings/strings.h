@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 20:55:01 by inikulin          #+#    #+#             */
-/*   Updated: 2024/10/17 20:10:10 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/10/18 23:26:30 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ char	*ft_strjoin_multi_free_outer(char **ss, int sz, const char *delim);
 char	*ft_strjoin_multi_free_full(char **ss, int sz, const char *delim);
 char	*ft_strtrim(const char *s1, const char *set);
 char	**ft_split(const char *s, char delim, int *sz);
+char	**ft_split_set(const char *s, const char *charset, int *sz);
 char	**ft_split_str(const char *s, const void *delim_ar, int *sz);
 char	**ft_split_ex(const char *str, char c, char ex, int *sz);
 char	*ft_strmapi(const char *s, char (*f)(unsigned int, char));
