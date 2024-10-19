@@ -6,11 +6,11 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 18:49:54 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/10/17 19:50:41 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/10/19 15:23:53 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "input_processing_internal.h"
+#include "input_processing.h"
 
 t_delims	create_operator_array(void)
 {

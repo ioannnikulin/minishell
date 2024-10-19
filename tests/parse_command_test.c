@@ -6,12 +6,12 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 16:50:45 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/10/17 22:49:33 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/10/19 12:52:51 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tests_internal.h"
-#include "../sources/parsing/input_processing_internal.h"
+#include "../sources/parsing/input_processing.h"
 
 #define NUM_TEST_CASES 11
 #define MAX_ARGS 16

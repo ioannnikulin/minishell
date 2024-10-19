@@ -1,23 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main_test.c                                        :+:      :+:    :+:   */
+/*   create_text_tree.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/21 00:03:03 by inikulin          #+#    #+#             */
-/*   Updated: 2024/10/19 15:35:55 by taretiuk         ###   ########.fr       */
+/*   Created: 2024/10/19 12:20:32 by taretiuk          #+#    #+#             */
+/*   Updated: 2024/10/19 15:56:22 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tests_internal.h"
+#include "tree_processing.h"
 
-int	main(void)
+int	create_text_tree(void)
 {
-	printf("input_to_text_tree in testing\n");
-	input_to_text_tree_test();
-	printf("parsing in testing\n");
-	parse_command_test();
-	printf("\033[31mtesting complete\033[0m\n");
+	printf("create text tree\n");
+	// *tree = ft_tree_make();
+	// (*tree)->root = ft_treenode_make(input, 0, 0, ft_free_nop);
+	// if (!((*tree)->root))
+	// 	return (2);
+	// if (mock_0(input, (*tree)->root))
+	// 	return (0);
+	// printf("%s: %s\n", input, ERR_COMMAND_NOT_FOUND);
+	// return (3);
 	return (0);
 }

@@ -20,8 +20,8 @@ PARSING_NAMES = parse_command.c parse_commands_utils.c
 PARSING_F = parsing
 PARSING_SRCS = $(addprefix $(PARSING_F)/, $(PARSING_NAMES))
 
-TREE_CREATION_NAMES = input_to_text_tree_mock.c input_to_text_tree.c
-TREE_CREATION_F = tree_creation
+TREE_CREATION_NAMES = create_text_tree.c
+TREE_CREATION_F = tree
 TREE_CREATION_SRCS = $(addprefix $(TREE_CREATION_F)/, $(TREE_CREATION_NAMES))
 
 SRC_NAMES = finalize.c param_init.c param_get_envvars.c wrappers.c input_to_text_tree.c $(INPUT_TO_TEXT_TREE_MOCK_SRCS) exec_text_tree.c exec_text_tree_node.c $(COMMANDS_SRCS) $(PARSING_SRCS)
@@ -40,8 +40,7 @@ TEST_SRCS = $(addprefix $(TEST_F)/, $(TEST_NAMES))
 TEST_OBJS = $(addprefix $(OBJ_F), $(TEST_NAMES:.c=.o))
 TEST_FNAME = $(TEST_F)/test
 
-DIRS = $(OBJ_F) $(OBJ_F)$(COMMANDS_F) $(OBJ_F)$(INPUT_TO_TEXT_TREE_MOCK_F) $(OBJ_F)$(PARSING_F) \
-		$(OBJ_F)$(TREE_CREATION_F)
+DIRS = $(OBJ_F)$(COMMANDS_F) $(OBJ_F)$(INPUT_TO_TEXT_TREE_MOCK_F) $(OBJ_F)$(PARSING_F) $(OBJ_F)$(TREE_F)
 
 all: pre $(DIRS) $(NAME)
 

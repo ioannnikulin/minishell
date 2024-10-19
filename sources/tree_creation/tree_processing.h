@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main_test.c                                        :+:      :+:    :+:   */
+/*   tree_processing.h                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/21 00:03:03 by inikulin          #+#    #+#             */
-/*   Updated: 2024/10/19 15:35:55 by taretiuk         ###   ########.fr       */
+/*   Created: 2024/10/19 12:35:56 by taretiuk          #+#    #+#             */
+/*   Updated: 2024/10/19 15:39:06 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tests_internal.h"
+#ifndef TREE_PROCESSING_H
+# define TREE_PROCESSING_H
 
-int	main(void)
-{
-	printf("input_to_text_tree in testing\n");
-	input_to_text_tree_test();
-	printf("parsing in testing\n");
-	parse_command_test();
-	printf("\033[31mtesting complete\033[0m\n");
-	return (0);
-}
+# include "../minishell.h"
+
+int		create_text_tree(void);
+
+//int		create_text_tree(t_tree **tree, char *input);
+
+#endif
+

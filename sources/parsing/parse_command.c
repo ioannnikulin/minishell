@@ -6,11 +6,11 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 16:11:49 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/10/17 19:07:32 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/10/19 15:23:48 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "input_processing_internal.h"
+#include "input_processing.h"
 
 static char	**split_excluding_quotes(char **result, char **s, int sz)
 {
