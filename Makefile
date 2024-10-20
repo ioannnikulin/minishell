@@ -52,7 +52,7 @@ $(OBJ_F)%.o: %.c
 	$(PREFIX)$(CC) $(COMPILE_FLAGS) $< -o $@ $(INCLUDES) $(MOCK_FLAG)
 
 $(OBJ_F)%.o: $(TEST_F)/%.c
-	$(PREFIX)$(CC) $(COMPILE_FLAGS) $< -o $@ $(INCLUDES)
+	$(PREFIX)$(CC) $(COMPILE_FLAGS) $< -o $@ $(INCLUDES) $(MOCK_FLAG)
 
 preclean:
 	$(PREFIX)cd libft && make clean
