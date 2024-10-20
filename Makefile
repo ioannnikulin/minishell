@@ -78,7 +78,6 @@ fclean: clean
 re: fclean all
 
 test: $(OBJ_DIRS) $(OBJS) $(TEST_OBJS)
-	@echo "Значения зависимостей: $^"
 	$(PREFIX)$(CC) $(OBJS) $(TEST_OBJS) -o $(TEST_FNAME) $(LINK_FLAGS)
 
 testclean:
