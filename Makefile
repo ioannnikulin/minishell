@@ -22,22 +22,24 @@ ENDPOINT_NAME = main.c
 SRC_SRCS = $(addprefix $(SOURCE_F)/, $(SRC_NAMES))
 ENDPOINT_SRC = $(addprefix $(SOURCE_F)/, $(ENDPOINT_NAME))
 
+TEST_NAMES = main_test.c input_to_text_tree_test.c
+TEST_SRCS = $(addprefix $(TEST_F)/, $(TEST_NAMES))
+TEST_FNAME = $(TEST_F)/test
+
 OBJ_F = build/
+TEST_OBJ_F = build/tests/
 OBJS = $(addprefix $(OBJ_F), $(SRC_NAMES:.c=.o))
+TEST_OBJS = $(addprefix $(TEST_OBJ_F), $(TEST_NAMES:.c=.o))
 ENDPOINT_OBJ = $(OBJ_F)$(ENDPOINT_NAME:.c=.o)
 INCLUDES = -I . -I libft
 
-TEST_NAMES = main_test.c input_to_text_tree_test.c
-TEST_SRCS = $(addprefix $(TEST_F)/, $(TEST_NAMES))
-TEST_OBJS = $(addprefix $(OBJ_F), $(TEST_NAMES:.c=.o))
-TEST_FNAME = $(TEST_F)/test
+DIRS = $(COMMANDS_F) $(INPUT_TO_TEXT_TREE_MOCK_F) tests
 
-DIRS = $(COMMANDS_F) $(INPUT_TO_TEXT_TREE_MOCK_F)
-OBJ_DIRS = $(addprefix $(OBJ_F), $(DIRS))
+OBJ_DIRS = $(addprefix $(OBJ_F), $(DIRS)) $(TEST_OBJ_F)
 
 vpath %.c $(SOURCE_F) $(SOURCE_F)/$(COMMANDS_F) $(SOURCE_F)/$(INPUT_TO_TEXT_TREE_MOCK_F)
 
-all: pre $(OBJ_DIRS) $(NAME)
+all: $(OBJ_DIRS) pre $(NAME)
 
 $(OBJ_DIRS):
 	$(PREFIX)mkdir -p $(OBJ_DIRS)
@@ -51,7 +53,7 @@ $(NAME): $(OBJS) $(ENDPOINT_OBJ)
 $(OBJ_F)%.o: %.c
 	$(PREFIX)$(CC) $(COMPILE_FLAGS) $< -o $@ $(INCLUDES) $(MOCK_FLAG)
 
-$(OBJ_F)%.o: $(TEST_F)/%.c
+$(TEST_OBJ_F)%.o: $(TEST_F)/%.c
 	$(PREFIX)$(CC) $(COMPILE_FLAGS) $< -o $@ $(INCLUDES) $(MOCK_FLAG)
 
 preclean:
@@ -65,19 +67,19 @@ prere:
 
 clean:
 	$(PREFIX)rm -f $(OBJS) $(ENDPOINT_OBJ) $(TANIA_ENDPOINT_OBJ) $(VANIA_ENDPOINT_OBJ)
-	$(PREFIX)rm -f $(OBJS) $(ENDPOINT_OBJ) $(VANIA_ENDPOINT_OBJ) $(TANIA_ENDPOINT_OBJ)
 	@if [ -d $(OBJ_F) ]; then $(PREFIX)rm -rf $(OBJ_F); fi
 
 fclean: clean
 	$(PREFIX)rm -f $(NAME)
 	$(PREFIX)rm -f $(ENDPOINT_OBJ)
 	$(PREFIX)rm -f $(ENDPOINT_OBJ)
-	@if [ "$(wildcard build)" ]; then rm -r build; fi
+	@if [ "$(wildcard build)" ]; then $(PREFIX)rm -r build; fi
 
 re: fclean all
 
-test: $(OBJS) $(TEST_OBJS)
-	$(PREFIX)$(CC) $^ -o $(TEST_FNAME) $(LINK_FLAGS)
+test: $(OBJ_DIRS) $(OBJS) $(TEST_OBJS)
+	@echo "Значения зависимостей: $^"
+	$(PREFIX)$(CC) $(OBJS) $(TEST_OBJS) -o $(TEST_FNAME) $(LINK_FLAGS)
 
 testclean:
 	$(PREFIX)rm -f $(TEST_OBJS)
