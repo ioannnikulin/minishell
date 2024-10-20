@@ -1,6 +1,6 @@
 CC = cc
 NAME = minishell
-COMPILE_FLAGS = -Wall -Wextra -Werror -g -c -DDEBUG
+COMPILE_FLAGS = -Wall -Wextra -Werror -g -c
 LINK_FLAGS = -lft -Llibft -lreadline
 PREFIX =
 MOCK_FLAG =
@@ -68,6 +68,7 @@ fclean: clean
 	$(PREFIX)rm -f $(NAME)
 	$(PREFIX)rm -f $(ENDPOINT_OBJ)
 	$(PREFIX)rm -f $(ENDPOINT_OBJ)
+	rm -r build
 
 re: fclean all
 
