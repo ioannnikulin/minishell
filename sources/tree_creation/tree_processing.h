@@ -15,9 +15,7 @@
 
 # include "../minishell.h"
 
-int		create_text_tree(void);
-
-//int		create_text_tree(t_tree **tree, char *input);
+int		create_text_tree(t_tree **tree, char *input);
 
 #endif
 

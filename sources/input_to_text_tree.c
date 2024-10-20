@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 23:07:09 by inikulin          #+#    #+#             */
-/*   Updated: 2024/10/19 15:58:59 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/10/20 10:36:42 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	input_to_text_tree(t_param *param)
 		return (1);
 	param->text_tree = ft_tree_make();
 	printf("Im here\n");
-	create_text_tree();
+	create_text_tree(&param->text_tree, tokens[0]);
 	return (0);
 }
 #endif

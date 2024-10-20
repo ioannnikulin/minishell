@@ -21,16 +21,16 @@ PARSING_F = parsing
 PARSING_SRCS = $(addprefix $(PARSING_F)/, $(PARSING_NAMES))
 
 TREE_CREATION_NAMES = create_text_tree.c
-TREE_CREATION_F = tree
+TREE_CREATION_F = tree_creation
 TREE_CREATION_SRCS = $(addprefix $(TREE_CREATION_F)/, $(TREE_CREATION_NAMES))
 
-SRC_NAMES = finalize.c param_init.c param_get_envvars.c wrappers.c input_to_text_tree.c $(INPUT_TO_TEXT_TREE_MOCK_SRCS) exec_text_tree.c exec_text_tree_node.c $(COMMANDS_SRCS) $(PARSING_SRCS)
+SRC_NAMES = finalize.c param_init.c param_get_envvars.c wrappers.c input_to_text_tree.c $(INPUT_TO_TEXT_TREE_MOCK_SRCS) exec_text_tree.c exec_text_tree_node.c $(COMMANDS_SRCS) $(PARSING_SRCS) $(TREE_CREATION_SRCS)
 ENDPOINT_NAME = main.c
 
 SRC_SRCS = $(addprefix $(SOURCE_F)/, $(SRC_NAMES))
 ENDPOINT_SRC = $(addprefix $(SOURCE_F)/, $(ENDPOINT_NAME))
 
-OBJ_F = objects/
+OBJ_F = build/
 OBJS = $(addprefix $(OBJ_F), $(SRC_NAMES:.c=.o))
 ENDPOINT_OBJ = $(OBJ_F)$(ENDPOINT_NAME:.c=.o)
 INCLUDES = -I . -I libft
@@ -40,12 +40,13 @@ TEST_SRCS = $(addprefix $(TEST_F)/, $(TEST_NAMES))
 TEST_OBJS = $(addprefix $(OBJ_F), $(TEST_NAMES:.c=.o))
 TEST_FNAME = $(TEST_F)/test
 
-DIRS = $(OBJ_F)$(COMMANDS_F) $(OBJ_F)$(INPUT_TO_TEXT_TREE_MOCK_F) $(OBJ_F)$(PARSING_F) $(OBJ_F)$(TREE_F)
+DIRS = $(COMMANDS_F) $(INPUT_TO_TEXT_TREE_MOCK_F) $(PARSING_F) $(TREE_CREATION_F)
+OBJ_DIRS = $(addprefix $(OBJ_F), $(DIRS))
 
-all: pre $(DIRS) $(NAME)
+all: pre $(OBJ_DIRS) $(NAME)
 
-$(DIRS):
-	$(PREFIX)mkdir -p $(DIRS)
+$(OBJ_DIRS):
+	$(PREFIX)mkdir -p $(OBJ_DIRS)
 
 pre:
 	$(PREFIX)cd libft && make all
