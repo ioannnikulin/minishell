@@ -51,6 +51,9 @@ $(NAME): $(OBJS) $(ENDPOINT_OBJ)
 $(OBJ_F)%.o: %.c
 	$(PREFIX)$(CC) $(COMPILE_FLAGS) $< -o $@ $(INCLUDES) $(MOCK_FLAG)
 
+$(OBJ_F)%.o: $(TEST_F)/%.c
+	$(PREFIX)$(CC) $(COMPILE_FLAGS) $< -o $@ $(INCLUDES)
+
 preclean:
 	$(PREFIX)cd libft && make clean
 
@@ -63,12 +66,13 @@ prere:
 clean:
 	$(PREFIX)rm -f $(OBJS) $(ENDPOINT_OBJ) $(TANIA_ENDPOINT_OBJ) $(VANIA_ENDPOINT_OBJ)
 	$(PREFIX)rm -f $(OBJS) $(ENDPOINT_OBJ) $(VANIA_ENDPOINT_OBJ) $(TANIA_ENDPOINT_OBJ)
+	@if [ -d $(OBJ_F) ]; then $(PREFIX)rm -rf $(OBJ_F); fi
 
 fclean: clean
 	$(PREFIX)rm -f $(NAME)
 	$(PREFIX)rm -f $(ENDPOINT_OBJ)
 	$(PREFIX)rm -f $(ENDPOINT_OBJ)
-	rm -r build
+	@if [ "$(wildcard build)" ]; then rm -r build; fi
 
 re: fclean all
 
