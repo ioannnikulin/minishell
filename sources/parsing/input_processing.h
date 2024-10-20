@@ -1,21 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tests_internal.h                                   :+:      :+:    :+:   */
+/*   input_processing.h                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/21 00:04:08 by inikulin          #+#    #+#             */
-/*   Updated: 2024/10/17 13:38:59 by taretiuk         ###   ########.fr       */
+/*   Created: 2024/10/19 12:47:07 by taretiuk          #+#    #+#             */
+/*   Updated: 2024/10/19 15:30:01 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TESTS_COMMON_H
-# define TESTS_COMMON_H
-# include "../sources/minishell.h"
-# include <assert.h>
+#ifndef INPUT_PROCESSING_H
+# define INPUT_PROCESSING_H
 
-int	    input_to_text_tree_test(void);
-void    parse_command_test(void);
+# include <stddef.h>
+# include <stdlib.h>
+# include "../../libft/sources/strings/strings.h"
+# include "../../libft/sources/memory/memory.h"
+
+char		**parse_command(const char *s);
+t_delims	create_operator_array(void);
 
 #endif
