@@ -1,6 +1,6 @@
 CC = cc
 NAME = minishell
-COMPILE_FLAGS = -Wall -Wextra -Werror -g -c
+COMPILE_FLAGS = -Wall -Wextra -Werror -g -c -DDEBUG
 LINK_FLAGS = -lft -Llibft -lreadline
 PREFIX =
 MOCK_FLAG =
@@ -49,10 +49,7 @@ $(NAME): $(OBJS) $(ENDPOINT_OBJ)
 	$(PREFIX)$(CC) $^ -o $@ $(LINK_FLAGS)
 
 $(OBJ_F)%.o: %.c
-	$(PREFIX)$(CC) $(COMPILE_FLAGS) $< -o $@ $(INCLUDES)
-
-$(OBJ_F)%.o: $(TEST_F)/%.c
-	$(PREFIX)$(CC) $(COMPILE_FLAGS) $< -o $@ $(INCLUDES)
+	$(PREFIX)$(CC) $(COMPILE_FLAGS) $< -o $@ $(INCLUDES) $(MOCK_FLAG)
 
 preclean:
 	$(PREFIX)cd libft && make clean
