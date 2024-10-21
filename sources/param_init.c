@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 18:10:38 by inikulin          #+#    #+#             */
-/*   Updated: 2024/10/21 02:23:14 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/10/21 22:39:55 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,13 @@ static int	param_get_cur_dir(t_param *param)
 
 	sz = 32;
 	tgt = 0;
-	while (!tgt)
+	while (!tgt || !tgt[0])
 	{
 		free(tgt);
 		tgt = ft_calloc_if(sizeof(char) * sz, 1);
 		if (!tgt)
 			return (1);
-		getcwd(tgt, 32);
+		getcwd(tgt, sz);
 		sz <<= 1;
 		if (sz < 0)
 			return (2);
