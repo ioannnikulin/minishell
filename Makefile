@@ -68,13 +68,13 @@ prere:
 
 clean:
 	$(PREFIX)rm -f $(OBJS) $(ENDPOINT_OBJ) $(TANIA_ENDPOINT_OBJ) $(VANIA_ENDPOINT_OBJ)
-	@if [ -d $(OBJ_F) ]; then $(PREFIX)rm -rf $(OBJ_F); fi
+	$(PREFIX)@if [ -d $(OBJ_F) ]; then $(PREFIX)rm -rf $(OBJ_F); fi
 
 fclean: clean
 	$(PREFIX)rm -f $(NAME)
 	$(PREFIX)rm -f $(ENDPOINT_OBJ)
 
-	@if [ "$(wildcard build)" ]; then $(PREFIX)rm -r build; fi
+	$(PREFIX)@if [ "$(wildcard build)" ]; then $(PREFIX)rm -r build; fi
 
 re: fclean all
 
