@@ -34,13 +34,13 @@ TEST_OBJS = $(addprefix $(TEST_OBJ_F), $(TEST_NAMES:.c=.o))
 ENDPOINT_OBJ = $(OBJ_F)$(ENDPOINT_NAME:.c=.o)
 INCLUDES = -I . -I libft
 
-DIRS = $(COMMANDS_F) $(INPUT_TO_TEXT_TREE_MOCK_F) tests tania vania
+DIRS = $(COMMANDS_F) $(INPUT_TO_TEXT_TREE_MOCK_F)
 
-OBJ_DIRS = $(addprefix $(OBJ_F), $(DIRS)) $(TEST_OBJ_F) $(TANIA_OBJ_F) $(VANIA_OBJ_F)
+OBJ_DIRS = $(addprefix $(OBJ_F), $(DIRS))
 
 vpath %.c $(SOURCE_F) $(SOURCE_F)/$(COMMANDS_F) $(SOURCE_F)/$(INPUT_TO_TEXT_TREE_MOCK_F)
 
-all: $(OBJ_DIRS) pre $(NAME)
+all: pre $(NAME)
 
 $(OBJ_DIRS):
 	$(PREFIX)mkdir -p $(OBJ_DIRS)
@@ -49,13 +49,19 @@ pre:
 	$(PREFIX)cd libft && make all
 
 $(NAME): $(OBJS) $(ENDPOINT_OBJ)
-	$(PREFIX)$(CC) $^ -o $@ $(LINK_FLAGS)
+	$(PREFIX)$(CC) $(OBJS) $(ENDPOINT_OBJ) -o $@ $(LINK_FLAGS)
 
-$(OBJ_F)%.o: %.c
+$(OBJ_F)%.o: %.c $(OBJ_DIRS)
 	$(PREFIX)$(CC) $(COMPILE_FLAGS) $< -o $@ $(INCLUDES) $(MOCK_FLAG)
 
-$(TEST_OBJ_F)%.o: $(TEST_F)/%.c
+$(TEST_OBJ_F):
+	$(PREFIX)mkdir -p $(TEST_OBJ_F)
+
+$(TEST_OBJ_F)%.o: $(TEST_F)/%.c $(TEST_OBJ_F)
 	$(PREFIX)$(CC) $(COMPILE_FLAGS) $< -o $@ $(INCLUDES) $(MOCK_FLAG)
+
+test: $(OBJ_DIRS) $(TEST_OBJ_F) $(OBJS) $(TEST_OBJS)
+	$(PREFIX)$(CC) $(OBJS) $(TEST_OBJS) -o $(TEST_FNAME) $(LINK_FLAGS)
 
 preclean:
 	$(PREFIX)cd libft && make clean
@@ -73,7 +79,6 @@ clean:
 fclean: clean
 	$(PREFIX)rm -f $(NAME)
 	$(PREFIX)rm -f $(ENDPOINT_OBJ)
-
 	$(PREFIX)@if [ "$(wildcard build)" ]; then $(PREFIX)rm -r build; fi
 
 re: fclean all
@@ -101,36 +106,26 @@ fulltest:
 	$(PREFIX)cd sources && norminette
 	$(PREFIX)make vania test memcheck
 
-PHONY: all pre clean fclean re test fulltest testclean testfclean retest
+PHONY: all pre clean fclean re test fulltest testclean testfclean retest tania vania
 
 ########################################
 
-TANIA_ENDPOINT_NAME = tania_main.c
-TANIA_ENDPOINT_SRCS = $(addprefix $(SOURCE_F)/,$(TANIA_ENDPOINT_NAME))
-
 TANIA_OBJ_F = build/tania/
 
+TANIA_ENDPOINT_NAME = tania_main.c
+TANIA_ENDPOINT_SRCS = $(addprefix $(SOURCE_F)/,$(TANIA_ENDPOINT_NAME))
 TANIA_ENDPOINT_OBJ = $(TANIA_OBJ_F)$(TANIA_ENDPOINT_NAME:.c=.o)
 
-$(TANIA_ENDPOINT_OBJ): $(TANIA_ENDPOINT_NAME)
+$(TANIA_OBJ_F):
+	$(PREFIX)mkdir -p $(TANIA_OBJ_F)
+
+$(TANIA_OBJ_F)%.o: $(SOURCE_F)/%.c $(TANIA_OBJ_F)
 	$(PREFIX)$(CC) $(COMPILE_FLAGS) $< -o $@ $(INCLUDES)
 
-tania: $(OBJ_DIRS) $(OBJS) $(TANIA_ENDPOINT_OBJ)
+tania: $(OBJ_DIRS) $(TANIA_OBJ_F) $(OBJS) $(TANIA_ENDPOINT_OBJ)
 	$(PREFIX)$(CC) $(OBJS) $(TANIA_ENDPOINT_OBJ) -o $(NAME) $(LINK_FLAGS)
 
 ########################################
 
-VANIA_ENDPOINT_NAME = vania_main.c
-VANIA_ENDPOINT_SRCS = $(addprefix $(SOURCE_F)/,$(VANIA_ENDPOINT_NAME))
-
-VANIA_OBJ_F = build/vania/
-
-VANIA_ENDPOINT_OBJ = $(VANIA_OBJ_F)$(VANIA_ENDPOINT_NAME:.c=.o)
-
-$(VANIA_ENDPOINT_OBJ): $(VANIA_ENDPOINT_NAME)
-	$(PREFIX)$(CC) $(COMPILE_FLAGS) $< -o $@ $(INCLUDES)
-
-vania: $(OBJ_DIRS) $(OBJS) $(VANIA_ENDPOINT_OBJ)
-	$(PREFIX)$(CC) $(OBJS) $(VANIA_ENDPOINT_OBJ) -o $(NAME) $(LINK_FLAGS)
-
 vania: MOCK_FLAG += -DMOCK_TANIA
+vania: all
