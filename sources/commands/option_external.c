@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 00:10:22 by inikulin          #+#    #+#             */
-/*   Updated: 2024/10/21 03:05:28 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/10/21 03:14:32 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,10 @@ static char	*find_executable(char *tgt, t_dlist *path, int *errno)
 		fullpath = ft_strjoin_multi_free_outer(
 				ft_s2(path->content, tgt), 2, "/");
 		if (!fullpath)
-			return (ft_assign_i(errno, 4, 0));
+		{
+			ft_assign_i(errno, 4, 0);
+			return (0);
+		}
 		if (access(fullpath, X_OK) == 0)
 			return (fullpath);
 		free(fullpath);
@@ -73,7 +76,8 @@ int	option_external(t_control control, t_treenode *node, t_param *param)
 		printf("searching for command in folders:\n");
 		ft_dlist_print_s(param->envvar_path_head, "\n");
 	}
-	fullpath = find_executable(node->content, param->envvar_path_head);
+	fullpath = find_executable(node->content, param->envvar_path_head,
+			&param->errno);
 	if (!fullpath)
 		return (0);
 	*control.retval = run_executable(fullpath, node, param);
