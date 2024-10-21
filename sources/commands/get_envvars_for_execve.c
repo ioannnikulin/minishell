@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 23:38:22 by inikulin          #+#    #+#             */
-/*   Updated: 2024/10/11 19:55:17 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/10/21 02:22:29 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,12 @@ int	collect_path(t_dlist *head, char **where)
 	int		i;
 	int		sz;
 
-	i = 0;
-	sz = ft_dlist_size(head);
+	sz = ft_dlist_size(head) - 1;
 	subs = ft_calloc_if(sizeof(char *) * sz, 1);
 	if (!subs)
 		return (1);
+	i = 0;
+	head = head->next;
 	while (head)
 	{
 		subs[i ++] = head->content;
@@ -65,6 +66,9 @@ int	collect_path(t_dlist *head, char **where)
 	*where = ft_strjoin_multi_free_outer(subs, sz, ":");
 	if (!*where)
 		return (2);
+	*where = ft_strjoin("PATH=", *where);
+	if (!*where)
+		return (3);
 	return (0);
 }
 
@@ -73,13 +77,13 @@ char	**get_envvars_for_execve(t_param *param)
 	char	**res;
 	int		sz;
 
-	sz = ft_dlist_size(param->envvar_path_head) + param->envvars.size + 1;
+	sz = param->envvars.size + 2;
 	res = ft_calloc_if(sizeof(char *) * sz, 1);
 	if (!res)
 		return (0);
 	if (collect_map(&param->envvars, res))
 		return (0);
-	if (collect_path(param->envvar_path_head, &res[sz - 2]))
+	if (collect_path(param->envvar_path_head->next, &res[sz - 2]))
 	{
 		free_upto(res, sz - 2, 0);
 		return (0);

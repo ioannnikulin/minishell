@@ -1,36 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   input_to_text_tree_mock.c                          :+:      :+:    :+:   */
+/*   mock_8.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 23:07:09 by inikulin          #+#    #+#             */
-/*   Updated: 2024/10/21 01:17:18 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/10/21 02:04:32 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "input_to_text_tree_mock_internal.h"
 
-/* returns error code */
-int	input_to_text_tree_mock(t_tree **tree, char *input)
+void	mock_8_tree(t_treenode *cur)
 {
-	*tree = ft_tree_make();
-	(*tree)->root = ft_treenode_make(TEXT_TREE_ROOT, 0, 0, ft_free_nop);
-	if (!((*tree)->root))
-		return (2);
-	if (mock_0(input, (*tree)->root)
-		|| mock_1(input, (*tree)->root)
-		|| mock_2(input, (*tree)->root)
-		|| mock_3(input, (*tree)->root)
-		|| mock_4(input, (*tree)->root)
-		|| mock_5(input, (*tree)->root)
-		|| mock_6(input, (*tree)->root)
-		|| mock_7(input, (*tree)->root)
-		|| mock_8(input, (*tree)->root)
-		|| mock_9(input, (*tree)->root)
-	)
+	ft_treenode_insert_child_idx_s_dup(cur, "./tests/tool_print_environment", 0);
+	cur = cur->child;
+	ft_treenode_insert_child_idx_s_dup(cur, "one", 0);
+	ft_treenode_insert_child_idx_s_dup(cur, "two   three", 1);
+	ft_treenode_insert_child_idx_s_dup(cur, "four", 2);
+}
+
+/* returns 1 on success - to allow condition usage outside */
+int	mock_8(char *input, t_treenode *root)
+{
+	if (ft_strcmp(input, MOCK_8_TEXT) != 0)
 		return (0);
-	printf("%s: %s\n", input, ERR_COMMAND_NOT_FOUND);
-	return (3);
+	mock_8_tree(root);
+	return (1);
 }

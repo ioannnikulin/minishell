@@ -8,7 +8,7 @@ MOCK_FLAG =
 SOURCE_F = sources
 TEST_F = tests
 
-INPUT_TO_TEXT_TREE_MOCK_NAMES = input_to_text_tree_mock.c mock_0.c mock_1.c mock_2.c mock_3.c mock_4.c mock_5.c mock_6.c mock_7.c
+INPUT_TO_TEXT_TREE_MOCK_NAMES = input_to_text_tree_mock.c mock_0.c mock_1.c mock_2.c mock_3.c mock_4.c mock_5.c mock_6.c mock_7.c mock_8.c mock_9.c
 INPUT_TO_TEXT_TREE_MOCK_F = input_to_text_tree_mocks
 INPUT_TO_TEXT_TREE_MOCK_SRCS = $(addprefix $(INPUT_TO_TEXT_TREE_MOCK_F)/, $(INPUT_TO_TEXT_TREE_MOCK_NAMES))
 
@@ -26,7 +26,7 @@ OBJS = $(SRC_SRCS:.c=.o)
 ENDPOINT_OBJ = $(ENDPOINT_SRC:.c=.o)
 INCLUDES = -I . -I libft
 
-TEST_NAMES = main_test.c input_to_text_tree_test.c env_vars_test.c
+TEST_NAMES = main_test.c input_to_text_tree_test.c
 TEST_SRCS = $(addprefix $(TEST_F)/, $(TEST_NAMES))
 TEST_OBJS = $(TEST_SRCS:.c=.o)
 TEST_FNAME = $(TEST_F)/test
@@ -34,7 +34,7 @@ TEST_FNAME = $(TEST_F)/test
 TEST_TOOL_NAMES = tool_print_environment.c
 TEST_TOOL_SRCS = $(addprefix $(TEST_F)/, $(TEST_TOOL_NAMES))
 TEST_TOOL_OBJS = $(TEST_TOOL_SRCS:.c=.o)
-TEST_TOOL
+TEST_TOOL_FNAME = $(TEST_F)/tool_print_environment
 
 all: pre $(NAME)
 
@@ -73,8 +73,11 @@ fclean: clean
 
 re: fclean all
 
-test: $(OBJS) $(TEST_OBJS)
-	$(PREFIX)$(CC) $^ -o $(TEST_FNAME) $(LINK_FLAGS)
+test: $(OBJS) $(TEST_OBJS) $(TEST_TOOL_FNAME)
+	$(PREFIX)$(CC) $(OBJS) $(TEST_OBJS) -o $(TEST_FNAME) $(LINK_FLAGS)
+
+$(TEST_TOOL_FNAME): $(TEST_TOOL_OBJS)
+	$(PREFIX)$(CC) $^ -o $(TEST_TOOL_FNAME) $(LINK_FLAGS)
 
 testclean:
 	$(PREFIX)rm -f $(TEST_OBJS)

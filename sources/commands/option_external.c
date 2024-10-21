@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 00:10:22 by inikulin          #+#    #+#             */
-/*   Updated: 2024/10/12 01:19:09 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/10/21 02:46:28 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,24 @@ static char	*find_executable(char *tgt, t_dlist *path)
 	return (0);
 }
 
-static int	run_executable(char *fullpath, t_param *param)
+static int	run_executable(char *fullpath, t_treenode *node, t_param *param)
 {
-	char	*argv[2];
+	char	**argv;
+	int		argc;
+	int		i;
 
+	argc = node->children_qtty;
+	argv = ft_calloc_if(sizeof(char *) * (argc + 2), 1);
 	argv[0] = fullpath;
-	argv[1] = 0;
-	return (execve(fullpath, argv,
-			get_envvars_for_execve(param)));
+	argv[argc + 1] = 0;
+	i = 1;
+	node = node->child;
+	while (i <= argc)
+	{
+		argv[i ++] = node->content;
+		node = node->sibling_next;
+	}
+	return (execve(fullpath, argv, get_envvars_for_execve(param)));
 }
 
 /* test with empty path, found in first, found in last, not found,
@@ -49,13 +59,13 @@ int	option_external(t_control control, t_treenode *node, t_param *param)
 	*control.found = 1;
 	if (param->debug_output_level & DBG_EXTERNAL_SEARCH_FOLDERS)
 	{
-		printf("searching for command in folders:\ncurrent\n");
+		printf("searching for command in folders:\n");
 		ft_dlist_print_s(param->envvar_path_head, "\n");
 	}
 	fullpath = find_executable(node->content, param->envvar_path_head);
 	if (!fullpath)
 		return (0);
-	*control.retval = run_executable(fullpath, param);
+	*control.retval = run_executable(fullpath, node, param);
 	free(fullpath);
 	return (1);
 }

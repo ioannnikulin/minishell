@@ -6,11 +6,11 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 21:33:09 by inikulin          #+#    #+#             */
-/*   Updated: 2024/10/15 17:06:32 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/10/20 23:17:34 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../sources/minishell.h"
 
 int	main(int argc, char **argv)
 {
