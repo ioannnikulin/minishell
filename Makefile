@@ -22,16 +22,28 @@ ENDPOINT_NAME = main.c
 SRC_SRCS = $(addprefix $(SOURCE_F)/, $(SRC_NAMES))
 ENDPOINT_SRC = $(addprefix $(SOURCE_F)/, $(ENDPOINT_NAME))
 
-OBJS = $(SRC_SRCS:.c=.o)
-ENDPOINT_OBJ = $(ENDPOINT_SRC:.c=.o)
-INCLUDES = -I . -I libft
-
 TEST_NAMES = main_test.c input_to_text_tree_test.c
 TEST_SRCS = $(addprefix $(TEST_F)/, $(TEST_NAMES))
-TEST_OBJS = $(TEST_SRCS:.c=.o)
 TEST_FNAME = $(TEST_F)/test
 
-all: pre $(NAME)
+OBJ_F = build/
+TEST_OBJ_F = build/tests/
+
+OBJS = $(addprefix $(OBJ_F), $(SRC_NAMES:.c=.o))
+TEST_OBJS = $(addprefix $(TEST_OBJ_F), $(TEST_NAMES:.c=.o))
+ENDPOINT_OBJ = $(OBJ_F)$(ENDPOINT_NAME:.c=.o)
+INCLUDES = -I . -I libft
+
+DIRS = $(COMMANDS_F) $(INPUT_TO_TEXT_TREE_MOCK_F) tests tania vania
+
+OBJ_DIRS = $(addprefix $(OBJ_F), $(DIRS)) $(TEST_OBJ_F) $(TANIA_OBJ_F) $(VANIA_OBJ_F)
+
+vpath %.c $(SOURCE_F) $(SOURCE_F)/$(COMMANDS_F) $(SOURCE_F)/$(INPUT_TO_TEXT_TREE_MOCK_F)
+
+all: $(OBJ_DIRS) pre $(NAME)
+
+$(OBJ_DIRS):
+	$(PREFIX)mkdir -p $(OBJ_DIRS)
 
 pre:
 	$(PREFIX)cd libft && make all
@@ -39,14 +51,11 @@ pre:
 $(NAME): $(OBJS) $(ENDPOINT_OBJ)
 	$(PREFIX)$(CC) $^ -o $@ $(LINK_FLAGS)
 
-$(OBJS): %.o: %.c
+$(OBJ_F)%.o: %.c
 	$(PREFIX)$(CC) $(COMPILE_FLAGS) $< -o $@ $(INCLUDES) $(MOCK_FLAG)
 
-$(ENDPOINT_OBJ): %.o: %.c
+$(TEST_OBJ_F)%.o: $(TEST_F)/%.c
 	$(PREFIX)$(CC) $(COMPILE_FLAGS) $< -o $@ $(INCLUDES) $(MOCK_FLAG)
-
-$(TEST_OBJS): %.o: %.c
-	$(PREFIX)$(CC) $(COMPILE_FLAGS) $< -o $@ $(INCLUDES)
 
 preclean:
 	$(PREFIX)cd libft && make clean
@@ -58,18 +67,19 @@ prere:
 	$(PREFIX)cd libft && make re
 
 clean:
-	$(PREFIX)rm -f $(OBJS) $(ENDPOINT_OBJ) $(VANIA_ENDPOINT_OBJ) $(TANIA_ENDPOINT_OBJ)
-	$(PREFIX)rm -f $(OBJS) $(ENDPOINT_OBJ) $(VANIA_ENDPOINT_OBJ) $(TANIA_ENDPOINT_OBJ)
+	$(PREFIX)rm -f $(OBJS) $(ENDPOINT_OBJ) $(TANIA_ENDPOINT_OBJ) $(VANIA_ENDPOINT_OBJ)
+	$(PREFIX)@if [ -d $(OBJ_F) ]; then $(PREFIX)rm -rf $(OBJ_F); fi
 
 fclean: clean
 	$(PREFIX)rm -f $(NAME)
 	$(PREFIX)rm -f $(ENDPOINT_OBJ)
-	$(PREFIX)rm -f $(ENDPOINT_OBJ)
+
+	$(PREFIX)@if [ "$(wildcard build)" ]; then $(PREFIX)rm -r build; fi
 
 re: fclean all
 
-test: $(OBJS) $(TEST_OBJS)
-	$(PREFIX)$(CC) $^ -o $(TEST_FNAME) $(LINK_FLAGS)
+test: $(OBJ_DIRS) $(OBJS) $(TEST_OBJS)
+	$(PREFIX)$(CC) $(OBJS) $(TEST_OBJS) -o $(TEST_FNAME) $(LINK_FLAGS)
 
 testclean:
 	$(PREFIX)rm -f $(TEST_OBJS)
@@ -95,16 +105,32 @@ PHONY: all pre clean fclean re test fulltest testclean testfclean retest
 
 ########################################
 
-TANIA_ENDPOINT = sources/tanya_main.c
-TANIA_ENDPOINT_OBJ = $(TANIA_ENDPOINT:.c=.o)
+TANIA_ENDPOINT_NAME = tania_main.c
+TANIA_ENDPOINT_SRCS = $(addprefix $(SOURCE_F)/,$(TANIA_ENDPOINT_NAME))
 
-$(TANIA_ENDPOINT_OBJ): %.o: %.c
+TANIA_OBJ_F = build/tania/
+
+TANIA_ENDPOINT_OBJ = $(TANIA_OBJ_F)$(TANIA_ENDPOINT_NAME:.c=.o)
+
+$(TANIA_ENDPOINT_OBJ): $(TANIA_ENDPOINT_NAME)
 	$(PREFIX)$(CC) $(COMPILE_FLAGS) $< -o $@ $(INCLUDES)
 
-tania: $(TANIA_ENDPOINT_OBJ) $(OBJS)
-	$(PREFIX)$(CC) $^ -o $(NAME) $(LINK_FLAGS)
+tania: $(OBJ_DIRS) $(OBJS) $(TANIA_ENDPOINT_OBJ)
+	$(PREFIX)$(CC) $(OBJS) $(TANIA_ENDPOINT_OBJ) -o $(NAME) $(LINK_FLAGS)
 
 ########################################
 
+VANIA_ENDPOINT_NAME = vania_main.c
+VANIA_ENDPOINT_SRCS = $(addprefix $(SOURCE_F)/,$(VANIA_ENDPOINT_NAME))
+
+VANIA_OBJ_F = build/vania/
+
+VANIA_ENDPOINT_OBJ = $(VANIA_OBJ_F)$(VANIA_ENDPOINT_NAME:.c=.o)
+
+$(VANIA_ENDPOINT_OBJ): $(VANIA_ENDPOINT_NAME)
+	$(PREFIX)$(CC) $(COMPILE_FLAGS) $< -o $@ $(INCLUDES)
+
+vania: $(OBJ_DIRS) $(OBJS) $(VANIA_ENDPOINT_OBJ)
+	$(PREFIX)$(CC) $(OBJS) $(VANIA_ENDPOINT_OBJ) -o $(NAME) $(LINK_FLAGS)
+
 vania: MOCK_FLAG += -DMOCK_TANIA
-vania: all
