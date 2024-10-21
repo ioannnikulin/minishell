@@ -6,13 +6,13 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 00:10:22 by inikulin          #+#    #+#             */
-/*   Updated: 2024/10/21 02:46:28 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/10/21 03:05:28 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "commands.h"
 
-static char	*find_executable(char *tgt, t_dlist *path)
+static char	*find_executable(char *tgt, t_dlist *path, int *errno)
 {
 	char	*fullpath;
 
@@ -20,6 +20,8 @@ static char	*find_executable(char *tgt, t_dlist *path)
 	{
 		fullpath = ft_strjoin_multi_free_outer(
 				ft_s2(path->content, tgt), 2, "/");
+		if (!fullpath)
+			return (ft_assign_i(errno, 4, 0));
 		if (access(fullpath, X_OK) == 0)
 			return (fullpath);
 		free(fullpath);
@@ -33,9 +35,12 @@ static int	run_executable(char *fullpath, t_treenode *node, t_param *param)
 	char	**argv;
 	int		argc;
 	int		i;
+	char	**envvars;
 
 	argc = node->children_qtty;
 	argv = ft_calloc_if(sizeof(char *) * (argc + 2), 1);
+	if (!argv)
+		return (ft_assign_i(&param->errno, 5, 0));
 	argv[0] = fullpath;
 	argv[argc + 1] = 0;
 	i = 1;
@@ -45,7 +50,13 @@ static int	run_executable(char *fullpath, t_treenode *node, t_param *param)
 		argv[i ++] = node->content;
 		node = node->sibling_next;
 	}
-	return (execve(fullpath, argv, get_envvars_for_execve(param)));
+	envvars = get_envvars_for_execve(param);
+	if (param->errno)
+		return (0);
+	i = execve(fullpath, argv, envvars);
+	free(argv);
+	free(envvars);
+	return (i);
 }
 
 /* test with empty path, found in first, found in last, not found,
