@@ -22,8 +22,10 @@ ENDPOINT_NAME = main.c
 SRC_SRCS = $(addprefix $(SOURCE_F)/, $(SRC_NAMES))
 ENDPOINT_SRC = $(addprefix $(SOURCE_F)/, $(ENDPOINT_NAME))
 
-TEST_NAMES = main_test.c input_to_text_tree_test.c
+TEST_NAMES = input_to_text_tree_test.c
+TEST_ENDPOINT_NAME = main_test.c
 TEST_SRCS = $(addprefix $(TEST_F)/, $(TEST_NAMES))
+TEST_ENDPOINT_SRC = $(addprefix $(TEST_F)/, $(TEST_ENDPOINT_NAME))
 TEST_FNAME = $(TEST_F)/test
 
 TEST_TOOL_NAMES = tool_print_environment.c
@@ -36,6 +38,7 @@ TEST_OBJ_F = $(OBJ_F)tests/
 OBJS = $(addprefix $(OBJ_F), $(SRC_NAMES:.c=.o))
 TEST_OBJS = $(addprefix $(TEST_OBJ_F), $(TEST_NAMES:.c=.o))
 ENDPOINT_OBJ = $(OBJ_F)$(ENDPOINT_NAME:.c=.o)
+TEST_ENDPOINT_OBJ = $(TEST_OBJ_F)$(TEST_ENDPOINT_NAME:.c=.o)
 TEST_TOOL_OBJS = $(addprefix $(TEST_OBJ_F), $(TEST_TOOL_NAMES:.c=.o))
 INCLUDES = -I . -I libft
 
@@ -65,11 +68,11 @@ $(TEST_OBJ_F):
 $(TEST_TOOL_FNAME): $(TEST_TOOL_OBJS)
 	$(PREFIX)$(CC) $(TEST_TOOL_OBJS) -o $(TEST_TOOL_FNAME) $(LINK_FLAGS)
 
-$(TEST_OBJ_F)%.o: $(TEST_F)/%.c $(TEST_OBJ_F)
+$(TEST_OBJ_F)%.o: $(TEST_F)/%.c $(TEST_OBJ_F) $(TEST_ENDPOINT_OBJ)
 	$(PREFIX)$(CC) $(COMPILE_FLAGS) $< -o $@ $(INCLUDES) $(MOCK_FLAG)
 
-test: $(OBJ_DIRS) $(TEST_OBJ_F) $(OBJS) $(TEST_OBJS) $(TEST_TOOL_FNAME)
-	$(PREFIX)$(CC) $(OBJS) $(TEST_OBJS) -o $(TEST_FNAME) $(LINK_FLAGS)
+test: $(OBJ_DIRS) $(TEST_OBJ_F) $(OBJS) $(TEST_OBJS) $(TEST_ENDPOINT_OBJ) $(TEST_TOOL_FNAME)
+	$(PREFIX)$(CC) $(OBJS) $(TEST_OBJS) $(TEST_ENDPOINT_OBJ) -o $(TEST_FNAME) $(LINK_FLAGS)
 
 preclean:
 	$(PREFIX)cd libft && make clean
@@ -80,22 +83,22 @@ prefclean:
 prere:
 	$(PREFIX)cd libft && make re
 
-clean:
-	$(PREFIX)rm -f $(OBJS) $(ENDPOINT_OBJ) $(TANIA_ENDPOINT_OBJ) $(TEST_TOOL_OBJS)
+clean: testclean
+	$(PREFIX)rm -f $(OBJS) $(ENDPOINT_OBJ) $(TANIA_ENDPOINT_OBJ)
 	$(PREFIX)@if [ -d $(OBJ_F) ]; then $(PREFIX)rm -rf $(OBJ_F); fi
 
 fclean: clean
-	$(PREFIX)rm -f $(NAME) $(TEST_TOOL_FNAME)
-	$(PREFIX)rm -f $(ENDPOINT_OBJ)
-	$(PREFIX)@if [ "$(wildcard build)" ]; then $(PREFIX)rm -r build; fi
+	$(PREFIX)rm -f $(NAME)
+	$(PREFIX)rm -f $(TEST_FNAME) $(TEST_TOOL_FNAME)
 
 re: fclean all
 
 testclean:
-	$(PREFIX)rm -f $(TEST_OBJS)
+	$(PREFIX)rm -f $(TEST_OBJS) $(TEST_ENDPOINT_OBJ) $(TEST_TOOL_OBJS)
+	$(PREFIX)@if [ -d $(TEST_OBJ_F) ]; then $(PREFIX)rm -rf $(TEST_OBJ_F); fi
 
 testfclean: testclean
-	$(PREFIX)rm -f $(TEST_FNAME)
+	$(PREFIX)rm -f $(TEST_FNAME) $(TEST_TOOL_FNAME)
 
 pretestfclean:
 	$(PREFIX)cd libft && make testfclean
