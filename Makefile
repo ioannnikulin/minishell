@@ -87,9 +87,8 @@ clean: testclean
 	$(PREFIX)rm -f $(OBJS) $(ENDPOINT_OBJ) $(TANIA_ENDPOINT_OBJ)
 	$(PREFIX)@if [ -d $(OBJ_F) ]; then $(PREFIX)rm -rf $(OBJ_F); fi
 
-fclean: clean
+fclean: clean testfclean
 	$(PREFIX)rm -f $(NAME)
-	$(PREFIX)rm -f $(TEST_FNAME) $(TEST_TOOL_FNAME)
 
 re: fclean all
 
