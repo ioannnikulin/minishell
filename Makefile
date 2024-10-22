@@ -31,7 +31,7 @@ TEST_TOOL_SRCS = $(addprefix $(TEST_F)/, $(TEST_TOOL_NAMES))
 TEST_TOOL_FNAME = $(TEST_F)/tool_print_environment
 
 OBJ_F = build/
-TEST_OBJ_F = $(OBJ_F)/tests/
+TEST_OBJ_F = $(OBJ_F)tests/
 
 OBJS = $(addprefix $(OBJ_F), $(SRC_NAMES:.c=.o))
 TEST_OBJS = $(addprefix $(TEST_OBJ_F), $(TEST_NAMES:.c=.o))
@@ -81,7 +81,7 @@ prere:
 	$(PREFIX)cd libft && make re
 
 clean:
-	$(PREFIX)rm -f $(OBJS) $(ENDPOINT_OBJ) $(TANIA_ENDPOINT_OBJ) $(VANIA_ENDPOINT_OBJ)  $(TEST_TOOL_OBJS)
+	$(PREFIX)rm -f $(OBJS) $(ENDPOINT_OBJ) $(TANIA_ENDPOINT_OBJ) $(TEST_TOOL_OBJS)
 	$(PREFIX)@if [ -d $(OBJ_F) ]; then $(PREFIX)rm -rf $(OBJ_F); fi
 
 fclean: clean
