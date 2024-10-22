@@ -115,7 +115,7 @@ PHONY: all pre clean fclean re test fulltest testclean testfclean retest tania v
 
 ########################################
 
-TANIA_OBJ_F = build/tania/
+TANIA_OBJ_F = $(OBJ_F)tania/
 
 TANIA_ENDPOINT_NAME = tania_main.c
 TANIA_ENDPOINT_SRCS = $(addprefix $(SOURCE_F)/,$(TANIA_ENDPOINT_NAME))
