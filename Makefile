@@ -31,7 +31,7 @@ TEST_TOOL_SRCS = $(addprefix $(TEST_F)/, $(TEST_TOOL_NAMES))
 TEST_TOOL_FNAME = $(TEST_F)/tool_print_environment
 
 OBJ_F = build/
-TEST_OBJ_F = build/tests/
+TEST_OBJ_F = $(OBJ_F)/tests/
 
 OBJS = $(addprefix $(OBJ_F), $(SRC_NAMES:.c=.o))
 TEST_OBJS = $(addprefix $(TEST_OBJ_F), $(TEST_NAMES:.c=.o))
