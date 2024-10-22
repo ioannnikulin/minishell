@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 00:19:45 by inikulin          #+#    #+#             */
-/*   Updated: 2024/10/21 01:16:55 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/10/22 20:46:02 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ mkdir f1 f2 && touch 1 && touch 11 2 && ls -a -fh -c | grep 1 >> out.txt"
 # define MOCK_7_TEXT "uname"
 # define MOCK_8_TEXT "TOOL_PRINT_ENV 1"
 # define MOCK_9_TEXT "TOOL_PRINT_ENV 2"
+# define MOCK_10_TEXT "pwd"
 
 int		input_to_text_tree_mock(t_tree **tree, char *input);
 void	mock_0_tree(t_treenode *root);
@@ -39,4 +40,5 @@ void	mock_6_tree(t_treenode *root);
 void	mock_7_tree(t_treenode *root);
 void	mock_8_tree(t_treenode *root);
 void	mock_9_tree(t_treenode *root);
+void	mock_10_tree(t_treenode *root);
 #endif
