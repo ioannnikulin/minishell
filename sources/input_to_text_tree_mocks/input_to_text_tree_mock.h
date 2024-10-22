@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 00:19:45 by inikulin          #+#    #+#             */
-/*   Updated: 2024/10/22 23:45:43 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/10/23 00:20:06 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ unset nope && ./tests/tool_print_environment one \"two   three\" four"
 # define MOCK_12_TEXT "pwd && mkdir testf && cd ./testf/.. && pwd"
 # define MOCK_13_TEXT "cd /bin && pwd"
 # define MOCK_14_TEXT "cd /nope && pwd"
-# define MOCK_15_TEXT "cd nope && pwd"
+# define MOCK_15_TEXT "cd && pwd && cd nope && pwd"
 
 int		input_to_text_tree_mock(t_tree **tree, char *input);
 void	mock_0_tree(t_treenode *root);
