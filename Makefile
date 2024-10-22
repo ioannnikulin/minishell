@@ -8,7 +8,7 @@ MOCK_FLAG =
 SOURCE_F = sources
 TEST_F = tests
 
-INPUT_TO_TEXT_TREE_MOCK_NAMES = input_to_text_tree_mock.c mock_0.c mock_1.c mock_2.c mock_3.c mock_4.c mock_5.c mock_6.c mock_7.c
+INPUT_TO_TEXT_TREE_MOCK_NAMES = input_to_text_tree_mock.c mock_0.c mock_1.c mock_2.c mock_3.c mock_4.c mock_5.c mock_6.c mock_7.c mock_8.c mock_9.c
 INPUT_TO_TEXT_TREE_MOCK_F = input_to_text_tree_mocks
 INPUT_TO_TEXT_TREE_MOCK_SRCS = $(addprefix $(INPUT_TO_TEXT_TREE_MOCK_F)/, $(INPUT_TO_TEXT_TREE_MOCK_NAMES))
 
@@ -26,12 +26,17 @@ TEST_NAMES = main_test.c input_to_text_tree_test.c
 TEST_SRCS = $(addprefix $(TEST_F)/, $(TEST_NAMES))
 TEST_FNAME = $(TEST_F)/test
 
+TEST_TOOL_NAMES = tool_print_environment.c
+TEST_TOOL_SRCS = $(addprefix $(TEST_F)/, $(TEST_TOOL_NAMES))
+TEST_TOOL_FNAME = $(TEST_F)/tool_print_environment
+
 OBJ_F = build/
 TEST_OBJ_F = build/tests/
 
 OBJS = $(addprefix $(OBJ_F), $(SRC_NAMES:.c=.o))
 TEST_OBJS = $(addprefix $(TEST_OBJ_F), $(TEST_NAMES:.c=.o))
 ENDPOINT_OBJ = $(OBJ_F)$(ENDPOINT_NAME:.c=.o)
+TEST_TOOL_OBJS = $(addprefix $(TEST_OBJ_F), $(TEST_TOOL_NAMES:.c=.o))
 INCLUDES = -I . -I libft
 
 DIRS = $(COMMANDS_F) $(INPUT_TO_TEXT_TREE_MOCK_F)
@@ -57,10 +62,13 @@ $(OBJ_F)%.o: %.c $(OBJ_DIRS)
 $(TEST_OBJ_F):
 	$(PREFIX)mkdir -p $(TEST_OBJ_F)
 
+$(TEST_TOOL_FNAME): $(TEST_TOOL_OBJS)
+	$(PREFIX)$(CC) $(TEST_TOOL_OBJS) -o $(TEST_TOOL_FNAME) $(LINK_FLAGS)
+
 $(TEST_OBJ_F)%.o: $(TEST_F)/%.c $(TEST_OBJ_F)
 	$(PREFIX)$(CC) $(COMPILE_FLAGS) $< -o $@ $(INCLUDES) $(MOCK_FLAG)
 
-test: $(OBJ_DIRS) $(TEST_OBJ_F) $(OBJS) $(TEST_OBJS)
+test: $(OBJ_DIRS) $(TEST_OBJ_F) $(OBJS) $(TEST_OBJS) $(TEST_TOOL_FNAME)
 	$(PREFIX)$(CC) $(OBJS) $(TEST_OBJS) -o $(TEST_FNAME) $(LINK_FLAGS)
 
 preclean:
@@ -73,18 +81,15 @@ prere:
 	$(PREFIX)cd libft && make re
 
 clean:
-	$(PREFIX)rm -f $(OBJS) $(ENDPOINT_OBJ) $(TANIA_ENDPOINT_OBJ) $(VANIA_ENDPOINT_OBJ)
+	$(PREFIX)rm -f $(OBJS) $(ENDPOINT_OBJ) $(TANIA_ENDPOINT_OBJ) $(VANIA_ENDPOINT_OBJ)  $(TEST_TOOL_OBJS)
 	$(PREFIX)@if [ -d $(OBJ_F) ]; then $(PREFIX)rm -rf $(OBJ_F); fi
 
 fclean: clean
-	$(PREFIX)rm -f $(NAME)
+	$(PREFIX)rm -f $(NAME) $(TEST_TOOL_FNAME)
 	$(PREFIX)rm -f $(ENDPOINT_OBJ)
 	$(PREFIX)@if [ "$(wildcard build)" ]; then $(PREFIX)rm -r build; fi
 
 re: fclean all
-
-test: $(OBJ_DIRS) $(OBJS) $(TEST_OBJS)
-	$(PREFIX)$(CC) $(OBJS) $(TEST_OBJS) -o $(TEST_FNAME) $(LINK_FLAGS)
 
 testclean:
 	$(PREFIX)rm -f $(TEST_OBJS)
