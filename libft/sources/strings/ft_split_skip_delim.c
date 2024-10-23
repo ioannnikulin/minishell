@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_split_ex.c                                      :+:      :+:    :+:   */
+/*   ft_split_skip_delim.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 17:50:43 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/10/17 19:38:45 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/10/23 15:48:18 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ static int	check_edges(char **res, int *cwi)
 	return (0);
 }
 
-char	**ft_split_set_ex(const char *str, const char *charset,
+char	**ft_split_set_skip_delim(const char *str, const char *charset,
 					const char ex, int *sz)
 {
 	char	**res;
@@ -113,11 +113,11 @@ char	**ft_split_set_ex(const char *str, const char *charset,
 	return (res);
 }
 
-char	**ft_split_ex(const char *str, char c, char ex, int *sz)
+char	**ft_split_skip_delim(const char *str, char c, char ex, int *sz)
 {
 	char	cc[2];
 
 	cc[0] = c;
 	cc[1] = 0;
-	return (ft_split_set_ex(str, cc, ex, sz));
+	return (ft_split_set_skip_delim(str, cc, ex, sz));
 }

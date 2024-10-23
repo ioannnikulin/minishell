@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 11:13:18 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/10/17 17:26:53 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/10/22 17:11:35 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,18 @@
 
 #define NUM_TEST_CASES 11
 #define MAX_ARGS 10
+
+typedef struct s_string
+{
+	char	*str;
+}	t_string;
+
+typedef struct s_string_array
+{
+	t_string	*strs;
+	int			error;
+	size_t		count;
+}	t_strings;
 
 t_delims create_operator_array()
 {

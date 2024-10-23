@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 14:08:20 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/10/17 19:36:46 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/10/23 12:36:07 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ static int	extract_token(char **res, const char **s, int token_q, t_delims *ar)
 	return (0);
 }
 
-char	**ft_split_str(const char *s, const void *delim_ar, int *sz)
+char	**ft_split_str(const char *s, t_delims *delim_ar, int *sz)
 {
 	char		**res;
 	int			token_q;

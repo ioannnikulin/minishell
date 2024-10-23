@@ -1,51 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free.c                                          :+:      :+:    :+:   */
+/*   ft_free_null.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/04 18:43:58 by inikulin          #+#    #+#             */
-/*   Updated: 2024/10/23 12:31:43 by taretiuk         ###   ########.fr       */
+/*   Created: 2024/10/23 12:34:16 by taretiuk          #+#    #+#             */
+/*   Updated: 2024/10/23 12:34:19 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../libft.h"
 
-void	ft_free_ss(void **c, int sz)
+void	ft_free_ss_null(void ***c, int sz)
 {
-	char	**cc;
-	int		i;
-
-	i = 0;
-	if (c == NULL)
-		return ;
-	cc = (char **)c;
-	while (i < sz)
+	if (c && *c)
 	{
-		free(cc[i]);
-		i++;
+		ft_free_ss(*c, sz);
+		*c = NULL;
 	}
-	free(cc);
 }
 
-void	ft_free_s(void *c)
+void	ft_free_s_null(void **c)
 {
-	char	*cc;
-
-	cc = c;
-	free(cc);
+	ft_free_s(*((char **)c));
+	*c = 0;
 }
 
-void	ft_free_nop(void **c)
+void	ft_free_pi_null(void **p)
 {
-	(void)c;
-}
-
-void	ft_free_pi(void *p)
-{
-	int	*pp;
-
-	pp = p;
-	free(pp);
+	ft_free_pi(*(int **)p);
+	*p = 0;
 }
