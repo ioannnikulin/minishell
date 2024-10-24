@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 16:31:10 by inikulin          #+#    #+#             */
-/*   Updated: 2024/10/23 18:13:49 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/10/25 01:23:33 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,14 @@ void	ft_mapss_node_del(t_dlist *node)
 	free(node);
 }
 
+// returns: 0 success, 1 not found, 2 invocation error (no map/key)
 int	ft_mapss_del(t_mapss *map, const char *key)
 {
 	t_dlist	*cur_node;
 	char	*cur_key;
 
+	if (!map || !key)
+		return (2);
 	cur_node = map->head;
 	while (cur_node)
 	{
