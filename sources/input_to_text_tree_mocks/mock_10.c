@@ -1,24 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   option_pwd.c                                       :+:      :+:    :+:   */
+/*   mock_10.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/30 00:09:44 by inikulin          #+#    #+#             */
-/*   Updated: 2024/10/22 20:41:17 by inikulin         ###   ########.fr       */
+/*   Created: 2024/09/14 23:07:09 by inikulin          #+#    #+#             */
+/*   Updated: 2024/10/22 20:47:05 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "commands.h"
+#include "input_to_text_tree_mock_internal.h"
 
-int	option_pwd(t_control control, t_treenode *node, t_param *param)
+void	mock_10_tree(t_treenode *cur)
 {
-	if (*control.found || !control.choice)
+	ft_treenode_insert_child_idx_s_dup(cur, "pwd", 0);
+}
+
+/* returns 1 on success - to allow condition usage outside */
+int	mock_10(char *input, t_treenode *root)
+{
+	if (ft_strcmp(input, MOCK_10_TEXT) != 0)
 		return (0);
-	*control.found = 1;
-	printf("%s\n", (char *)param->envvar_path_head->content);
-	(void)node;
-	*control.retval = 1;
+	mock_10_tree(root);
 	return (1);
 }
