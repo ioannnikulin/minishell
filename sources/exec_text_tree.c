@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:39:01 by inikulin          #+#    #+#             */
-/*   Updated: 2024/10/21 03:09:31 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/10/22 22:57:18 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,9 @@ static int	is(char *a, char *b)
 	return (ft_strcmp(a, b));
 }
 
+/* brackets execution is actually wrong, should be smth like
+* res = exec_rec(node->child) and then go on with siblings
+* */
 static int	exec_rec(t_param *param, t_treenode *node)
 {
 	int		res;
@@ -36,9 +39,9 @@ static int	exec_rec(t_param *param, t_treenode *node)
 		return (0);
 	}
 	node = node->sibling_next;
-	while (!res && node && !is(node->content, "&&") && node->sibling_next)
+	while (res && node && !is(node->content, "&&") && node->sibling_next)
 		node = node->sibling_next->sibling_next;
-	while (res && node && !is(node->content, "||") && node->sibling_next)
+	while (!res && node && !is(node->content, "||") && node->sibling_next)
 		node = node->sibling_next->sibling_next;
 	if (!node || !node->sibling_next)
 		return (res);
