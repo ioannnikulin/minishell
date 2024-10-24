@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 20:59:34 by inikulin          #+#    #+#             */
-/*   Updated: 2024/10/23 20:11:48 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/10/25 00:07:31 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	ft_swap_d(double *a, double *b);
 void	ft_swap_c(char *a, char *b);
 int		ft_assign_i(int *where, int what, int retval);
 int		ft_assign_pc(char **where, char *what, int retval);
+char	*ft_assign_i_pc(int *where, int what, char *retval);
 
 int		ft_cmp_pvoid_pi(void *a, void *b);
 int		ft_less_eq_pvoid_pi(void *a, void *b);
