@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 20:59:34 by inikulin          #+#    #+#             */
-/*   Updated: 2024/10/10 01:12:32 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/10/23 20:11:48 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ void	ft_free_s(void *c);
 void	ft_free_nop(void **c);
 void	ft_free_pi_null(void **p);
 void	ft_free_pi(void *p);
+void	ft_free_ss_sz(void **c, int sz);
+void	ft_free_ss_sz_null(void ***c, int sz);
 
 char	**ft_s2(char *s1, char *s2);
 char	**ft_s3(char *s1, char *s2, char *s3);
