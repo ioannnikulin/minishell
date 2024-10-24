@@ -1,26 +1,58 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free.c                                          :+:      :+:    :+:   */
+/*   ft_free_s.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 18:43:58 by inikulin          #+#    #+#             */
-/*   Updated: 2024/10/23 20:10:09 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/10/23 20:22:04 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../libft.h"
 
-void	ft_free_nop(void **c)
+void	ft_free_s(void *c)
 {
-	(void)c;
+	char	*cc;
+
+	cc = c;
+	free(cc);
 }
 
-void	ft_free_pi(void *p)
+static void	ft_free_ss_sz_map(void **c, int sz, void (*f)(void **))
 {
-	int	*pp;
+	char	**cc;
+	int		i;
 
-	pp = p;
-	free(pp);
+	if (!c)
+		return ;
+	cc = (char **)c;
+	i = -1;
+	while (++i < sz)
+		f((void **)&cc[i]);
+	free(cc);
+}
+
+static void	free_s_p(void **c)
+{
+	char	*cc;
+
+	if (!c)
+		return ;
+	cc = *c;
+	free(cc);
+}
+
+void	ft_free_ss_sz(void **c, int sz)
+{
+	ft_free_ss_sz_map(c, sz, free_s_p);
+}
+
+void	ft_free_ss_sz_null(void ***c, int sz)
+{
+	if (!c)
+		return ;
+	ft_free_ss_sz_map(*c, sz, ft_free_s_null);
+	*c = 0;
 }
