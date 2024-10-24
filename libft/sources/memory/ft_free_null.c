@@ -1,21 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tests_internal.h                                   :+:      :+:    :+:   */
+/*   ft_free_null.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/21 00:04:08 by inikulin          #+#    #+#             */
-/*   Updated: 2024/10/17 13:38:59 by taretiuk         ###   ########.fr       */
+/*   Created: 2024/10/23 12:34:16 by taretiuk          #+#    #+#             */
+/*   Updated: 2024/10/23 12:34:19 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TESTS_COMMON_H
-# define TESTS_COMMON_H
-# include "../sources/minishell.h"
-# include <assert.h>
+#include "../../libft.h"
 
-int	    input_to_text_tree_test(void);
-void    parse_command_test(void);
+void	ft_free_ss_null(void ***c, int sz)
+{
+	if (c && *c)
+	{
+		ft_free_ss(*c, sz);
+		*c = NULL;
+	}
+}
 
-#endif
+void	ft_free_s_null(void **c)
+{
+	ft_free_s(*((char **)c));
+	*c = 0;
+}
+
+void	ft_free_pi_null(void **p)
+{
+	ft_free_pi(*(int **)p);
+	*p = 0;
+}
