@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/06 20:49:20 by inikulin          #+#    #+#             */
-/*   Updated: 2024/10/25 22:41:20 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/10/27 00:43:16 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ char	*ft_mapss_get(t_mapss *map, char *key)
 	if (!map || !map->head || !key)
 		return (0);
 	cur = map->head;
-	while (cur && ft_strcmp(key, ((t_mapss_entry*)cur->content)->key) > 0)
+	while (cur && ft_strcmp(key, ((t_mapss_entry *)cur->content)->key) > 0)
 		cur = cur->next;
-	if (cur && ft_strcmp(key, ((t_mapss_entry*)cur->content)->key) == 0)
-		return (((t_mapss_entry*)cur->content)->value);
+	if (cur && ft_strcmp(key, ((t_mapss_entry *)cur->content)->key) == 0)
+		return (((t_mapss_entry *)cur->content)->value);
 	return (0);
 }
