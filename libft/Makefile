@@ -26,7 +26,7 @@ MEM_NAMES = ft_bzero.c ft_calloc.c ft_memchr.c ft_memcmp.c ft_memcpy.c ft_memmov
 MEM_SRCS = $(addprefix $(SOURCES_F)/$(MEM_F)/, $(MEM_NAMES))
 
 NUM_F = numbers
-NUM_NAMES = ft_atoi.c ft_itoa.c ft_xtoa_base.c ft_minmax_int.c ft_minmax_double.c ft_minmax_char.c ft_minmax_uchar.c
+NUM_NAMES = ft_atoi.c ft_itoa.c ft_xtoa_base.c ft_minmax_int.c ft_minmax_double.c ft_minmax_char.c ft_minmax_uchar.c ft_sign.c
 NUM_SRCS = $(addprefix $(SOURCES_F)/$(NUM_F)/, $(NUM_NAMES))
 
 STR_F = strings
@@ -80,7 +80,7 @@ LIST_TEST_SRCS = $(addprefix $(TESTF)/$(LIST_F)/, $(subst .c,_test.c,$(LIST_TEST
 DLIST_TEST_NAMES = $(DLIST_NAMES)
 DLIST_TEST_SRCS = $(addprefix $(TESTF)/$(DLIST_F)/, $(subst .c,_test.c,$(DLIST_TEST_NAMES)) dlists_test.c)
 
-MAPSS_TEST_NAMES = mapss_test.c ft_mapss_add_test.c ft_mapss_print_test.c ft_mapss_gen_test.c
+MAPSS_TEST_NAMES = mapss_test.c ft_mapss_add_test.c ft_mapss_print_test.c ft_mapss_gen_test.c ft_mapss_get_test.c
 MAPSS_TEST_SRCS = $(addprefix $(TESTF)/$(MAPSS_F)/, $(MAPSS_TEST_NAMES))
 
 TREE_TEST_NAMES = tree_test.c ft_tree_print_test.c ft_treenode_insert_child_before_first_test.c ft_treenode_insert_child_idx_test.c
