@@ -6,14 +6,14 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 13:20:33 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/08/14 21:06:42 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/10/26 22:24:30 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../libft.h"
 #include <stdlib.h>
 
-int	ft_mapss_insert(t_mapss *map, t_dlist *node)
+void	ft_mapss_insert(t_mapss *map, t_dlist *node)
 {
 	t_dlist			*current;
 	t_dlist			*tail;
@@ -32,7 +32,7 @@ int	ft_mapss_insert(t_mapss *map, t_dlist *node)
 		node->next = NULL;
 		node->prev = NULL;
 		map->size ++;
-		return (0);
+		return ;
 	}
 	cur_entry = current->content;
 	node_entry = node->content;
@@ -45,7 +45,7 @@ int	ft_mapss_insert(t_mapss *map, t_dlist *node)
 		current->prev = node;
 		map->head = node;
 		map->size ++;
-		return (0);
+		return ;
 	}
 	//Case 3: Insert at the end
 	if (ft_strcmp(node_entry->key, tail_entry->key) > 0)
@@ -56,7 +56,7 @@ int	ft_mapss_insert(t_mapss *map, t_dlist *node)
 		tail->next = node;
 		map->tail = node;
 		map->size ++;
-		return (0);
+		return ;
 		//params->envvars.size++;
 	}
 	//Case 4: Insert in between
@@ -71,7 +71,7 @@ int	ft_mapss_insert(t_mapss *map, t_dlist *node)
 			free(node_entry->key); // Free the old key if necessary
 			free(node->content); // Free the new entry structure
 			free(node); // Free the new node
-			return (0);
+			return ;
 		}
 		// Case 4.2: Insert before the current node
 		else if (ft_strcmp(node_entry->key, cur_entry->key) < 0)
@@ -90,10 +90,9 @@ int	ft_mapss_insert(t_mapss *map, t_dlist *node)
 			}
 			current->prev = node;
 			map->size ++;
-			return (0);
+			return ;
 		}
 		current = current->next;
 		cur_entry = current->content;
 	}
-	return (0);
 }

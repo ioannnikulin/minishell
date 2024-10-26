@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 15:58:51 by inikulin          #+#    #+#             */
-/*   Updated: 2024/09/08 17:46:28 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/10/26 22:48:17 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,9 @@
 # include <string.h>
 # include <bsd/string.h>
 # include <stdio.h>
+# include <fcntl.h>
+# include <unistd.h>
+# include <limits.h>
 # include "../libft.h"
 
 int	bad_alloc(int ret);
