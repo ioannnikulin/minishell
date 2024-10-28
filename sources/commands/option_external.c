@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 00:10:22 by inikulin          #+#    #+#             */
-/*   Updated: 2024/10/21 03:14:32 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/10/22 23:55:32 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static int	run_executable(char *fullpath, t_treenode *node, t_param *param)
 	envvars = get_envvars_for_execve(param);
 	if (param->errno)
 		return (0);
-	i = execve(fullpath, argv, envvars);
+	i = w_execve(fullpath, argv, envvars, &param->errno);
 	free(argv);
 	free(envvars);
 	return (i);
@@ -82,5 +82,8 @@ int	option_external(t_control control, t_treenode *node, t_param *param)
 		return (0);
 	*control.retval = run_executable(fullpath, node, param);
 	free(fullpath);
-	return (1);
+	if (!param->errno)
+		return (0);
+	printf("%s: ERROR %i\n", (char *)node->content, param->errno);
+	return (0);
 }
