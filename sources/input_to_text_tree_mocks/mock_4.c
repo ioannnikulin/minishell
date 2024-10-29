@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 23:07:09 by inikulin          #+#    #+#             */
-/*   Updated: 2024/09/21 14:15:30 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/10/22 23:21:54 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	mock_4_tree(t_treenode *root)
 /* returns 1 on success - to allow condition usage outside */
 int	mock_4(char *input, t_treenode *root)
 {
-	if (ft_strcmp(input, MOCK_4_TEXT) != 0)
+	if (ft_strcmp(input, MOCK_4_TEXT) != 0 && ft_strcmp(input, "MOCK_4") != 0)
 		return (0);
 	mock_4_tree(root);
 	return (1);

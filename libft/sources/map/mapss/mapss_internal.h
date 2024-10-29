@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 20:41:10 by inikulin          #+#    #+#             */
-/*   Updated: 2024/08/13 22:40:00 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/10/23 18:11:37 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,4 +21,5 @@
 
 int		ft_mapss_insert(t_mapss *map, t_dlist *node);
 char	*ft_mapss_error_decoder(int errno, int *finalize_mode);
+void	ft_mapss_node_del(t_dlist *node);
 #endif

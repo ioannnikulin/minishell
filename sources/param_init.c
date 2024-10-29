@@ -6,13 +6,13 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 18:10:38 by inikulin          #+#    #+#             */
-/*   Updated: 2024/10/21 22:39:55 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/10/22 23:01:14 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	param_get_cur_dir(t_param *param)
+int	param_get_cur_dir(t_param *param)
 {
 	int		sz;
 	char	*tgt;
