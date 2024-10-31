@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 17:50:43 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/10/23 15:48:18 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/10/31 13:05:23 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 static int	count_words(const char *pp, const char *charset, const char ex)
 {
-	int		word_qtty;
-	char	*p;
-	int		in_quotes;
+	int			word_qtty;
+	const char	*p;
+	int			in_quotes;
 
 	word_qtty = 0;
-	p = (char *)pp;
+	p = pp;
 	in_quotes = 0;
 	while (p && charset && *p)
 	{
@@ -44,27 +44,28 @@ static int	count_words(const char *pp, const char *charset, const char ex)
 static void	parse_word(char **res, const char **f,
 					const char *charset, const char ex)
 {
-	int		cwlen;
-	char	**from;
-	int		in_quotes;
+	int			cwlen;
+	const char	*start;
+	int			in_quotes;
 
-	from = (char **)f;
 	in_quotes = 0;
-	while (**from && ft_is_in(**from, charset))
-		(*from)++;
+	while (**f && ft_is_in(**f, charset))
+		(*f)++;
+	start = *f;
 	cwlen = 0;
-	while ((*from)[cwlen] && (in_quotes || !ft_is_in((*from)[cwlen], charset)))
+	while ((**f) && (in_quotes || !ft_is_in(**f, charset)))
 	{
-		is_in_quotes(from, ex, &in_quotes);
+		is_in_quotes(f, ex, &in_quotes);
 		cwlen++;
+		(*f)++;
 	}
 	if (cwlen == 0)
 		return ;
-	(*res) = (char *) ft_calloc_if((cwlen + 1) * sizeof(char), 1);
-	if (*res == 0)
-		return ;
-	cwlen = 0;
-	copy_word(res, from, charset, ex);
+	if ((copy_word(res, start, cwlen) != 0))
+	{
+		*res = NULL;
+		ft_printf("copy_word failed\n");	
+	}
 }
 
 static int	check_edges(char **res, int *cwi)
@@ -87,13 +88,12 @@ static int	check_edges(char **res, int *cwi)
 char	**ft_split_set_skip_delim(const char *str, const char *charset,
 					const char ex, int *sz)
 {
-	char	**res;
-	int		word_qtty;
-	int		cwi;
+	char		**res;
+	const char	*current;
+	int			word_qtty;
+	int			cwi;
 
 	word_qtty = count_words(str, charset, ex);
-	if (sz)
-		*sz = -1;
 	res = (char **) ft_calloc_if((word_qtty + 1) * sizeof(char *), 1);
 	if (!res)
 		return (0);
@@ -101,9 +101,10 @@ char	**ft_split_set_skip_delim(const char *str, const char *charset,
 	if (word_qtty == 0)
 		return (res);
 	cwi = 0;
-	while (*str && cwi < word_qtty)
+	current = str;
+	while (*current && cwi < word_qtty)
 	{
-		parse_word(&res[cwi], &str, charset, ex);
+		parse_word(&res[cwi], &current, charset, ex);
 		if (check_edges(res, &cwi))
 			return (0);
 		cwi ++;
@@ -119,5 +120,7 @@ char	**ft_split_skip_delim(const char *str, char c, char ex, int *sz)
 
 	cc[0] = c;
 	cc[1] = 0;
+	if (sz)
+		*sz = -1;
 	return (ft_split_set_skip_delim(str, cc, ex, sz));
 }

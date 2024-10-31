@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 14:08:20 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/10/23 12:36:07 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/10/31 10:44:37 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,11 +84,9 @@ char	**ft_split_str(const char *s, t_delims *delim_ar, int *sz)
 {
 	char		**res;
 	int			token_q;
-	t_delims	*ar;
 
 	res = NULL;
-	ar = (t_delims *)delim_ar;
-	calc_tokens(s, &token_q, ar);
+	calc_tokens(s, &token_q, delim_ar);
 	if (sz)
 		*sz = -1;
 	res = (char **) ft_calloc_if((token_q + 1) * sizeof(char *), 1);
@@ -97,7 +95,7 @@ char	**ft_split_str(const char *s, t_delims *delim_ar, int *sz)
 	res[token_q] = 0;
 	if (token_q == 0)
 		return (res);
-	extract_token(res, &s, token_q, ar);
+	extract_token(res, &s, token_q, delim_ar);
 	if (sz)
 		*sz = token_q;
 	return (res);

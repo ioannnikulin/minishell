@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 16:40:11 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/10/23 15:47:20 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/10/31 13:02:35 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ int		extract_plain_token(char **res, const char **s,
 			t_delims *array, int cwi);
 int		extract_delimiter(char **res, const char **s,
 			size_t op_len, int cwi);
-void	copy_word(char **res, char **from, const char *charset,
-			const char ex);
-bool	is_in_quotes(char **p, const char ex, int *in_quotes);
+int	copy_word(char **res, const char *from, int length);
+bool	is_in_quotes(const char **p, const char ex, int *in_quotes);
 #endif

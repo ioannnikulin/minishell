@@ -6,11 +6,11 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 16:11:49 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/10/23 23:02:08 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/10/31 13:43:12 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "input_processing_internal.h"
+#include "input_processing.h"
 
 static char	**split_excluding_quotes(char **result, char **s)
 {
@@ -28,9 +28,9 @@ static char	**split_excluding_quotes(char **result, char **s)
 		j = 0;
 		while (j < sz)
 		{
-			result[res_i++] = temp_split[j++];
+			result[res_i++] = ft_strdup(temp_split[j++]);
 		}
-		free(temp_split);
+		ft_free_ss_sz_null((void *)&(temp_split), sz);
 	}
 	result[res_i] = NULL;
 	return (result);
@@ -51,8 +51,9 @@ static void	calculate_spaces(char **ss, int *total_sz)
 			return ;
 		*total_sz += sz;
 		i++;
+		ft_free_ss_sz_null((void *)&tok_space, sz);
 	}
-	ft_free_ss_null((void *)&tok_space, sz);
+	ft_printf("Total_size: %i\n", *total_sz);
 	return ;
 }
 
@@ -92,14 +93,21 @@ char	**parse_command(const char *s)
 	if (op_arr.error)
 		return (NULL);
 	tok_oper = split_by_operators(s, &op_arr, &sz);
-	if (!tok_oper)
+	ft_printf("Size: %i\n", sz);
+	if (tok_oper == NULL || tok_oper[0] == NULL)
+	{
+		ft_free_arr((void **)&op_arr);
+		ft_free_arr((void **)&tok_oper);
 		return (NULL);
+	}
 	tok_space = split_by_space(tok_oper);
-	if (op_arr.delims)
-    {
-        free(op_arr.delims);
-        op_arr.delims = NULL;
-    }
-	ft_free_ss_null((void *)&tok_oper, sz);
+	if (!tok_space)
+	{
+		ft_free_arr((void **)&op_arr);
+		ft_free_ss_sz_null((void *)&tok_oper, sz);
+		return(NULL);
+	}
+	ft_free_arr((void **)&op_arr);
+	ft_free_ss_sz_null((void *)&tok_oper, sz);
 	return (tok_space);
 }

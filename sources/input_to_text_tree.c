@@ -6,12 +6,12 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 23:07:09 by inikulin          #+#    #+#             */
-/*   Updated: 2024/10/23 19:26:51 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/10/31 13:44:08 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "parsing/input_processing_internal.h"
+#include "parsing/input_processing.h"
 #ifdef MOCK_TANIA
 # include "input_to_text_tree_mocks/input_to_text_tree_mock.h"
 

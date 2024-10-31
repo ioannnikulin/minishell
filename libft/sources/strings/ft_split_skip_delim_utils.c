@@ -6,13 +6,13 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 17:58:31 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/10/23 15:47:40 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/10/31 13:07:43 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "strings_internal.h"
 
-bool	is_in_quotes(char **p, const char ex, int *in_quotes)
+bool	is_in_quotes(const char **p, const char ex, int *in_quotes)
 {
 	if (**p == ex)
 	{
@@ -22,24 +22,19 @@ bool	is_in_quotes(char **p, const char ex, int *in_quotes)
 	return (false);
 }
 
-void	copy_word(char **res, char **from, const char *charset,
-				const char ex)
+int	copy_word(char **res, const char *from, int length)
 {
-	int	cwlen;
-	int	in_quotes;
+	int	i;
 
-	cwlen = 0;
-	in_quotes = 0;
-	while (**from && (in_quotes || !ft_is_in(**from, charset)))
+	*res = (char *) ft_calloc_if((length + 1) * sizeof(char), 1);
+	if (*res == NULL)
+		return (1);
+	i = 0; 
+	while (i < length)
 	{
-		if (is_in_quotes(from, ex, &in_quotes))
-		{
-			(*res)[cwlen++] = ex;
-			(*from)++;
-			continue ;
-		}
-		(*res)[cwlen++] = **from;
-		(*from)++;
+		(*res)[i] = from[i];
+		i++;
 	}
-	(*res)[cwlen] = '\0';
+	(*res)[length] = '\0';
+	return (0);
 }
