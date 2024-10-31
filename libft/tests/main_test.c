@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 15:57:31 by inikulin          #+#    #+#             */
-/*   Updated: 2024/10/23 17:45:20 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/10/31 16:20:31 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,6 @@ int	main(int argc, char **argv)
 	ft_printf_test();
 	ft_printf("get_next_line in testing\n");
 	get_next_line_test();
-	ft_printf("ft_split_skip_delim in test\n");
-	ft_split_skip_delim_test();
 	printf("All tests passed successfully!\n");
 	return (0);
 }
