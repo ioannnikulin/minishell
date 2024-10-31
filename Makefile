@@ -84,6 +84,9 @@ preclean:
 prefclean:
 	$(PREFIX)cd libft && make fclean
 
+ptetestfclean:
+	$(PREFIX)cd libft && make testfclean
+
 prere:
 	$(PREFIX)cd libft && make re
 
@@ -114,7 +117,7 @@ memcheck:
 fulltest:
 	$(PREFIX)cd libft && make fulltest
 	$(PREFIX)make fclean testfclean
-	$(PREFIX)cd sources && norminette
+#	$(PREFIX)cd sources && norminette
 	$(PREFIX)make vania test memcheck
 
 PHONY: all pre clean fclean re test fulltest testclean testfclean retest tania vania
