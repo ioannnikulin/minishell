@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 13:20:33 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/10/31 15:54:45 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/11/01 10:11:58 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ static	int	insert_in_between(t_mapss *map, t_dlist *node,
 	t_dlist	*cur;
 
 	cur = map->head;
-	ft_printf("Im here\n");
 	cur_entry = cur->content;
 	while (cur != NULL)
 	{
