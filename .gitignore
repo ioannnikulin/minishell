@@ -5,3 +5,4 @@ libft/tests/test
 .vscode
 minishell
 test
+tests/tool_print_environment

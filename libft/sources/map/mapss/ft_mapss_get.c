@@ -19,9 +19,9 @@ char	*ft_mapss_get(t_mapss *map, char *key)
 	if (!map || !map->head || !key)
 		return (0);
 	cur = map->head;
-	while (ft_strcmp(key, ((t_mapss_entry *)cur)->key) < 0)
+	while (cur && ft_strcmp(key, ((t_mapss_entry *)cur)->key) > 0)
 		cur = cur->next;
-	if (ft_strcmp(key, ((t_mapss_entry *)cur)->key) == 0)
+	if (cur && ft_strcmp(key, ((t_mapss_entry *)cur)->key) == 0)
 		return (((t_mapss_entry *)cur)->value);
 	return (0);
 }
