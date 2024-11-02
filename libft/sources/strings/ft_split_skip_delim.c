@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 17:50:43 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/10/31 13:05:23 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/11/02 18:56:22 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ static void	parse_word(char **res, const char **f,
 	if ((copy_word(res, start, cwlen) != 0))
 	{
 		*res = NULL;
-		ft_printf("copy_word failed\n");	
 	}
 }
 

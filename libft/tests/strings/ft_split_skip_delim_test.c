@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 16:24:51 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/10/30 15:28:19 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/11/02 19:10:44 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ typedef struct s_string_array
 static t_strings	create_string_array()
 {
 	t_strings	str_array;
-	str_array.count = 11;
+	str_array.count = 12;
 	str_array.error = 0;
 	str_array.strs = ft_calloc_if(sizeof(t_string) * str_array.count, 1);
 	if (str_array.strs == NULL)
@@ -58,12 +58,35 @@ static t_strings	create_string_array()
 	return (str_array);
 }
 
+static void	free_tokens(char **tokens)
+{
+	if (!tokens)
+		return;
+	for (int i = 0; tokens[i] != NULL; i++)
+	{
+		free(tokens[i]);
+		tokens[i] = NULL;
+	}
+	free(tokens);
+}
+
+static void	free_string_array(t_string *strs, size_t count) 
+{
+	if (!strs)
+		return;
+
+	for (size_t i = 0; i < count; i++) 
+	{
+		free(strs[i].str);
+	}
+	free(strs);
+}
+
 void ft_split_skip_delim_test()
 {
     t_strings	strings_arr = create_string_array();
     char	**tokens;
     int     sz = 0;
-	int		j = 0;
     
 	if (strings_arr.error)
 	{
@@ -88,21 +111,24 @@ void ft_split_skip_delim_test()
     for (int i = 0; i < NUM_TEST_CASES; i ++)
     {
 		tokens = ft_split_skip_delim(strings_arr.strs[i].str,' ', '"', &sz);
-		if (tokens == NULL) {
-    			ft_printf("No tokens found for input: %s\n", strings_arr.strs[i].str);
-				break;
-		} else {
+		if (tokens == NULL)
+		{
+			assert(t[i][0] == NULL);
+		}
+		else 
+		{
     		for (int j = 0; tokens[j] != NULL; j++)
     		{
-    		    ft_printf("%s\n", tokens[j]);
+    		    assert((tokens[j] == NULL) == (t[i][j] == NULL));
+				if (tokens[j] == NULL)
+				{
+					break;
+				}
+				assert(ft_strcmp(tokens[j], t[i][j]) == 0);
     		}
 		}
-		assert((tokens[j] == NULL) == (t[i][j] == NULL));
-		if (tokens[j] == NULL)
-		{
-			break;
-		}
-		assert(strcmp(tokens[j], t[i][j]) == 0);
+		free_tokens(tokens);
 	}
+	free_string_array(strings_arr.strs, strings_arr.count);
 	return ;
 }

@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 17:58:31 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/10/31 13:07:43 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/11/02 18:59:54 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	copy_word(char **res, const char *from, int length)
 	*res = (char *) ft_calloc_if((length + 1) * sizeof(char), 1);
 	if (*res == NULL)
 		return (1);
-	i = 0; 
+	i = 0;
 	while (i < length)
 	{
 		(*res)[i] = from[i];

@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 16:50:45 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/11/02 13:19:00 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/11/02 19:06:29 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ t_strings	create_string_array()
 	return (str_array);
 }
 
-void	free_tokens(char **tokens)
+static void	free_tokens(char **tokens)
 {
 	if (!tokens)
 		return;
@@ -65,7 +65,7 @@ void	free_tokens(char **tokens)
 	free(tokens);
 }
 
-void	free_string_array(t_string *strs, size_t count) 
+static void	free_string_array(t_string *strs, size_t count) 
 {
 	if (!strs)
 		return;
@@ -109,7 +109,7 @@ void	parse_command_test()
 			for (int j = 0; tokens[j] != NULL; j++)
 			{
 				assert((tokens[j] == NULL) == (t[i][j] == NULL));
-				assert(strcmp(tokens[j], t[i][j]) == 0);
+				assert(ft_strcmp(tokens[j], t[i][j]) == 0);
 			}
 			free_tokens(tokens);
 		}
