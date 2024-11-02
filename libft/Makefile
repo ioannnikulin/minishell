@@ -141,7 +141,7 @@ test: goodtests #$(SEGFAULTNAMES)
 retest: testfclean test
 
 fulltest: re retest
-	$(FTPREFIX)norminette libft.h sources/* 
+	$(FTPREFIX)norminette libft.h sources/*
 	$(FTPREFIX)tests/test
 	$(FTPREFIX)rm -rf tmp.tst
 	$(FTPREFIX)valgrind --leak-check=full --show-leak-kinds=all tests/test "memcheck"
