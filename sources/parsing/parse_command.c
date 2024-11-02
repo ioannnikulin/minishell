@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 16:11:49 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/10/31 13:43:12 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/11/02 18:44:28 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ static void	calculate_spaces(char **ss, int *total_sz)
 		i++;
 		ft_free_ss_sz_null((void *)&tok_space, sz);
 	}
-	ft_printf("Total_size: %i\n", *total_sz);
 	return ;
 }
 
@@ -93,21 +92,17 @@ char	**parse_command(const char *s)
 	if (op_arr.error)
 		return (NULL);
 	tok_oper = split_by_operators(s, &op_arr, &sz);
-	ft_printf("Size: %i\n", sz);
 	if (tok_oper == NULL || tok_oper[0] == NULL)
 	{
-		ft_free_arr((void **)&op_arr);
-		ft_free_arr((void **)&tok_oper);
+		cleanup(&op_arr, &tok_oper, sz);
 		return (NULL);
 	}
 	tok_space = split_by_space(tok_oper);
 	if (!tok_space)
 	{
-		ft_free_arr((void **)&op_arr);
-		ft_free_ss_sz_null((void *)&tok_oper, sz);
-		return(NULL);
+		cleanup(&op_arr, &tok_oper, sz);
+		return (NULL);
 	}
-	ft_free_arr((void **)&op_arr);
-	ft_free_ss_sz_null((void *)&tok_oper, sz);
+	cleanup(&op_arr, &tok_oper, sz);
 	return (tok_space);
 }

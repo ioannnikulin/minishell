@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 20:59:34 by inikulin          #+#    #+#             */
-/*   Updated: 2024/10/30 09:20:27 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/11/02 15:36:31 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ void	ft_free_s(void *c);
 void	ft_free_nop(void **c);
 void	ft_free_pi_null(void **p);
 void	ft_free_pi(void *p);
-void	ft_free_arr(void **arr);
 void	ft_free_ss_sz(void **c, int sz);
 void	ft_free_ss_sz_null(void ***c, int sz);
 

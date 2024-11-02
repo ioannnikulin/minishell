@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 18:49:54 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/10/31 13:43:18 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/11/02 18:49:09 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,16 @@ t_delims	create_operator_array(void)
 	delim_array.delims[8].delim = "(";
 	delim_array.delims[9].delim = "|";
 	return (delim_array);
+}
+
+void	cleanup(t_delims *op_arr, char ***tok_oper, int sz)
+{
+	if (op_arr != NULL)
+	{
+		ft_free_delims_arr(op_arr);
+	}
+	if (tok_oper != NULL && *tok_oper != NULL)
+	{
+		ft_free_ss_sz_null((void ***)tok_oper, sz);
+	}
 }

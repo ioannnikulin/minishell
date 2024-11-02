@@ -6,12 +6,12 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 16:50:45 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/10/31 13:40:39 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/11/02 13:19:00 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tests_internal.h"
-#include "../sources/parsing/input_processing_internal.h"
+#include "../sources/parsing/input_processing.h"
 
 #define NUM_TEST_CASES 11
 #define MAX_ARGS 16
@@ -34,10 +34,7 @@ t_strings	create_string_array()
 	str_array.count = 11;
 	str_array.error = 0;
 	str_array.strs = ft_calloc_if(sizeof(t_string) * str_array.count, 1);
-	if (str_array.strs == NULL)
-	{
-		return (str_array);
-	}
+	assert(str_array.strs != NULL);
 	for (int i = 0; i < (int)str_array.count; i++)
 	{
 		str_array.strs[i].str = NULL;
@@ -56,42 +53,37 @@ t_strings	create_string_array()
 	return (str_array);
 }
 
-void free_tokens(char **tokens)
+void	free_tokens(char **tokens)
 {
-    if (!tokens)
-        return;
-    for (int i = 0; tokens[i] != NULL; i++)
-    {
-        free(tokens[i]);
-        tokens[i] = NULL;
-    }
-    free(tokens);
-}
-
-void free_string_array(t_string *strs, size_t count) 
-{
-    if (!strs)
-        return;
-
-    for (size_t i = 0; i < count; i++) {
-        free(strs[i].str);
-    }
-    free(strs);
-}
-
-
-void    parse_command_test()
-{
-    t_strings	str_arr = create_string_array();
-    char	**tokens;
-	int		j = 0;
-    
-	if (str_arr.error)
+	if (!tokens)
+		return;
+	for (int i = 0; tokens[i] != NULL; i++)
 	{
-	    fprintf(stderr, "Failed to create string array.\n");
-	    exit(1);
+		free(tokens[i]);
+		tokens[i] = NULL;
 	}
-	char *t[NUM_TEST_CASES][MAX_ARGS] =
+	free(tokens);
+}
+
+void	free_string_array(t_string *strs, size_t count) 
+{
+	if (!strs)
+		return;
+
+	for (size_t i = 0; i < count; i++) 
+	{
+		free(strs[i].str);
+	}
+	free(strs);
+}
+
+void	parse_command_test()
+{
+	t_strings	str_arr = create_string_array();
+	char		**tokens;
+
+	assert(str_arr.error == 0 && "Failed to create string array.");
+	char	*t[NUM_TEST_CASES][MAX_ARGS] =
 	{
 		{"grep", "\"error\"", "log.txt", "||", "echo", "\"No errors    found\"", NULL},
 		{"cat", "(", "file1.txt", "file2.txt", ")", "|", "grep", "\"keyword\"", NULL},
@@ -103,14 +95,24 @@ void    parse_command_test()
 		{"mv", "new_dir", "old_dir", NULL},
 		{"&&", NULL},
 		{")", "(", "(", ")", ")", "(", NULL},
-		{"", NULL}
+		{NULL}
 	};
-    for (int i = 0; i < NUM_TEST_CASES; i ++)
+	for (int i = 0; i < NUM_TEST_CASES; i ++)
 	{
 		tokens = parse_command(str_arr.strs[i].str);
-		assert((tokens[j] == NULL) == (t[i][j] == NULL));
-		assert(strcmp(tokens[j], t[i][j]) == 0);
-		free_tokens(tokens);
+		if (tokens == NULL)
+		{
+			assert(t[i][0] == NULL);
+		}
+		else
+		{
+			for (int j = 0; tokens[j] != NULL; j++)
+			{
+				assert((tokens[j] == NULL) == (t[i][j] == NULL));
+				assert(strcmp(tokens[j], t[i][j]) == 0);
+			}
+			free_tokens(tokens);
+		}
 	}
 	free_string_array(str_arr.strs, str_arr.count);
 }
