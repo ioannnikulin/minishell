@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/06 20:45:38 by inikulin          #+#    #+#             */
-/*   Updated: 2024/10/11 23:24:38 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/10/25 01:13:33 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,10 @@ int	param_get_envvars(t_param *param)
 		|| !ft_dlist_add_back_s(&param->envvar_path_head, "/usr/local/bin")
 		|| !ft_dlist_add_back_s(&param->envvar_path_head, "/usr/sbin")
 		|| !ft_dlist_add_back_s(&param->envvar_path_head, "/usr/bin")
-		|| !ft_dlist_add_back_s(&param->envvar_path_head, "/sbin/bin"))
+		|| !ft_dlist_add_back_s(&param->envvar_path_head, "/sbin/bin")
+		|| ft_mapss_add(&param->envvars, "HOME", "/home/ioann")
+		|| ft_mapss_add(&param->envvars, "some", "BODYONCETOLDME")
+	)
 		return (1);
 	return (0);
 }

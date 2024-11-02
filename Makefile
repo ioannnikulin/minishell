@@ -8,7 +8,7 @@ MOCK_FLAG =
 SOURCE_F = sources
 TEST_F = tests
 
-INPUT_TO_TEXT_TREE_MOCK_NAMES = input_to_text_tree_mock.c mock_0.c mock_1.c mock_2.c mock_3.c mock_4.c mock_5.c mock_6.c mock_7.c
+INPUT_TO_TEXT_TREE_MOCK_NAMES = input_to_text_tree_mock.c mock_0.c mock_1.c mock_2.c mock_3.c mock_4.c mock_5.c mock_6.c mock_7.c mock_8.c mock_9.c mock_10.c mock_11.c mock_12.c mock_13.c mock_14.c mock_15.c mock_16.c
 INPUT_TO_TEXT_TREE_MOCK_F = input_to_text_tree_mocks
 INPUT_TO_TEXT_TREE_MOCK_SRCS = $(addprefix $(INPUT_TO_TEXT_TREE_MOCK_F)/, $(INPUT_TO_TEXT_TREE_MOCK_NAMES))
 
@@ -16,37 +16,63 @@ COMMANDS_NAMES = option_cd.c option_echo.c option_env.c option_exit.c option_exp
 COMMANDS_F = commands
 COMMANDS_SRCS = $(addprefix $(COMMANDS_F)/,$(COMMANDS_NAMES))
 
-SRC_NAMES = finalize.c param_init.c param_get_envvars.c wrappers.c input_to_text_tree.c $(INPUT_TO_TEXT_TREE_MOCK_SRCS) exec_text_tree.c exec_text_tree_node.c $(COMMANDS_SRCS)
+SRC_NAMES = finalize.c param_init.c param_get_envvars.c wrappers.c input_to_text_tree.c $(INPUT_TO_TEXT_TREE_MOCK_SRCS) exec_text_tree.c exec_text_tree_node.c $(COMMANDS_SRCS) w_execve.c
 ENDPOINT_NAME = main.c
 
 SRC_SRCS = $(addprefix $(SOURCE_F)/, $(SRC_NAMES))
 ENDPOINT_SRC = $(addprefix $(SOURCE_F)/, $(ENDPOINT_NAME))
 
-OBJS = $(SRC_SRCS:.c=.o)
-ENDPOINT_OBJ = $(ENDPOINT_SRC:.c=.o)
-INCLUDES = -I . -I libft
-
-TEST_NAMES = main_test.c input_to_text_tree_test.c
+TEST_NAMES = input_to_text_tree_test.c
+TEST_ENDPOINT_NAME = main_test.c
 TEST_SRCS = $(addprefix $(TEST_F)/, $(TEST_NAMES))
-TEST_OBJS = $(TEST_SRCS:.c=.o)
+TEST_ENDPOINT_SRC = $(addprefix $(TEST_F)/, $(TEST_ENDPOINT_NAME))
 TEST_FNAME = $(TEST_F)/test
 
+TEST_TOOL_NAMES = tool_print_environment.c
+TEST_TOOL_SRCS = $(addprefix $(TEST_F)/, $(TEST_TOOL_NAMES))
+TEST_TOOL_FNAME = $(TEST_F)/tool_print_environment
+
+OBJ_F = build/
+TEST_OBJ_F = $(OBJ_F)tests/
+
+OBJS = $(addprefix $(OBJ_F), $(SRC_NAMES:.c=.o))
+TEST_OBJS = $(addprefix $(TEST_OBJ_F), $(TEST_NAMES:.c=.o))
+ENDPOINT_OBJ = $(OBJ_F)$(ENDPOINT_NAME:.c=.o)
+TEST_ENDPOINT_OBJ = $(TEST_OBJ_F)$(TEST_ENDPOINT_NAME:.c=.o)
+TEST_TOOL_OBJS = $(addprefix $(TEST_OBJ_F), $(TEST_TOOL_NAMES:.c=.o))
+INCLUDES = -I . -I libft
+
+DIRS = $(COMMANDS_F) $(INPUT_TO_TEXT_TREE_MOCK_F)
+
+OBJ_DIRS = $(addprefix $(OBJ_F), $(DIRS))
+
+vpath %.c $(SOURCE_F) $(SOURCE_F)/$(COMMANDS_F) $(SOURCE_F)/$(INPUT_TO_TEXT_TREE_MOCK_F)
+
 all: pre $(NAME)
+
+$(OBJ_DIRS):
+	$(PREFIX)mkdir -p $(OBJ_DIRS)
 
 pre:
 	$(PREFIX)cd libft && make all
 
 $(NAME): $(OBJS) $(ENDPOINT_OBJ)
-	$(PREFIX)$(CC) $^ -o $@ $(LINK_FLAGS)
+	$(PREFIX)$(CC) $(OBJS) $(ENDPOINT_OBJ) -o $@ $(LINK_FLAGS)
 
-$(OBJS): %.o: %.c
+$(OBJ_F)%.o: %.c $(OBJ_DIRS)
 	$(PREFIX)$(CC) $(COMPILE_FLAGS) $< -o $@ $(INCLUDES) $(MOCK_FLAG)
 
-$(ENDPOINT_OBJ): %.o: %.c
+$(TEST_OBJ_F):
+	$(PREFIX)mkdir -p $(TEST_OBJ_F)
+
+$(TEST_TOOL_FNAME): $(TEST_TOOL_OBJS)
+	$(PREFIX)$(CC) $(TEST_TOOL_OBJS) -o $(TEST_TOOL_FNAME) $(LINK_FLAGS)
+
+$(TEST_OBJ_F)%.o: $(TEST_F)/%.c $(TEST_OBJ_F) $(TEST_ENDPOINT_OBJ)
 	$(PREFIX)$(CC) $(COMPILE_FLAGS) $< -o $@ $(INCLUDES) $(MOCK_FLAG)
 
-$(TEST_OBJS): %.o: %.c
-	$(PREFIX)$(CC) $(COMPILE_FLAGS) $< -o $@ $(INCLUDES)
+test: $(OBJ_DIRS) $(TEST_OBJ_F) $(OBJS) $(TEST_OBJS) $(TEST_ENDPOINT_OBJ) $(TEST_TOOL_FNAME)
+	$(PREFIX)$(CC) $(OBJS) $(TEST_OBJS) $(TEST_ENDPOINT_OBJ) -o $(TEST_FNAME) $(LINK_FLAGS)
 
 preclean:
 	$(PREFIX)cd libft && make clean
@@ -57,25 +83,21 @@ prefclean:
 prere:
 	$(PREFIX)cd libft && make re
 
-clean:
-	$(PREFIX)rm -f $(OBJS) $(ENDPOINT_OBJ) $(VANIA_ENDPOINT_OBJ) $(TANIA_ENDPOINT_OBJ)
-	$(PREFIX)rm -f $(OBJS) $(ENDPOINT_OBJ) $(VANIA_ENDPOINT_OBJ) $(TANIA_ENDPOINT_OBJ)
+clean: testclean
+	$(PREFIX)rm -f $(OBJS) $(ENDPOINT_OBJ) $(TANIA_ENDPOINT_OBJ)
+	$(PREFIX)@if [ -d $(OBJ_F) ]; then $(PREFIX)rm -rf $(OBJ_F); fi
 
-fclean: clean
+fclean: clean testfclean
 	$(PREFIX)rm -f $(NAME)
-	$(PREFIX)rm -f $(ENDPOINT_OBJ)
-	$(PREFIX)rm -f $(ENDPOINT_OBJ)
 
 re: fclean all
 
-test: $(OBJS) $(TEST_OBJS)
-	$(PREFIX)$(CC) $^ -o $(TEST_FNAME) $(LINK_FLAGS)
-
 testclean:
-	$(PREFIX)rm -f $(TEST_OBJS)
+	$(PREFIX)rm -f $(TEST_OBJS) $(TEST_ENDPOINT_OBJ) $(TEST_TOOL_OBJS)
+	$(PREFIX)@if [ -d $(TEST_OBJ_F) ]; then $(PREFIX)rm -rf $(TEST_OBJ_F); fi
 
 testfclean: testclean
-	$(PREFIX)rm -f $(TEST_FNAME)
+	$(PREFIX)rm -f $(TEST_FNAME) $(TEST_TOOL_FNAME)
 
 pretestfclean:
 	$(PREFIX)cd libft && make testfclean
@@ -91,18 +113,24 @@ fulltest:
 	$(PREFIX)cd sources && norminette
 	$(PREFIX)make vania test memcheck
 
-PHONY: all pre clean fclean re test fulltest testclean testfclean retest
+PHONY: all pre clean fclean re test fulltest testclean testfclean retest tania vania
 
 ########################################
 
-TANIA_ENDPOINT = sources/tanya_main.c
-TANIA_ENDPOINT_OBJ = $(TANIA_ENDPOINT:.c=.o)
+TANIA_OBJ_F = $(OBJ_F)tania/
 
-$(TANIA_ENDPOINT_OBJ): %.o: %.c
+TANIA_ENDPOINT_NAME = tania_main.c
+TANIA_ENDPOINT_SRCS = $(addprefix $(SOURCE_F)/,$(TANIA_ENDPOINT_NAME))
+TANIA_ENDPOINT_OBJ = $(TANIA_OBJ_F)$(TANIA_ENDPOINT_NAME:.c=.o)
+
+$(TANIA_OBJ_F):
+	$(PREFIX)mkdir -p $(TANIA_OBJ_F)
+
+$(TANIA_OBJ_F)%.o: $(SOURCE_F)/%.c $(TANIA_OBJ_F)
 	$(PREFIX)$(CC) $(COMPILE_FLAGS) $< -o $@ $(INCLUDES)
 
-tania: $(TANIA_ENDPOINT_OBJ) $(OBJS)
-	$(PREFIX)$(CC) $^ -o $(NAME) $(LINK_FLAGS)
+tania: $(OBJ_DIRS) $(TANIA_OBJ_F) $(OBJS) $(TANIA_ENDPOINT_OBJ)
+	$(PREFIX)$(CC) $(OBJS) $(TANIA_ENDPOINT_OBJ) -o $(NAME) $(LINK_FLAGS)
 
 ########################################
 
