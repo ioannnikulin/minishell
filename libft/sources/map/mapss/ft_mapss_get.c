@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   ft_mapss_get.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/06 20:49:20 by inikulin          #+#    #+#             */
 /*   Updated: 2024/10/27 00:43:16 by inikulin         ###   ########.fr       */
