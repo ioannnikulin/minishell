@@ -20,7 +20,11 @@ PARSING_NAMES = parse_command.c parse_commands_utils.c
 PARSING_F = parsing
 PARSING_SRCS = $(addprefix $(PARSING_F)/, $(PARSING_NAMES))
 
-SRC_NAMES = finalize.c param_init.c param_get_envvars.c wrappers.c input_to_text_tree.c $(INPUT_TO_TEXT_TREE_MOCK_SRCS) exec_text_tree.c exec_text_tree_node.c $(COMMANDS_SRCS) $(PARSING_SRCS) w_execve.c
+TREE_MAKE_NAMES = tokens_to_tree.c
+TREE_MAKE_F = tree_make
+TREE_MAKE_SRCS =  $(addprefix $(TREE_MAKE_F)/, $(TREE_MAKE_NAMES))
+
+SRC_NAMES = finalize.c param_init.c param_get_envvars.c wrappers.c input_to_text_tree.c $(INPUT_TO_TEXT_TREE_MOCK_SRCS) exec_text_tree.c exec_text_tree_node.c $(COMMANDS_SRCS) $(PARSING_SRCS) w_execve.c $(TREE_MAKE_SRCS)
 ENDPOINT_NAME = main.c
 
 SRC_SRCS = $(addprefix $(SOURCE_F)/, $(SRC_NAMES))
@@ -46,11 +50,11 @@ TEST_ENDPOINT_OBJ = $(TEST_OBJ_F)$(TEST_ENDPOINT_NAME:.c=.o)
 TEST_TOOL_OBJS = $(addprefix $(TEST_OBJ_F), $(TEST_TOOL_NAMES:.c=.o))
 INCLUDES = -I . -I libft
 
-DIRS = $(COMMANDS_F) $(INPUT_TO_TEXT_TREE_MOCK_F) $(PARSING_F)
+DIRS = $(COMMANDS_F) $(INPUT_TO_TEXT_TREE_MOCK_F) $(PARSING_F) $(TREE_MAKE_F)
 
 OBJ_DIRS = $(addprefix $(OBJ_F), $(DIRS))
 
-vpath %.c $(SOURCE_F) $(SOURCE_F)/$(COMMANDS_F) $(SOURCE_F)/$(INPUT_TO_TEXT_TREE_MOCK_F)
+vpath %.c $(SOURCE_F) $(SOURCE_F)/$(COMMANDS_F) $(SOURCE_F)/$(INPUT_TO_TEXT_TREE_MOCK_F) $(SOURCE_F)/$(TREE_MAKE_F)
 
 all: pre $(NAME)
 
