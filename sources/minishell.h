@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 15:22:58 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/03 12:42:06 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/11/03 17:00:07 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,6 @@ int		exec_text_tree(t_param *param);
 int		execute_text_tree_node(t_param *param, t_treenode *node);
 int		param_get_cur_dir(t_param *param);
 int		w_execve(char *fullpath, char **argv, char **envvars, int *errno);
+void	pre(void);
+void	post(void);
 #endif
