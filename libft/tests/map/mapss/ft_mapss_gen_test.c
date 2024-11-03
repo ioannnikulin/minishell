@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 21:34:36 by inikulin          #+#    #+#             */
-/*   Updated: 2024/10/27 00:32:00 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/11/03 10:02:30 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ typedef struct s_testcase
 {
 	char	***content;
 	int		sz;
-	char	*exp_res;
 }	t_testcase;
 
 // partially tested in ft_mapss_print_test, here it's only memleak check
@@ -36,9 +35,9 @@ void	ft_mapss_gen_test(void)
 	char ***t1 = ft_ss3(a, b, d);
 	char ***t2 = ft_ss3(c, b, e);
 	char ***t3 = ft_ss3(c, f, e);
-	tests[0] = (t_testcase){t1, 3, 0};
-	tests[1] = (t_testcase){t2, 3, 0};
-	tests[2] = (t_testcase){t3, 3, 0};
+	tests[0] = (t_testcase){t1, 3};
+	tests[1] = (t_testcase){t2, 3};
+	tests[2] = (t_testcase){t3, 3};
 
 	#ifdef DEBUG
 	printf("Starting %d tests.\n", SZ);
