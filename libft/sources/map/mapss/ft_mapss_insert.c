@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 13:20:33 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/11/03 12:20:25 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/11/03 12:22:56 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static	int	insert_at_the_beginning(t_mapss *map, t_dlist *node,
 		node->next = NULL;
 		node->prev = NULL;
 		map->size ++;
-		return ;
+		return (0);
 	}
 	if (ft_strcmp(node_entry->key, head_entry->key) < 0)
 	{
@@ -47,7 +47,7 @@ static	int	insert_at_the_beginning(t_mapss *map, t_dlist *node,
 		map->head->prev = node;
 		map->head = node;
 		map->size ++;
-		return ;
+		return (0);
 	}
 	return (1);
 }
