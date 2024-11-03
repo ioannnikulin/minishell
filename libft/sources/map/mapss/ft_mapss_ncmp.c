@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 21:17:49 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/03 11:45:54 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/11/03 11:49:34 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,5 +53,5 @@ int	ft_mapss_ncmp(t_mapss *a, t_mapss *b, int n)
 		a_node = a_node->next;
 		b_node = b_node->next;
 	}
-	return (ft_if_i(!a_node && !b_node, 0, ft_if_i(a_node > 0, i + 1, -i - 1)));
+	return (ft_if_i(!a_node && !b_node, 0, ft_if_i(!!a_node, i + 1, -i - 1)));
 }
