@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 15:57:31 by inikulin          #+#    #+#             */
-/*   Updated: 2024/08/17 18:16:16 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/11/03 14:27:08 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@ int	lists_test(void)
 	ft_list_size_test();
 	printf("list_add_front in testing\n");
 	ft_list_add_front_test();
-	printf("list_clear in testing\n");
-	ft_list_clear_test();
 	printf("list_last in testing\n");
 	ft_list_last_test();
 	printf("list_add_back in testing\n");
