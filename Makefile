@@ -84,7 +84,7 @@ preclean:
 prefclean:
 	$(PREFIX)cd libft && make fclean
 
-ptetestfclean:
+pretestfclean:
 	$(PREFIX)cd libft && make testfclean
 
 prere:
