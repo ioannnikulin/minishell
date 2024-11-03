@@ -13,86 +13,100 @@
 #include "../../../libft.h"
 #include <stdlib.h>
 
-void	ft_mapss_insert(t_mapss *map, t_dlist *node)
+static int	insert_at_the_end(t_mapss *map, t_dlist *node,
+				t_mapss_entry *node_entry, t_mapss_entry *tail_entry)
 {
-	t_dlist			*current;
-	t_dlist			*tail;
-	t_mapss_entry	*cur_entry;
-	t_mapss_entry	*node_entry;
-	t_mapss_entry	*tail_entry;
-
-	current = map->head;
-	tail = map->tail;
-	// Case 1: The list is empty
-	if (current == NULL)
-	{
-		//printf("Case 1: The list is empty\n");
-		map->head = node;
-		map->tail = node;
-		node->next = NULL;
-		node->prev = NULL;
-		map->size ++;
-		return ;
-	}
-	cur_entry = current->content;
-	node_entry = node->content;
-	tail_entry = tail->content;
-	// Case 2: Insert at the beginning (before the current head)
-	if (ft_strcmp(node_entry->key, cur_entry->key) < 0)
-	{
-		node->next = current;
-		node->prev = NULL;
-		current->prev = node;
-		map->head = node;
-		map->size ++;
-		return ;
-	}
-	//Case 3: Insert at the end
 	if (ft_strcmp(node_entry->key, tail_entry->key) > 0)
 	{
-		//printf("Case 3: Insert at the end\n");
 		node->next = NULL;
-		node->prev = tail;
-		tail->next = node;
+		node->prev = map->tail;
+		map->tail->next = node;
 		map->tail = node;
 		map->size ++;
-		return ;
-		//params->envvars.size++;
+		return (0);
 	}
-	//Case 4: Insert in between
-	while (current != NULL)
-    {
-		// Case 4.1: Overwrite if key already exists
+	return (1);
+}
+
+static	int	insert_at_the_beginning(t_mapss *map, t_dlist *node,
+			t_mapss_entry *node_entry, t_mapss_entry *head_entry)
+{
+	if (map->head == NULL)
+	{
+		map->head = node;
+		map->tail = node;
+		node->next = NULL;
+		node->prev = NULL;
+		map->size ++;
+		return ;
+	}
+	if (ft_strcmp(node_entry->key, head_entry->key) < 0)
+	{
+		node->next = map->head;
+		node->prev = NULL;
+		map->head->prev = node;
+		map->head = node;
+		map->size ++;
+		return ;
+	}
+	return (1);
+}
+
+static	int	insert_before_current(t_mapss *map, t_dlist *node, t_dlist *cur)
+{
+	node->next = cur;
+	node->prev = cur->prev;
+	if (cur->prev)
+		cur->prev->next = node;
+	else
+		map->head = node;
+	cur->prev = node;
+	map->size ++;
+	return (0);
+}
+
+static	int	insert_in_between(t_mapss *map, t_dlist *node,
+			t_mapss_entry *node_entry, t_mapss_entry *cur_entry)
+{
+	t_dlist	*cur;
+
+	cur = map->head;
+	cur_entry = cur->content;
+	while (cur != NULL)
+	{
 		if (ft_strcmp(node_entry->key, cur_entry->key) == 0)
 		{
-			//printf("Case 4.1\n");
-			free(cur_entry->value); // Assuming value was dynamically allocated
+			free(cur_entry->value);
 			cur_entry->value = node_entry->value;
-			free(node_entry->key); // Free the old key if necessary
-			free(node->content); // Free the new entry structure
-			free(node); // Free the new node
-			return ;
+			free(node_entry->key);
+			free(node->content);
+			free(node);
+			return (0);
 		}
-		// Case 4.2: Insert before the current node
 		else if (ft_strcmp(node_entry->key, cur_entry->key) < 0)
 		{
-			//printf("Case 4.2\n");
-			node->next = current;
-			node->prev = current->prev;
-			if (current->prev != NULL)
-			{
-				current->prev->next = node;
-			}
-			else
-			{
-				// Inserting at the beginning
-				map->head = node;
-			}
-			current->prev = node;
-			map->size ++;
-			return ;
+			return (insert_before_current(map, node, cur));
 		}
-		current = current->next;
-		cur_entry = current->content;
+		cur = cur->next;
+		cur_entry = cur->content;
 	}
+	return (1);
+}
+
+int	ft_mapss_insert(t_mapss *map, t_dlist *node)
+{
+	t_mapss_entry	*cur_entry;
+	t_mapss_entry	*node_entry;
+
+	node_entry = node->content;
+	if (map->head == NULL)
+		return (insert_at_the_beginning(map, node, node_entry, NULL));
+	cur_entry = map->head->content;
+	if (!insert_at_the_beginning(map, node, node_entry, cur_entry))
+		return (0);
+	cur_entry = map->tail->content;
+	if (!insert_at_the_end(map, node, node_entry, cur_entry))
+		return (0);
+	insert_in_between(map, node, node_entry, cur_entry);
+	return (0);
 }
