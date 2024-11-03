@@ -23,7 +23,10 @@ TREE_SRCS = $(addprefix $(SOURCES_F)/$(TREE_F)/, $(TREE_NAMES))
 
 MEM_F = memory
 MEM_NAMES = ft_bzero.c ft_calloc.c ft_memchr.c ft_memcmp.c ft_memcpy.c ft_memmove.c ft_memset.c ft_swap.c ft_swap_1.c ft_assign.c ft_cmp.c ft_new.c ft_free.c ft_free_s.c ft_free_null.c ft_tuples.c
-MEM_SRCS = $(addprefix $(SOURCES_F)/$(MEM_F)/, $(MEM_NAMES))
+MEM_SRCS = $(addprefix $(SOURCES_F)/$(MEM_F)/, $(MEM_NAMES)) $(FT_CALLOC_IF_CHOSEN)
+FT_CALLOC_IF_STD_SRC = $(addprefix $(SOURCES_F)/$(MEM_F)/, ft_calloc_if.c)
+FT_CALLOC_IF_TRAPPED_SRC = $(addprefix $(TESTS_F)/$(MEM_F)/, ft_calloc_if_trapped.c)
+FT_CALLOC_IF_CHOSEN = $(FT_CALLOC_IF_STD_SRC)
 
 NUM_F = numbers
 NUM_NAMES = ft_atoi.c ft_itoa.c ft_xtoa_base.c ft_minmax_int.c ft_minmax_double.c ft_minmax_char.c ft_minmax_uchar.c ft_sign.c
@@ -55,6 +58,9 @@ INCLUDES = -I .
 PACK = ar rcs
 
 all: $(NAME)
+
+calloc_trapped: FT_CALLOC_IF_CHOSEN = $(FT_CALLOC_IF_TRAPPED_SRC)
+calloc_trapped: all
 
 $(NAME): clean $(OBJS)
 	$(FTPREFIX)$(PACK) $(NAME) $(OBJS)
