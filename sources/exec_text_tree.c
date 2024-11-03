@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:39:01 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/03 13:04:29 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/11/03 19:21:59 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,17 +25,17 @@ static int	exec_rec(t_param *param, t_treenode *node)
 	int		res;
 	t_tree	t;
 
-	if (!node || !param || param->errno)
+	if (!node || !param || param->opts.errno)
 		return (0);
 	if (!ft_strcmp(node->content, "("))
 		return (exec_rec(param, node->child));
 	t.root = node;
-	if (param->debug_output_level & DBG_PRINT_NODE_BEFORE_EXEC)
+	if (param->opts.debug_output_level & DBG_PRINT_NODE_BEFORE_EXEC)
 		ft_tree_print_s(&t);
 	res = execute_text_tree_node(param, node);
-	if (param->errno)
+	if (param->opts.errno)
 	{
-		printf("ERROR %i\n", param->errno);
+		printf("ERROR %i\n", param->opts.errno);
 		return (0);
 	}
 	node = node->sibling_next;
@@ -43,8 +43,8 @@ static int	exec_rec(t_param *param, t_treenode *node)
 		node = node->sibling_next->sibling_next;
 	while (!res && node && !is(node->content, "||") && node->sibling_next)
 		node = node->sibling_next->sibling_next;
-	if (param->exiting || !node || !node->sibling_next)
-		return (ft_if_i(param->exiting, 0, res));
+	if (param->opts.exiting || !node || !node->sibling_next)
+		return (ft_if_i(param->opts.exiting, 0, res));
 	return (exec_rec(param, node->sibling_next));
 }
 
@@ -58,7 +58,7 @@ int	exec_text_tree(t_param *param)
 		printf("%s\n", ERR_TEXT_TREE_EMPTY);
 		return (1);
 	}
-	if (param->debug_output_level & DBG_PRINT_TREE_BEFORE_EXEC)
+	if (param->opts.debug_output_level & DBG_PRINT_TREE_BEFORE_EXEC)
 		ft_tree_print_s(param->text_tree);
 	res = exec_rec(param, param->text_tree->root->child);
 	return (res);

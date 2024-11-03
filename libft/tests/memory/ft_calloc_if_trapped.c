@@ -6,14 +6,11 @@
 /*   By: inikulin <inikulin@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 19:01:40 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/03 17:49:56 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/11/03 19:27:35 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../sources/memory/memory.h"
-#ifndef FT_CALLOC_IF_TRAPPED
-# define FT_CALLOC_IF_TRAPPED 0
-#endif
 
 typedef struct s_calloc_trap
 {
@@ -23,10 +20,9 @@ typedef struct s_calloc_trap
 
 t_calloc_trap	trap = (t_calloc_trap){0, 0};
 
-// TODO: get from cmd
-void	ft_calloc_if_trap_setup()
+void	ft_calloc_if_trap_setup(int tgt)
 {
-	trap.tgt = FT_CALLOC_IF_TRAPPED;
+	trap.tgt = tgt;
 }
 
 void	*ft_calloc_if(size_t size, int choice)

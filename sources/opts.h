@@ -1,41 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pre_post.c                                         :+:      :+:    :+:   */
+/*   opts.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/03 15:21:17 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/03 18:21:52 by inikulin         ###   ########.fr       */
+/*   Created: 2024/11/03 19:06:16 by inikulin          #+#    #+#             */
+/*   Updated: 2024/11/03 19:30:29 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#ifndef OPTS_H
+# define OPTS_H
+# include "minishell.h"
 
-#ifdef FT_CALLOC_IF_TRAPPED
-# include "../libft/tests/memory/memory_test.h"
+int	opt_debug(const char **act, int *i, t_param *param, int *found);
+int	opt_single(const char **act, int f, int t, t_param *param);
 
-void	pre(t_param *param)
-{
-	ft_calloc_if_trap_setup(param->opts.calloc_trap);
-}
-
-void	post(t_param *param)
-{
-	(void)param;
-	ft_calloc_if_trap_count();
-}
-#else
-
-void	pre(t_param *param)
-{
-	(void)param;
-	return ;
-}
-
-void	post(t_param *param)
-{
-	(void)param;
-	return ;
-}
 #endif
