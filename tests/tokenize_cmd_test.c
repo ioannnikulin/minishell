@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_command_test.c                               :+:      :+:    :+:   */
+/*   tokenize_cmd_test.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/16 16:50:45 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/11/02 19:06:29 by taretiuk         ###   ########.fr       */
+/*   Created: 2024/11/04 06:11:45 by taretiuk          #+#    #+#             */
+/*   Updated: 2024/11/04 06:27:29 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tests_internal.h"
-#include "../sources/parsing/input_processing.h"
+#include "../sources/tokenizing/input_processing.h"
 
 #define NUM_TEST_CASES 11
 #define MAX_ARGS 16
@@ -77,7 +77,7 @@ static void	free_string_array(t_string *strs, size_t count)
 	free(strs);
 }
 
-void	parse_command_test()
+void	tokenize_cmd_test()
 {
 	t_strings	str_arr = create_string_array();
 	char		**tokens;
@@ -99,7 +99,7 @@ void	parse_command_test()
 	};
 	for (int i = 0; i < NUM_TEST_CASES; i ++)
 	{
-		tokens = parse_command(str_arr.strs[i].str);
+		tokens = tokenize_cmd(str_arr.strs[i].str);
 		if (tokens == NULL)
 		{
 			assert(t[i][0] == NULL);

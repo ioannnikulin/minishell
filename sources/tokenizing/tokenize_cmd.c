@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_command.c                                    :+:      :+:    :+:   */
+/*   tokenize_cmd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/15 16:11:49 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/11/02 18:44:28 by taretiuk         ###   ########.fr       */
+/*   Created: 2024/11/04 06:08:59 by taretiuk          #+#    #+#             */
+/*   Updated: 2024/11/04 06:14:52 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ char	**split_by_operators(const char *s, t_delims *arr, int *sz)
 	return (tok_oper);
 }
 
-char	**parse_command(const char *s)
+char	**tokenize_cmd(const char *s)
 {
 	int			sz;
 	char		**tok_oper;
