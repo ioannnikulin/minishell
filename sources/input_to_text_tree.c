@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 23:07:09 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/03 12:49:56 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/11/04 17:43:56 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ int	input_to_text_tree(t_param *param)
 	char	**tokens;
 	t_tree	*tree;
 
-	(void)param;
 	tokens = parse_command(param->cur_command);
 	if (tokens == NULL)
 		return (1);

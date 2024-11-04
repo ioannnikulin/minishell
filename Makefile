@@ -30,7 +30,7 @@ ENDPOINT_NAME = main.c
 SRC_SRCS = $(addprefix $(SOURCE_F)/, $(SRC_NAMES))
 ENDPOINT_SRC = $(addprefix $(SOURCE_F)/, $(ENDPOINT_NAME))
 
-TEST_NAMES = input_to_text_tree_test.c parse_command_test.c
+TEST_NAMES = input_to_text_tree_test.c parse_command_test.c tokens_to_tree_test.c
 TEST_ENDPOINT_NAME = main_test.c
 TEST_SRCS = $(addprefix $(TEST_F)/, $(TEST_NAMES))
 TEST_ENDPOINT_SRC = $(addprefix $(TEST_F)/, $(TEST_ENDPOINT_NAME))
