@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 22:57:54 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/06 15:28:34 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/11/06 16:08:36 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,26 +116,27 @@ static void	malloc_failure_recoveries(char *cmd, int mallocs)
 		assert(system("mkdir e2e_f") == 0);
 		assert(system("cp minishell e2e_f/minishell") == 0);
 		#ifdef DEBUG
-		printf("\t%i ", i);
+		printf("\t%i\n", i);
 		#endif
 		char *is = ft_itoa(i);
-		char *tmp = ft_strjoin_multi_free_outer(ft_s3("./e2e_f/minishell --trap", is, cmd), 3, " ");
+		char *tmp = ft_strjoin_multi_free_outer(ft_s3("valgrind --leak-check=full --show-leak-kinds=all -s -q ./e2e_f/minishell --trap", is, cmd), 3, " ");
 		free(is);
 		assert(!!tmp);
 		catch("e2e.stdout", &out, &save);
 		catch_err("e2e.stderr", &outerr, &saveerr);
-		int	res = system(tmp);
+		system(tmp);
 		finally(&out, &save);
 		finally_err(&outerr, &saveerr);
-		char *err = ft_calloc(sizeof(char *), 21);
-		int errread = read(open("e2e.stderr", O_RDONLY, 0600), err, 20);
-		#ifdef DEBUG
-		if (errread)
-			printf("result %i, read from err file %i\n", res, errread);
-		else
-			printf("\n");
-		#endif
-		assert(errread == 0);
+		char *err = ft_calloc(sizeof(char *), 256);
+		read(open("e2e.stderr", O_RDONLY, 0600), err, 256);
+		int i = 0;
+		// expected output
+	  	// ==130278== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+		// so we navigate to both colons and check if there are zeros after them
+		while (err[i] != ':' && i < 256) i ++;
+		assert(i < 256 && err[i + 1] == ' ' && err[i + 2] == '0' && err[i + 3] == ' ');
+		while (err[i] != ':' && i < 256) i ++;
+		assert(i < 256 && err[i + 1] == ' ' && err[i + 2] == '0' && err[i + 3] == ' ');
 		// TODO: check no files were created
 		free(tmp);
 		free(err);

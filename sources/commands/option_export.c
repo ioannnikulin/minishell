@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 00:09:30 by inikulin          #+#    #+#             */
-/*   Updated: 2024/10/23 20:25:17 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/11/06 15:50:28 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int	option_export(t_control control, t_treenode *node, t_param *param)
 		return (0);
 	*control.found = 1;
 	node = node->child;
-	while (node && !one(node->content, &param->envvars,
+	while (node && !one(node->content, param->envvars,
 			&param->envvar_path_head))
 		node = node->sibling_next;
 	*control.retval = ft_if_i(node == 0, 0, 1);
