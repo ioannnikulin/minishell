@@ -6,15 +6,16 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 16:40:11 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/11/04 05:42:37 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/11/06 19:48:43 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRINGS_INTERNAL_H
 # define STRINGS_INTERNAL_H
 
-# include "../libft/libft.h"
 # include "strings.h"
+# include <stdbool.h>
+# include <stdlib.h>
 # include "../memory/memory.h"
 
 int		find_delimiter(const char *s, t_delims *array, size_t *op_len);

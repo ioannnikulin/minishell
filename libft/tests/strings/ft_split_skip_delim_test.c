@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 16:24:51 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/11/04 05:53:30 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/11/06 19:44:05 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,8 +99,8 @@ void ft_split_skip_delim_test()
 		{")(())(", NULL},
 		{NULL},
 	};
-    for (int i = 0; i < NUM_TEST_CASES; i ++)
-    {
+	for (int i = 0; i < NUM_TEST_CASES; i ++)
+	{
 		tokens = ft_split_skip_delim(strings_arr.strs[i].str,' ', '"', &sz);
 		if (tokens == NULL)
 		{
@@ -108,15 +108,15 @@ void ft_split_skip_delim_test()
 		}
 		else 
 		{
-    		for (int j = 0; tokens[j] != NULL; j++)
-    		{
-    		    assert((tokens[j] == NULL) == (t[i][j] == NULL));
+			for (int j = 0; tokens[j] != NULL; j++)
+			{
+				assert((tokens[j] == NULL) == (t[i][j] == NULL));
 				if (tokens[j] == NULL)
 				{
 					break;
 				}
 				assert(ft_strcmp(tokens[j], t[i][j]) == 0);
-    		}
+			}
 		}
 		free_tokens(tokens);
 	}
