@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 21:34:36 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/06 11:38:50 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/11/06 12:56:48 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	ft_mapss_add_test(void)
 	t_mapss		*map;
 	t_testcase	tests[SZ];
 
-	map = ft_calloc_if(sizeof(t_mapss), 1);
+	map = ft_calloc(sizeof(t_mapss), 1);
 	assert(map);
 	generate_tests(tests);
 	for (int i = 0; i < SZ; i++)
