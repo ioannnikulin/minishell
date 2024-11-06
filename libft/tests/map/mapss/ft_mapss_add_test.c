@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 21:34:36 by inikulin          #+#    #+#             */
-/*   Updated: 2024/10/27 00:15:10 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/11/06 11:38:50 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,4 +75,5 @@ void	ft_mapss_add_test(void)
 		printf("\n");
 		#endif
 	}
+	ft_mapss_finalize_i(map, 0, 0);
 }

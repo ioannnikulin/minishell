@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 00:04:08 by inikulin          #+#    #+#             */
-/*   Updated: 2024/10/01 14:13:27 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/11/06 11:20:48 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define TESTS_COMMON_H
 # include "../sources/minishell.h"
 # include <assert.h>
+# include <fcntl.h>
 
 int	input_to_text_tree_test(void);
 #endif

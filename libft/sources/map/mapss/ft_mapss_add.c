@@ -6,13 +6,18 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 16:31:10 by inikulin          #+#    #+#             */
-/*   Updated: 2024/10/26 22:41:54 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/11/06 11:44:03 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include "mapss.h"
 #include "mapss_internal.h"
+
+t_mapss	*ft_mapss_init(void)
+{
+	return (ft_calloc_if(sizeof(t_mapss), 1));
+}
 
 static t_dlist	*null(t_dlist *node, t_mapss_entry *entry, char *key)
 {

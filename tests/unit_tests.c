@@ -1,24 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main_test.c                                        :+:      :+:    :+:   */
+/*   unit_tests.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/03 22:56:57 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/06 12:17:50 by inikulin         ###   ########.fr       */
+/*   Created: 2024/09/21 00:03:03 by inikulin          #+#    #+#             */
+/*   Updated: 2024/11/06 12:18:13 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tests_internal.h"
-int	e2e_tests(void);
-int	unit_tests(void);
 
-int	main(void)
+int	unit_tests(void)
 {
-	unit_tests();
-	ft_printf("e2e tests in progress\n");
-	e2e_tests();
-	ft_printf("e2e tests completed\n");
+	printf("input_to_text_tree in testing\n");
+	input_to_text_tree_test();
 	return (0);
 }
