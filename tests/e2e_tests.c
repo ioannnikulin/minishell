@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 22:57:54 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/06 12:36:54 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/11/06 12:38:30 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	e2e_tests(void)
 	for (int i = START; i < SZ; i ++)
 	{
 		#ifdef DEBUG
-		printf("%i\n", i);
+		printf("%i\n", i + 1);
 		#endif
 		system("(rm -r e2e_f && rm e2e.stdout) 2> /dev/null");
 		assert(system("mkdir e2e_f") == 0);
