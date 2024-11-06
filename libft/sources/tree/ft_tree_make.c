@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 18:43:58 by inikulin          #+#    #+#             */
-/*   Updated: 2024/09/21 13:52:15 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/11/06 15:21:26 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ t_treenode	*ft_treenode_make(void *c, t_treenode *p, int d,
 {
 	t_treenode	*res;
 
+	if (!c)
+		return (0);
 	res = ft_calloc_if(sizeof(t_treenode), 1);
 	if (!res)
 		return (0);
