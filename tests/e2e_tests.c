@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 22:57:54 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/06 12:28:11 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/11/06 12:36:54 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ static void	file_compare(char *exp_contens, char *act_fname)
 	int len_act = read(fc, act, len_exp * 2);
 	assert(len_act == len_exp);
 	int comp_res = ft_strcmp(exp_contens, act);
+	printf("!!!!%i!!!!\n", comp_res);
 	printf("comparison result %i, expected:[%s] (%i symbols)\nactual:[%s] (%i symbols)\n", comp_res, exp_contens, len_exp, act, len_act);
 	assert(comp_res == 0);
 	free(act);
