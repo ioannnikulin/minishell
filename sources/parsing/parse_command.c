@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 16:11:49 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/11/02 18:44:28 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/11/05 10:43:16 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,14 +56,12 @@ static void	calculate_spaces(char **ss, int *total_sz)
 	return ;
 }
 
-char	**split_by_space(char **ss)
+char	**split_by_space(char **ss, int *total_sz)
 {
-	int		total_sz;
 	char	**result;
 
-	total_sz = 0;
-	calculate_spaces(ss, &total_sz);
-	result = ft_calloc_if((total_sz + 1) * sizeof(char *), 1);
+	calculate_spaces(ss, total_sz);
+	result = ft_calloc_if((*total_sz + 1) * sizeof(char *), 1);
 	if (!result)
 		return (NULL);
 	result = split_excluding_quotes(result, ss);
@@ -80,7 +78,7 @@ char	**split_by_operators(const char *s, t_delims *arr, int *sz)
 	return (tok_oper);
 }
 
-char	**parse_command(const char *s)
+char	**parse_command(const char *s, int *total_sz)
 {
 	int			sz;
 	char		**tok_oper;
@@ -97,7 +95,7 @@ char	**parse_command(const char *s)
 		cleanup(&op_arr, &tok_oper, sz);
 		return (NULL);
 	}
-	tok_space = split_by_space(tok_oper);
+	tok_space = split_by_space(tok_oper, total_sz);
 	if (!tok_space)
 	{
 		cleanup(&op_arr, &tok_oper, sz);

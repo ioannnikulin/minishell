@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 15:11:56 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/11/02 18:45:09 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/11/05 10:44:07 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "../../libft/libft.h"
 # include "../../libft/sources/memory/memory.h"
 
-char		**parse_command(const char *s);
+char		**parse_command(const char *s, int *total_sz);
 t_delims	create_operator_array(void);
 void		cleanup(t_delims *op_arr, char ***tok_oper, int sz);
 

@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 16:50:45 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/11/02 19:06:29 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/11/05 10:46:12 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ void	parse_command_test()
 {
 	t_strings	str_arr = create_string_array();
 	char		**tokens;
+	int			sz = 0;
 
 	assert(str_arr.error == 0 && "Failed to create string array.");
 	char	*t[NUM_TEST_CASES][MAX_ARGS] =
@@ -99,7 +100,7 @@ void	parse_command_test()
 	};
 	for (int i = 0; i < NUM_TEST_CASES; i ++)
 	{
-		tokens = parse_command(str_arr.strs[i].str);
+		tokens = parse_command(str_arr.strs[i].str, &sz);
 		if (tokens == NULL)
 		{
 			assert(t[i][0] == NULL);

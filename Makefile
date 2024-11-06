@@ -20,7 +20,7 @@ PARSING_NAMES = parse_command.c parse_commands_utils.c
 PARSING_F = parsing
 PARSING_SRCS = $(addprefix $(PARSING_F)/, $(PARSING_NAMES))
 
-TREE_MAKE_NAMES = tokens_to_tree.c
+TREE_MAKE_NAMES = tokens_to_tree.c tokens_type.c
 TREE_MAKE_F = tree_make
 TREE_MAKE_SRCS =  $(addprefix $(TREE_MAKE_F)/, $(TREE_MAKE_NAMES))
 
