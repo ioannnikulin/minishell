@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 23:53:00 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/06 12:45:29 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/11/07 12:12:33 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "../sources/input_to_text_tree_mocks/input_to_text_tree_mock.h"
 //#define DEBUG
 
-static int	a_test(t_param *param, char *input, void (*treegen)(t_treenode *), int i)
+static int	a_test(t_param *param, char *input, int (*treegen)(t_treenode *), int i)
 {
 	#ifdef DEBUG
 	ft_printf("%i\n", i);
