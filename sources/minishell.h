@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 15:22:58 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/03 12:36:32 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/11/08 17:45:48 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # include "../libft/libft.h"
 # include "resources.h"
 # include "commands/commands.h"
-# include "parsing/input_processing.h"
+# include "tokenizing/input_processing.h"
 # include "tree_make/tree_processing.h"
 
 # define FREE_ENVVARS_DLISTS 1
