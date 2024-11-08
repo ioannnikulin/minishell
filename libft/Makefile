@@ -105,7 +105,7 @@ NUM_TEST_NAMES = ft_atoi_test.c ft_itoa_test.c ft_lltoa_base_test.c ft_ulltoa_ba
 NUM_TEST_SRCS = $(addprefix $(TESTS_F)/$(NUM_F)/, $(NUM_TEST_NAMES))
 
 STR_TEST_NAMES = ft_split.c ft_split_str.c ft_split_skip_delim.c ft_strlen.c ft_strchr.c ft_strdup.c ft_striteri.c ft_strjoin.c ft_strlcpy.c ft_strlcat.c ft_strmapi.c ft_strncmp.c ft_strnstr.c ft_strrchr.c ft_strtrim.c ft_substr.c ft_putchar_fd.c ft_putendl_fd.c ft_putnbr_fd.c ft_putstr_fd.c
-STR_TEST_SRCS = $(addprefix $(TEST_F)/$(STR_F)/, $(subst .c,_test.c,$(STR_TEST_NAMES)) strings_test.c)
+STR_TEST_SRCS = $(addprefix $(TESTS_F)/$(STR_F)/, $(subst .c,_test.c,$(STR_TEST_NAMES)) strings_test.c)
 
 SYM_TEST_NAMES = ft_isalpha.c ft_isalnum.c ft_isascii.c ft_isdigit.c ft_isprint.c ft_isspace.c ft_tolower.c ft_toupper.c
 SYM_TEST_SRCS = $(addprefix $(TESTS_F)/$(SYM_F)/, $(subst .c,_test.c,$(SYM_TEST_NAMES)) symbols_test.c)
