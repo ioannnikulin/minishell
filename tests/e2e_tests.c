@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 22:57:54 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/08 12:50:02 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/11/08 12:57:15 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ static void	successful_execution(t_testcase *test, int *mallocs)
 static void	malloc_failure_recoveries(char *cmd, int mallocs)
 {
 	int out, save, outerr, saveerr;
-	for (int i = 0; i < mallocs; i ++)
+	for (int i = 0; i < mallocs + 2; i ++)
 	{
 		system("(rm -r e2e_f && rm e2e.stdout e2e.stderr) 2> /dev/null");
 		assert(system("mkdir e2e_f") == 0);
