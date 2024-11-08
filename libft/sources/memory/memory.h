@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   memory.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 20:59:34 by inikulin          #+#    #+#             */
 /*   Updated: 2024/11/06 23:46:49 by inikulin         ###   ########.fr       */
