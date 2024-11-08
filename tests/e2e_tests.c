@@ -6,14 +6,14 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 22:57:54 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/08 11:52:38 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/11/08 12:44:38 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tests_internal.h"
 #define START 0
 #define SZ 1
-//#define DEBUG
+#define DEBUG
 
 typedef struct s_testcase
 {
