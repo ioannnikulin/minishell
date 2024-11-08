@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 15:11:56 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/11/05 10:44:07 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/11/08 17:20:36 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,8 @@
 # define INPUT_PROCESSING_H
 
 # include "../../libft/libft.h"
-# include "../../libft/sources/memory/memory.h"
 
-char		**parse_command(const char *s, int *total_sz);
+char		**tokenize_cmd(const char *s);
 t_delims	create_operator_array(void);
 void		cleanup(t_delims *op_arr, char ***tok_oper, int sz);
 

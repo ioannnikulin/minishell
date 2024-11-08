@@ -6,11 +6,11 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 16:24:51 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/11/02 19:10:44 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/11/06 19:44:05 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../sources/strings/strings.h"
+#include "../../libft.h"
 #include "tests.h"
 
 #define NUM_TEST_CASES 12
@@ -34,11 +34,7 @@ static t_strings	create_string_array()
 	str_array.count = 12;
 	str_array.error = 0;
 	str_array.strs = ft_calloc_if(sizeof(t_string) * str_array.count, 1);
-	if (str_array.strs == NULL)
-	{
-		str_array.error = 1;
-		return (str_array);
-	}
+	assert(str_array.strs != NULL);
 	for (int i = 0; i < (int)str_array.count; i++)
 	{
 		str_array.strs[i].str = NULL;
@@ -84,15 +80,10 @@ static void	free_string_array(t_string *strs, size_t count)
 
 void ft_split_skip_delim_test()
 {
-    t_strings	strings_arr = create_string_array();
-    char	**tokens;
-    int     sz = 0;
-    
-	if (strings_arr.error)
-	{
-	    fprintf(stderr, "Failed to create string array.\n");
-	    exit(1);
-	}
+	t_strings	strings_arr = create_string_array();
+	char		**tokens;
+	int			sz = 0;
+
 	char *t[NUM_TEST_CASES][MAX_ARGS] =
 	{
 		{"cat", "(", "file1.txt", "file2.txt", ")", "|", "grep", "\"keyword\"", NULL},
@@ -108,8 +99,8 @@ void ft_split_skip_delim_test()
 		{")(())(", NULL},
 		{NULL},
 	};
-    for (int i = 0; i < NUM_TEST_CASES; i ++)
-    {
+	for (int i = 0; i < NUM_TEST_CASES; i ++)
+	{
 		tokens = ft_split_skip_delim(strings_arr.strs[i].str,' ', '"', &sz);
 		if (tokens == NULL)
 		{
@@ -117,15 +108,15 @@ void ft_split_skip_delim_test()
 		}
 		else 
 		{
-    		for (int j = 0; tokens[j] != NULL; j++)
-    		{
-    		    assert((tokens[j] == NULL) == (t[i][j] == NULL));
+			for (int j = 0; tokens[j] != NULL; j++)
+			{
+				assert((tokens[j] == NULL) == (t[i][j] == NULL));
 				if (tokens[j] == NULL)
 				{
 					break;
 				}
 				assert(ft_strcmp(tokens[j], t[i][j]) == 0);
-    		}
+			}
 		}
 		free_tokens(tokens);
 	}

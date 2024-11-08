@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 15:57:31 by inikulin          #+#    #+#             */
-/*   Updated: 2024/10/30 15:04:52 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/11/04 05:55:29 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	strings_test(void)
 	ft_putnbr_fd_test();
 	printf("split_str in testing\n");
 	ft_split_str_test();
-	ft_printf("ft_split_skip_delim in test\n");
+	ft_printf("ft_split_skip_delim in testing\n");
 	ft_split_skip_delim_test();
 	return (0);
 }

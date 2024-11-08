@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 00:04:08 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/04 09:40:50 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/11/08 17:26:52 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 # include <assert.h>
 
 int	    input_to_text_tree_test(void);
-void    parse_command_test(void);
-void    tokens_to_tree_test();
+void    tokenize_cmd_test(void);
 
 #endif
