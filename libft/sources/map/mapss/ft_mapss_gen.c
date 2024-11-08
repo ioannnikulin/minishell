@@ -1,45 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_mapss_finalize.c                                :+:      :+:    :+:   */
+/*   ft_mapss_gen.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 23:12:55 by inikulin          #+#    #+#             */
-/*   Updated: 2024/10/27 00:34:13 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/10/27 00:43:32 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mapss.h"
 
-int	ft_mapss_finalize_i(t_mapss *map, char *msg, int retval)
+// ends on first of: nullptr in data / sz
+t_mapss	*ft_mapss_gen(char ***data, int sz)
 {
-	t_dlist			*node;
-	t_dlist			*prev;
-	t_mapss_entry	*entry;
+	t_mapss	*map;
+	char	**kv;
+	int		i;
 
-	if (map)
+	map = ft_calloc_if(sizeof(t_mapss), 1);
+	if (!map)
+		return (0);
+	if (!sz || !*data)
+		return (map);
+	i = 0;
+	kv = *data;
+	while (kv && i < sz)
 	{
-		node = map->head;
-		while (node)
-		{
-			entry = node->content;
-			ft_free_s_null((void **)&entry->key);
-			ft_free_s_null((void **)&entry->value);
-			free(entry);
-			prev = node;
-			node = node->next;
-			free(prev);
-		}
-		free(map);
+		if (!kv[0] || !kv[1] || ft_mapss_add(map, kv[0], kv[1]))
+			return (ft_mapss_finalize_nullptr(map, 0));
+		if (++i < sz)
+			kv = data[i];
+		else
+			kv = 0;
 	}
-	if (msg)
-		ft_printf("%s\n", msg);
-	return (retval);
-}
-
-t_mapss	*ft_mapss_finalize_nullptr(t_mapss *map, char *msg)
-{
-	ft_mapss_finalize_i(map, msg, 0);
-	return (0);
+	return (map);
 }

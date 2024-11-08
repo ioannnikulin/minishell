@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 16:31:10 by inikulin          #+#    #+#             */
-/*   Updated: 2024/10/10 00:34:10 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/10/26 22:41:54 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,54 +14,47 @@
 #include "mapss.h"
 #include "mapss_internal.h"
 
-static t_dlist	*null(int ignore)
+static t_dlist	*null(t_dlist *node, t_mapss_entry *entry, char *key)
 {
-	(void)ignore;
+	free(key);
+	free(entry);
+	free(node);
 	return (0);
 }
 
-/* not sure whether it should be static */
-static t_dlist	*ft_mapss_node(const char *key, const char *value, int *errno)
+/* not sure whether it should be static
+ * nullptr as result - allocation error
+*/
+static t_dlist	*ft_mapss_node(const char *key, const char *value)
 {
 	t_dlist			*node;
 	t_mapss_entry	*entry;
 
-	ft_assign_i(errno, 0, 0);
 	node = ft_calloc_if(sizeof(t_dlist), 1);
 	if (!node)
-		return (null(ft_assign_i(errno, 1, 0)));
+		return (0);
 	node->next = 0;
 	node->prev = 0;
 	entry = ft_calloc_if(sizeof(t_mapss_entry), 1);
 	if (!entry)
-		return (null(ft_assign_i(errno, 2, 0)));
+		return (null(node, 0, 0));
 	node->content = entry;
 	entry->key = ft_strdup(key);
 	if (!entry->key)
-		return (null(ft_assign_i(errno, 3, 0)));
+		return (null(node, entry, 0));
 	entry->value = ft_strdup(value);
 	if (!entry->value)
-		return (null(ft_assign_i(errno, 4, 0)));
+		return (null(node, entry, entry->key));
 	return (node);
 }
 
-/* this desctruction is all wrong. node constructor should free its memory,
- * and the finalize mode should be the same always */
 int	ft_mapss_add(t_mapss *map, const char *key, const char *value)
 {
 	t_dlist	*node;
-	int		errno;
-	int		finalize_mode;
-	char	*error_msg;
 
-	node = ft_mapss_node(key, value, &errno);
+	node = ft_mapss_node(key, value);
 	if (!node)
-	{
-		error_msg = ft_mapss_error_decoder(errno, &finalize_mode);
-		return (ft_mapss_finalize(map, finalize_mode, error_msg, -1));
-	}
-	if (ft_mapss_insert(map, node))
-		return (ft_mapss_finalize(map, MAPSS_FULL,
-				"Couldn't insert node\n", 1));
+		return (1);
+	ft_mapss_insert(map, node);
 	return (0);
 }
