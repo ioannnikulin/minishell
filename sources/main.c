@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 15:21:17 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/06 15:58:20 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/11/08 11:49:50 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,11 @@ static int	interactive(t_param *param)
 
 static int	one_cmd(t_param *param)
 {
-	input_to_text_tree(param);
+	int	ret;
+
+	ret = input_to_text_tree(param);
+	if (ret != 0)
+		return (1);
 	exec_text_tree(param);
 	return (0);
 }
