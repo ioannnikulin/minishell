@@ -2,7 +2,7 @@ CC = cc
 NAME = minishell
 COMPILE_FLAGS = -Wall -Wextra -Werror -g -c
 LINK_FLAGS = -lft -Llibft -lreadline
-PREFIX =
+PREFIX = @
 PREPROC_DEFINES =
 
 SOURCE_F = sources
@@ -93,7 +93,7 @@ prere:
 
 clean: testclean
 	$(PREFIX)rm -f $(OBJS) $(ENDPOINT_OBJ) $(TANIA_ENDPOINT_OBJ)
-	$(PREFIX)@if [ -d $(OBJ_F) ]; then $(PREFIX)rm -rf $(OBJ_F); fi
+	$(PREFIX)@if [ -d $(OBJ_F) ]; then rm -rf $(OBJ_F); fi
 
 fclean: clean testfclean
 	$(PREFIX)rm -f $(NAME)
@@ -102,7 +102,7 @@ re: fclean all
 
 testclean:
 	$(PREFIX)rm -f $(TEST_OBJS) $(TEST_ENDPOINT_OBJ) $(TEST_TOOL_OBJS)
-	$(PREFIX)@if [ -d $(TEST_OBJ_F) ]; then $(PREFIX)rm -rf $(TEST_OBJ_F); fi
+	$(PREFIX)@if [ -d $(TEST_OBJ_F) ]; then rm -rf $(TEST_OBJ_F); fi
 
 testfclean: testclean
 	$(PREFIX)rm -f $(TEST_FNAME) $(TEST_TOOL_FNAME)

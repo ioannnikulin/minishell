@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 19:01:40 by inikulin          #+#    #+#             */
-/*   Updated: 2024/01/23 20:40:02 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/11/09 16:04:51 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ void	ft_dlist_add_front(t_dlist **lst, t_dlist *new)
 	}
 	new->next = *lst;
 	new->prev = (*lst)->prev;
-	new->prev->next = new;
+	if (new->prev)
+		new->prev->next = new;
 	new->next->prev = new;
 	*lst = new;
 }

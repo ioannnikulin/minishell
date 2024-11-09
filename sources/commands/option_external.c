@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 00:10:22 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/03 19:23:27 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/11/09 16:49:05 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,9 @@ static int	run_executable(char *fullpath, t_treenode *node, t_param *param)
 	envvars = get_envvars_for_execve(param);
 	if (param->opts.errno)
 		return (0);
-	i = w_execve(fullpath, argv, envvars, &param->opts.errno);
+	i = w_execve(fullpath, argv, envvars, param);
 	free(argv);
-	free(envvars);
+	ft_free_ss_uptonull_null((void ***)&envvars);
 	return (i);
 }
 
@@ -75,6 +75,7 @@ int	option_external(t_control control, t_treenode *node, t_param *param)
 	{
 		printf("searching for command in folders:\n");
 		ft_dlist_print_s(param->envvar_path_head, "\n");
+		printf("--\n");
 	}
 	fullpath = find_executable(node->content, param->envvar_path_head,
 			&param->opts.errno);

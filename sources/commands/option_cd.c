@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 00:08:15 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/06 15:50:00 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/11/09 16:03:40 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ int	option_cd(t_control control, t_treenode *node, t_param *param)
 	envvars = param->envvar_path_head->next;
 	ft_dlist_delone(param->envvar_path_head, ft_free_s);
 	param->envvar_path_head = envvars;
+	envvars->prev = 0;
 	param_get_cur_dir(param);
 	*control.retval = 0;
 	free(fullpath);
