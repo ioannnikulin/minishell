@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 21:34:36 by inikulin          #+#    #+#             */
-/*   Updated: 2024/10/27 01:04:19 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/11/11 06:54:39 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ void	ft_mapss_get_test(void)
 		#endif
 		t_mapss *map = ft_mapss_gen(tests[i].content, tests[i].sz);
 		assert(map);
+		if (tests[i].sz == 0 || tests[i].content == NULL)
+			assert(map->head == NULL && map->size == 0);
 		char *act_val = ft_mapss_get(map, tests[i].key);
 		assert((act_val == 0) == (tests[i].exp_val == 0));
 		if (tests[i].exp_val)
