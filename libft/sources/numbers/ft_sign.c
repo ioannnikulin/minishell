@@ -1,22 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mapss_test.h                                       :+:      :+:    :+:   */
+/*   ft_sign.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/13 21:34:36 by inikulin          #+#    #+#             */
-/*   Updated: 2024/10/27 01:01:42 by inikulin         ###   ########.fr       */
+/*   Created: 2024/10/27 01:32:36 by inikulin          #+#    #+#             */
+/*   Updated: 2024/10/27 01:34:37 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAPSS_TEST_H
-# define MAPSS_TEST_H
-# include "../../tests_internal.h"
+#include "../../libft.h"
 
-void	mapss_test(void);
-void	ft_mapss_print_test(void);
-void	ft_mapss_add_test(void);
-void	ft_mapss_gen_test(void);
-void	ft_mapss_get_test(void);
-#endif
+int	ft_sign_i(int i)
+{
+	if (i > 0)
+		return (1);
+	if (i < 0)
+		return (-1);
+	return (0);
+}
