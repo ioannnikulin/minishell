@@ -152,8 +152,10 @@ test: goodtests #$(SEGFAULTNAMES)
 
 retest: testfclean test
 
-fulltest_common:
+norm:
 	$(FTPREFIX)norminette libft.h sources/*
+
+fulltest_common:
 	$(FTPREFIX)tests/test
 	$(FTPREFIX)rm -rf tmp.tst
 	$(FTPREFIX)valgrind --leak-check=full --show-leak-kinds=all tests/test "memcheck"
@@ -162,7 +164,9 @@ fulltest_common:
 #	$(FTPREFIX)$(SEGFAULTNAMES:%.sf=%.sf ||) true
 	# -------- Testing finished. --------
 
-fulltest_trapped: fclean calloc_trapped retest fulltest_common
+fulltest_trapped: fclean norm calloc_trapped retest fulltest_common
+
+fulltest_trapped_stdprintf_nonorm: fclean calloc_trapped retest fulltest_common
 
 fulltest_trapped_stdprintf: PREPROC_DEFINES += -DPRINTF_ALLOWED
 fulltest_trapped_stdprintf: fulltest_trapped
@@ -170,4 +174,4 @@ fulltest_trapped_stdprintf: fulltest_trapped
 all_stdprintf: PREPROC_DEFINES += -DPRINTF_ALLOWED
 all_stdprintf: all
 
-fulltest: re retest fulltest_common
+fulltest: re retest norm fulltest_common

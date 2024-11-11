@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 00:10:22 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/09 16:49:05 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/11/11 01:59:15 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,17 +33,16 @@ static char	*find_executable(char *tgt, t_dlist *path, int *errno)
 	return (0);
 }
 
-static int	run_executable(char *fullpath, t_treenode *node, t_param *param)
+static char	**get_argv(char *fullpath, t_treenode *node)
 {
 	char	**argv;
 	int		argc;
 	int		i;
-	char	**envvars;
 
 	argc = node->children_qtty;
 	argv = ft_calloc_if(sizeof(char *) * (argc + 2), 1);
 	if (!argv)
-		return (ft_assign_i(&param->opts.errno, 5, 0));
+		return (0);
 	argv[0] = fullpath;
 	argv[argc + 1] = 0;
 	i = 1;
@@ -53,13 +52,28 @@ static int	run_executable(char *fullpath, t_treenode *node, t_param *param)
 		argv[i ++] = node->content;
 		node = node->sibling_next;
 	}
+	return (argv);
+}
+
+static int	run_executable(char *fullpath, t_treenode *node, t_param *param)
+{
+	char	**argv;
+	int		ret;
+	char	**envvars;
+
+	argv = get_argv(fullpath, node);
+	if (!argv)
+		return (ft_assign_i(&param->opts.errno, 5, 0));
 	envvars = get_envvars_for_execve(param);
 	if (param->opts.errno)
+	{
+		free(argv);
 		return (0);
-	i = w_execve(fullpath, argv, envvars, param);
+	}
+	ret = w_execve(fullpath, argv, envvars, param);
 	free(argv);
 	ft_free_ss_uptonull_null((void ***)&envvars);
-	return (i);
+	return (ret);
 }
 
 /* test with empty path, found in first, found in last, not found,

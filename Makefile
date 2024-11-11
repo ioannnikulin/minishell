@@ -119,7 +119,7 @@ fulltest:
 	$(PREFIX)cd libft && make fulltest_trapped_stdprintf
 	$(PREFIX)make fclean testfclean
 	$(PREFIX)cd sources && norminette
-	$(PREFIX)make vania_trapped test memcheck
+	$(PREFIX)make all_mocked_parser_trapped test memcheck
 
 PHONY: all pre clean fclean re test fulltest testclean testfclean retest tania vania vania_trapped
 
@@ -142,8 +142,13 @@ tania: $(OBJ_DIRS) $(TANIA_OBJ_F) $(OBJS) $(TANIA_ENDPOINT_OBJ)
 
 ########################################
 
-vania: PREPROC_DEFINES += -DMOCK_TANIA
-vania: all
+all_mocked_parser: PREPROC_DEFINES += -DMOCK_TANIA
+all_mocked_parser: all
 
-vania_trapped: PREPROC_DEFINES += -DFT_CALLOC_IF_TRAPPED
-vania_trapped: vania
+all_mocked_parser_trapped: PREPROC_DEFINES += -DFT_CALLOC_IF_TRAPPED
+all_mocked_parser_trapped: all_mocked_parser
+
+vania:
+	$(PREFIX)cd libft && make fulltest_trapped_stdprintf_nonorm
+	$(PREFIX)make fclean testfclean
+	$(PREFIX)make all_mocked_parser test && ./$(TEST_FNAME)

@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 00:08:59 by inikulin          #+#    #+#             */
-/*   Updated: 2024/10/25 01:05:51 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/11/11 04:00:03 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int	option_env(t_control control, t_treenode *node, t_param *param)
 	i = -1;
 	while (lines[++ i])
 		printf("%s\n", lines[i]);
+	ft_free_ss_uptonull_null((void ***)&lines);
 	*control.retval = 0;
 	return (1);
 }
