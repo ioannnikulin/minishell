@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 15:56:31 by inikulin          #+#    #+#             */
-/*   Updated: 2024/09/23 23:29:37 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/11/09 16:53:00 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,22 +22,6 @@ typedef struct s_testcase
 
 #define START 0
 #define SZ 32
-
-/*static char *ext_strdup(char *orig, int sz)
-{
-	int mem = strlen(orig);
-	if (mem < sz)
-		mem = sz;
-	char *res = malloc(mem);
-	if (!res)
-		return (0);
-	int i = -1;
-	while (orig[++i])
-		res[i] = orig[i];
-	while (++i < sz)
-		res[i] = 0;
-	return (res);
-}*/
 
 void	ft_memcmp_test(void)
 {
@@ -92,9 +76,9 @@ void	ft_memcmp_test(void)
 	t[31] = (t_testcase){0, 0, 0};
 	for (int i = START; i < SZ; i ++)
 	{
-	  #ifdef DEBUG
+		#ifdef DEBUG
 		printf("#%i\n", i);
-	  #endif
+		#endif
 		int std = memcmp(
 				t[i].s1
 				, t[i].s2
@@ -105,10 +89,10 @@ void	ft_memcmp_test(void)
 				, t[i].s2
 				, t[i].n
 				);
-	  #ifdef DEBUG
+		#ifdef DEBUG
 		printf("%i %i\n", std, custom);
-	  #endif
-		assert(std == custom);
+		#endif
+		assert(ft_sign_i(std) == ft_sign_i(custom));
 	}
 	free(s1);
 	free(s2);

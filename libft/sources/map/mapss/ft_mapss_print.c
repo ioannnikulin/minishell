@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 13:20:33 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/08/13 22:32:01 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/10/27 00:07:54 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	ft_mapss_print(t_mapss *map)
 	while (++i < map->size)
 	{
 		entry = current->content;
-		ft_printf("key: %s, value: %s\n", entry->key, entry->value);
+		ft_printf("key: [%s], value: [%s]\n", entry->key, entry->value);
 		current = current->next;
 	}
 }

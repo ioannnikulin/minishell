@@ -6,14 +6,14 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 21:34:36 by inikulin          #+#    #+#             */
-/*   Updated: 2024/09/23 23:28:58 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/10/27 00:15:10 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mapss_test.h"
 
 #define SZ 9
-#undef DEBUG
+//#define DEBUG
 
 typedef struct s_testcase
 {
@@ -46,22 +46,25 @@ void	ft_mapss_add_test(void)
 	t_mapss		*map;
 	t_testcase	tests[SZ];
 
-	map = ft_calloc_if(sizeof(t_mapss*), 1);
-	if (!map)
-		return ;
+	map = ft_calloc_if(sizeof(t_mapss), 1);
+	assert(map);
 	generate_tests(tests);
 	for (int i = 0; i < SZ; i++)
 	{
 		#ifdef DEBUG
-		ft_printf("%i\n", i);
+		printf("%i\n", i);
 		#endif
 		ft_mapss_add(map, tests[i].key, tests[i].value);
+	  	#ifdef DEBUG
+		if (map->size != tests[i].size_expected)
+			printf("expected size %i, got %i\n", tests[i].size_expected, map->size);
+		#endif
 		assert(map->size == tests[i].size_expected);
 		t_dlist *node = map->head;
 		for (int j = 0; j < map->size; j ++)
 		{
 			#ifdef DEBUG
-			ft_printf("%i ", j);
+			printf("%i ", j);
 			#endif
 			t_mapss_entry *entry = node->content;
 			assert(ft_strcmp(tests[i].keys_expected[j], entry->key) == 0);
@@ -69,7 +72,7 @@ void	ft_mapss_add_test(void)
 			node = node->next;
 		}
 		#ifdef DEBUG
-		ft_printf("\n");
+		printf("\n");
 		#endif
 	}
 }

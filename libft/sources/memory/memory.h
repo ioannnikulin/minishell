@@ -49,4 +49,6 @@ void	ft_free_ss_sz_null(void ***c, int sz);
 
 char	**ft_s2(char *s1, char *s2);
 char	**ft_s3(char *s1, char *s2, char *s3);
+char	***ft_ss2(char **s1, char **s2);
+char	***ft_ss3(char **s1, char **s2, char **s3);
 #endif

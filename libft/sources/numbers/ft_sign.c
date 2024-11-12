@@ -1,19 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mapss_internal.h                                   :+:      :+:    :+:   */
+/*   ft_sign.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/13 20:41:10 by inikulin          #+#    #+#             */
-/*   Updated: 2024/10/26 22:28:51 by inikulin         ###   ########.fr       */
+/*   Created: 2024/10/27 01:32:36 by inikulin          #+#    #+#             */
+/*   Updated: 2024/10/27 01:34:37 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAPSS_INTERNAL_H
-# define MAPSS_INTERNAL_H
-# include "mapss.h"
+#include "../../libft.h"
 
-void	ft_mapss_insert(t_mapss *map, t_dlist *node);
-void	ft_mapss_node_del(t_dlist *node);
-#endif
+int	ft_sign_i(int i)
+{
+	if (i > 0)
+		return (1);
+	if (i < 0)
+		return (-1);
+	return (0);
+}
