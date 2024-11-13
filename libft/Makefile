@@ -80,7 +80,7 @@ LIST_TEST_SRCS = $(addprefix $(TESTF)/$(LIST_F)/, $(subst .c,_test.c,$(LIST_TEST
 DLIST_TEST_NAMES = $(DLIST_NAMES)
 DLIST_TEST_SRCS = $(addprefix $(TESTF)/$(DLIST_F)/, $(subst .c,_test.c,$(DLIST_TEST_NAMES)) dlists_test.c)
 
-MAPSS_TEST_NAMES = mapss_test.c ft_mapss_add_test.c ft_mapss_print_test.c ft_mapss_gen_test.c ft_mapss_get_test.c
+MAPSS_TEST_NAMES = mapss_test.c ft_mapss_add_test.c ft_mapss_print_test.c ft_mapss_gen_test.c ft_mapss_get_test.c ft_mapss_del_test.c
 MAPSS_TEST_SRCS = $(addprefix $(TESTF)/$(MAPSS_F)/, $(MAPSS_TEST_NAMES))
 
 TREE_TEST_NAMES = tree_test.c ft_tree_print_test.c ft_treenode_insert_child_before_first_test.c ft_treenode_insert_child_idx_test.c
