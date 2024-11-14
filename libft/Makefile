@@ -74,7 +74,7 @@ re: fclean all
 # ------------------------------------------------------------------------------
 TESTF = tests
 
-LIST_TEST_NAMES = $(LIST_NAMES)
+LIST_TEST_NAMES = ft_list_add_back.c ft_list_add_front.c ft_list_delone.c ft_list_iter.c ft_list_generate.c ft_list_last.c ft_list_new.c ft_list_size.c ft_list_map.c
 LIST_TEST_SRCS = $(addprefix $(TESTF)/$(LIST_F)/, $(subst .c,_test.c,$(LIST_TEST_NAMES)) lists_test.c)
 
 DLIST_TEST_NAMES = $(DLIST_NAMES)
