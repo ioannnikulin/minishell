@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 00:04:08 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/08 17:38:43 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/11/14 10:05:26 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,5 +17,6 @@
 
 int	    input_to_text_tree_test(void);
 void    tokenize_cmd_test(void);
+void	tokens_to_tree_test(void);
 
 #endif

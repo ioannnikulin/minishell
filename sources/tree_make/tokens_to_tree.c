@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 12:22:57 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/11/13 15:17:46 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/11/14 12:07:25 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,12 @@ void	ft_tree_free_wrapper(void **tree)
 	ft_tree_free((t_tree **)tree);
 }
 
+static void	insert_first_node(char *tokens, t_treenode *root)
+{
+	ft_treenode_insert_child_idx_s_dup(root, tokens, 0);
+	return ;
+}
+
 /*where handle errors of root node, on this step or in execution*/
 int	tokens_to_tree(t_tree *tree, char **tokens)
 {
@@ -25,10 +31,11 @@ int	tokens_to_tree(t_tree *tree, char **tokens)
 	t_treenode	*root;
 
 	i = 0;
-	root = tree->root;
-	root = ft_treenode_make(TEXT_TREE_ROOT, 0, 0, ft_free_nop);
-	if (!root)
+	tree->root = ft_treenode_make(TEXT_TREE_ROOT, 0, 0, ft_free_nop);
+	if (!tree->root)
 		return (2);
+	root = tree->root;
+	insert_first_node(tokens[i++], root);
 	cur = root->child;
 	while (tokens[i] != NULL)
 	{

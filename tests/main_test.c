@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 00:03:03 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/08 17:34:40 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/11/14 10:13:20 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	main(void)
 {
-	printf("input_to_text_tree in testing\n");
-	input_to_text_tree_test();
+	// printf("input_to_text_tree in testing\n");
+	// input_to_text_tree_test();
 	printf("tokenization in testing\n");
 	tokenize_cmd_test();
 	printf("tokens_to_tree in testing\n");
