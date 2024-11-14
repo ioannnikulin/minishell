@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 15:21:17 by inikulin          #+#    #+#             */
-/*   Updated: 2024/10/17 10:20:04 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/11/03 12:46:23 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static int	interactive(t_param *param)
 		if (ret)
 			break ;
 		ret = exec_text_tree(param);
-		if (ret)
+		if (ret || param->exiting)
 			break ;
 	}
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 15:22:58 by inikulin          #+#    #+#             */
-/*   Updated: 2024/10/29 17:03:25 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/11/03 12:42:06 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,6 @@
 # include "../libft/libft.h"
 # include "resources.h"
 # include "commands/commands.h"
-
-# define FREE_ENVVARS_DLISTS 1
-# define FREE_ENVVARS_ENTRIES 2
-# define FREE_ENVVARS_KEYS 4
-# define FREE_ENVVARS_VALUES 8
-# define STAGE_FULL 15
 
 # define DBG_EXTERNAL_SEARCH_FOLDERS 1
 # define DBG_PRINT_TREE_BEFORE_EXEC 2
@@ -43,6 +37,7 @@ typedef struct s_param
 	char		*cur_command;
 	t_tree		*text_tree;
 	t_ull		debug_output_level;
+	int			exiting;
 }	t_param;
 
 # define TEXT_TREE_ROOT "ROOT"

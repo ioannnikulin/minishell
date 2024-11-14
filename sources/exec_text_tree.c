@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:39:01 by inikulin          #+#    #+#             */
-/*   Updated: 2024/10/22 22:57:18 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/11/03 13:04:29 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ static int	exec_rec(t_param *param, t_treenode *node)
 		node = node->sibling_next->sibling_next;
 	while (!res && node && !is(node->content, "||") && node->sibling_next)
 		node = node->sibling_next->sibling_next;
-	if (!node || !node->sibling_next)
-		return (res);
+	if (param->exiting || !node || !node->sibling_next)
+		return (ft_if_i(param->exiting, 0, res));
 	return (exec_rec(param, node->sibling_next));
 }
 
