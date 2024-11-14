@@ -106,9 +106,6 @@ testclean:
 testfclean: testclean
 	$(PREFIX)rm -f $(TEST_FNAME) $(TEST_TOOL_FNAME)
 
-pretestfclean:
-	$(PREFIX)cd libft && make testfclean
-
 retest: testfclean test
 
 memcheck:
