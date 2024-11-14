@@ -1,23 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main_test.c                                        :+:      :+:    :+:   */
+/*   input_processing.h                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/21 00:03:03 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/04 06:26:48 by taretiuk         ###   ########.fr       */
+/*   Created: 2024/10/17 15:11:56 by taretiuk          #+#    #+#             */
+/*   Updated: 2024/11/04 06:15:06 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tests_internal.h"
+#ifndef INPUT_PROCESSING_H
+# define INPUT_PROCESSING_H
 
-int	main(void)
-{
-	printf("input_to_text_tree in testing\n");
-	input_to_text_tree_test();
-	printf("tokenization in testing\n");
-	tokenize_cmd_test();
-	printf("\033[31mtesting complete\033[0m\n");
-	return (0);
-}
+# include "../../libft/libft.h"
+
+char		**tokenize_cmd(const char *s);
+t_delims	create_operator_array(void);
+void		cleanup(t_delims *op_arr, char ***tok_oper, int sz);
+
+#endif

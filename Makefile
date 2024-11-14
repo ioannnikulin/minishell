@@ -16,13 +16,17 @@ COMMANDS_NAMES = option_cd.c option_echo.c option_env.c option_exit.c option_exp
 COMMANDS_F = commands
 COMMANDS_SRCS = $(addprefix $(COMMANDS_F)/,$(COMMANDS_NAMES))
 
-SRC_NAMES = finalize.c param_init.c param_get_envvars.c wrappers.c input_to_text_tree.c $(INPUT_TO_TEXT_TREE_MOCK_SRCS) exec_text_tree.c exec_text_tree_node.c $(COMMANDS_SRCS) w_execve.c
+TOKENIZING_NAMES = tokenize_cmd.c tokenize_cmd_utils.c
+TOKENIZING_F = tokenizing
+TOKENIZING_SRCS = $(addprefix $(TOKENIZING_F)/, $(TOKENIZING_NAMES))
+
+SRC_NAMES = finalize.c param_init.c param_get_envvars.c wrappers.c input_to_text_tree.c $(INPUT_TO_TEXT_TREE_MOCK_SRCS) exec_text_tree.c exec_text_tree_node.c $(COMMANDS_SRCS) $(TOKENIZING_SRCS) w_execve.c
 ENDPOINT_NAME = main.c
 
 SRC_SRCS = $(addprefix $(SOURCE_F)/, $(SRC_NAMES))
 ENDPOINT_SRC = $(addprefix $(SOURCE_F)/, $(ENDPOINT_NAME))
 
-TEST_NAMES = input_to_text_tree_test.c
+TEST_NAMES = input_to_text_tree_test.c tokenize_cmd_test.c
 TEST_ENDPOINT_NAME = main_test.c
 TEST_SRCS = $(addprefix $(TEST_F)/, $(TEST_NAMES))
 TEST_ENDPOINT_SRC = $(addprefix $(TEST_F)/, $(TEST_ENDPOINT_NAME))
@@ -42,11 +46,11 @@ TEST_ENDPOINT_OBJ = $(TEST_OBJ_F)$(TEST_ENDPOINT_NAME:.c=.o)
 TEST_TOOL_OBJS = $(addprefix $(TEST_OBJ_F), $(TEST_TOOL_NAMES:.c=.o))
 INCLUDES = -I . -I libft
 
-DIRS = $(COMMANDS_F) $(INPUT_TO_TEXT_TREE_MOCK_F)
+DIRS = $(COMMANDS_F) $(INPUT_TO_TEXT_TREE_MOCK_F) $(TOKENIZING_F)
 
 OBJ_DIRS = $(addprefix $(OBJ_F), $(DIRS))
 
-vpath %.c $(SOURCE_F) $(SOURCE_F)/$(COMMANDS_F) $(SOURCE_F)/$(INPUT_TO_TEXT_TREE_MOCK_F)
+vpath %.c $(SOURCE_F) $(SOURCE_F)/$(COMMANDS_F) $(SOURCE_F)/$(INPUT_TO_TEXT_TREE_MOCK_F) $(SOURCE_F)/$(TOKENIZING_F)
 
 all: pre $(NAME)
 
@@ -80,6 +84,9 @@ preclean:
 prefclean:
 	$(PREFIX)cd libft && make fclean
 
+pretestfclean:
+	$(PREFIX)cd libft && make testfclean
+
 prere:
 	$(PREFIX)cd libft && make re
 
@@ -98,9 +105,6 @@ testclean:
 
 testfclean: testclean
 	$(PREFIX)rm -f $(TEST_FNAME) $(TEST_TOOL_FNAME)
-
-pretestfclean:
-	$(PREFIX)cd libft && make testfclean
 
 retest: testfclean test
 

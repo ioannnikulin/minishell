@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inikulin <inikulin@student.42berlin.d      +#+  +:+       +#+        */
+/*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 15:16:17 by inikulin          #+#    #+#             */
 /*   Updated: 2024/10/26 22:42:04 by inikulin         ###   ########.fr       */
@@ -12,8 +12,9 @@
 
 #ifndef LIBFT_H
 # define LIBFT_H
-# include <stddef.h>
 # include <stdlib.h>
+# include <stddef.h>
+# include <stdbool.h>
 # define LLTOA_BASE_MAX_LEN 65
 # include "sources/symbols/symbols.h"
 # include "sources/numbers/numbers.h"
