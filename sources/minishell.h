@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 15:22:58 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/08 17:45:48 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/11/14 08:16:20 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ t_param	*param_init(void);
 int		param_get_envvars(t_param *param);
 int		finalize(t_param *param, int mode, char *message, int retval);
 int		input_to_text_tree(t_param *param);
+char	**tokenize_cmd(const char *s);
 int		exec_text_tree(t_param *param);
 int		execute_text_tree_node(t_param *param, t_treenode *node);
 int		param_get_cur_dir(t_param *param);
