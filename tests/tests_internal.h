@@ -16,5 +16,7 @@
 # include <assert.h>
 # include <fcntl.h>
 
-int	input_to_text_tree_test(void);
+int	    input_to_text_tree_test(void);
+void    tokenize_cmd_test(void);
+
 #endif

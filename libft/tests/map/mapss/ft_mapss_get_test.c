@@ -58,6 +58,8 @@ void	ft_mapss_get_test(void)
 		#endif
 		t_mapss *map = ft_mapss_gen(tests[i].content, tests[i].sz);
 		assert(map);
+		if (tests[i].sz == 0 || tests[i].content == NULL)
+			assert(map->head == NULL && map->size == 0);
 		char *act_val = ft_mapss_get(map, tests[i].key);
 		assert((act_val == 0) == (tests[i].exp_val == 0));
 		if (tests[i].exp_val)

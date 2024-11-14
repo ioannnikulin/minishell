@@ -1,29 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free_null.c                                     :+:      :+:    :+:   */
+/*   ft_free_delims.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/04 18:43:58 by inikulin          #+#    #+#             */
-/*   Updated: 2024/10/29 16:59:27 by taretiuk         ###   ########.fr       */
+/*   Created: 2024/11/02 14:54:16 by taretiuk          #+#    #+#             */
+/*   Updated: 2024/11/02 18:58:57 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../libft.h"
+#include "strings.h"
+#include "libft.h"
 
-void	ft_free_s_null(void **c)
+void	ft_free_delim_s(t_delims *arr)
 {
-	if (!c)
+	size_t	i;
+
+	if (arr == NULL || arr->delims == NULL)
 		return ;
-	ft_free_s(*((char **)c));
-	*c = 0;
+	i = 0;
+	while (i < arr->count)
+	{
+		if (arr->delims[i].delim != NULL)
+		{
+			free(arr->delims[i].delim);
+			arr->delims[i].delim = NULL;
+		}
+		i++;
+	}
 }
 
-void	ft_free_pi_null(void **p)
+void	ft_free_delims_arr(t_delims *arr)
 {
-	if (!p)
+	if (arr == NULL)
 		return ;
-	ft_free_pi(*(int **)p);
-	*p = 0;
+	free(arr->delims);
+	arr->delims = NULL;
+	arr->count = 0;
+	arr->error = 0;
 }

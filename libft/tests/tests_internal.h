@@ -6,14 +6,13 @@
 /*   By: inikulin <inikulin@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 15:58:51 by inikulin          #+#    #+#             */
-/*   Updated: 2024/10/26 22:48:17 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/11/08 11:57:43 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TESTS_INTERNAL_H
 # define TESTS_INTERNAL_H
 # include <assert.h>
-# include <stdlib.h>
 # include <string.h>
 # include <bsd/string.h>
 # include <stdio.h>
