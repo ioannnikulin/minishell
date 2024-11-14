@@ -29,9 +29,9 @@ static void	catch(char* fname, int *out, int *save)
 static void	finally(int *out, int *save)
 {
 	fflush(stdout);
-    close(*out);
-	dup2(*save, fileno(stdout));
 	close(*out);
+	dup2(*save, fileno(stdout));
+	close(*save);
 }
 
 typedef struct s_testcase

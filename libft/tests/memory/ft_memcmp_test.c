@@ -23,22 +23,6 @@ typedef struct s_testcase
 #define START 0
 #define SZ 32
 
-/*static char *ext_strdup(char *orig, int sz)
-{
-	int mem = strlen(orig);
-	if (mem < sz)
-		mem = sz;
-	char *res = malloc(mem);
-	if (!res)
-		return (0);
-	int i = -1;
-	while (orig[++i])
-		res[i] = orig[i];
-	while (++i < sz)
-		res[i] = 0;
-	return (res);
-}*/
-
 void	ft_memcmp_test(void)
 {
 	t_testcase t[SZ];
