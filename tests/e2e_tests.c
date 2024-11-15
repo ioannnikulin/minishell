@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 22:57:54 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/15 14:27:51 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/11/15 14:35:41 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ static int	file_compare(char *exp_contens, char *act_fname)
 			diff = i;
 			break ;
 		}
-	ft_printf("comparison result %i, expected:[%s]\nactual:[%s]\nstrncmp %i\nstart to differ from index %i\n", comp_res, exp_re, act, ft_strncmp(exp_contens, act, fsize), diff);
+	ft_printf("comparison result %i, expected:[%s]\nactual:[%s]\nstrncmp %i\nstart to differ from index %i, exp [%i], got [%i]\n", comp_res, exp_re, act, ft_strncmp(exp_contens, act, fsize), diff, exp_contens[diff], act[diff]);
 	free(exp_re);
 	int i;
 	for (i = fsize - 2; act[i] >= '0' && act[i] <= '9'; i --);
@@ -228,7 +228,7 @@ int	e2e_tests(void)
 		int mallocs;
 		successful_execution(&tests[i], &mallocs);
 		#ifdef FT_CALLOC_IF_TRAPPED
-		malloc_failure_recoveries(tests[i].cmd, mallocs);
+		// malloc_failure_recoveries(tests[i].cmd, mallocs);
 		#endif
 		ft_mapss_finalize_i(m[i], 0, 0);
 	}
