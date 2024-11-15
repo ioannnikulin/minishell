@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 22:57:54 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/15 14:35:41 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/11/15 14:37:54 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,7 @@ static void	successful_execution(t_testcase *test, int *mallocs)
 #ifdef FT_CALLOC_IF_TRAPPED
 static void	malloc_failure_recoveries(char *cmd, int mallocs)
 {
+	if (!cmd) return ;
 	int out, save, outerr, saveerr;
 	for (int i = TRAP_START; i < mallocs + 2; i ++)
 	{
@@ -233,5 +234,6 @@ int	e2e_tests(void)
 		ft_mapss_finalize_i(m[i], 0, 0);
 	}
 	system("(rm -r e2e_f && rm e2e.stdout e2e.stderr) 2> /dev/null");
+	malloc_failure_recoveries(0, 0); // to avdoid unused function warning
 	return (0);
 }
