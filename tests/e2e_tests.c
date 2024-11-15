@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 22:57:54 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/15 14:41:01 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/11/16 00:24:36 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,15 @@ static int	file_compare(char *exp_contens, char *act_fname)
 			diff = i;
 			break ;
 		}
-	ft_printf("comparison result %i, expected:[%s]\nactual:[%s]\nstrncmp %i\nstart to differ from index %i, exp [%c%c], got [%c%c]\n", comp_res, exp_re, act, ft_strncmp(exp_contens, act, fsize), diff, exp_contens[diff], exp_contens[diff + 1], act[diff], act[diff + 1]);
+	char	*e1 = ft_substr(exp_re, 0, diff);
+	char	*e2 = ft_substr(exp_re, diff, fsize);
+	char	*a1 = ft_substr(act, 0, diff);
+	char	*a2 = ft_substr(act, diff, fsize);
+	ft_printf("comparison result %i, expected:[%s][%s]\nactual:[%s][%s]\nstrncmp %i\nstart to differ from index %i\n", comp_res, e1, e2, a1, a2, ft_strncmp(exp_contens, act, fsize), diff);
+	free(e1);
+	free(e2);
+	free(a1);
+	free(a2);
 	free(exp_re);
 	int i;
 	for (i = fsize - 2; act[i] >= '0' && act[i] <= '9'; i --);
