@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 22:57:54 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/16 00:33:12 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/11/16 00:39:36 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ static int	file_compare(char *exp_contens, char *act_fname)
 	int comp_res = regexec(&re, act, 0, NULL, 0);
 	int	diff = -1;
 	for (int i = 0; i < fsize; i ++)
-		if (act[i] != exp_contens[i])
+		if (act[i] != exp_re[i])
 		{
 			diff = i;
 			break ;
