@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 22:57:54 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/15 14:37:54 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/11/15 14:41:01 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ static int	file_compare(char *exp_contens, char *act_fname)
 			diff = i;
 			break ;
 		}
-	ft_printf("comparison result %i, expected:[%s]\nactual:[%s]\nstrncmp %i\nstart to differ from index %i, exp [%i], got [%i]\n", comp_res, exp_re, act, ft_strncmp(exp_contens, act, fsize), diff, exp_contens[diff], act[diff]);
+	ft_printf("comparison result %i, expected:[%s]\nactual:[%s]\nstrncmp %i\nstart to differ from index %i, exp [%c%c], got [%c%c]\n", comp_res, exp_re, act, ft_strncmp(exp_contens, act, fsize), diff, exp_contens[diff], exp_contens[diff + 1], act[diff], act[diff + 1]);
 	free(exp_re);
 	int i;
 	for (i = fsize - 2; act[i] >= '0' && act[i] <= '9'; i --);
