@@ -2,7 +2,7 @@ CC = cc
 NAME = minishell
 COMPILE_FLAGS = -Wall -Wextra -Werror -g -c
 LINK_FLAGS = -lft -Llibft -lreadline
-PREFIX = @
+PREFIX = 
 PREPROC_DEFINES =
 
 SOURCE_F = sources
@@ -113,7 +113,7 @@ pretestfclean:
 retest: testfclean test
 
 memcheck:
-	$(PREFIX)valgrind --leak-check=full --show-leak-kinds=all $(TEST_FNAME)
+	$(PREFIX)valgrind --suppressions=tests/valgrind.supp --gen-suppressions=all --leak-check=full --show-leak-kinds=all $(TEST_FNAME)
 
 fulltest:
 	$(PREFIX)cd libft && make fulltest_trapped_stdprintf

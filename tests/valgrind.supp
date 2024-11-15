@@ -1,0 +1,21 @@
+{
+   <regcomp>
+   Memcheck:Leak
+   ...
+   fun:regcomp
+   ...
+}
+{
+   <regexec>
+   Memcheck:Leak
+   ...
+   fun:regexec*
+   ...
+}
+{
+   <readline>
+   Memcheck:Leak
+   ...
+   fun:readline
+   ...
+}

@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 22:57:54 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/11 07:54:32 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/11/15 09:58:04 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,10 +147,9 @@ static void	malloc_failure_recoveries(char *cmd, int mallocs)
 		read(open("e2e.stderr", O_RDONLY, 0600), err, 256);
 		int i = 0;
 		// expected output
-	  	// ==130278== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
-		// so we navigate to both colons and check if there are zeros after them
-		while (err[i] != ':' && i < 256) i ++;
-		assert(i < 256 && err[i + 1] == ' ' && err[i + 2] == '0' && err[i + 3] == ' ');
+	  	// ==130278== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: ... from ...)
+		// so we navigate to first colon and check if there is a zero after it
+		// (suppressed are the messages from readline and regexp, which are not ours)
 		while (err[i] != ':' && i < 256) i ++;
 		assert(i < 256 && err[i + 1] == ' ' && err[i + 2] == '0' && err[i + 3] == ' ');
 		// TODO: check no files were created

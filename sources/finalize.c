@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 17:11:19 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/06 15:49:08 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/11/15 10:05:54 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int	finalize(t_param *param, int mode, char *message, int retval)
 		free(param->opts.file);
 		free(param);
 	}
+	rl_clear_history();
 	if (message)
 		printf("%s\n", message);
 	return (retval);
