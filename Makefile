@@ -2,7 +2,7 @@ CC = cc
 NAME = minishell
 COMPILE_FLAGS = -Wall -Wextra -Werror -g -c
 LINK_FLAGS = -lft -Llibft -lreadline
-PREFIX = 
+PREFIX = @
 PREPROC_DEFINES =
 
 SOURCE_F = sources
@@ -74,7 +74,10 @@ $(TEST_TOOL_FNAME): $(TEST_TOOL_OBJS)
 	$(PREFIX)$(CC) $(TEST_TOOL_OBJS) -o $(TEST_TOOL_FNAME) $(LINK_FLAGS)
 
 $(TEST_OBJ_F)%.o: $(TEST_F)/%.c $(TEST_OBJ_F) $(TEST_ENDPOINT_OBJ)
-	$(PREFIX)$(CC) $(COMPILE_FLAGS) $< -o $@ $(INCLUDES) $(MOCK_FLAG)
+	$(PREFIX)$(CC) $(PREPROC_DEFINES) $(COMPILE_FLAGS) $< -o $@ $(INCLUDES)
+
+test_trapped: PREPROC_DEFINES += -DFT_CALLOC_IF_TRAPPED
+test_trapped: test
 
 test: $(OBJ_DIRS) $(TEST_OBJ_F) $(OBJS) $(TEST_OBJS) $(TEST_ENDPOINT_OBJ) $(TEST_TOOL_FNAME)
 	$(PREFIX)$(CC) $(OBJS) $(TEST_OBJS) $(TEST_ENDPOINT_OBJ) -o $(TEST_FNAME) $(LINK_FLAGS)
@@ -113,13 +116,13 @@ pretestfclean:
 retest: testfclean test
 
 memcheck:
-	$(PREFIX)valgrind --suppressions=tests/valgrind.supp --gen-suppressions=all --leak-check=full --show-leak-kinds=all $(TEST_FNAME)
+	$(PREFIX)valgrind --suppressions=tests/valgrind.supp --leak-check=full --show-leak-kinds=all $(TEST_FNAME)
 
 fulltest:
 	$(PREFIX)cd libft && make fulltest_trapped_stdprintf
 	$(PREFIX)make fclean testfclean
 	$(PREFIX)cd sources && norminette
-	$(PREFIX)make all_mocked_parser_trapped test memcheck
+	$(PREFIX)make all_mocked_parser_trapped test_trapped memcheck
 
 PHONY: all pre clean fclean re test fulltest testclean testfclean retest tania vania vania_trapped
 
