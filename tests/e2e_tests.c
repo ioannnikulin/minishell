@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 22:57:54 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/16 00:26:20 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/11/16 00:29:45 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ static int	file_compare(char *exp_contens, char *act_fname)
 	char *act = ft_calloc(sizeof(char), fsize + 1);
 	assert(act);
 	fread(act, fsize, 1, f);
+	act[fsize] = 0;
 	fclose(f);
 
 	regex_t re;
