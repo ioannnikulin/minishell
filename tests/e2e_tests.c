@@ -6,12 +6,12 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 22:57:54 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/15 09:58:04 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/11/15 10:59:01 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tests_internal.h"
-#define START 0
+#define START 9
 #define TRAP_START 0
 #define SZ 19
 #define DEBUG
@@ -79,7 +79,7 @@ static int	file_compare(char *exp_contens, char *act_fname)
 	assert(regcomp(&re, exp_re, REG_EXTENDED) == 0);
 	int comp_res = regexec(&re, act, 0, NULL, 0);
 	#ifdef DEBUG
-	if (comp_res)
+	if (comp_res != 0)
 		ft_printf("comparison result %i, expected:[%s]\nactual:[%s]\nstrncmp %i %i\n", comp_res, exp_re, act, ft_strncmp(exp_contens, act, fsize - 1), ft_strncmp(exp_contens, act, fsize));
 	#endif
 	free(exp_re);
