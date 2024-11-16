@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 22:57:54 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/16 15:08:37 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/11/16 15:10:21 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ static int	file_compare(char *exp_contens, char *act_fname)
 	char	*e2 = ft_substr(exp_re, diff, fsize - diff);
 	char	*a1 = ft_substr(act, 0, diff);
 	char	*a2 = ft_substr(act, diff, fsize - diff);
-	ft_printf("comparison result %i, expected:{{%s}}{{%s}}\nactual:{{%s}}{{%s}}\nstrncmp %i\nstart to differ from index %i\n", comp_res, e1, e2, a1, a2, ft_strncmp(exp_contens, act, fsize), diff);
+	ft_printf("comparison result %i, expected:{%s}{{%s}}\nactual:{%s}{{%s}}\nstrncmp %i\nstart to differ from index %i\n", comp_res, e1, e2, a1, a2, ft_strncmp(exp_contens, act, fsize), diff);
 	free(e1);
 	free(e2);
 	free(a1);
