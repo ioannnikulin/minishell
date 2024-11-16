@@ -6,15 +6,15 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 22:57:54 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/16 15:18:29 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/11/16 15:24:40 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tests_internal.h"
-#define START 9
+#define START 0
 #define TRAP_START 0
 #define SZ 19
-#define DEBUG
+//#define DEBUG
 
 typedef struct s_testcase
 {
@@ -75,10 +75,11 @@ static int	file_compare(char *exp_contens, char *act_fname)
 	fclose(f);
 
 	regex_t re;
-	char	*exp_re = exp_contens;//ft_strjoin(exp_contens, "(Total ft_calloc_calls: [0-9]*\n)?");
+	char	*exp_re = ft_strjoin(exp_contens, "(Total ft_calloc_calls: [0-9]*\n)?");
 	assert(exp_re);
 	assert(regcomp(&re, exp_re, REG_EXTENDED | REG_NOSUB) == 0);
 	int comp_res = regexec(&re, act, 0, NULL, 0);
+	#ifdef DEBUG
 	int	diff = -1;
 	for (int i = 0; i < fsize; i ++)
 		if (act[i] != exp_re[i])
@@ -86,20 +87,10 @@ static int	file_compare(char *exp_contens, char *act_fname)
 			diff = i;
 			break ;
 		}
-	char	*e1 = ft_substr(exp_re, 0, diff);
-	char	*e2 = ft_substr(exp_re, diff, fsize - diff);
-	char	*a1 = ft_substr(act, 0, diff);
-	char	*a2 = ft_substr(act, diff, fsize - diff);
-	ft_printf("%s %i\n", e1, ft_strlen(e1));
-	ft_printf("%s %i\n", e2, ft_strlen(e2));
-	ft_printf("%s %i\n", a1, ft_strlen(a1));
-	ft_printf("%s %i\n", a2, ft_strlen(a2));
-	ft_printf("comparison result %i, expected:{%s}{{%s}}\nactual:{%s}{{%s}}\nstrncmp %i\nstart to differ from index %i\n", comp_res, e1, e2, a1, a2, ft_strncmp(exp_contens, act, fsize), diff);
-	free(e1);
-	free(e2);
-	free(a1);
-	free(a2);
-	// free(exp_re);
+	ft_printf("comparison result %i, expected:{{%s}}\nactual:{{%s}}\nstrncmp %i\nstart to differ from index %i\n", comp_res, exp_re, act, ft_strncmp(exp_contens, act, fsize), diff);
+	#endif
+	assert(comp_res == 0);
+	free(exp_re);
 	int i;
 	for (i = fsize - 2; act[i] >= '0' && act[i] <= '9'; i --);
 	char *sub = ft_substr(act, i, fsize - i);
@@ -198,7 +189,7 @@ int	e2e_tests(void)
 	ft_mapss_add(m[6], "stdout", "1\n3\n4\n");
 	ft_mapss_add(m[7], "stdout", "Linux\n");
 	ft_mapss_add(m[8], "stdout", "HOME=/home/ioann\nsome=BODYONCETOLDME\nPATH=/usr/local/bin:/usr/sbin:/usr/bin:/sbin/bin\nPWD=/[^\n]*\none\ntwo   three\nfour\n");
-	ft_mapss_add(m[9], "stdout", "HOME=/home/ioann\nfoo=zah\nsome=BODYONCETOLDME\nPATH=/usr/local/bin:/usr/sbin:/usr/bin:/sbin/bin\nPWD=/home/ioann/PROJECTS/shell/0\none\ntwo   three\nfour\n");
+	ft_mapss_add(m[9], "stdout", "HOME=/home/ioann\nfoo=zah\nsome=BODYONCETOLDME\nPATH=/usr/local/bin:/usr/sbin:/usr/bin:/sbin/bin\nPWD=/[^\n]*\none\ntwo   three\nfour\n");
 	ft_mapss_add(m[10], "stdout", "/[^\n]*\n");
 	ft_mapss_add(m[11], "stdout", "/[^\n]*/testf\n");
 	ft_mapss_add(m[12], "stdout", "/[^\n]*/testf\n");
