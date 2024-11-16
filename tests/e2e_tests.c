@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 22:57:54 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/16 15:24:40 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/11/16 15:25:59 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #define START 0
 #define TRAP_START 0
 #define SZ 19
-//#define DEBUG
+#define DEBUG
 
 typedef struct s_testcase
 {
