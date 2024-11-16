@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 22:57:54 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/16 15:10:21 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/11/16 15:15:34 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ static int	file_compare(char *exp_contens, char *act_fname)
 	fclose(f);
 
 	regex_t re;
-	char	*exp_re = ft_strjoin(exp_contens, "(Total ft_calloc_calls: [0-9]*\n)?");
+	char	*exp_re = exp_contens;//ft_strjoin(exp_contens, "(Total ft_calloc_calls: [0-9]*\n)?");
 	assert(exp_re);
 	assert(regcomp(&re, exp_re, REG_EXTENDED | REG_NOSUB) == 0);
 	int comp_res = regexec(&re, act, 0, NULL, 0);
@@ -95,7 +95,7 @@ static int	file_compare(char *exp_contens, char *act_fname)
 	free(e2);
 	free(a1);
 	free(a2);
-	free(exp_re);
+	// free(exp_re);
 	int i;
 	for (i = fsize - 2; act[i] >= '0' && act[i] <= '9'; i --);
 	char *sub = ft_substr(act, i, fsize - i);
