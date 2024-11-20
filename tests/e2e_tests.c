@@ -44,9 +44,9 @@ static void	catch_err(char* fname, int *out, int *save)
 static void	finally(int *out, int *save)
 {
 	fflush(stdout);
-    close(*out);
-	dup2(*save, fileno(stdout));
 	close(*out);
+	dup2(*save, fileno(stdout));
+	close(*save);
 }
 
 static void	finally_err(int *out, int *save)
