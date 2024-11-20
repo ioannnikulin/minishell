@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 00:10:22 by inikulin          #+#    #+#             */
-/*   Updated: 2024/10/22 23:55:32 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/11/03 19:23:27 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static int	run_executable(char *fullpath, t_treenode *node, t_param *param)
 	argc = node->children_qtty;
 	argv = ft_calloc_if(sizeof(char *) * (argc + 2), 1);
 	if (!argv)
-		return (ft_assign_i(&param->errno, 5, 0));
+		return (ft_assign_i(&param->opts.errno, 5, 0));
 	argv[0] = fullpath;
 	argv[argc + 1] = 0;
 	i = 1;
@@ -54,9 +54,9 @@ static int	run_executable(char *fullpath, t_treenode *node, t_param *param)
 		node = node->sibling_next;
 	}
 	envvars = get_envvars_for_execve(param);
-	if (param->errno)
+	if (param->opts.errno)
 		return (0);
-	i = w_execve(fullpath, argv, envvars, &param->errno);
+	i = w_execve(fullpath, argv, envvars, &param->opts.errno);
 	free(argv);
 	free(envvars);
 	return (i);
@@ -71,19 +71,19 @@ int	option_external(t_control control, t_treenode *node, t_param *param)
 	if (*control.found || !control.choice)
 		return (0);
 	*control.found = 1;
-	if (param->debug_output_level & DBG_EXTERNAL_SEARCH_FOLDERS)
+	if (param->opts.debug_output_level & DBG_EXTERNAL_SEARCH_FOLDERS)
 	{
 		printf("searching for command in folders:\n");
 		ft_dlist_print_s(param->envvar_path_head, "\n");
 	}
 	fullpath = find_executable(node->content, param->envvar_path_head,
-			&param->errno);
+			&param->opts.errno);
 	if (!fullpath)
 		return (0);
 	*control.retval = run_executable(fullpath, node, param);
 	free(fullpath);
-	if (!param->errno)
+	if (!param->opts.errno)
 		return (0);
-	printf("%s: ERROR %i\n", (char *)node->content, param->errno);
+	printf("%s: ERROR %i\n", (char *)node->content, param->opts.errno);
 	return (0);
 }

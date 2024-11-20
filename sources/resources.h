@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 14:26:40 by inikulin          #+#    #+#             */
-/*   Updated: 2024/10/25 00:17:43 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/11/03 19:18:20 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,13 @@
 # define ERR_CD_NO_HOME "HOME not set"
 # define ERR_EXPORT_INVALID "not a valid identifier"
 # define ERR_MALLOC "failed to allocate memory"
+# define ERR_NO_SCRIPT "No such file or directory"
 
 # define TXT_INVITATION "> "
+
+# define PARAM_INTERACTIVE "--interactive"
+# define PARAM_CALLOC_TRAP "--trap"
+# define PARAM_FILE "--file"
+# define PARAM_DEBUG_OUTPUT "--debug"
+# define PARAM_SINGLE_COMMAND "--command"
 #endif

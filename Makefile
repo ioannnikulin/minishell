@@ -3,7 +3,7 @@ NAME = minishell
 COMPILE_FLAGS = -Wall -Wextra -Werror -g -c
 LINK_FLAGS = -lft -Llibft -lreadline
 PREFIX =
-MOCK_FLAG =
+PREPROC_DEFINES =
 
 SOURCE_F = sources
 TEST_F = tests
@@ -20,7 +20,7 @@ TOKENIZING_NAMES = tokenize_cmd.c tokenize_cmd_utils.c
 TOKENIZING_F = tokenizing
 TOKENIZING_SRCS = $(addprefix $(TOKENIZING_F)/, $(TOKENIZING_NAMES))
 
-SRC_NAMES = finalize.c param_init.c param_get_envvars.c wrappers.c input_to_text_tree.c $(INPUT_TO_TEXT_TREE_MOCK_SRCS) exec_text_tree.c exec_text_tree_node.c $(COMMANDS_SRCS) $(TOKENIZING_SRCS) w_execve.c
+SRC_NAMES = finalize.c param_init.c param_get_envvars.c wrappers.c input_to_text_tree.c $(INPUT_TO_TEXT_TREE_MOCK_SRCS) exec_text_tree.c exec_text_tree_node.c $(COMMANDS_SRCS) $(TOKENIZING_SRCS) w_execve.c  pre_post.c opts_fill.c opts.c
 ENDPOINT_NAME = main.c
 
 SRC_SRCS = $(addprefix $(SOURCE_F)/, $(SRC_NAMES))
@@ -64,7 +64,7 @@ $(NAME): $(OBJS) $(ENDPOINT_OBJ)
 	$(PREFIX)$(CC) $(OBJS) $(ENDPOINT_OBJ) -o $@ $(LINK_FLAGS)
 
 $(OBJ_F)%.o: %.c $(OBJ_DIRS)
-	$(PREFIX)$(CC) $(COMPILE_FLAGS) $< -o $@ $(INCLUDES) $(MOCK_FLAG)
+	$(PREFIX)$(CC) $(COMPILE_FLAGS) $< -o $@ $(INCLUDES) $(PREPROC_DEFINES)
 
 $(TEST_OBJ_F):
 	$(PREFIX)mkdir -p $(TEST_OBJ_F)
@@ -112,12 +112,12 @@ memcheck:
 	$(PREFIX)valgrind --leak-check=full --show-leak-kinds=all $(TEST_FNAME)
 
 fulltest:
-	$(PREFIX)cd libft && make fulltest
+	$(PREFIX)cd libft && make fulltest_trapped
 	$(PREFIX)make fclean testfclean
 	$(PREFIX)cd sources && norminette
-	$(PREFIX)make vania test memcheck
+	$(PREFIX)make vania_trapped test memcheck
 
-PHONY: all pre clean fclean re test fulltest testclean testfclean retest tania vania
+PHONY: all pre clean fclean re test fulltest testclean testfclean retest tania vania vania_trapped
 
 ########################################
 
@@ -138,5 +138,8 @@ tania: $(OBJ_DIRS) $(TANIA_OBJ_F) $(OBJS) $(TANIA_ENDPOINT_OBJ)
 
 ########################################
 
-vania: MOCK_FLAG += -DMOCK_TANIA
+vania: PREPROC_DEFINES += -DMOCK_TANIA
 vania: all
+
+vania_trapped: PREPROC_DEFINES += -DFT_CALLOC_IF_TRAPPED
+vania_trapped: vania

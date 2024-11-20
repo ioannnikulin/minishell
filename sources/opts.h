@@ -1,26 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   option_exit.c                                      :+:      :+:    :+:   */
+/*   opts.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/30 00:09:12 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/03 19:22:13 by inikulin         ###   ########.fr       */
+/*   Created: 2024/11/03 19:06:16 by inikulin          #+#    #+#             */
+/*   Updated: 2024/11/03 19:30:29 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "commands.h"
+#ifndef OPTS_H
+# define OPTS_H
+# include "minishell.h"
 
-// return value is ignored
-int	option_exit(t_control control, t_treenode *node, t_param *param)
-{
-	if (*control.found || !control.choice)
-		return (0);
-	*control.found = 1;
-	(void)node;
-	printf("exit\n");
-	param->opts.exiting = 1;
-	*control.retval = 0;
-	return (1);
-}
+int	opt_debug(const char **act, int *i, t_param *param, int *found);
+int	opt_single(const char **act, int f, int t, t_param *param);
+
+#endif

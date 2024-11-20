@@ -1,24 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*   ft_calloc_if.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: inikulin <inikulin@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 19:01:40 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/03 13:30:51 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/11/03 15:12:16 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "memory.h"
 
-void	*ft_calloc(size_t nmemb, size_t size)
+void	*ft_calloc_if(size_t size, int choice)
 {
-	void	*res;
-
-	res = malloc(nmemb * size);
-	if (!res)
+	if (!choice)
 		return (0);
-	ft_bzero(res, nmemb * size);
-	return (res);
+	return (ft_calloc(size, 1));
 }

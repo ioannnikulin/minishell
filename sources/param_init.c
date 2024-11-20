@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 18:10:38 by inikulin          #+#    #+#             */
-/*   Updated: 2024/10/22 23:01:14 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/11/03 21:34:56 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,6 @@ t_param	*param_init(void)
 		return (0);
 	if (param_get_cur_dir(param) || param_get_envvars(param))
 		return (0);
-	param->debug_output_level = 0;
+	param->opts.debug_output_level = 0;
 	return (param);
 }
