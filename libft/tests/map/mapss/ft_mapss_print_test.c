@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 21:34:36 by inikulin          #+#    #+#             */
-/*   Updated: 2024/10/27 00:49:35 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/11/06 10:45:05 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,12 +67,10 @@ int	ft_mapss_print_test(void)
 		finally(&out, &save);
 		int fc = open("custom.tmp", O_RDONLY, 0600);
 		int len_exp = ft_strlen(tests[i].exp_res);
-		char *act = malloc(sizeof(char) * (len_exp + 2));
+		char *act = ft_calloc(sizeof(char) * (len_exp * 2 + 1), 1);
 		assert(act);
-		act[len_exp] = 0;
-		act[len_exp + 1] = 0;
-		int len_act = read(fc, act, len_exp);
-		(void)len_act;
+		int len_act = read(fc, act, len_exp * 2);
+		assert(len_act == len_exp);
 		int comp_res = ft_strcmp(tests[i].exp_res, act);
 		#ifdef DEBUG
 		if (comp_res)

@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 23:53:00 by inikulin          #+#    #+#             */
-/*   Updated: 2024/10/22 23:35:03 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/11/06 12:45:29 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static int	a_test(t_param *param, char *input, void (*treegen)(t_treenode *), in
 
 int	input_to_text_tree_test(void)
 {
-	t_param	*param = ft_calloc_if(sizeof(t_param), 1);
+	t_param	*param = ft_calloc(sizeof(t_param), 1);
 	param->text_tree = ft_tree_make();
 	assert(a_test(param, MOCK_0_TEXT, mock_0_tree, 0) == 0);
 	assert(a_test(param, MOCK_1_TEXT, mock_1_tree, 1) == 0);

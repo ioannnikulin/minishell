@@ -20,13 +20,14 @@ TOKENIZING_NAMES = tokenize_cmd.c tokenize_cmd_utils.c
 TOKENIZING_F = tokenizing
 TOKENIZING_SRCS = $(addprefix $(TOKENIZING_F)/, $(TOKENIZING_NAMES))
 
-SRC_NAMES = finalize.c param_init.c param_get_envvars.c wrappers.c input_to_text_tree.c $(INPUT_TO_TEXT_TREE_MOCK_SRCS) exec_text_tree.c exec_text_tree_node.c $(COMMANDS_SRCS) $(TOKENIZING_SRCS) w_execve.c  pre_post.c opts_fill.c opts.c
+SRC_NAMES = finalize.c param_init.c param_get_envvars.c wrappers.c input_to_text_tree.c $(INPUT_TO_TEXT_TREE_MOCK_SRCS) exec_text_tree.c exec_text_tree_node.c $(COMMANDS_SRCS) $(TOKENIZING_SRCS) w_execve.c pre_post.c opts_fill.c opts.c
 ENDPOINT_NAME = main.c
 
 SRC_SRCS = $(addprefix $(SOURCE_F)/, $(SRC_NAMES))
 ENDPOINT_SRC = $(addprefix $(SOURCE_F)/, $(ENDPOINT_NAME))
 
-TEST_NAMES = input_to_text_tree_test.c tokenize_cmd_test.c
+
+TEST_NAMES = input_to_text_tree_test.c tokenize_cmd_test.c unit_tests.c e2e_tests.c
 TEST_ENDPOINT_NAME = main_test.c
 TEST_SRCS = $(addprefix $(TEST_F)/, $(TEST_NAMES))
 TEST_ENDPOINT_SRC = $(addprefix $(TEST_F)/, $(TEST_ENDPOINT_NAME))
@@ -58,7 +59,7 @@ $(OBJ_DIRS):
 	$(PREFIX)mkdir -p $(OBJ_DIRS)
 
 pre:
-	$(PREFIX)cd libft && make all
+	$(PREFIX)cd libft && make all_stdprintf
 
 $(NAME): $(OBJS) $(ENDPOINT_OBJ)
 	$(PREFIX)$(CC) $(OBJS) $(ENDPOINT_OBJ) -o $@ $(LINK_FLAGS)
@@ -112,7 +113,7 @@ memcheck:
 	$(PREFIX)valgrind --leak-check=full --show-leak-kinds=all $(TEST_FNAME)
 
 fulltest:
-	$(PREFIX)cd libft && make fulltest_trapped
+	$(PREFIX)cd libft && make fulltest_trapped_stdprintf
 	$(PREFIX)make fclean testfclean
 	$(PREFIX)cd sources && norminette
 	$(PREFIX)make vania_trapped test memcheck

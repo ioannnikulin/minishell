@@ -62,7 +62,6 @@ PACK = ar rcs
 
 all: $(NAME)
 
-#TODO: pass a numeric argument from outside here
 calloc_trapped: PREPROC_DEFINES += -DFT_CALLOC_IF_TRAPPED=1
 calloc_trapped: FT_CALLOC_IF_CHOSEN = $(FT_CALLOC_IF_TRAPPED_SRC)
 calloc_trapped: $(FT_CALLOC_IF_TRAPPED_OBJ)
@@ -164,5 +163,11 @@ fulltest_common:
 	# -------- Testing finished. --------
 
 fulltest_trapped: fclean calloc_trapped retest fulltest_common
+
+fulltest_trapped_stdprintf: PREPROC_DEFINES += -DPRINTF_ALLOWED
+fulltest_trapped_stdprintf: fulltest_trapped
+
+all_stdprintf: PREPROC_DEFINES += -DPRINTF_ALLOWED
+all_stdprintf: all
 
 fulltest: re retest fulltest_common

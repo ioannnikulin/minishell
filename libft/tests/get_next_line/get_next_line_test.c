@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 16:41:46 by inikulin          #+#    #+#             */
-/*   Updated: 2024/09/23 23:31:16 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/11/06 12:57:22 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,7 +178,7 @@ void	test_error(void)
 	remove("5.tmp");
 	int	f1 = open("5.tmp", O_WRONLY|O_CREAT, 0600);
 	assert(f1 != -1);
-	char *line = ft_calloc_if(sizeof(char) * BUFFER_SIZE + 12, 1);
+	char *line = ft_calloc(sizeof(char) * BUFFER_SIZE + 12, 1);
 	if (!line)
 	{
 		printf("couldn't allocate memory for the test\n");
