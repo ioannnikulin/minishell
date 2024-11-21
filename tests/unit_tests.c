@@ -1,26 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   option_exit.c                                      :+:      :+:    :+:   */
+/*   unit_tests.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/30 00:09:12 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/03 19:22:13 by inikulin         ###   ########.fr       */
+/*   Created: 2024/09/21 00:03:03 by inikulin          #+#    #+#             */
+/*   Updated: 2024/11/06 12:18:13 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "commands.h"
+#include "tests_internal.h"
 
-// return value is ignored
-int	option_exit(t_control control, t_treenode *node, t_param *param)
+int	unit_tests(void)
 {
-	if (*control.found || !control.choice)
-		return (0);
-	*control.found = 1;
-	(void)node;
-	printf("exit\n");
-	param->opts.exiting = 1;
-	*control.retval = 0;
-	return (1);
+	printf("input_to_text_tree in testing\n");
+	input_to_text_tree_test();
+	return (0);
 }

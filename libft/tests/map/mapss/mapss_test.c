@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 21:34:36 by inikulin          #+#    #+#             */
-/*   Updated: 2024/10/27 01:01:02 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/11/06 11:35:22 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,11 @@ void	mapss_test(void)
 	ft_mapss_get_test();
 	ft_printf("mapss: print in testing\n");
 	ft_mapss_print_test();
-	if (!memcheck_enabled)
-	{
-		ft_printf("mapss: add in testing\n");
-		ft_mapss_add_test();
-	}
+	ft_printf("mapss: ncmp in testing\n");
+	ft_mapss_ncmp_test();
+	ft_printf("mapss: del in testing\n");
+	ft_mapss_del_test();
+	ft_printf("mapss: add in testing\n");
+	ft_mapss_add_test();
 	return ;
 }

@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 15:22:58 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/14 08:16:20 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/11/21 15:39:01 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@
 # include "../libft/libft.h"
 # include "resources.h"
 # include "commands/commands.h"
+
 # include "tokenizing/input_processing.h"
 # include "tree_make/tree_processing.h"
-
 # define FREE_ENVVARS_DLISTS 1
 # define FREE_ENVVARS_ENTRIES 2
 # define FREE_ENVVARS_KEYS 4
@@ -37,19 +37,29 @@
 
 typedef unsigned long long	t_ull;
 
+typedef struct s_opts
+{
+	char	*file;
+	int		calloc_trap;
+	int		interactive;
+	t_ull	debug_output_level;
+	int		exiting;
+	int		errno;
+}	t_opts;
+
 typedef struct s_param
 {
-	int			errno;
-	t_mapss		envvars;
-	t_dlist		*envvar_path_head;
-	char		*cur_command;
-	t_tree		*text_tree;
-	t_ull		debug_output_level;
+	t_mapss	envvars;
+	t_dlist	*envvar_path_head;
+	char	*cur_command;
+	t_tree	*text_tree;
+	t_opts	opts;
 }	t_param;
 
 # define TEXT_TREE_ROOT "ROOT"
 
 t_param	*param_init(void);
+int		opts_fill(int argc, const char **argv, t_param *param);
 int		param_get_envvars(t_param *param);
 int		finalize(t_param *param, int mode, char *message, int retval);
 int		input_to_text_tree(t_param *param);
@@ -58,4 +68,6 @@ int		exec_text_tree(t_param *param);
 int		execute_text_tree_node(t_param *param, t_treenode *node);
 int		param_get_cur_dir(t_param *param);
 int		w_execve(char *fullpath, char **argv, char **envvars, int *errno);
+void	pre(t_param *param);
+void	post(t_param *param);
 #endif

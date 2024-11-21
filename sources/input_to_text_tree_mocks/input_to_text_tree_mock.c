@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 23:07:09 by inikulin          #+#    #+#             */
-/*   Updated: 2024/10/25 01:03:46 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/11/03 13:02:27 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,23 +19,16 @@ int	input_to_text_tree_mock(t_tree **tree, char *input)
 	(*tree)->root = ft_treenode_make(TEXT_TREE_ROOT, 0, 0, ft_free_nop);
 	if (!((*tree)->root))
 		return (2);
-	if (mock_0(input, (*tree)->root)
-		|| mock_1(input, (*tree)->root)
-		|| mock_2(input, (*tree)->root)
-		|| mock_3(input, (*tree)->root)
-		|| mock_4(input, (*tree)->root)
-		|| mock_5(input, (*tree)->root)
-		|| mock_6(input, (*tree)->root)
-		|| mock_7(input, (*tree)->root)
-		|| mock_8(input, (*tree)->root)
-		|| mock_9(input, (*tree)->root)
-		|| mock_10(input, (*tree)->root)
-		|| mock_11(input, (*tree)->root)
-		|| mock_12(input, (*tree)->root)
-		|| mock_13(input, (*tree)->root)
-		|| mock_14(input, (*tree)->root)
-		|| mock_15(input, (*tree)->root)
-		|| mock_16(input, (*tree)->root)
+	if (mock_0(input, (*tree)->root) || mock_1(input, (*tree)->root)
+		|| mock_2(input, (*tree)->root) || mock_3(input, (*tree)->root)
+		|| mock_4(input, (*tree)->root) || mock_5(input, (*tree)->root)
+		|| mock_6(input, (*tree)->root) || mock_7(input, (*tree)->root)
+		|| mock_8(input, (*tree)->root) || mock_9(input, (*tree)->root)
+		|| mock_10(input, (*tree)->root) || mock_11(input, (*tree)->root)
+		|| mock_12(input, (*tree)->root) || mock_13(input, (*tree)->root)
+		|| mock_14(input, (*tree)->root) || mock_15(input, (*tree)->root)
+		|| mock_16(input, (*tree)->root) || mock_17(input, (*tree)->root)
+		|| mock_18(input, (*tree)->root)
 	)
 		return (0);
 	printf("%s: %s\n", input, ERR_COMMAND_NOT_FOUND);

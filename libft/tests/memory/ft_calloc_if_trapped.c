@@ -1,24 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*   ft_calloc_if_trapped.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: inikulin <inikulin@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 19:01:40 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/03 13:30:51 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/11/03 19:27:35 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "memory.h"
+#include "../../sources/memory/memory.h"
 
-void	*ft_calloc(size_t nmemb, size_t size)
+typedef struct s_calloc_trap
 {
-	void	*res;
+	int	cur;
+	int	tgt;
+}	t_calloc_trap;
 
-	res = malloc(nmemb * size);
-	if (!res)
+t_calloc_trap	trap = (t_calloc_trap){0, 0};
+
+void	ft_calloc_if_trap_setup(int tgt)
+{
+	trap.tgt = tgt;
+}
+
+void	*ft_calloc_if(size_t size, int choice)
+{
+	if (++ trap.cur == trap.tgt || !choice)
 		return (0);
-	ft_bzero(res, nmemb * size);
-	return (res);
+	return (ft_calloc(size, 1));
+}
+
+void	ft_calloc_if_trap_count()
+{
+	ft_printf("Total ft_calloc_calls: %i\n", trap.cur);
 }

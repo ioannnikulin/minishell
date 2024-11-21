@@ -6,12 +6,13 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 20:59:34 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/02 15:36:31 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/11/03 14:38:09 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MEMORY_H
 # define MEMORY_H
+# include "../../libft.h"
 
 void	*ft_memchr(const void *s, int c, size_t n);
 void	*ft_memset(void *s, int c, size_t n);
