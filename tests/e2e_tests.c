@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 22:57:54 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/06 12:40:16 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/11/21 01:12:33 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@ static void	catch(char* fname, int *out, int *save)
 static void	finally(int *out, int *save)
 {
 	fflush(stdout);
-    close(*out);
-	dup2(*save, fileno(stdout));
 	close(*out);
+	dup2(*save, fileno(stdout));
+	close(*save);
 }
 
 static void	file_compare(char *exp_contens, char *act_fname)
