@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 17:50:43 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/11/22 18:48:09 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/11/22 19:21:13 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static void	parse_word(char **res, const char **f,
 	{
 		is_in_quotes(f, ex, &in_quotes);
 		if (!in_quotes || (in_quotes && (**f != ex)))
-                cwlen++;
+			cwlen++;
 		if(in_quotes && (**f == ex))
 			start = ++(*f);
 		(*f)++;

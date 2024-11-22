@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 14:08:20 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/11/22 08:21:16 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/11/22 19:24:00 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,31 +29,31 @@ static int	check_edges(char **res, int *cwi)
 	return (0);
 }
 
-static void calc_tokens(const char *pp, int *token_q, t_delims *ar)
+static void	calc_tokens(const char *pp, int *token_q, t_delims *ar)
 {
-    size_t      op_len;
-    const char  *p;
+	size_t		op_len;
+	const char	*p;
 
-    *token_q = 0;
-    p = pp;
-    while (*p)
-    {
-        while (*p == ' ' || *p == '\t' || *p == '\n')
-            p++;
-        if (*p == '\0')
-            break ;
-        if (find_delimiter(p, ar, &op_len))
-        {
-            (*token_q)++;
-            p += op_len;
-        }
-        else
-        {
-            while (*p && !find_delimiter(p, ar, &op_len))
-                    p++;
-            (*token_q)++;
-        }
-    }
+	*token_q = 0;
+	p = pp;
+	while (*p)
+	{
+		while (*p == ' ' || *p == '\t' || *p == '\n')
+			p++;
+		if (*p == '\0')
+		    break ;
+		if (find_delimiter(p, ar, &op_len))
+		{
+			(*token_q)++;
+			p += op_len;
+		}
+		else
+		{
+			while (*p && !find_delimiter(p, ar, &op_len))
+					p++;
+			(*token_q)++;
+		}
+	}
 }
 
 static int	extract_token(char **res, const char **s, int token_q, t_delims *ar)
