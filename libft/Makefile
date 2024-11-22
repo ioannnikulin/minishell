@@ -40,7 +40,7 @@ STR_NAMES = ft_empty_string.c ft_split.c ft_split_str.c ft_split_str_utils.c ft_
 STR_SRCS = $(addprefix $(SOURCES_F)/$(STR_F)/, $(STR_NAMES))
 
 SYM_F = symbols
-SYM_NAMES = ft_isalpha.c ft_isalnum.c ft_isascii.c ft_isdigit.c ft_is_in.c ft_isprint.c ft_isspace.c ft_tolower.c ft_toupper.c
+SYM_NAMES = ft_isalpha.c ft_isalnum.c ft_isascii.c ft_isdigit.c ft_is_in.c ft_is_delim.c ft_isprint.c ft_isspace.c ft_tolower.c ft_toupper.c
 SYM_SRCS = $(addprefix $(SOURCES_F)/$(SYM_F)/, $(SYM_NAMES))
 
 PRINTF_F = printf

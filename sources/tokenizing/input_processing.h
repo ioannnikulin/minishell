@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 15:11:56 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/11/08 17:20:36 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/11/22 08:58:08 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 
 char		**tokenize_cmd(const char *s);
 t_delims	create_operator_array(void);
+t_delims	create_delim_arr(void);
 void		cleanup(t_delims *op_arr, char ***tok_oper, int sz);
 
 #endif

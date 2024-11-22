@@ -1,29 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main_test.c                                        :+:      :+:    :+:   */
+/*   ft_is_delim.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/03 22:56:57 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/22 18:17:15 by taretiuk         ###   ########.fr       */
+/*   Created: 2023/11/13 19:01:40 by inikulin          #+#    #+#             */
+/*   Updated: 2024/11/22 12:14:17 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tests_internal.h"
-int	e2e_tests(void);
-int	unit_tests(void);
+#include <stddef.h>
+#include "../strings/strings_internal.h"
 
-int	main(void)
+int	ft_is_delim(const char *s, t_delim *delims, int count, size_t *match_len)
 {
-	ft_printf("unit tests in progress\n");
-	unit_tests();
-	// ft_printf("e2e tests in progress\n");
-	// e2e_tests();
-	// ft_printf("e2e tests completed\n");
-	// printf("tokenization in testing\n");
-	// tokenize_cmd_test();
-	// printf("tokens_to_tree in testing\n");
-	// tokens_to_tree_test();
+	size_t	len;
+ 	int		i;
+    
+    i = 0;
+	while(i < count)
+	{
+		len = ft_strlen(delims[i].delim);
+		if (ft_strncmp(s, delims[i].delim, len) == 0)
+        {
+            if (match_len)
+                *match_len = len;
+            return (1);
+        }
+        i++;
+    }
 	return (0);
 }

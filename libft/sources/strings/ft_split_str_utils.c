@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_split_buf_utils.c                               :+:      :+:    :+:   */
+/*   ft_split_str_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 15:51:25 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/10/09 11:43:26 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/11/22 08:00:16 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@ int	extract_plain_token(char **res, const char **s, t_delims *ar, int cwi)
 	op_len = 0;
 	while (**s && !find_delimiter(*s, ar, &op_len))
 	{
-		(*s)++;
-		token_len++;
+			(*s)++;
+			token_len++;
 	}
 	if (token_len == 0)
 		return (1);

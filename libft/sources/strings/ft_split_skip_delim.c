@@ -6,35 +6,37 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 17:50:43 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/11/02 18:56:22 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/11/22 18:48:09 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "strings_internal.h"
 
-static int	count_words(const char *pp, const char *charset, const char ex)
+static int	count_words(const char *pp, t_delims *arr, const char ex)
 {
 	int			word_qtty;
 	const char	*p;
 	int			in_quotes;
+	size_t		match_len;
 
 	word_qtty = 0;
 	p = pp;
 	in_quotes = 0;
-	while (p && charset && *p)
+	while (*p)
 	{
 		is_in_quotes(&p, ex, &in_quotes);
-		if (!in_quotes && ft_is_in(*p, charset))
+		if (!in_quotes && ft_is_delim(p, arr->delims, arr->count, &match_len))
 		{
 			if (word_qtty > 0)
 				word_qtty = -word_qtty;
+			p += match_len;
 		}
 		else
 		{
 			if (word_qtty <= 0)
 				word_qtty = -word_qtty + 1;
+			p ++;
 		}
-		p ++;
 	}
 	if (word_qtty < 0)
 		return (-word_qtty);
@@ -42,21 +44,25 @@ static int	count_words(const char *pp, const char *charset, const char ex)
 }
 
 static void	parse_word(char **res, const char **f,
-					const char *charset, const char ex)
+					t_delims *arr, const char ex)
 {
 	int			cwlen;
 	const char	*start;
 	int			in_quotes;
+	size_t		match_len;
 
 	in_quotes = 0;
-	while (**f && ft_is_in(**f, charset))
+	while (**f && ft_is_delim(*f, arr->delims, arr->count, &match_len))
 		(*f)++;
 	start = *f;
 	cwlen = 0;
-	while ((**f) && (in_quotes || !ft_is_in(**f, charset)))
+	while ((**f) && (in_quotes || !ft_is_delim(*f, arr->delims, arr->count, &match_len)))
 	{
 		is_in_quotes(f, ex, &in_quotes);
-		cwlen++;
+		if (!in_quotes || (in_quotes && (**f != ex)))
+                cwlen++;
+		if(in_quotes && (**f == ex))
+			start = ++(*f);
 		(*f)++;
 	}
 	if (cwlen == 0)
@@ -84,7 +90,7 @@ static int	check_edges(char **res, int *cwi)
 	return (0);
 }
 
-char	**ft_split_set_skip_delim(const char *str, const char *charset,
+char	**ft_split_set_skip_delim(const char *str, t_delims *arr,
 					const char ex, int *sz)
 {
 	char		**res;
@@ -92,7 +98,7 @@ char	**ft_split_set_skip_delim(const char *str, const char *charset,
 	int			word_qtty;
 	int			cwi;
 
-	word_qtty = count_words(str, charset, ex);
+	word_qtty = count_words(str, arr, ex);
 	res = (char **) ft_calloc_if((word_qtty + 1) * sizeof(char *), 1);
 	if (!res)
 		return (0);
@@ -103,7 +109,7 @@ char	**ft_split_set_skip_delim(const char *str, const char *charset,
 	current = str;
 	while (*current && cwi < word_qtty)
 	{
-		parse_word(&res[cwi], &current, charset, ex);
+		parse_word(&res[cwi], &current, arr, ex);
 		if (check_edges(res, &cwi))
 			return (0);
 		cwi ++;
@@ -113,13 +119,9 @@ char	**ft_split_set_skip_delim(const char *str, const char *charset,
 	return (res);
 }
 
-char	**ft_split_skip_delim(const char *str, char c, char ex, int *sz)
+char	**ft_split_skip_delim(const char *str, t_delims *delim_arr, char ex, int *sz)
 {
-	char	cc[2];
-
-	cc[0] = c;
-	cc[1] = 0;
 	if (sz)
 		*sz = -1;
-	return (ft_split_set_skip_delim(str, cc, ex, sz));
+	return (ft_split_set_skip_delim(str, delim_arr, ex, sz));
 }
