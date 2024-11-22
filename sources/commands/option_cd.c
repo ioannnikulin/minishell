@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 00:08:15 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/09 16:03:40 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/11/22 17:40:53 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static int	couldnt(t_treenode *node, char *fullpath, int *ret, int errno)
 	else if (errno == 1)
 		printf("cd: %s\n", ERR_CD_NO_HOME);
 	else
-		printf("cd: %s\n", ERR_MALLOC);
+		printf("cd: %s %i\n", ERR_MALLOC, errno);
 	*ret = 1;
 	free(fullpath);
 	return (1);
