@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 22:57:54 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/16 15:25:59 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/11/22 17:35:09 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ static int	file_compare(char *exp_contens, char *act_fname)
 			break ;
 		}
 	ft_printf("comparison result %i, expected:{{%s}}\nactual:{{%s}}\nstrncmp %i\nstart to differ from index %i\n", comp_res, exp_re, act, ft_strncmp(exp_contens, act, fsize), diff);
+	fflush(stdout);
 	#endif
 	assert(comp_res == 0);
 	free(exp_re);
