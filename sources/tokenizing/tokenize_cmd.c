@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 06:08:59 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/11/22 12:23:36 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/11/23 16:55:10 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,8 +102,6 @@ char	**tokenize_cmd(const char *s)
 		cleanup(0, &tok_oper, sz);
 		return (NULL);
 	}
-
-	
 	delim_arr = create_delim_arr();
 	if (delim_arr.error)
 	{

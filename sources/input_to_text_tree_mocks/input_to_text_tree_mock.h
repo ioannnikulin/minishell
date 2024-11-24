@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 00:19:45 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/21 15:39:52 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/11/24 11:56:30 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ unset nope && ./tests/tool_print_environment one \"two   three\" four"
 # define MOCK_13_TEXT "cd /bin && pwd"
 # define MOCK_14_TEXT "cd /nope && pwd"
 # define MOCK_15_TEXT "cd && pwd && cd nope && pwd"
-# define MOCK_16_TEXT "env && unset HOME PATH && env"
+# define MOCK_16_TEXT "env && unset HOME PATH && env pwd"
 # define MOCK_17_TEXT "echo 1 && exit && echo 2"
 # define MOCK_18_TEXT "echo 1 && exit || echo 2"
 

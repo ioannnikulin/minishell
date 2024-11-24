@@ -6,37 +6,44 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 17:50:43 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/11/22 19:21:13 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/11/23 17:12:19 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "strings_internal.h"
 
+static void	process_char(const char **p, t_delims *arr, const char ex, 
+                         int *word_qtty, int *in_quotes)
+{
+	size_t	match_len;
+
+	is_in_quotes(p, ex, in_quotes);
+	if (!(*in_quotes) && ft_is_delim(*p, arr->delims, arr->count, &match_len))
+	{
+		if (*word_qtty > 0)
+			*word_qtty = -*word_qtty;
+		(*p) += match_len;
+	}
+	else
+	{
+		if (*word_qtty <= 0)
+			*word_qtty = -*word_qtty + 1;
+		(*p) ++;
+	}
+}
+
 static int	count_words(const char *pp, t_delims *arr, const char ex)
 {
-	int			word_qtty;
 	const char	*p;
+	int			word_qtty;
 	int			in_quotes;
-	size_t		match_len;
 
-	word_qtty = 0;
 	p = pp;
+	word_qtty = 0;
 	in_quotes = 0;
 	while (*p)
 	{
-		is_in_quotes(&p, ex, &in_quotes);
-		if (!in_quotes && ft_is_delim(p, arr->delims, arr->count, &match_len))
-		{
-			if (word_qtty > 0)
-				word_qtty = -word_qtty;
-			p += match_len;
-		}
-		else
-		{
-			if (word_qtty <= 0)
-				word_qtty = -word_qtty + 1;
-			p ++;
-		}
+		process_char(&p, arr, ex, &word_qtty, &in_quotes);
 	}
 	if (word_qtty < 0)
 		return (-word_qtty);

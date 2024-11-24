@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 22:56:57 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/22 18:17:15 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/11/24 11:17:26 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,7 @@ int	main(void)
 	// e2e_tests();
 	// ft_printf("e2e tests completed\n");
 	// printf("tokenization in testing\n");
-	// tokenize_cmd_test();
-	// printf("tokens_to_tree in testing\n");
-	// tokens_to_tree_test();
+	tokenize_cmd_test();
+	printf("tokens_to_tree in testing\n");
 	return (0);
 }
