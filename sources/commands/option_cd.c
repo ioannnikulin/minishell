@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 00:08:15 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/22 17:40:53 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/11/25 16:51:22 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,12 @@ static char	*get_checked_path(t_treenode *node, char *pwd, t_mapss *envvars,
 
 static int	couldnt(t_treenode *node, char *fullpath, int *ret, int errno)
 {
-	if (errno == 4 || errno == 6)
+	if (errno == 4 || errno == 6 || errno == 0)
 		printf("cd: %s: %s\n", (char *)node->child->content, ERR_CD_NOWHERE);
 	else if (errno == 1)
 		printf("cd: %s\n", ERR_CD_NO_HOME);
 	else
-		printf("cd: %s %i\n", ERR_MALLOC, errno);
+		printf("cd: %s\n", ERR_MALLOC);
 	*ret = 1;
 	free(fullpath);
 	return (1);
