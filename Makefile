@@ -114,6 +114,9 @@ retest: testfclean test
 memcheck:
 	$(PREFIX)valgrind --suppressions=tests/valgrind.supp --leak-check=full --show-leak-kinds=all $(TEST_FNAME)
 
+github_fulltest: PREPROC_DEFINES += -DGITHUB
+github_fulltest: fulltest
+
 fulltest:
 	$(PREFIX)cd libft && make fulltest_trapped_stdprintf
 	$(PREFIX)make fclean testfclean

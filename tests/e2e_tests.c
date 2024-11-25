@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 22:57:54 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/25 17:26:05 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/11/25 17:32:58 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -247,6 +247,13 @@ int	e2e_tests(void)
 		#ifdef DEBUG
 		printf("%i\n", i);
 		#endif
+		#ifdef GITHUB
+		if (i == 15) // cannot cd without arguments in Github (go to home)
+		{
+			ft_mapss_finalize_i(m[i], 0, 0);
+			continue ;
+		}
+	  	#endif
 		int mallocs;
 		successful_execution(&tests[i], &mallocs);
 		#ifdef FT_CALLOC_IF_TRAPPED
