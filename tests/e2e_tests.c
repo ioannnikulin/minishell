@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 22:57:54 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/25 17:09:13 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/11/25 17:18:31 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ typedef struct s_testcase
 static void	catch(char* fname, int *out, int *save)
 {
 	remove(fname);
+	ft_printf("2\n");
 	fflush(stdout);
 	*out = open(fname, O_WRONLY|O_APPEND|O_CREAT, 0600);
 	assert (-1 != *out);
@@ -104,25 +105,16 @@ static int	file_compare(char *exp_contens, char *act_fname)
 static void	successful_execution(t_testcase *test, int *mallocs)
 {
 	int out, save;
-	ft_printf("1\n");
 	system("(rm -r e2e_f testf && rm e2e.stdout e2e.stderr) 2> /dev/null");
-	ft_printf("1\n");
-	fflush(stdout);
 	assert(system("mkdir e2e_f") == 0);
-	ft_printf("1\n");
-	fflush(stdout);
 	assert(system("cp minishell e2e_f/minishell") == 0);
 	ft_printf("1\n");
 	fflush(stdout);
 	catch("e2e.stdout", &out, &save);
-	#ifdef DEBUG
-	ft_printf("preparing [%p]\n", test->cmd);
-	fflush(stdout);
-	#endif
 	char *tmp = ft_strjoin("./e2e_f/minishell ", test->cmd);
 	assert(!!tmp);
 	#ifdef DEBUG
-	ft_printf("executing [%s]\n", tmp);
+	fprintf(stderr, "executing [%s]\n", tmp);
 	#endif
 	assert(system(tmp) == 0);
 	finally(&out, &save);
