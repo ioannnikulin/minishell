@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 22:57:54 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/25 17:02:21 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/11/25 17:05:09 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,12 +104,15 @@ static int	file_compare(char *exp_contens, char *act_fname)
 static void	successful_execution(t_testcase *test, int *mallocs)
 {
 	int out, save;
+	#ifdef DEBUG
+	ft_printf("normal test starting\n");
+	#endif
 	system("(rm -r e2e_f testf && rm e2e.stdout e2e.stderr) 2> /dev/null");
 	assert(system("mkdir e2e_f") == 0);
 	assert(system("cp minishell e2e_f/minishell") == 0);
 	catch("e2e.stdout", &out, &save);
 	#ifdef DEBUG
-	ft_printf("preparing [%s]\n", test->cmd);
+	ft_printf("preparing [%p]\n", test->cmd);
 	#endif
 	char *tmp = ft_strjoin("./e2e_f/minishell ", test->cmd);
 	assert(!!tmp);
