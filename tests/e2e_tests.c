@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 22:57:54 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/22 17:35:09 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/11/25 17:00:18 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,9 @@ static void	successful_execution(t_testcase *test, int *mallocs)
 	catch("e2e.stdout", &out, &save);
 	char *tmp = ft_strjoin("./e2e_f/minishell ", test->cmd);
 	assert(!!tmp);
+	#ifdef DEBUG
+	ft_printf("executing [%s]\n", tmp);
+	#endif
 	assert(system(tmp) == 0);
 	finally(&out, &save);
 	*mallocs = file_compare(ft_mapss_get(test->exp, "stdout"), "e2e.stdout");
