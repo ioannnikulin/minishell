@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 22:57:54 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/25 17:23:50 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/11/25 17:26:05 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,14 @@ static void	finally_err(int *out, int *save)
 static int	file_compare(char *exp_contens, char *act_fname)
 {
 	#ifdef DEBUG
+	fprintf(stderr, "comparing files\n");
+	fflush(stderr);
 	fprintf(stderr, "expected [%p]\n", exp_contens);
+	fflush(stderr);
 	fprintf(stderr, "expected [%s]\n", exp_contens);
+	fflush(stderr);
 	fprintf(stderr, "actual fname [%s]\n", act_fname);
+	fflush(stderr);
 	#endif
 	FILE *f = fopen(act_fname, "rb");
 	fseek(f, 0, SEEK_END);
@@ -115,6 +120,9 @@ static void	successful_execution(t_testcase *test, int *mallocs)
 	catch("e2e.stdout", &out, &save);
 	char *tmp = ft_strjoin("./e2e_f/minishell ", test->cmd);
 	assert(!!tmp);
+	#ifdef DEBUG
+	fprintf(stderr, "executing [%s]\n", tmp);
+	#endif
 	assert(system(tmp) == 0);
 	finally(&out, &save);
 	#ifdef DEBUG
