@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 22:57:54 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/25 17:20:46 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/11/25 17:23:50 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ typedef struct s_testcase
 static void	catch(char* fname, int *out, int *save)
 {
 	remove(fname);
-	ft_printf("2\n");
 	fflush(stdout);
 	*out = open(fname, O_WRONLY|O_APPEND|O_CREAT, 0600);
 	assert (-1 != *out);
@@ -65,6 +64,11 @@ static void	finally_err(int *out, int *save)
 
 static int	file_compare(char *exp_contens, char *act_fname)
 {
+	#ifdef DEBUG
+	fprintf(stderr, "expected [%p]\n", exp_contens);
+	fprintf(stderr, "expected [%s]\n", exp_contens);
+	fprintf(stderr, "actual fname [%s]\n", act_fname);
+	#endif
 	FILE *f = fopen(act_fname, "rb");
 	fseek(f, 0, SEEK_END);
 	long fsize = ftell(f);
@@ -113,10 +117,10 @@ static void	successful_execution(t_testcase *test, int *mallocs)
 	assert(!!tmp);
 	assert(system(tmp) == 0);
 	finally(&out, &save);
-	*mallocs = file_compare(ft_mapss_get(test->exp, "stdout"), "e2e.stdout");
 	#ifdef DEBUG
 	fprintf(stderr, "executing [%s]\n", tmp);
 	#endif
+	*mallocs = file_compare(ft_mapss_get(test->exp, "stdout"), "e2e.stdout");
 	t_dlist	*entry;
 	char	*key;
 	entry = test->exp->head;
