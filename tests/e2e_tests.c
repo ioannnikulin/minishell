@@ -6,12 +6,12 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 22:57:54 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/25 17:00:18 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/11/25 17:02:21 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tests_internal.h"
-#define START 0
+#define START 15
 #define TRAP_START 0
 #define SZ 19
 #define DEBUG
@@ -108,6 +108,9 @@ static void	successful_execution(t_testcase *test, int *mallocs)
 	assert(system("mkdir e2e_f") == 0);
 	assert(system("cp minishell e2e_f/minishell") == 0);
 	catch("e2e.stdout", &out, &save);
+	#ifdef DEBUG
+	ft_printf("preparing [%s]\n", test->cmd);
+	#endif
 	char *tmp = ft_strjoin("./e2e_f/minishell ", test->cmd);
 	assert(!!tmp);
 	#ifdef DEBUG
