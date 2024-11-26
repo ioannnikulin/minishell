@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 19:01:40 by inikulin          #+#    #+#             */
-/*   Updated: 2024/10/11 19:53:51 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/11/06 15:23:41 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ char	*ft_strjoin_multi_free_outer(char **ss, int sz, const char *delim)
 		sss[i] = ss[i];
 	res = ft_strjoin_multi(sss, sz, delim);
 	free(sss);
+	free(ss);
 	return (res);
 }
 

@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 00:19:45 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/03 12:48:54 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/11/07 00:20:02 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,24 +38,24 @@ unset nope && ./tests/tool_print_environment one \"two   three\" four"
 # define MOCK_17_TEXT "echo 1 && exit && echo 2"
 # define MOCK_18_TEXT "echo 1 && exit || echo 2"
 
-int		input_to_text_tree_mock(t_tree **tree, char *input);
-void	mock_0_tree(t_treenode *root);
-void	mock_1_tree(t_treenode *root);
-void	mock_2_tree(t_treenode *root);
-void	mock_3_tree(t_treenode *root);
-void	mock_4_tree(t_treenode *root);
-void	mock_5_tree(t_treenode *root);
-void	mock_6_tree(t_treenode *root);
-void	mock_7_tree(t_treenode *root);
-void	mock_8_tree(t_treenode *root);
-void	mock_9_tree(t_treenode *root);
-void	mock_10_tree(t_treenode *root);
-void	mock_11_tree(t_treenode *root);
-void	mock_12_tree(t_treenode *root);
-void	mock_13_tree(t_treenode *root);
-void	mock_14_tree(t_treenode *root);
-void	mock_15_tree(t_treenode *root);
-void	mock_16_tree(t_treenode *root);
-void	mock_17_tree(t_treenode *root);
-void	mock_18_tree(t_treenode *root);
+int	input_to_text_tree_mock(t_tree **tree, char *input);
+int	mock_0_tree(t_treenode *root);
+int	mock_1_tree(t_treenode *root);
+int	mock_2_tree(t_treenode *root);
+int	mock_3_tree(t_treenode *root);
+int	mock_4_tree(t_treenode *root);
+int	mock_5_tree(t_treenode *root);
+int	mock_6_tree(t_treenode *root);
+int	mock_7_tree(t_treenode *root);
+int	mock_8_tree(t_treenode *root);
+int	mock_9_tree(t_treenode *root);
+int	mock_10_tree(t_treenode *root);
+int	mock_11_tree(t_treenode *root);
+int	mock_12_tree(t_treenode *root);
+int	mock_13_tree(t_treenode *root);
+int	mock_14_tree(t_treenode *root);
+int	mock_15_tree(t_treenode *root);
+int	mock_16_tree(t_treenode *root);
+int	mock_17_tree(t_treenode *root);
+int	mock_18_tree(t_treenode *root);
 #endif

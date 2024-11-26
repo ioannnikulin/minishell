@@ -6,39 +6,45 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 23:07:09 by inikulin          #+#    #+#             */
-/*   Updated: 2024/10/22 23:19:21 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/11/07 12:11:10 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "input_to_text_tree_mock_internal.h"
 
-void	mock_9_tree(t_treenode *cur)
+int	mock_9_tree(t_treenode *cur)
 {
-	ft_treenode_insert_child_idx_s_dup(cur, "export", 0);
-	ft_treenode_insert_child_idx_s_dup(cur->child, "foo=bar", 0);
-	ft_treenode_insert_child_idx_s_dup(cur, "&&", 1);
-	ft_treenode_insert_child_idx_s_dup(cur, "export", 2);
+	if (ft_treenode_insert_child_idx_s_dup(cur, "export", 0) == -1
+		|| ft_treenode_insert_child_idx_s_dup(cur->child, "foo=bar", 0) == -1
+		|| ft_treenode_insert_child_idx_s_dup(cur, "&&", 1) == -1
+		|| ft_treenode_insert_child_idx_s_dup(cur, "export", 2) == -1)
+		return (1);
 	cur = cur->child->sibling_next->sibling_next;
-	ft_treenode_insert_child_idx_s_dup(cur, "foo=zah", 0);
-	ft_treenode_insert_child_idx_s_dup(cur, "nope=uhoh", 1);
-	ft_treenode_insert_child_idx_s_dup(cur->parent, "&&", 3);
-	ft_treenode_insert_child_idx_s_dup(cur->parent, "unset", 4);
+	if (ft_treenode_insert_child_idx_s_dup(cur, "foo=zah", 0) == -1
+		|| ft_treenode_insert_child_idx_s_dup(cur, "nope=uhoh", 1) == -1
+		|| ft_treenode_insert_child_idx_s_dup(cur->parent, "&&", 3) == -1
+		|| ft_treenode_insert_child_idx_s_dup(cur->parent, "unset", 4) == -1)
+		return (1);
 	cur = cur->sibling_next->sibling_next;
-	ft_treenode_insert_child_idx_s_dup(cur, "nope", 0);
-	ft_treenode_insert_child_idx_s_dup(cur->parent, "&&", 5);
-	ft_treenode_insert_child_idx_s_dup(cur->parent,
-		"./tests/tool_print_environment", 6);
+	if (ft_treenode_insert_child_idx_s_dup(cur, "nope", 0) == -1
+		|| ft_treenode_insert_child_idx_s_dup(cur->parent, "&&", 5) == -1
+		|| ft_treenode_insert_child_idx_s_dup(cur->parent,
+			"./tests/tool_print_environment", 6) == -1)
+		return (1);
 	cur = cur->sibling_next->sibling_next;
-	ft_treenode_insert_child_idx_s_dup(cur, "one", 0);
-	ft_treenode_insert_child_idx_s_dup(cur, "two   three", 1);
-	ft_treenode_insert_child_idx_s_dup(cur, "four", 2);
+	if (ft_treenode_insert_child_idx_s_dup(cur, "one", 0) == -1
+		|| ft_treenode_insert_child_idx_s_dup(cur, "two   three", 1) == -1
+		|| ft_treenode_insert_child_idx_s_dup(cur, "four", 2) == -1)
+		return (1);
+	return (0);
 }
 
 /* returns 1 on success - to allow condition usage outside */
-int	mock_9(char *input, t_treenode *root)
+int	mock_9(char *input, t_treenode *root, int *errno)
 {
 	if (ft_strcmp(input, MOCK_9_TEXT) != 0 && ft_strcmp(input, "MOCK_9") != 0)
 		return (0);
-	mock_9_tree(root);
+	if (mock_9_tree(root))
+		return (ft_assign_i(errno, 1, 1));
 	return (1);
 }

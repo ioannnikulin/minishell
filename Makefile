@@ -26,7 +26,6 @@ ENDPOINT_NAME = main.c
 SRC_SRCS = $(addprefix $(SOURCE_F)/, $(SRC_NAMES))
 ENDPOINT_SRC = $(addprefix $(SOURCE_F)/, $(ENDPOINT_NAME))
 
-
 TEST_NAMES = input_to_text_tree_test.c tokenize_cmd_test.c unit_tests.c e2e_tests.c
 TEST_ENDPOINT_NAME = main_test.c
 TEST_SRCS = $(addprefix $(TEST_F)/, $(TEST_NAMES))

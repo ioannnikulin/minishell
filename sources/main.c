@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 15:21:17 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/03 19:30:53 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/11/14 23:38:32 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,11 @@ static int	interactive(t_param *param)
 
 static int	one_cmd(t_param *param)
 {
-	input_to_text_tree(param);
+	int	ret;
+
+	ret = input_to_text_tree(param);
+	if (ret != 0)
+		return (1);
 	exec_text_tree(param);
 	return (0);
 }
@@ -42,12 +46,15 @@ int	main(int argc, const char **argv)
 {
 	t_param	*param;
 
-	param = param_init();
+	param = param_alloc();
 	if (!param)
-		return (1);
+		return (finalize(0, 0, ERR_MALLOC, 1));
 	if (opts_fill(argc - 1, &argv[1], param))
 		return (finalize(param, 0, 0, 2));
 	pre(param);
+	if (param_init(param) || param_get_cur_dir(param)
+		|| param_get_envvars(param))
+		return (finalize(param, 0, ERR_MALLOC, 3));
 	if (param->opts.interactive)
 		interactive(param);
 	else if (param->cur_command)

@@ -6,12 +6,24 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 18:43:58 by inikulin          #+#    #+#             */
-/*   Updated: 2024/09/21 13:21:28 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/11/06 15:11:28 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tree.h"
 #include "../../libft.h"
+
+static int	idx_first(t_treenode *after, int before_idx
+				, t_treenode *parent, t_treenode *child)
+{
+	if (after && before_idx <= 0)
+	{
+		child->sibling_next = parent->child;
+		parent->child->sibling_prev = child;
+	}
+	parent->child = child;
+	return (0);
+}
 
 int	ft_treenode_insert_child_idx(t_treenode *parent, t_treenode *child,
 		int before_idx)
@@ -19,19 +31,13 @@ int	ft_treenode_insert_child_idx(t_treenode *parent, t_treenode *child,
 	int			i;
 	t_treenode	*after;
 
+	if (!parent || !child)
+		return (-1);
 	child->parent = parent;
 	parent->children_qtty ++;
 	after = parent->child;
 	if (!after || before_idx <= 0)
-	{
-		if (after && before_idx <= 0)
-		{
-			child->sibling_next = parent->child;
-			parent->child->sibling_prev = child;
-		}
-		parent->child = child;
-		return (0);
-	}
+		return (idx_first(after, before_idx, parent, child));
 	i = 0;
 	while (++ i < before_idx && after->sibling_next)
 		after = after->sibling_next;
