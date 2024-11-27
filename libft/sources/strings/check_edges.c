@@ -1,40 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_split_skip_delim_utils.c                        :+:      :+:    :+:   */
+/*   check_edges.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/17 17:58:31 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/11/26 15:12:40 by taretiuk         ###   ########.fr       */
+/*   Created: 2024/11/26 15:38:52 by taretiuk          #+#    #+#             */
+/*   Updated: 2024/11/26 15:38:58 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "strings_internal.h"
 
-bool	is_in_quotes(const char **p, const char ex, int *in_quotes)
+int	check_edges(char **res, int *cwi)
 {
-	if (**p == ex)
+	if (!res[*cwi])
 	{
-		*in_quotes = !(*in_quotes);
-		return (true);
-	}
-	return (false);
-}
-
-int	copy_word(char **res, const char *from, int length)
-{
-	int	i;
-
-	*res = (char *) ft_calloc_if((length + 1) * sizeof(char), 1);
-	if (*res == NULL)
+		while (-- (*cwi) > -1)
+			free(res[*cwi]);
+		free(res);
 		return (1);
-	i = 0;
-	while (i < length)
-	{
-		(*res)[i] = from[i];
-		i++;
 	}
-	(*res)[length] = '\0';
+	if (!res[*cwi][0])
+	{
+		free(res[*cwi]);
+		(*cwi)--;
+	}
 	return (0);
 }

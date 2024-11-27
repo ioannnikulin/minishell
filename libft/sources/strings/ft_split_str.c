@@ -6,28 +6,11 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 14:08:20 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/11/22 19:24:00 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/11/26 15:41:47 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "strings_internal.h"
-
-static int	check_edges(char **res, int *cwi)
-{
-	if (!res[*cwi])
-	{
-		while (-- (*cwi) > -1)
-			free(res[*cwi]);
-		free(res);
-		return (1);
-	}
-	if (!res[*cwi][0])
-	{
-		free(res[*cwi]);
-		(*cwi)--;
-	}
-	return (0);
-}
 
 static void	calc_tokens(const char *pp, int *token_q, t_delims *ar)
 {
@@ -41,7 +24,7 @@ static void	calc_tokens(const char *pp, int *token_q, t_delims *ar)
 		while (*p == ' ' || *p == '\t' || *p == '\n')
 			p++;
 		if (*p == '\0')
-		    break ;
+			break ;
 		if (find_delimiter(p, ar, &op_len))
 		{
 			(*token_q)++;
@@ -50,7 +33,7 @@ static void	calc_tokens(const char *pp, int *token_q, t_delims *ar)
 		else
 		{
 			while (*p && !find_delimiter(p, ar, &op_len))
-					p++;
+				p++;
 			(*token_q)++;
 		}
 	}

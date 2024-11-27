@@ -6,21 +6,43 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 12:22:57 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/11/24 11:10:33 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/11/27 14:31:25 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tree_processing.h"
 
-void	ft_tree_free_wrapper(void **tree)
-{
-	ft_tree_free((t_tree **)tree);
-}
-
 static void	insert_first_node(char *token, t_treenode *root)
 {
 	ft_treenode_insert_child_idx_s_dup(root, token, 0);
 	return ;
+}
+
+int	process_tree(char *token, t_tree *tree, t_treenode	**cur, int *num)
+{
+	if (is_operator(token) || is_redirection(token))
+	{
+		ft_treenode_insert_child_idx_s_dup(tree->root, token,
+			tree->root->children_qtty);
+		*num = 1;
+	}
+	else
+	{
+		if ((*cur)->parent == tree->root && *num == 1)
+		{
+			ft_treenode_insert_child_idx_s_dup(tree->root, token,
+				tree->root->children_qtty);
+			while ((*cur)->sibling_next)
+				*cur = (*cur)->sibling_next;
+			*num = 0;
+		}
+		else
+		{
+			ft_treenode_insert_child_idx_s_dup(*cur, token,
+				(*cur)->children_qtty);
+		}
+	}
+	return (0);
 }
 
 /*where handle errors of root node, on this step or in execution*/
@@ -35,29 +57,13 @@ int	tokens_to_tree(t_tree *tree, char **tokens)
 	if (!tree->root)
 		return (2);
 	insert_first_node(tokens[i++], tree->root);
+	if (tree->root->child == NULL)
+		return (1);
 	cur = tree->root->child;
 	num = 0;
 	while (tokens[i] != NULL)
 	{
-		if (is_operator(tokens[i]) || is_redirection(tokens[i]))
-		{
-			ft_treenode_insert_child_idx_s_dup(tree->root, tokens[i], tree->root->children_qtty);
-			num = 1;
-		}
-		else 
-		{
-			if (cur->parent == tree->root && num == 1)
-			{
-				ft_treenode_insert_child_idx_s_dup(tree->root, tokens[i], tree->root->children_qtty);
-				while (cur->sibling_next)
-					cur = cur->sibling_next;
-				num = 0;
-			}
-			else
-			{
-				ft_treenode_insert_child_idx_s_dup(cur, tokens[i], cur->children_qtty);
-			}
-		}
+		process_tree(tokens[i], tree, &cur, &num);
 		i++;
 	}
 	return (0);

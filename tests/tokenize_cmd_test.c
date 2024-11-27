@@ -6,13 +6,13 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 06:11:45 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/11/24 11:43:44 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/11/27 15:33:16 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tests_internal.h"
 #include "../sources/tokenizing/input_processing.h"
-// #define DEBUG
+//#define DEBUG
 #define NUM_TEST_CASES 11
 #define MAX_ARGS 16
 
@@ -28,10 +28,36 @@ typedef struct s_string_array
 	size_t		count;
 }	t_strings;
 
-t_strings	create_string_array()
+// static void	free_tokens(char **tokens)
+// {
+// 	if (!tokens)
+// 		return;
+// 	for (int i = 0; tokens[i] != NULL; i++)
+// 	{
+// 		free(tokens[i]);
+// 		tokens[i] = NULL;
+// 	}
+// 	//free(tokens);
+// 	tokens = NULL;
+// }
+
+void free_string_array(t_strings *str_array)
+{
+	for (int i = 0; i < (int)str_array->count; i++)
+	{
+		if (str_array->strs[i].str != NULL)
+		{
+			free(str_array->strs[i].str);
+		}
+	}
+	free(str_array->strs);
+	str_array->strs = NULL;
+}
+
+static t_strings	create_string_array()
 {
 	t_strings	str_array;
-	str_array.count = 12;
+	str_array.count = 11;
 	str_array.error = 0;
 	str_array.strs = ft_calloc_if(sizeof(t_string) * str_array.count, 1);
 	assert(str_array.strs != NULL);
@@ -53,34 +79,11 @@ t_strings	create_string_array()
 	return (str_array);
 }
 
-static void	free_tokens(char **tokens)
-{
-	if (!tokens)
-		return;
-	for (int i = 0; tokens[i] != NULL; i++)
-	{
-		free(tokens[i]);
-		tokens[i] = NULL;
-	}
-	free(tokens);
-}
-
-static void	free_string_array(t_string *strs, size_t count) 
-{
-	if (!strs)
-		return;
-
-	for (size_t i = 0; i < count; i++) 
-	{
-		free(strs[i].str);
-	}
-	free(strs);
-}
-
 void	tokenize_cmd_test()
 {
 	t_strings	str_arr = create_string_array();
 	char		**tokens;
+	int			sz = 0;
 
 	assert(str_arr.error == 0 && "Failed to create string array.");
 	char	*t[NUM_TEST_CASES][MAX_ARGS] =
@@ -99,7 +102,11 @@ void	tokenize_cmd_test()
 	};
 	for (int i = 0; i < NUM_TEST_CASES; i ++)
 	{
-		tokens = tokenize_cmd(str_arr.strs[i].str);
+		sz = 0;
+		tokenize_cmd(str_arr.strs[i].str, &sz, &tokens);
+		#ifdef DEBUG
+		printf("Case %i. Tokens size: %i\n", i, sz);
+		#endif
 		if (tokens == NULL)
 		{
 			assert(t[i][0] == NULL);
@@ -114,8 +121,9 @@ void	tokenize_cmd_test()
 				assert((tokens[j] == NULL) == (t[i][j] == NULL));
 				assert(ft_strcmp(tokens[j], t[i][j]) == 0);
 			}
-			free_tokens(tokens);
 		}
+		//free_tokens(tokens);
+		ft_free_ss_sz_null((void *)&(tokens), sz);
 	}
-	free_string_array(str_arr.strs, str_arr.count);
+	free_string_array(&str_arr);
 }

@@ -6,12 +6,13 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 23:07:09 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/14 09:38:24 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/11/27 15:26:37 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #ifdef MOCK_TANIA
+# include "tokenizing/input_processing.h"
 # include "input_to_text_tree_mocks/input_to_text_tree_mock.h"
 
 int	input_to_text_tree(t_param *param)
@@ -29,23 +30,27 @@ int	input_to_text_tree(t_param *param)
 
 #else
 
-#include "tokenizing/input_processing.h"
-/*to clear memory, pass sz to tokenize_cmd*/
 int	input_to_text_tree(t_param *param)
 {
+	int		sz;
 	char	**tokens;
 	t_tree	*tree;
 
-	tokens = tokenize_cmd(param->cur_command);
-	if (tokens == NULL)
+	sz = 0;
+	tokenize_cmd(param->cur_command, &sz, &tokens);
+	if (tokens == NULL || tokens[0] == NULL)
 		return (1);
 	tree = ft_tree_make();
 	if (tree == NULL)
 		return (2);
 	if (tokens_to_tree(tree, tokens) != 0)
+	{
+		ft_tree_free(&param->text_tree);
+		ft_free_ss_sz((void **)tokens, sz);
 		return (3);
+	}
 	param->text_tree = tree;
-	//ft_free_ss_sz_null((void ***)tokens, sz);
+	ft_free_ss_sz_null((void *)&tokens, sz);
 	return (0);
 }
 #endif

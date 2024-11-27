@@ -6,14 +6,14 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 16:40:11 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/11/22 18:48:25 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/11/27 12:00:36 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRINGS_INTERNAL_H
 # define STRINGS_INTERNAL_H
 
-# include "../libft/libft.h"
+# include "strings.h"
 
 int		find_delimiter(const char *s, t_delims *array, size_t *op_len);
 int		extract_plain_token(char **res, const char **s,

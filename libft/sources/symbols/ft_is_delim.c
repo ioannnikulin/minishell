@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_is_delim.c                                         :+:      :+:    :+:   */
+/*   ft_is_delim.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/13 19:01:40 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/22 12:14:17 by taretiuk         ###   ########.fr       */
+/*   Created: 2024/11/26 15:43:25 by taretiuk          #+#    #+#             */
+/*   Updated: 2024/11/26 15:46:33 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,19 @@
 int	ft_is_delim(const char *s, t_delim *delims, int count, size_t *match_len)
 {
 	size_t	len;
- 	int		i;
-    
-    i = 0;
-	while(i < count)
+	int		i;
+
+	i = 0;
+	while (i < count)
 	{
 		len = ft_strlen(delims[i].delim);
 		if (ft_strncmp(s, delims[i].delim, len) == 0)
-        {
-            if (match_len)
-                *match_len = len;
-            return (1);
-        }
-        i++;
-    }
+		{
+			if (match_len)
+				*match_len = len;
+			return (1);
+		}
+		i++;
+	}
 	return (0);
 }

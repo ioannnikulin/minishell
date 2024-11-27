@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 18:49:54 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/11/22 09:09:30 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/11/27 12:28:13 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,33 +14,33 @@
 
 t_delims	create_operator_array(void)
 {
-	t_delims	operator_array;
+	t_delims	op_arr;
 
-	operator_array.count = 10;
-	operator_array.error = 0;
-	operator_array.delims = ft_calloc_if(sizeof(t_delim) * operator_array.count, 1);
-	if (operator_array.delims == NULL)
+	op_arr.count = 10;
+	op_arr.error = 0;
+	op_arr.delims = ft_calloc_if(sizeof(t_delim) * op_arr.count, 1);
+	if (op_arr.delims == NULL)
 	{
-		operator_array.error = 1;
-		return (operator_array);
+		op_arr.error = 1;
+		return (op_arr);
 	}
-	operator_array.delims[0].delim = ">>";
-	operator_array.delims[1].delim = ">";
-	operator_array.delims[2].delim = "<<";
-	operator_array.delims[3].delim = "<";
-	operator_array.delims[4].delim = "||";
-	operator_array.delims[5].delim = ")";
-	operator_array.delims[6].delim = "&&";
-	operator_array.delims[7].delim = "&";
-	operator_array.delims[8].delim = "(";
-	operator_array.delims[9].delim = "|";
-	return (operator_array);
+	op_arr.delims[0].delim = ">>";
+	op_arr.delims[1].delim = ">";
+	op_arr.delims[2].delim = "<<";
+	op_arr.delims[3].delim = "<";
+	op_arr.delims[4].delim = "||";
+	op_arr.delims[5].delim = ")";
+	op_arr.delims[6].delim = "&&";
+	op_arr.delims[7].delim = "&";
+	op_arr.delims[8].delim = "(";
+	op_arr.delims[9].delim = "|";
+	return (op_arr);
 }
 
 t_delims	create_delim_arr(void)
 {
 	t_delims	delim_array;
-	
+
 	delim_array.count = 2;
 	delim_array.error = 0;
 	delim_array.delims = ft_calloc_if(sizeof(t_delim) * delim_array.count, 1);
@@ -54,14 +54,15 @@ t_delims	create_delim_arr(void)
 	return (delim_array);
 }
 
-void	cleanup(t_delims *op_arr, char ***tok_oper, int sz)
+int	cleanup(t_delims *arr, char ***sss, int sz, int retval)
 {
-	if (op_arr != NULL)
+	if (arr != NULL)
 	{
-		ft_free_delims_arr(op_arr);
+		ft_free_delims_arr(arr);
 	}
-	if (tok_oper != NULL && *tok_oper != NULL)
+	if (sss != NULL && *sss != NULL)
 	{
-		ft_free_ss_sz_null((void ***)tok_oper, sz);
+		ft_free_ss_sz_null((void ***)sss, sz);
 	}
+	return (retval);
 }
