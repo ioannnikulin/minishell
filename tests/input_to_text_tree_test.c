@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 23:53:00 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/07 12:12:33 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/11/27 23:10:22 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,13 @@ int	input_to_text_tree_test(void)
 	assert(a_test(param, MOCK_13_TEXT, mock_13_tree, 13) == 0);
 	assert(a_test(param, MOCK_14_TEXT, mock_14_tree, 14) == 0);
 	assert(a_test(param, MOCK_15_TEXT, mock_15_tree, 15) == 0);
+	assert(a_test(param, MOCK_16_TEXT, mock_16_tree, 16) == 0);
+	assert(a_test(param, MOCK_17_TEXT, mock_17_tree, 17) == 0);
+	assert(a_test(param, MOCK_18_TEXT, mock_18_tree, 18) == 0);
+	assert(a_test(param, MOCK_19_TEXT, mock_19_tree, 19) == 0);
+	assert(a_test(param, MOCK_20_TEXT, mock_20_tree, 20) == 0);
+	assert(a_test(param, MOCK_21_TEXT, mock_21_tree, 21) == 0);
+	assert(a_test(param, MOCK_22_TEXT, mock_22_tree, 22) == 0);
 	ft_tree_free(&param->text_tree);
 	free(param);
 	return (0);

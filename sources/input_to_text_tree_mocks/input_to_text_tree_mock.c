@@ -6,11 +6,20 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 23:07:09 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/27 22:53:17 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/11/27 23:08:10 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "input_to_text_tree_mock_internal.h"
+
+static int	ret(int e, char *in)
+{
+	if (e)
+		printf("%s\n", ERR_MALLOC);
+	else
+		printf("%s: %s\n", in, ERR_COMMAND_NOT_FOUND);
+	return (3);
+}
 
 /* returns error code */
 int	input_to_text_tree_mock(t_tree **tree, char *in)
@@ -34,12 +43,7 @@ int	input_to_text_tree_mock(t_tree **tree, char *in)
 			|| mock_15(in, r, &e) || mock_16(in, r, &e) || mock_17(in, r, &e)
 			|| mock_18(in, r, &e) || mock_19(in, r, &e) || mock_20(in, r, &e)
 			|| mock_21(in, r, &e) || mock_22(in, r, &e)
-
 		) && !e)
 		return (0);
-	if (e)
-		printf("%s\n", ERR_MALLOC);
-	else
-		printf("%s: %s\n", in, ERR_COMMAND_NOT_FOUND);
-	return (3);
+	return (ret(e, in));
 }
