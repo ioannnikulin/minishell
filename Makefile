@@ -2,7 +2,7 @@ CC = cc
 NAME = minishell
 COMPILE_FLAGS = -Wall -Wextra -Werror -g -c
 LINK_FLAGS = -lft -Llibft -lreadline
-PREFIX = 
+PREFIX = @
 PREPROC_DEFINES =
 
 SOURCE_F = sources
@@ -64,7 +64,7 @@ $(NAME): $(OBJS) $(ENDPOINT_OBJ)
 	$(PREFIX)$(CC) $(OBJS) $(ENDPOINT_OBJ) -o $@ $(LINK_FLAGS)
 
 $(OBJ_F)%.o: %.c $(OBJ_DIRS)
-	$(PREFIX)$(CC) $(COMPILE_FLAGS) $< -o $@ $(INCLUDES) $(PREPROC_DEFINES) -DONE
+	$(PREFIX)$(CC) $(COMPILE_FLAGS) $< -o $@ $(INCLUDES) $(PREPROC_DEFINES)
 
 $(TEST_OBJ_F):
 	$(PREFIX)mkdir -p $(TEST_OBJ_F)
@@ -73,10 +73,13 @@ $(TEST_TOOL_FNAME): $(TEST_TOOL_OBJS)
 	$(PREFIX)$(CC) $(TEST_TOOL_OBJS) -o $(TEST_TOOL_FNAME) $(LINK_FLAGS)
 
 $(TEST_OBJ_F)%.o: $(TEST_F)/%.c $(TEST_OBJ_F)
-	$(PREFIX)$(CC) $(COMPILE_FLAGS) $< -o $@ $(INCLUDES) $(PREPROC_DEFINES) -DTWO
+	$(PREFIX)$(CC) $(COMPILE_FLAGS) $< -o $@ $(INCLUDES) $(PREPROC_DEFINES)
 
 test_trapped:
 	$(PREFIX)make PREPROC_DEFINES="$(PREPROC_DEFINES) -DFT_CALLOC_IF_TRAPPED" test
+
+test_trapped_mocked:
+	$(PREFIX)make PREPROC_DEFINES="$(PREPROC_DEFINES) -DMOCK_TANIA" test_trapped
 
 test: $(OBJ_DIRS) $(TEST_OBJ_F) $(OBJS) $(TEST_OBJS) $(TEST_ENDPOINT_OBJ) $(TEST_TOOL_FNAME)
 	$(PREFIX)$(CC) $(OBJS) $(TEST_OBJS) $(TEST_ENDPOINT_OBJ) -o $(TEST_FNAME) $(LINK_FLAGS)
@@ -121,10 +124,10 @@ fulltest_common:
 	$(PREFIX)make all_mocked_parser_trapped
 
 github_fulltest: fulltest_common
-	$(PREFIX)make PREPROC_DEFINES="$(PREPROC_DEFINES) -DGITHUB" test_trapped memcheck
+	$(PREFIX)make PREPROC_DEFINES="$(PREPROC_DEFINES) -DGITHUB" test_trapped_mocked memcheck
 
 fulltest: fulltest_common
-	$(PREFIX)make test_trapped memcheck
+	$(PREFIX)make test_trapped_mocked memcheck
 
 PHONY: all pre clean fclean re test fulltest testclean testfclean retest tania vania vania_trapped
 

@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 22:57:54 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/25 17:36:28 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/11/29 17:52:35 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 #define START 0
 #define TRAP_START 0
 #define SZ 19
-#define DEBUG
+//#define DEBUG
+#define PRINT_MALLOC_FAILURE_NO
 
 typedef struct s_testcase
 {
@@ -156,7 +157,7 @@ static void	malloc_failure_recoveries(char *cmd, int mallocs)
 		system("(rm -r e2e_f testf && rm e2e.stdout e2e.stderr) 2> /dev/null");
 		assert(system("mkdir e2e_f") == 0);
 		assert(system("cp minishell e2e_f/minishell") == 0);
-		#ifdef DEBUG
+		#ifdef PRINT_MALLOC_FAILURE_NO
 		printf("\t%i\n", i);
 		#endif
 		char *is = ft_itoa(i);
@@ -257,7 +258,7 @@ int	e2e_tests(void)
 		int mallocs;
 		successful_execution(&tests[i], &mallocs);
 		#ifdef FT_CALLOC_IF_TRAPPED
-		// malloc_failure_recoveries(tests[i].cmd, mallocs);
+		malloc_failure_recoveries(tests[i].cmd, mallocs);
 		#endif
 		ft_mapss_finalize_i(m[i], 0, 0);
 	}
