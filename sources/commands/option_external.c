@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 00:10:22 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/11 01:59:15 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/11/29 17:30:57 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,9 +87,9 @@ int	option_external(t_control control, t_treenode *node, t_param *param)
 	*control.found = 1;
 	if (param->opts.debug_output_level & DBG_EXTERNAL_SEARCH_FOLDERS)
 	{
-		printf("searching for command in folders:\n");
+		ft_printf("searching for command in folders:\n");
 		ft_dlist_print_s(param->envvar_path_head, "\n");
-		printf("--\n");
+		ft_printf("--\n");
 	}
 	fullpath = find_executable(node->content, param->envvar_path_head,
 			&param->opts.errno);
@@ -99,6 +99,6 @@ int	option_external(t_control control, t_treenode *node, t_param *param)
 	free(fullpath);
 	if (!param->opts.errno)
 		return (0);
-	printf("%s: ERROR %i\n", (char *)node->content, param->opts.errno);
+	ft_printf("%s: ERROR %i\n", (char *)node->content, param->opts.errno);
 	return (0);
 }
