@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 06:11:45 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/11/29 14:27:39 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/11/29 14:33:46 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,30 @@ typedef struct s_string_array
 	int			error;
 	size_t		count;
 }	t_strings;
+
+static void	free_tokens(char **tokens)
+{
+	if (!tokens)
+		return;
+	for (int i = 0; tokens[i] != NULL; i++)
+	{
+		free(tokens[i]);
+		tokens[i] = NULL;
+	}
+	free(tokens);
+}
+
+static void	free_string_array(t_string *strs, size_t count)
+{
+	if (!strs)
+		return;
+
+	for (size_t i = 0; i < count; i++)
+	{
+		free(strs[i].str);
+	}
+	free(strs);
+}
 
 t_strings	create_string_array()
 {
@@ -53,34 +77,11 @@ t_strings	create_string_array()
 	return (str_array);
 }
 
-static void	free_tokens(char **tokens)
-{
-	if (!tokens)
-		return;
-	for (int i = 0; tokens[i] != NULL; i++)
-	{
-		free(tokens[i]);
-		tokens[i] = NULL;
-	}
-	free(tokens);
-}
-
-static void	free_string_array(t_string *strs, size_t count)
-{
-	if (!strs)
-		return;
-
-	for (size_t i = 0; i < count; i++)
-	{
-		free(strs[i].str);
-	}
-	free(strs);
-}
-
 void	tokenize_cmd_test()
 {
 	t_strings	str_arr = create_string_array();
 	char		**tokens;
+	int			sz = 0;
 
 	assert(str_arr.error == 0 && "Failed to create string array.");
 	char	*t[NUM_TEST_CASES][MAX_ARGS] =
@@ -99,7 +100,7 @@ void	tokenize_cmd_test()
 	};
 	for (int i = 0; i < NUM_TEST_CASES; i ++)
 	{
-		tokens = tokenize_cmd(str_arr.strs[i].str);
+		tokenize_cmd(str_arr.strs[i].str, &sz, &tokens);
 		if (tokens == NULL)
 		{
 			assert(t[i][0] == NULL);
@@ -111,8 +112,8 @@ void	tokenize_cmd_test()
 				assert((tokens[j] == NULL) == (t[i][j] == NULL));
 				assert(ft_strcmp(tokens[j], t[i][j]) == 0);
 			}
-			free_tokens(tokens);
 		}
+		free_tokens(tokens);
 	}
 	free_string_array(str_arr.strs, str_arr.count);
 }

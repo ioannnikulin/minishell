@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 12:22:57 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/11/28 15:10:39 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/11/29 15:00:04 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int	process_tree(char *token, t_tree *tree, t_treenode	**cur, int *num)
 	{
 		if ((*cur)->parent == tree->root && *num == 1)
 		{
+			/*for command*/
 			ft_treenode_insert_child_idx_s_dup(tree->root, token,
 				tree->root->children_qtty);
 			while ((*cur)->sibling_next)
@@ -38,6 +39,9 @@ int	process_tree(char *token, t_tree *tree, t_treenode	**cur, int *num)
 		}
 		else
 		{
+			/*flag*/
+			if (ft_strcmp(token, ")") == 0)
+				return (0);
 			ft_treenode_insert_child_idx_s_dup(*cur, token,
 				(*cur)->children_qtty);
 		}

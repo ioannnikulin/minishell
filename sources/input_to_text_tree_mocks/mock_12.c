@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 23:07:09 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/29 14:23:04 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/11/29 14:31:43 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,11 @@ int	mock_12_tree(t_treenode *cur)
 		|| ft_treenode_insert_child_idx_s_dup(cur->parent, "cd", 4) == -1)
 		return (1);
 	cur = cur->sibling_next->sibling_next;
-	ft_treenode_insert_child_idx_s_dup(cur, "./testf/..", 0);
-	ft_treenode_insert_child_idx_s_dup(cur->parent, "&&", 5);
-	ft_treenode_insert_child_idx_s_dup(cur->parent, "pwd", 6);
+	if (ft_treenode_insert_child_idx_s_dup(cur, "./testf/..", 0) == -1
+		|| ft_treenode_insert_child_idx_s_dup(cur->parent, "&&", 5) == -1
+		|| ft_treenode_insert_child_idx_s_dup(cur->parent, "pwd", 6) == -1)
+		return (1);
+	return (0);
 }
 
 /* returns 1 on success - to allow condition usage outside */
