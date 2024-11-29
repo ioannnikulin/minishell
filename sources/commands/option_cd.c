@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 00:08:15 by inikulin          #+#    #+#             */
-/*   Updated: 2024/10/25 00:19:54 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/11/06 15:50:00 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int	option_cd(t_control control, t_treenode *node, t_param *param)
 	*control.found = 1;
 	errno = 0;
 	fullpath = get_checked_path(node, param->envvar_path_head->content,
-			&param->envvars, &errno);
+			param->envvars, &errno);
 	if (!fullpath || chdir(fullpath) != 0)
 		return (couldnt(node, fullpath, control.retval, errno));
 	envvars = param->envvar_path_head->next;

@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 15:22:58 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/27 12:32:15 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/11/29 14:20:03 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ typedef struct s_opts
 
 typedef struct s_param
 {
-	t_mapss	envvars;
+	t_mapss	*envvars;
 	t_dlist	*envvar_path_head;
 	char	*cur_command;
 	t_tree	*text_tree;
@@ -58,7 +58,8 @@ typedef struct s_param
 
 # define TEXT_TREE_ROOT "ROOT"
 
-t_param	*param_init(void);
+t_param	*param_alloc(void);
+int		param_init(t_param *param);
 int		opts_fill(int argc, const char **argv, t_param *param);
 int		param_get_envvars(t_param *param);
 int		finalize(t_param *param, int mode, char *message, int retval);

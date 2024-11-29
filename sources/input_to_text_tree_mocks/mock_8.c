@@ -6,27 +6,31 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 23:07:09 by inikulin          #+#    #+#             */
-/*   Updated: 2024/10/22 23:23:01 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/11/07 12:11:03 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "input_to_text_tree_mock_internal.h"
 
-void	mock_8_tree(t_treenode *cur)
+int	mock_8_tree(t_treenode *cur)
 {
-	ft_treenode_insert_child_idx_s_dup(cur,
-		"./tests/tool_print_environment", 0);
+	if (ft_treenode_insert_child_idx_s_dup(cur,
+			"./tests/tool_print_environment", 0) == -1)
+		return (1);
 	cur = cur->child;
-	ft_treenode_insert_child_idx_s_dup(cur, "one", 0);
-	ft_treenode_insert_child_idx_s_dup(cur, "two   three", 1);
-	ft_treenode_insert_child_idx_s_dup(cur, "four", 2);
+	if (ft_treenode_insert_child_idx_s_dup(cur, "one", 0) == -1
+		|| ft_treenode_insert_child_idx_s_dup(cur, "two   three", 1) == -1
+		|| ft_treenode_insert_child_idx_s_dup(cur, "four", 2) == -1)
+		return (1);
+	return (0);
 }
 
 /* returns 1 on success - to allow condition usage outside */
-int	mock_8(char *input, t_treenode *root)
+int	mock_8(char *input, t_treenode *root, int *errno)
 {
 	if (ft_strcmp(input, MOCK_8_TEXT) != 0 && ft_strcmp(input, "MOCK_8") != 0)
 		return (0);
-	mock_8_tree(root);
+	if (mock_8_tree(root))
+		return (ft_assign_i(errno, 1, 1));
 	return (1);
 }

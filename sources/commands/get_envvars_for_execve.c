@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 23:38:22 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/03 19:23:44 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/11/06 15:51:15 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,14 +79,14 @@ char	**get_envvars_for_execve(t_param *param)
 	char	**res;
 	int		sz;
 
-	sz = param->envvars.size + 1 + (param->envvar_path_head != 0);
+	sz = param->envvars->size + 1 + (param->envvar_path_head != 0);
 	res = ft_calloc_if(sizeof(char *) * sz, 1);
 	if (!res)
 	{
 		ft_assign_i(&param->opts.errno, 1, 0);
 		return (0);
 	}
-	if (collect_map(&param->envvars, res))
+	if (collect_map(param->envvars, res))
 	{
 		ft_assign_i(&param->opts.errno, 2, 0);
 		return (0);

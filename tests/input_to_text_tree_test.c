@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 23:53:00 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/27 17:57:31 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/11/29 14:26:27 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "../sources/input_to_text_tree_mocks/input_to_text_tree_mock.h"
 #define DEBUG
 
-static int	a_test(t_param *param, char *input, void (*treegen)(t_treenode *), int i)
+static int	a_test(t_param *param, char *input, int (*treegen)(t_treenode *), int i)
 {
 	#ifdef DEBUG
 	ft_printf("%i\n", i);
@@ -60,6 +60,10 @@ int	input_to_text_tree_test(void)
 	assert(a_test(param, MOCK_16_TEXT, mock_16_tree, 16) == 0);
 	assert(a_test(param, MOCK_17_TEXT, mock_17_tree, 17) == 0);
 	assert(a_test(param, MOCK_18_TEXT, mock_18_tree, 18) == 0);
+	assert(a_test(param, MOCK_19_TEXT, mock_19_tree, 19) == 0);
+	assert(a_test(param, MOCK_20_TEXT, mock_20_tree, 20) == 0);
+	assert(a_test(param, MOCK_21_TEXT, mock_21_tree, 21) == 0);
+	assert(a_test(param, MOCK_22_TEXT, mock_22_tree, 22) == 0);
 	ft_tree_free(&param->text_tree);
 	free(param);
 	return (0);
