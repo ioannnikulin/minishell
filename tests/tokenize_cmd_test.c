@@ -6,14 +6,14 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 06:11:45 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/11/27 18:03:50 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/11/29 14:27:39 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tests_internal.h"
 #include "../sources/tokenizing/input_processing.h"
-//#define DEBUG
-#define NUM_TEST_CASES 10
+
+#define NUM_TEST_CASES 11
 #define MAX_ARGS 16
 
 typedef struct s_string
@@ -28,33 +28,7 @@ typedef struct s_string_array
 	size_t		count;
 }	t_strings;
 
-// static void	free_tokens(char **tokens)
-// {
-// 	if (!tokens)
-// 		return;
-// 	for (int i = 0; tokens[i] != NULL; i++)
-// 	{
-// 		free(tokens[i]);
-// 		tokens[i] = NULL;
-// 	}
-// 	//free(tokens);
-// 	tokens = NULL;
-// }
-
-void free_string_array(t_strings *str_array)
-{
-	for (int i = 0; i < (int)str_array->count; i++)
-	{
-		if (str_array->strs[i].str != NULL)
-		{
-			free(str_array->strs[i].str);
-		}
-	}
-	free(str_array->strs);
-	str_array->strs = NULL;
-}
-
-static t_strings	create_string_array()
+t_strings	create_string_array()
 {
 	t_strings	str_array;
 	str_array.count = 11;
@@ -74,39 +48,58 @@ static t_strings	create_string_array()
 	str_array.strs[6].str = strdup("mkdir new_dir && cd new_dir && touch file.txt");
 	str_array.strs[7].str = strdup("mv new_dir old_dir");
 	str_array.strs[8].str = strdup("&&");
-	//str_array.strs[9].str = strdup(")(())(");
-	str_array.strs[9].str = strdup("");
+	str_array.strs[9].str = strdup(")(())(");
+	str_array.strs[10].str = strdup("");
 	return (str_array);
+}
+
+static void	free_tokens(char **tokens)
+{
+	if (!tokens)
+		return;
+	for (int i = 0; tokens[i] != NULL; i++)
+	{
+		free(tokens[i]);
+		tokens[i] = NULL;
+	}
+	free(tokens);
+}
+
+static void	free_string_array(t_string *strs, size_t count)
+{
+	if (!strs)
+		return;
+
+	for (size_t i = 0; i < count; i++)
+	{
+		free(strs[i].str);
+	}
+	free(strs);
 }
 
 void	tokenize_cmd_test()
 {
 	t_strings	str_arr = create_string_array();
 	char		**tokens;
-	int			sz = 0;
 
 	assert(str_arr.error == 0 && "Failed to create string array.");
 	char	*t[NUM_TEST_CASES][MAX_ARGS] =
 	{
-		{"grep", "error", "log.txt", "||", "echo", "No errors    found", NULL},
-		{"cat", "(", "file1.txt", "file2.txt", ")", "|", "grep", "keyword", NULL},
-		{"cat", "<", "input.txt", "&&", "echo", "|", "grep", "Done", NULL},
+		{"grep", "\"error\"", "log.txt", "||", "echo", "\"No errors    found\"", NULL},
+		{"cat", "(", "file1.txt", "file2.txt", ")", "|", "grep", "\"keyword\"", NULL},
+		{"cat", "<", "input.txt", "&&", "echo", "|", "grep", "\"Done\"", NULL},
 		{"gcc", "main.c", "-o", "program", ">>", "build.log", NULL},
-		{"find", ".", "-name", "*.txt", "|", "xargs", "rm", "-rf", "||", "fer", "&&", "def", "&", "echo", "Hello", NULL},
-		{"echo", "Compiling...", "&&", "gcc", "main.c", "-o", "program", "&&", "./program", NULL},
+		{"find", ".", "-name", "\"*.txt\"", "|", "xargs", "rm", "-rf", "||", "fer", "&&", "def", "&", "echo", "\"Hello\"", NULL},
+		{"echo", "\"Compiling...\"", "&&", "gcc", "main.c", "-o", "program", "&&", "./program", NULL},
 		{"mkdir", "new_dir", "&&", "cd", "new_dir", "&&", "touch", "file.txt", NULL},
 		{"mv", "new_dir", "old_dir", NULL},
 		{"&&", NULL},
-		//{")", "(", "(", ")", ")", "(", NULL},
+		{")", "(", "(", ")", ")", "(", NULL},
 		{NULL}
 	};
 	for (int i = 0; i < NUM_TEST_CASES; i ++)
 	{
-		sz = 0;
-		tokenize_cmd(str_arr.strs[i].str, &sz, &tokens);
-		#ifdef DEBUG
-		printf("Case %i. Tokens size: %i\n", i, sz);
-		#endif
+		tokens = tokenize_cmd(str_arr.strs[i].str);
 		if (tokens == NULL)
 		{
 			assert(t[i][0] == NULL);
@@ -115,15 +108,11 @@ void	tokenize_cmd_test()
 		{
 			for (int j = 0; tokens[j] != NULL; j++)
 			{
-				#ifdef DEBUG
-				ft_printf("%s\n", tokens[j]);
-				#endif
 				assert((tokens[j] == NULL) == (t[i][j] == NULL));
 				assert(ft_strcmp(tokens[j], t[i][j]) == 0);
 			}
+			free_tokens(tokens);
 		}
-		//free_tokens(tokens);
-		ft_free_ss_sz_null((void *)&(tokens), sz);
 	}
-	free_string_array(&str_arr);
+	free_string_array(str_arr.strs, str_arr.count);
 }
