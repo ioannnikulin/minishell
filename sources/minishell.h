@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 15:22:58 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/15 10:52:00 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/11/29 18:55:14 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <signal.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "../libft/libft.h"
@@ -38,6 +39,7 @@ typedef struct s_opts
 	t_ull	debug_output_level;
 	int		exiting;
 	int		errno;
+	void	(*sigint_handler)(int);
 }	t_opts;
 
 typedef struct s_param

@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 18:10:38 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/06 23:55:12 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/11/29 18:30:26 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,5 +70,8 @@ int	param_init(t_param *param)
 	param->envvars = ft_mapss_init();
 	if (!param->envvars)
 		return (1);
+	param->opts.sigint_handler = signal(SIGINT, SIG_IGN);
+	signal(SIGTSTP, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
 	return (0);
 }
