@@ -37,6 +37,14 @@ unset nope && ./tests/tool_print_environment one \"two   three\" four"
 # define MOCK_16_TEXT "env && unset HOME PATH && env"
 # define MOCK_17_TEXT "echo 1 && exit && echo 2"
 # define MOCK_18_TEXT "echo 1 && exit || echo 2"
+# define MOCK_19_TEXT "echo 1 || echo 2 && (echo 3 && (echo 4 || echo 5) \
+&& echo 6)"
+# define MOCK_20_TEXT "echo 1 || echo 2 && (echo 3 && (echo 4) || echo 5 \
+&& echo 6)"
+# define MOCK_21_TEXT "echo 1 || (echo 2 && (echo 3 && (echo 4) || echo 5 \
+&& echo 6))"
+# define MOCK_22_TEXT "echo 1 || (echo 2 && (echo 3 && (echo 4) || echo 5)) \
+&& echo 6"
 
 int	input_to_text_tree_mock(t_tree **tree, char *input);
 int	mock_0_tree(t_treenode *root);
@@ -58,4 +66,8 @@ int	mock_15_tree(t_treenode *root);
 int	mock_16_tree(t_treenode *root);
 int	mock_17_tree(t_treenode *root);
 int	mock_18_tree(t_treenode *root);
+int	mock_19_tree(t_treenode *root);
+int	mock_20_tree(t_treenode *root);
+int	mock_21_tree(t_treenode *root);
+int	mock_22_tree(t_treenode *root);
 #endif
