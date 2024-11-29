@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 15:21:17 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/29 19:38:22 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/11/29 20:46:43 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,15 @@ static int	one_cmd(t_param *param)
 	return (0);
 }
 
+static void	usage(void)
+{
+	ft_printf("minishell usage:\n--interactive\n\tuser types in a command after command.\n\
+--debug 1023\n\tbitmask for debug output verbosity.\n\
+--command echo hello world\n\trun just one command and exit immediately.\n\
+--trap 5\n\tmalloc with given number will fail. debugging option.\n\
+--file script.sh\n\trun commands from given file.\n");
+}
+
 int	main(int argc, const char **argv)
 {
 	t_param	*param;
@@ -69,7 +78,9 @@ int	main(int argc, const char **argv)
 	else if (param->cur_command)
 		one_cmd(param);
 	else if (param->opts.file)
-		printf("%s: %s", param->opts.file, ERR_NO_SCRIPT);
+		ft_printf("%s: %s\n", param->opts.file, ERR_NO_SCRIPT);
+	else
+		usage();
 	finalize(param, 0, 0, 0);
 	post(param);
 	return (0);

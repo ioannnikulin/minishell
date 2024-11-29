@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 18:10:38 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/29 19:38:50 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/11/29 20:22:42 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,10 +72,9 @@ static void	parent_sigint(int sig)
 	(void)sig;
 	g_interrupt_flag = SIGINT;
 	ft_printf("\n");
-	rl_on_new_line();
 	rl_replace_line("", 0);
+	rl_on_new_line();
 	rl_redisplay();
-	rl_done = 1;
 }
 
 int	param_init(t_param *param)
@@ -83,8 +82,8 @@ int	param_init(t_param *param)
 	struct sigaction	sa;
 
 	sa.sa_handler = parent_sigint;
-	sa.sa_flags = SA_RESTART;
 	sigemptyset(&sa.sa_mask);
+	sa.sa_flags = SA_RESTART;
 	if (sigaction(SIGINT, &sa, NULL) == -1)
 		return (2);
 	param->envvars = ft_mapss_init();

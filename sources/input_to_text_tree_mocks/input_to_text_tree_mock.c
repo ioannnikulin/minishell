@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 23:07:09 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/27 23:08:10 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/11/29 20:46:17 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ int	input_to_text_tree_mock(t_tree **tree, char *in)
 			|| mock_12(in, r, &e) || mock_13(in, r, &e) || mock_14(in, r, &e)
 			|| mock_15(in, r, &e) || mock_16(in, r, &e) || mock_17(in, r, &e)
 			|| mock_18(in, r, &e) || mock_19(in, r, &e) || mock_20(in, r, &e)
-			|| mock_21(in, r, &e) || mock_22(in, r, &e)
+			|| mock_21(in, r, &e) || mock_22(in, r, &e) || mock_23(in, r, &e)
+			|| mock_24(in, r, &e) || mock_25(in, r, &e) || mock_26(in, r, &e)
 		) && !e)
 		return (0);
 	return (ret(e, in));
