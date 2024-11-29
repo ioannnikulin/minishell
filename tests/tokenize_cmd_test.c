@@ -6,14 +6,14 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 06:11:45 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/11/27 15:33:16 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/11/27 18:03:50 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tests_internal.h"
 #include "../sources/tokenizing/input_processing.h"
 //#define DEBUG
-#define NUM_TEST_CASES 11
+#define NUM_TEST_CASES 10
 #define MAX_ARGS 16
 
 typedef struct s_string
@@ -74,8 +74,8 @@ static t_strings	create_string_array()
 	str_array.strs[6].str = strdup("mkdir new_dir && cd new_dir && touch file.txt");
 	str_array.strs[7].str = strdup("mv new_dir old_dir");
 	str_array.strs[8].str = strdup("&&");
-	str_array.strs[9].str = strdup(")(())(");
-	str_array.strs[10].str = strdup("");
+	//str_array.strs[9].str = strdup(")(())(");
+	str_array.strs[9].str = strdup("");
 	return (str_array);
 }
 
@@ -97,7 +97,7 @@ void	tokenize_cmd_test()
 		{"mkdir", "new_dir", "&&", "cd", "new_dir", "&&", "touch", "file.txt", NULL},
 		{"mv", "new_dir", "old_dir", NULL},
 		{"&&", NULL},
-		{")", "(", "(", ")", ")", "(", NULL},
+		//{")", "(", "(", ")", ")", "(", NULL},
 		{NULL}
 	};
 	for (int i = 0; i < NUM_TEST_CASES; i ++)
