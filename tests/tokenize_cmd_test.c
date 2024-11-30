@@ -6,13 +6,13 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 06:11:45 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/11/29 14:33:46 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/11/30 17:56:43 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tests_internal.h"
 #include "../sources/tokenizing/input_processing.h"
-
+// #define DEBUG
 #define NUM_TEST_CASES 11
 #define MAX_ARGS 16
 
@@ -83,15 +83,16 @@ void	tokenize_cmd_test()
 	char		**tokens;
 	int			sz = 0;
 
+	tokens = NULL;
 	assert(str_arr.error == 0 && "Failed to create string array.");
 	char	*t[NUM_TEST_CASES][MAX_ARGS] =
 	{
-		{"grep", "\"error\"", "log.txt", "||", "echo", "\"No errors    found\"", NULL},
-		{"cat", "(", "file1.txt", "file2.txt", ")", "|", "grep", "\"keyword\"", NULL},
-		{"cat", "<", "input.txt", "&&", "echo", "|", "grep", "\"Done\"", NULL},
+		{"grep", "error", "log.txt", "||", "echo", "No errors    found", NULL},
+		{"cat", "(", "file1.txt", "file2.txt", ")", "|", "grep", "keyword", NULL},
+		{"cat", "<", "input.txt", "&&", "echo", "|", "grep", "Done", NULL},
 		{"gcc", "main.c", "-o", "program", ">>", "build.log", NULL},
-		{"find", ".", "-name", "\"*.txt\"", "|", "xargs", "rm", "-rf", "||", "fer", "&&", "def", "&", "echo", "\"Hello\"", NULL},
-		{"echo", "\"Compiling...\"", "&&", "gcc", "main.c", "-o", "program", "&&", "./program", NULL},
+		{"find", ".", "-name", "*.txt", "|", "xargs", "rm", "-rf", "||", "fer", "&&", "def", "&", "echo", "Hello", NULL},
+		{"echo", "Compiling...", "&&", "gcc", "main.c", "-o", "program", "&&", "./program", NULL},
 		{"mkdir", "new_dir", "&&", "cd", "new_dir", "&&", "touch", "file.txt", NULL},
 		{"mv", "new_dir", "old_dir", NULL},
 		{"&&", NULL},
@@ -101,6 +102,9 @@ void	tokenize_cmd_test()
 	for (int i = 0; i < NUM_TEST_CASES; i ++)
 	{
 		tokenize_cmd(str_arr.strs[i].str, &sz, &tokens);
+		#ifdef define
+		ft_printf("sz: %i\n", sz);
+		#endif
 		if (tokens == NULL)
 		{
 			assert(t[i][0] == NULL);
@@ -109,11 +113,16 @@ void	tokenize_cmd_test()
 		{
 			for (int j = 0; tokens[j] != NULL; j++)
 			{
+				#ifdef DEBUG
+				ft_printf("%s\n", tokens[j]);
+				#endif
 				assert((tokens[j] == NULL) == (t[i][j] == NULL));
 				assert(ft_strcmp(tokens[j], t[i][j]) == 0);
 			}
 		}
+		sz = 0;
 		free_tokens(tokens);
+		tokens = NULL;
 	}
 	free_string_array(str_arr.strs, str_arr.count);
 }

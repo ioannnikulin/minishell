@@ -6,14 +6,14 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 17:50:43 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/11/27 11:57:18 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/11/30 16:24:28 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "strings_internal.h"
 
 static void	parse_word(char **res, const char **f,
-					t_delims *arr, const char ex)
+					t_delims arr, const char ex)
 {
 	int			cwlen;
 	const char	*start;
@@ -21,12 +21,12 @@ static void	parse_word(char **res, const char **f,
 	size_t		match_len;
 
 	in_quotes = 0;
-	while (**f && ft_is_delim(*f, arr->delims, arr->count, &match_len))
+	while (**f && ft_is_delim(*f, arr.delims, arr.count, &match_len))
 		(*f)++;
 	start = *f;
 	cwlen = 0;
-	while ((**f) && (in_quotes || !ft_is_delim(*f, arr->delims,
-				arr->count, &match_len)))
+	while ((**f) && (in_quotes || !ft_is_delim(*f, arr.delims,
+				arr.count, &match_len)))
 	{
 		is_in_quotes(f, ex, &in_quotes);
 		if (!in_quotes || (in_quotes && (**f != ex)))
@@ -41,7 +41,7 @@ static void	parse_word(char **res, const char **f,
 		*res = NULL;
 }
 
-char	**ft_split_set_skip_delim(const char *str, t_delims *arr,
+char	**ft_split_set_skip_delim(const char *str, t_delims arr,
 					const char ex, int *sz)
 {
 	char		**res;
@@ -70,7 +70,7 @@ char	**ft_split_set_skip_delim(const char *str, t_delims *arr,
 	return (res);
 }
 
-char	**ft_split_skip_delim(const char *str, t_delims *delim_arr,
+char	**ft_split_skip_delim(const char *str, t_delims delim_arr,
 					char ex, int *sz)
 {
 	if (sz)

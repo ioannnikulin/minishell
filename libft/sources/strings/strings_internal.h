@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 16:40:11 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/11/27 12:00:36 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/11/30 16:26:03 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 
 # include "strings.h"
 
-int		find_delimiter(const char *s, t_delims *array, size_t *op_len);
+int		find_delimiter(const char *s, t_delims arr, size_t *op_len);
 int		extract_plain_token(char **res, const char **s,
-			t_delims *array, int cwi);
+			t_delims arr, int cwi);
 int		extract_delimiter(char **res, const char **s,
 			size_t op_len, int cwi);
 int		copy_word(char **res, const char *from, int length);
