@@ -6,11 +6,21 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 11:45:09 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/11/26 12:05:47 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/12/01 19:12:18 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tree_processing_internal.h"
+
+int is_closing_parenthesis(char *token)
+{
+	return (ft_strcmp(token, ")") == 0);
+}
+
+int is_opening_parenthesis(char *token)
+{
+	return (ft_strcmp(token, "(") == 0);
+}
 
 int	is_operator(char *token)
 {
