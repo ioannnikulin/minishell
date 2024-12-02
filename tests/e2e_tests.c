@@ -6,12 +6,12 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 22:57:54 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/02 16:58:05 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/02 20:40:42 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tests_internal.h"
-#define START 23
+#define START 0
 #define TRAP_START 0
 #define SZ 27
 #define DEBUG

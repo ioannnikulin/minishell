@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 15:22:58 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/02 16:35:59 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/02 21:51:16 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,11 @@
 
 # define DBG_EXTERNAL_SEARCH_FOLDERS 1
 # define DBG_PRINT_TREE_BEFORE_EXEC 2
-# define DBG_PRINT_NODE_BEFORE_EXEC 4
+# define DBG_PRINT_NODE_BEFORE_INSPECTION 4
 # define DBG_EXECVE_PREPRINT 8
-# define DBG_FULL 15
+# define DBG_PRINT_NODE_BEFORE_EXECUTION 16
+# define DBG_PRINT_TOKEN_BEFORE_EXPANSION 32
+# define DBG_FULL 63
 
 typedef unsigned long long	t_ull;
 
@@ -63,8 +65,8 @@ int		exec_text_tree(t_param *param);
 int		execute_text_tree_node(t_param *param, t_treenode *node);
 int		param_get_cur_dir(t_param *param);
 int		collect_path(t_dlist *head, char **where);
-int		substitute_envvars(t_treenode *node, t_param *param);
 int		unpack_block(t_treenode *node, char *open, char *close);
+int		expand(t_treenode *node, t_param *param);
 int		w_execve(char *fullpath, char **argv, char **envvars, t_param *param);
 void	pre(t_param *param);
 void	post(t_param *param);

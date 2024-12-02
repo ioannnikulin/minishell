@@ -6,26 +6,14 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 17:06:11 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/02 17:48:39 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/02 22:02:24 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "expander_internal.h"
 
-typedef struct s_crawler
-{
-	char	*src;
-	int		i;
-	int		squote;
-	int		dquote;
-	int		envvar;
-	int		normal;
-	char	*out;
-	char	*toadd;
-	int		errno;
-}	t_crawler;
-
-static t_crawler	crawler_make(char *src)
+static t_crawler	crawler_make(char *src, t_param *param)
 {
 	t_crawler	res;
 
@@ -34,9 +22,9 @@ static t_crawler	crawler_make(char *src)
 	res.squote = -1;
 	res.dquote = -1;
 	res.envvar = -1;
-	res.out = 0;
-	res.toadd = 0;
+	res.sbuf = ft_sbuf_make(0);
 	res.errno = 0;
+	res.param = param;
 	return (res);
 }
 
@@ -52,24 +40,72 @@ static int	try(t_crawler *c, char sym, int *field)
 	return (0);
 }
 
-static int	envvar(t_crawler *c)
-{
 
+static int	crawl(t_crawler *c)
+{
+	int		i;
+	char	*subs;
+	char	*sym;
+
+	i = 0;
+	sym = &c->src[c->i];
+	while (*sym && *sym != '\'' && *sym != '\"' && *sym != '$')
+	{
+		sym ++;
+		i ++;
+	}
+	subs = ft_substr(c->src, c->i, i);
+	if (!subs || !ft_sbuf_append(c->sbuf, subs))
+	{
+		free(subs);
+		return (1);
+	}
+	free(subs);
+	c->i += i;
+	return (0);
 }
 
-int	expand(t_treenode *node, t_param *param)
+static int	go(t_treenode *node, t_param *param)
 {
 	t_crawler	c;
 
-	c = crawler_make(node->content);
+	c = crawler_make(node->content, param);
+	if (!c.sbuf)
+		return (1);
 	while (1)
 	{
 		if (try(&c, '\'', &c.squote) == 0)
 			continue ;
 		if (try(&c, '\"', &c.dquote) == 0)
 			continue ;
-		if (c.src[c.i] == '$' && envvar(&c) == 0)
+		if (c.src[c.i] == '$' && expand_envvar(&c) == 0 && !c.errno)
 			continue ;
-		normal(&c);
+		if (c.errno)
+			return (c.errno);
+		crawl(&c);
+		if (!c.src[c.i])
+			break ;
 	}
+	free(node->content);
+	node->content = ft_sbuf_get(c.sbuf);
+	ft_sbuf_finalize(&c.sbuf);
+	return (node->content == 0);
+}
+
+int	expand(t_treenode *node, t_param *param)
+{
+	if (param->opts.debug_output_level & DBG_PRINT_TOKEN_BEFORE_EXPANSION)
+		ft_printf("%s\n", node->content);
+	if (go(node, param))
+		return (1);
+	node = node->child;
+	while (node)
+	{
+		if (param->opts.debug_output_level & DBG_PRINT_TOKEN_BEFORE_EXPANSION)
+			ft_printf("%s\n", node->content);
+		if (go(node, param))
+			return (2);
+		node = node->sibling_next;
+	}
+	return (0);
 }

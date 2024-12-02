@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:39:01 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/02 17:05:43 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/02 21:09:56 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,17 +32,17 @@ int	execute_text_tree_node(t_param *param, t_treenode *node)
 	int		res;
 	char	*cmd;
 	int		found;
+	t_tree	t;
 
 	if (!node || !node->content)
-	{
-		printf("%s\n", ERR_NO_COMMAND_FOUND);
-		return (0);
-	}
-	cmd = node->content;
+		return (printf("%s\n", ERR_NO_COMMAND_FOUND) * 0);
 	if (expand(node, param))
-		return (0);
-	found = 0;
-	res = 0;
+		return (ft_assign_i(&param->opts.errno, 1, 0));
+	cmd = node->content;
+	t.root = node;
+	if (param->opts.debug_output_level & DBG_PRINT_NODE_BEFORE_EXECUTION)
+		ft_tree_print_s(&t);
+	ft_assign_i(&found, 0, ft_assign_i(&res, 0, 0));
 	option_cd(control(is(cmd, "cd", 3), &res, &found), node, param);
 	option_echo(control(is(cmd, "echo", 5), &res, &found), node, param);
 	option_env(control(is(cmd, "env", 4), &res, &found), node, param);

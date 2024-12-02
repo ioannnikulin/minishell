@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 20:55:01 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/02 18:50:49 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/02 18:59:46 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ void	ft_free_delim_s(t_delims *arr);
 char	*ft_replace_idx(char **where, int fromIncl, int toExcl, char *with);
 
 t_sbuf	*ft_sbuf_make(char *src);
+t_sbuf	*ft_sbuf_realloc(t_sbuf *sbuf, int ncap);
 t_sbuf	*ft_sbuf_append(t_sbuf *sbuf, char *what);
 char	*ft_sbuf_get(t_sbuf *sbuf);
 int		ft_sbuf_finalize(t_sbuf **sbuf);

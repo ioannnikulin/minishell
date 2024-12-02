@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 17:54:35 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/02 18:50:39 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/02 22:01:30 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ t_sbuf	*ft_sbuf_make(char *src)
 	if (src)
 	{
 		res->sz = ft_strlen(src);
-		if (res->capacity < res->sz + 1)
-			res->capacity = ft_ceil((float)res->sz
+		if (res->capacity < res->sz + 2)
+			res->capacity = ft_ceil(((float)res->sz)
 					/ res->step) * res->step;
 	}
 	res->content = ft_calloc_if(res->capacity, 1);
@@ -40,6 +40,25 @@ t_sbuf	*ft_sbuf_make(char *src)
 	return (res);
 }
 
+t_sbuf	*ft_sbuf_realloc(t_sbuf *sbuf, int ncap)
+{
+	char	*ncont;
+	int		copy;
+
+	if (ncap == sbuf->capacity)
+		return (sbuf);
+	ncont = ft_calloc_if(ncap, 1);
+	if (!ncont)
+		return (0);
+	copy = *ft_min_int(&ncap, &sbuf->sz);
+	ft_memcpy(ncont, sbuf->content, copy);
+	free(sbuf->content);
+	sbuf->content = ncont;
+	sbuf->capacity = ncap;
+	sbuf->sz = copy;
+	return (sbuf);
+}
+
 t_sbuf	*ft_sbuf_append(t_sbuf *sbuf, char *what)
 {
 	char	*ncont;
@@ -49,14 +68,15 @@ t_sbuf	*ft_sbuf_append(t_sbuf *sbuf, char *what)
 	if (!sbuf || !what)
 		return (sbuf);
 	wlen = ft_strlen(what);
-	if (sbuf->sz + wlen < sbuf->capacity - 1)
+	if (sbuf->sz + wlen < sbuf->capacity - 2)
 		ft_memcpy(&sbuf->content[sbuf->sz], what, wlen);
 	else
 	{
-		ncap = sbuf->capacity + ft_ceil((float)wlen / sbuf->step) * sbuf->step;
+		ncap = sbuf->capacity + ft_ceil(((float)wlen) / sbuf->step) * sbuf->step;
 		ncont = ft_calloc_if(ncap, 1);
 		if (!ncont)
 			return (0);
+		sbuf->capacity = ncap;
 		ft_memcpy(ncont, sbuf->content, sbuf->sz);
 		ft_memcpy(&ncont[sbuf->sz], what, wlen);
 		free(sbuf->content);

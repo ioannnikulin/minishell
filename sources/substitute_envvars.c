@@ -6,26 +6,12 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 15:01:39 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/02 12:29:50 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/02 22:04:19 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static int	skip_single_quote_block(char *content, int *from)
-{
-	(*from) ++;
-	while (content[*from] && content[*from] != '\'')
-		(*from) ++;
-	if (!content[*from])
-	{
-		*from = -1;
-		ft_printf("%s: %s\n", TXT_MINISHELL, ERR_UNTERMINATED_SINGLE_QUOTE);
-	}
-	else
-		(*from) ++;
-	return (1);
-}
+#include "expander_internal.h"
 
 static char	*grab_name(char *content, int start)
 {
@@ -42,29 +28,6 @@ static char	*grab_name(char *content, int start)
 	}
 	res = ft_substr(content, start + 1, len - 1);
 	return (res);
-}
-
-static char	*next_var(char *content, int *start)
-{
-	char	*res;
-	int		from;
-
-	from = -1;
-	res = 0;
-	while (content[++ from])
-	{
-		if (content[from] == '\'' && skip_single_quote_block(content, &from)
-			&& from == -1)
-			return (0);
-		if (content[from] == '$' && content[from + 1]
-			&& (ft_isalnum(content[from + 1]) || content[from + 1] == '_'))
-		{
-			res = grab_name(content, from);
-			*start = from;
-			return (res);
-		}
-	}
-	return (0);
 }
 
 static char	*get_value(char *key, t_param *param)
@@ -87,31 +50,38 @@ static char	*get_value(char *key, t_param *param)
 	return (value);
 }
 
-int	substitute_envvars(t_treenode *node, t_param *param)
+static int	ret(char *s1, char *s2, int *errno, int retval)
+{
+	free(s1);
+	free(s2);
+	ft_assign_i(errno, retval, 0);
+	return (retval);
+}
+
+int	expand_envvar(t_crawler *c)
 {
 	char	*key;
-	int		start;
-	char	*content;
 	char	*value;
 
-	while (1)
+	key = grab_name(c->src, c->i);
+	if (!key)
+		return (ret(0, 0, &c->errno, 1));
+	if (!*key && ft_sbuf_append(c->sbuf, "$") == 0)
+		return (ret(key, 0, &c->errno, 5));
+	if (c->squote != -1)
 	{
-		key = next_var(node->content, &start);
-		if (!key)
-			break ;
-		content = node->content;
-		value = get_value(key, param);
-		ft_replace_idx(&content, start, ft_strlen(key) + start + 1, value);
-		if (!content)
-			return (ft_printf("%s: %s\n", TXT_MINISHELL, ERR_MALLOC) + 1);
-		node->content = content;
+		value = 0;
+		if (ft_sbuf_append(ft_sbuf_append(c->sbuf, "$"), key) == 0)
+			return (ret(key, 0, &c->errno, 2));
 	}
-	node = node->child;
-	while (node)
+	else
 	{
-		if (substitute_envvars(node, param))
-			return (1);
-		node = node->sibling_next;
+		value = get_value(key, c->param);
+		if (!value)
+			return (ret(key, value, &c->errno, 3));
+		if (ft_sbuf_append(c->sbuf, value) == 0)
+			return (ret(key, value, &c->errno, 4));
 	}
-	return (0);
+	c->i += ft_strlen(key) + 1;
+	return (ret(key, value, 0, 0));
 }

@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:39:01 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/29 21:12:05 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/02 20:37:47 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static	int	nonbrace(t_param *param, t_treenode *node)
 	int		res;
 
 	t.root = node;
-	if (param->opts.debug_output_level & DBG_PRINT_NODE_BEFORE_EXEC)
+	if (param->opts.debug_output_level & DBG_PRINT_NODE_BEFORE_INSPECTION)
 		ft_tree_print_s(&t);
 	res = execute_text_tree_node(param, node);
 	return (res);
