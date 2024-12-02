@@ -20,7 +20,7 @@ TOKENIZING_NAMES = tokenize_cmd.c tokenize_cmd_utils.c
 TOKENIZING_F = tokenizing
 TOKENIZING_SRCS = $(addprefix $(TOKENIZING_F)/, $(TOKENIZING_NAMES))
 
-TREE_MAKE_NAMES = tokens_to_tree.c tokens_type.c
+TREE_MAKE_NAMES = tokens_to_tree.c process_cmd_and_flag.c process_parentheses.c process_oprator.c
 TREE_MAKE_F = tree_make
 TREE_MAKE_SRCS =  $(addprefix $(TREE_MAKE_F)/, $(TREE_MAKE_NAMES))
 

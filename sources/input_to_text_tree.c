@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 23:07:09 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/30 17:11:36 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/12/02 19:59:18 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	input_to_text_tree(t_param *param)
 		return (3);
 	}
 	param->text_tree = tree;
-	ft_free_ss_sz_null((void *)&tokens, sz+1);
+	ft_free_ss_sz_null((void *)&tokens, sz + 1);
 	return (0);
 }
 #endif

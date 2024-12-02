@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 11:13:18 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/10/22 17:11:35 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/12/02 20:26:17 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,7 @@ void	ft_split_str_test(void)
 	for (int i = 0; i < NUM_TEST_CASES; i ++)
 	{
 		int sz = 0;
-		char **split_op = ft_split_str(str_arr.strs[i].str, &op_arr, &sz);
+		char **split_op = ft_split_str(str_arr.strs[i].str, op_arr, &sz);
 		for (int j = 0; j < sz; j ++)
 		{
 			assert((split_op[j] == NULL) == (t[i][j] == NULL));
