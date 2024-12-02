@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 20:55:01 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/01 11:50:22 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/02 18:50:49 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,14 @@ typedef struct s_delims
 	int			error;
 	size_t		count;
 }	t_delims;
+
+typedef struct s_sbuf
+{
+	char	*content;
+	int		sz;
+	int		capacity;
+	int		step;
+}	t_sbuf;
 
 char	*ft_strchr(const char *s, int c);
 char	*ft_strrchr(const char *s, int c);
@@ -57,4 +65,9 @@ void	ft_putstr_fd(char *s, int fd);
 void	ft_free_delims_arr(t_delims *arr);
 void	ft_free_delim_s(t_delims *arr);
 char	*ft_replace_idx(char **where, int fromIncl, int toExcl, char *with);
+
+t_sbuf	*ft_sbuf_make(char *src);
+t_sbuf	*ft_sbuf_append(t_sbuf *sbuf, char *what);
+char	*ft_sbuf_get(t_sbuf *sbuf);
+int		ft_sbuf_finalize(t_sbuf **sbuf);
 #endif

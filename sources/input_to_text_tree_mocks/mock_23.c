@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 23:07:09 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/02 16:29:43 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/02 16:49:17 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,12 @@
 
 static t_treenode	*p1(t_treenode *root)
 {
-	if (ft_treenode_insert_child_idx_s_dup(root, "echo", 0) == -1
-		|| ft_treenode_insert_child_idx_s_dup(root->child, "[$foo]", 0) == -1
+	if (ft_treenode_insert_child_idx_s_dup(root, "export", 0) == -1
 		|| ft_treenode_insert_child_idx_s_dup(root, "&&", 1) == -1
-		|| ft_treenode_insert_child_idx_s_dup(root, "export", 2) == -1
-		|| ft_treenode_insert_child_idx_s_dup(root, "&&", 3) == -1
-		|| ft_treenode_insert_child_idx_s_dup(root, "$say", 4) == -1
+		|| ft_treenode_insert_child_idx_s_dup(root, "$say", 2) == -1
 	)
 		return (0);
-	root = root->child->sibling_next->sibling_next;
+	root = root->child;
 	if (ft_treenode_insert_child_idx_s_dup(root, "foo=bar", 0) == -1
 		|| ft_treenode_insert_child_idx_s_dup(root, "sea=$foo", 1) == -1
 		|| ft_treenode_insert_child_idx_s_dup(root, "say=echo", 2) == -1

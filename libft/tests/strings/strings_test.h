@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 15:57:31 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/01 11:49:31 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/02 18:36:19 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,5 @@ void	ft_putnbr_fd_test(void);
 void	ft_putstr_fd_test(void);
 void    ft_split_skip_delim_test(void);
 void    ft_replace_idx_test(void);
+void    ft_sbuf_test(void);
 #endif

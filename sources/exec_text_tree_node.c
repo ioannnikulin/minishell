@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:39:01 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/02 16:35:32 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/02 17:05:43 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,7 @@ int	execute_text_tree_node(t_param *param, t_treenode *node)
 		return (0);
 	}
 	cmd = node->content;
-	if (substitute_envvars(node, param)
-		|| unpack_block(node, "\'", "\'") || unpack_block(node, "\"", "\""))
+	if (expand(node, param))
 		return (0);
 	found = 0;
 	res = 0;

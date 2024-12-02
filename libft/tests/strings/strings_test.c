@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 15:57:31 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/01 11:49:55 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/02 18:39:36 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,5 +56,7 @@ int	strings_test(void)
 	ft_split_skip_delim_test();
 	ft_printf("ft_replace_idx in testing\n");
 	ft_replace_idx_test();
+	ft_printf("ft_sbuf in testing\n");
+	ft_sbuf_test();
 	return (0);
 }
