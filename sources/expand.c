@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 17:06:11 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/02 22:02:24 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/02 22:07:58 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ static int	try(t_crawler *c, char sym, int *field)
 	c->i ++;
 	return (0);
 }
-
 
 static int	crawl(t_crawler *c)
 {

@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 17:54:35 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/02 22:01:30 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/02 22:06:35 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,8 @@ t_sbuf	*ft_sbuf_append(t_sbuf *sbuf, char *what)
 		ft_memcpy(&sbuf->content[sbuf->sz], what, wlen);
 	else
 	{
-		ncap = sbuf->capacity + ft_ceil(((float)wlen) / sbuf->step) * sbuf->step;
+		ncap = sbuf->capacity + ft_ceil(((float)wlen) / sbuf->step)
+			* sbuf->step;
 		ncont = ft_calloc_if(ncap, 1);
 		if (!ncont)
 			return (0);
