@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 00:19:45 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/29 20:45:20 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/02 16:29:55 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,11 @@ unset nope && ./tests/tool_print_environment one \"two   three\" four"
 && echo 6))"
 # define MOCK_22_TEXT "echo 1 || (echo 2 && (echo 3 && (echo 4) || echo 5)) \
 && echo 6"
-# define MOCK_23_TEXT "export foo=bar sea=shell && \
-echo $foo '$sea' \"$sea\" $no"
+# define MOCK_23_TEXT "echo [$foo] && export foo=bar sea=$foo say=echo _1=$_1 _= && \
+$say [$foo] ['$sea'] [\"$sea\"] [$food] [$_1] [$_] [$] [$PATH] [$some]"
 # define MOCK_24_TEXT "echo '$(echo \"$(echo \"$(echo \"bla\")\")\")'"
 # define MOCK_25_TEXT "echo -nn 1 2"
-# define MOCK_26_TEXT "echo 1 -n 2"
+# define MOCK_26_TEXT "echo 1 -n 2&&echo 3||echo 4   ||echo 5 ||   echo 6"
 
 int	input_to_text_tree_mock(t_tree **tree, char *input);
 int	mock_0_tree(t_treenode *root);

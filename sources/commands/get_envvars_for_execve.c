@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 23:38:22 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/09 16:37:16 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/02 12:12:06 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,21 @@ static int	collect_map(t_mapss *map, char **res)
 	return (0);
 }
 
-/* also will be used for path printout */
+int	collect_path_with_header(t_dlist *head, char **where)
+{
+	int		res;
+	char	*noheader;
+
+	res = collect_path(head, &noheader);
+	if (res)
+		return (res);
+	*where = ft_strjoin("PATH=", noheader);
+	free(noheader);
+	if (!*where)
+		return (3);
+	return (0);
+}
+
 int	collect_path(t_dlist *head, char **where)
 {
 	char	**subs;
@@ -67,10 +81,7 @@ int	collect_path(t_dlist *head, char **where)
 	res = ft_strjoin_multi_free_outer(subs, sz, ":");
 	if (!res)
 		return (2);
-	*where = ft_strjoin("PATH=", res);
-	free(res);
-	if (!*where)
-		return (3);
+	*where = res;
 	return (0);
 }
 
@@ -94,7 +105,7 @@ char	**get_envvars_for_execve(t_param *param)
 	res[sz - 1] = 0;
 	if (!param->envvar_path_head)
 		return (res);
-	if (collect_path(param->envvar_path_head->next, &res[sz - 2]))
+	if (collect_path_with_header(param->envvar_path_head->next, &res[sz - 2]))
 	{
 		free_upto(res, sz - 2, 0);
 		ft_assign_i(&param->opts.errno, 3, 0);
