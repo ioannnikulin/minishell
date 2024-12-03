@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 14:08:20 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/11/30 16:32:07 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/12/03 15:55:02 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	calc_tokens(const char *pp, int *token_q, t_delims arr)
 	p = pp;
 	while (*p)
 	{
-		while (*p == ' ' || *p == '\t' || *p == '\n')
+		while (*p == ' ')
 			p++;
 		if (*p == '\0')
 			break ;
@@ -48,7 +48,7 @@ static int	extract_token(char **res, const char **s, int token_q, t_delims arr)
 	op_len = 0;
 	while (*s && cwi < token_q)
 	{
-		while (**s == ' ' || **s == '\t' || **s == '\n')
+		while (**s == ' ')
 			(*s)++;
 		if (find_delimiter(*s, arr, &op_len))
 		{

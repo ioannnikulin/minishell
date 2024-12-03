@@ -6,13 +6,13 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 19:57:16 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/12/02 19:58:34 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/12/03 13:19:15 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tree_processing_internal.h"
 
-int	cmd_low_level(char *token, t_treenode **cur_1,
+static int	cmd_low_level(char *token, t_treenode **cur_1,
 			t_treenode **cur_2, int *num)
 {
 	if (ft_treenode_insert_child_idx_s_dup(*cur_1, token,
@@ -25,7 +25,7 @@ int	cmd_low_level(char *token, t_treenode **cur_1,
 	return (0);
 }
 
-int	cmd_top_level(char *token, t_treenode **cur_1,
+static int	cmd_top_level(char *token, t_treenode **cur_1,
 			t_treenode **cur_2, int *num)
 {
 	if (ft_treenode_insert_child_idx_s_dup(*cur_1, token,

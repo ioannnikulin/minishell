@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 15:22:58 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/29 14:20:03 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/12/03 14:52:40 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@
 
 # include "tokenizing/input_processing.h"
 # include "tree_make/tree_processing.h"
-# define FREE_ENVVARS_DLISTS 1
 # define FREE_ENVVARS_ENTRIES 2
 # define FREE_ENVVARS_KEYS 4
 # define FREE_ENVVARS_VALUES 8

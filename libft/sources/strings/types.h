@@ -1,21 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_closing_parenthesis.c                           :+:      :+:    :+:   */
+/*   types.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/02 20:03:46 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/12/02 20:22:28 by taretiuk         ###   ########.fr       */
+/*   Created: 2024/12/03 13:33:55 by taretiuk          #+#    #+#             */
+/*   Updated: 2024/12/03 13:35:48 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../strings/strings_internal.h"
+#ifndef TYPES_H
+# define TYPES_H
 
-int	is_closing_parenthesis(char *token)
+typedef struct s_delim
 {
-	int	sz;
+	char	*delim;
+}	t_delim;
 
-	sz = 0;
-	return (ft_strncmp(token, ")", sz = ft_strlen(")")) == 0);
-}
+typedef struct s_delims
+{
+	t_delim		*delims;
+	int			error;
+	size_t		count;
+}	t_delims;
+
+#endif

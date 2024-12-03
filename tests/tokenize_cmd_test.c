@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 06:11:45 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/11/30 17:56:43 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/12/03 15:23:40 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,18 +27,6 @@ typedef struct s_string_array
 	int			error;
 	size_t		count;
 }	t_strings;
-
-static void	free_tokens(char **tokens)
-{
-	if (!tokens)
-		return;
-	for (int i = 0; tokens[i] != NULL; i++)
-	{
-		free(tokens[i]);
-		tokens[i] = NULL;
-	}
-	free(tokens);
-}
 
 static void	free_string_array(t_string *strs, size_t count)
 {
@@ -120,9 +108,8 @@ void	tokenize_cmd_test()
 				assert(ft_strcmp(tokens[j], t[i][j]) == 0);
 			}
 		}
+		ft_free_ss_sz_null((void *)&(tokens), sz);
 		sz = 0;
-		free_tokens(tokens);
-		tokens = NULL;
 	}
 	free_string_array(str_arr.strs, str_arr.count);
 }

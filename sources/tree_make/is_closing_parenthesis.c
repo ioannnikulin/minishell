@@ -1,26 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main_test.c                                        :+:      :+:    :+:   */
+/*   is_closing_parenthesis.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/03 22:56:57 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/03 15:56:56 by taretiuk         ###   ########.fr       */
+/*   Created: 2024/12/02 20:03:46 by taretiuk          #+#    #+#             */
+/*   Updated: 2024/12/03 15:27:33 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tests_internal.h"
-int	e2e_tests(void);
-int	unit_tests(void);
+#include "tree_processing_internal.h"
 
-int	main(void)
+int	is_closing_parenthesis(char *token)
 {
-	ft_printf("unit tests in progress\n");
-	unit_tests();
-	ft_printf("unit tests completed\n");
-	ft_printf("e2e tests in progress\n");
-	e2e_tests();
-	ft_printf("e2e tests completed\n");
-	return (0);
+	return (ft_strncmp(token, ")", 1));
 }

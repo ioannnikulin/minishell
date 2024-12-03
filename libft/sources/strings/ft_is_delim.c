@@ -1,21 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_opening_parenthesis.c                           :+:      :+:    :+:   */
+/*   ft_is_delim.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/02 20:04:32 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/12/02 20:22:08 by taretiuk         ###   ########.fr       */
+/*   Created: 2024/11/26 15:43:25 by taretiuk          #+#    #+#             */
+/*   Updated: 2024/12/03 12:52:20 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../strings/strings_internal.h"
+#include <stddef.h>
+#include "strings_internal.h"
 
-int	is_opening_parenthesis(char *token)
+int	ft_is_delim(const char *s, t_delim *delims, int count, size_t *match_len)
 {
-	int	sz;
+	size_t	len;
+	int		i;
 
-	sz = 0;
-	return (ft_strncmp(token, "(", sz = ft_strlen("(")) == 0);
+	i = 0;
+	while (i < count)
+	{
+		len = ft_strlen(delims[i].delim);
+		if (ft_strncmp(s, delims[i].delim, len) == 0)
+		{
+			if (match_len)
+				*match_len = len;
+			return (1);
+		}
+		i++;
+	}
+	return (0);
 }

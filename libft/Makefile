@@ -36,11 +36,11 @@ NUM_NAMES = ft_atoi.c ft_itoa.c ft_xtoa_base.c ft_minmax_int.c ft_minmax_double.
 NUM_SRCS = $(addprefix $(SOURCES_F)/$(NUM_F)/, $(NUM_NAMES))
 
 STR_F = strings
-STR_NAMES = ft_empty_string.c ft_split.c ft_split_str.c ft_split_str_utils.c ft_split_skip_delim.c ft_split_skip_delim_utils.c ft_strlen.c ft_strchr.c ft_strdup.c ft_striteri.c ft_strjoin.c ft_strlcpy.c ft_strlcat.c ft_strmapi.c ft_strncmp.c ft_strnstr.c ft_strrchr.c ft_strtrim.c ft_substr.c ft_putchar_fd.c ft_putendl_fd.c ft_putnbr_fd.c ft_strcmp.c ft_putstr_fd.c ft_free_delims.c check_edges.c count_words_skip_delim.c
+STR_NAMES = ft_empty_string.c ft_split.c ft_split_str.c ft_split_str_utils.c ft_split_skip_delim.c ft_is_delim.c ft_split_skip_delim_utils.c ft_strlen.c ft_strchr.c ft_strdup.c ft_striteri.c ft_strjoin.c ft_strlcpy.c ft_strlcat.c ft_strmapi.c ft_strncmp.c ft_strnstr.c ft_strrchr.c ft_strtrim.c ft_substr.c ft_putchar_fd.c ft_putendl_fd.c ft_putnbr_fd.c ft_strcmp.c ft_putstr_fd.c ft_free_delims.c check_edges.c count_words_skip_delim.c
 STR_SRCS = $(addprefix $(SOURCES_F)/$(STR_F)/, $(STR_NAMES))
 
 SYM_F = symbols
-SYM_NAMES = ft_isalpha.c ft_isalnum.c ft_isascii.c ft_isdigit.c ft_is_in.c ft_is_delim.c ft_isprint.c ft_isspace.c ft_tolower.c ft_toupper.c is_closing_parenthesis.c is_opening_parenthesis.c is_operator.c is_redirection.c
+SYM_NAMES = ft_isalpha.c ft_isalnum.c ft_isascii.c ft_isdigit.c ft_is_in.c ft_isprint.c ft_isspace.c ft_tolower.c ft_toupper.c
 SYM_SRCS = $(addprefix $(SOURCES_F)/$(SYM_F)/, $(SYM_NAMES))
 
 PRINTF_F = printf
