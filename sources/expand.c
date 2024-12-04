@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 17:06:11 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/04 12:18:30 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/04 13:23:17 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ static int	go(t_treenode *node, t_param *param)
 			continue ;
 		if (c.src[c.i] == '$' && expand_envvar(&c) == 0 && !c.errno)
 			continue ;
-		if (c.errno)
+		if (c.errno && ft_sbuf_finalize(&c.sbuf) == 0)
 			return (c.errno);
 		crawl(&c);
 		if (!c.src[c.i])
