@@ -6,16 +6,17 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 22:57:54 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/04 12:30:26 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/04 13:16:41 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tests_internal.h"
 #define START 0
-#define TRAP_START 0
+#define TRAP_START 72
 #define SZ 27
 //#define DEBUG
 #define PRINT_MALLOC_FAILURE_NO
+#define PRINT_TEST_NO
 
 typedef struct s_testcase
 {
@@ -258,7 +259,7 @@ int	e2e_tests(void)
 
 	for (int i = START; i < SZ; i ++)
 	{
-		#ifdef DEBUG
+		#ifdef PRINT_TEST_NO
 		printf("\t ======== %i ======== \n", i);
 		#endif
 		#ifdef GITHUB
