@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 17:06:11 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/02 22:07:58 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/04 12:18:30 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,21 @@ static t_crawler	crawler_make(char *src, t_param *param)
 	return (res);
 }
 
-static int	try(t_crawler *c, char sym, int *field)
+static int	try(t_crawler *c, char sym, int *field, int *other)
 {
+	char	*s;
+
 	if (c->src[c->i] != sym)
 		return (1);
+	if (*other != -1)
+	{
+		s = ft_calloc_if(2, 1);
+		s[0] = sym;
+		if (!s || !ft_sbuf_append(c->sbuf, s))
+			return (ft_assign_i(&c->errno, 1, 0));
+		c->i ++;
+		return (0);
+	}
 	if (*field == -1)
 		*field = c->i;
 	else
@@ -73,9 +84,9 @@ static int	go(t_treenode *node, t_param *param)
 		return (1);
 	while (1)
 	{
-		if (try(&c, '\'', &c.squote) == 0)
+		if (try(&c, '\'', &c.squote, &c.dquote) == 0)
 			continue ;
-		if (try(&c, '\"', &c.dquote) == 0)
+		if (try(&c, '\"', &c.dquote, &c.squote) == 0)
 			continue ;
 		if (c.src[c.i] == '$' && expand_envvar(&c) == 0 && !c.errno)
 			continue ;

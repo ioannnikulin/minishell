@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 15:01:39 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/02 22:04:19 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/04 12:33:39 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,15 @@ static int	ret(char *s1, char *s2, int *errno, int retval)
 	return (retval);
 }
 
+static int	not_an_envvar(t_crawler *c, char *key)
+{
+	free(key);
+	if (ft_sbuf_append(c->sbuf, "$") == 0)
+		return (ft_assign_i(&c->errno, 5, 5));
+	c->i ++;
+	return (0);
+}
+
 int	expand_envvar(t_crawler *c)
 {
 	char	*key;
@@ -66,8 +75,8 @@ int	expand_envvar(t_crawler *c)
 	key = grab_name(c->src, c->i);
 	if (!key)
 		return (ret(0, 0, &c->errno, 1));
-	if (!*key && ft_sbuf_append(c->sbuf, "$") == 0)
-		return (ret(key, 0, &c->errno, 5));
+	if (!*key)
+		return (not_an_envvar(c, key));
 	if (c->squote != -1)
 	{
 		value = 0;

@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 22:57:54 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/02 20:40:42 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/04 12:30:26 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #define START 0
 #define TRAP_START 0
 #define SZ 27
-#define DEBUG
+//#define DEBUG
 #define PRINT_MALLOC_FAILURE_NO
 
 typedef struct s_testcase
@@ -221,9 +221,9 @@ int	e2e_tests(void)
 	ft_mapss_add(m[21], "stdout", "1\n");
 	ft_mapss_add(m[22], "stdout", "1\n6\n");
 	ft_mapss_add(m[23], "stdout", "\\[bar\\] \\[\\$sea\\] \\[\\] \\[\\] \\[\\] \\[\\] \\[\\$\\] \\[/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin/bin\\] \\[BODYONCETOLDME\\]\n");
-	ft_mapss_add(m[24], "stdout", "\\$(echo \"\\$(echo \"\\$(echo \"bla\")\")\")\n");
+	ft_mapss_add(m[24], "stdout", "\\$\\(echo \"\\$\\(echo \"\\$\\(echo \"bla\")\")\")\n");
 	ft_mapss_add(m[25], "stdout", "1 2");
-	ft_mapss_add(m[26], "stdout", "1 -n 2\n3\n4\n5\n6\n");
+	ft_mapss_add(m[26], "stdout", "1 -n 2\n3\n");
 	tests[0] = (t_testcase){"--command echo hello world", m[0]};
 	tests[1] = (t_testcase){"--command echo hello world", m[1]};
 //	tests[1] = (t_testcase){"--command \"   echo hello\\n		my openworld \"", m[1]};
@@ -252,7 +252,7 @@ int	e2e_tests(void)
 	tests[21] = (t_testcase){"--command \"echo 1 || (echo 2 && (echo 3 && (echo 4) || echo 5 && echo 6))\"", m[21]};
 	tests[22] = (t_testcase){"--command \"echo 1 || (echo 2 && (echo 3 && (echo 4) || echo 5)) && echo 6\"", m[22]};
 	tests[23] = (t_testcase){"--command \"export foo=bar sea=\\$foo say=echo _1=\\$_1 _= && \\$say [\\$foo] ['\\$sea'] [\\\"\\$sea\\\"] [\\$food] [\\$_1] [\\$_] [\\$] [\\$PATH] [\\$some]\"", m[23]};
-	tests[24] = (t_testcase){"--command echo '\\$(echo \"\\$(echo \"\\$(echo \"bla\")\")\")'", m[24]};
+	tests[24] = (t_testcase){"--command \"echo \'\\$(echo \\\"\\$(echo \\\"\\$(echo \\\"bla\\\")\\\")\\\")\'\"", m[24]};
 	tests[25] = (t_testcase){"--command \"echo -nn 1 2\"", m[25]};
 	tests[26] = (t_testcase){"--command \"echo 1 -n 2&&echo 3||echo 4   ||echo 5 ||   echo 6\"", m[26]};
 
@@ -271,7 +271,7 @@ int	e2e_tests(void)
 		int mallocs;
 		successful_execution(&tests[i], &mallocs);
 		#ifdef FT_CALLOC_IF_TRAPPED
-		//malloc_failure_recoveries(tests[i].cmd, mallocs);
+		malloc_failure_recoveries(tests[i].cmd, mallocs);
 		#endif
 		ft_mapss_finalize_i(m[i], 0, 0);
 	}
