@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 17:06:11 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/04 13:23:17 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/04 14:26:43 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,15 @@ static int	try(t_crawler *c, char sym, int *field, int *other)
 	if (*other != -1)
 	{
 		s = ft_calloc_if(2, 1);
-		s[0] = sym;
-		if (!s || !ft_sbuf_append(c->sbuf, s))
+		if (!s)
 			return (ft_assign_i(&c->errno, 1, 0));
+		s[0] = sym;
+		if (!ft_sbuf_append(c->sbuf, s))
+		{
+			free(s);
+			return (ft_assign_i(&c->errno, 1, 0));
+		}
+		free(s);
 		c->i ++;
 		return (0);
 	}
