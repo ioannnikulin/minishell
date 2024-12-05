@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 20:05:21 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/12/03 15:28:46 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/12/05 12:43:43 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 int	is_operator(char *token)
 {
-	return (ft_strncmp(token, "&&", 2)
-		|| ft_strncmp(token, "||", 2)
-		|| ft_strncmp(token, ";", 1)
-		|| ft_strncmp(token, "|", 1)
-		|| ft_strncmp(token, "&", 1));
+	return (!ft_strncmp(token, "&&", 2)
+		|| !ft_strncmp(token, "||", 2)
+		|| !ft_strncmp(token, ";", 1)
+		|| !ft_strncmp(token, "|", 1)
+		|| !ft_strncmp(token, "&", 1));
 }
