@@ -123,8 +123,8 @@ fulltest_common:
 	$(PREFIX)cd sources && norminette
 	$(PREFIX)make all_mocked_parser_trapped
 
-github_fulltest: fulltest_common
-	$(PREFIX)make PREPROC_DEFINES="$(PREPROC_DEFINES) -DGITHUB" test_trapped_mocked memcheck
+fulltest_vania: fulltest_common
+	$(PREFIX)make PREPROC_DEFINES="$(PREPROC_DEFINES) -DVANIA" test_trapped_mocked memcheck
 
 fulltest: fulltest_common
 	$(PREFIX)make test_trapped_mocked memcheck
