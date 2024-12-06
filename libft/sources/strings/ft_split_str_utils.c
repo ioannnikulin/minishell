@@ -1,27 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_split_buf_utils.c                               :+:      :+:    :+:   */
+/*   ft_split_str_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 15:51:25 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/10/09 11:43:26 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/12/03 13:59:28 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "strings_internal.h"
 
-int	find_delimiter(const char *s, t_delims *ar, size_t *op_len)
+int	find_delimiter(const char *s, t_delims arr, size_t *op_len)
 {
 	size_t	i;
 	size_t	len;
 
 	i = 0;
-	while (i < ar->count)
+	while (i < arr.count)
 	{
-		len = ft_strlen(ar->delims[i].delim);
-		if (ft_strncmp(s, ar->delims[i].delim, len) == 0)
+		len = ft_strlen(arr.delims[i].delim);
+		if (ft_strncmp(s, arr.delims[i].delim, len) == 0)
 		{
 			*op_len = len;
 			return (1);
@@ -43,7 +43,7 @@ int	extract_delimiter(char **res, const char **s, size_t op_len, int cwi)
 	return (0);
 }
 
-int	extract_plain_token(char **res, const char **s, t_delims *ar, int cwi)
+int	extract_plain_token(char **res, const char **s, t_delims arr, int cwi)
 {
 	size_t		token_len;
 	const char	*start;
@@ -52,7 +52,7 @@ int	extract_plain_token(char **res, const char **s, t_delims *ar, int cwi)
 	token_len = 0;
 	start = *s;
 	op_len = 0;
-	while (**s && !find_delimiter(*s, ar, &op_len))
+	while (**s && !find_delimiter(*s, arr, &op_len))
 	{
 		(*s)++;
 		token_len++;

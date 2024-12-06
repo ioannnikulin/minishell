@@ -1,24 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   unit_tests.c                                       :+:      :+:    :+:   */
+/*   process_oprator.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/21 00:03:03 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/03 15:56:48 by taretiuk         ###   ########.fr       */
+/*   Created: 2024/12/02 19:47:18 by taretiuk          #+#    #+#             */
+/*   Updated: 2024/12/02 19:58:55 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tests_internal.h"
+#include "tree_processing_internal.h"
 
-int	unit_tests(void)
+int	process_operator(char *token, t_treenode **cur_1, int *num)
 {
-	printf("input_to_text_tree in progress\n");
-	input_to_text_tree_test();
-	ft_printf("input_to_text_tree tests completed\n");
-	printf("tokenize_cmd in progress\n");
-	tokenize_cmd_test();
-	ft_printf("tokenize_cmd tests completed\n");
+	if (ft_treenode_insert_child_idx_s_dup(*cur_1, token,
+			(*cur_1)->children_qtty) == -1)
+		return (1);
+	*num = 1;
 	return (0);
 }

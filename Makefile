@@ -20,7 +20,12 @@ TOKENIZING_NAMES = tokenize_cmd.c tokenize_cmd_utils.c
 TOKENIZING_F = tokenizing
 TOKENIZING_SRCS = $(addprefix $(TOKENIZING_F)/, $(TOKENIZING_NAMES))
 
-SRC_NAMES = finalize.c param_init.c param_get_envvars.c wrappers.c input_to_text_tree.c $(INPUT_TO_TEXT_TREE_MOCK_SRCS) exec_text_tree.c exec_text_tree_node.c $(COMMANDS_SRCS) $(TOKENIZING_SRCS) w_execve.c pre_post.c opts_fill.c opts.c g_interrupt_flag.c substitute_envvars.c expand.c
+TREE_MAKE_NAMES = tokens_to_tree.c is_closing_parenthesis.c is_opening_parenthesis.c is_operator.c is_redirection.c process_cmd_and_flag.c process_parentheses.c process_oprator.c
+TREE_MAKE_F = tree_make
+TREE_MAKE_SRCS =  $(addprefix $(TREE_MAKE_F)/, $(TREE_MAKE_NAMES))
+
+SRC_NAMES = finalize.c param_init.c param_get_envvars.c wrappers.c input_to_text_tree.c $(INPUT_TO_TEXT_TREE_MOCK_SRCS) exec_text_tree.c exec_text_tree_node.c $(COMMANDS_SRCS) $(TOKENIZING_SRCS) w_execve.c $(TREE_MAKE_SRCS) pre_post.c opts_fill.c opts.c g_interrupt_flag.c  substitute_envvars.c expand.c
+
 ENDPOINT_NAME = main.c
 
 SRC_SRCS = $(addprefix $(SOURCE_F)/, $(SRC_NAMES))
@@ -46,11 +51,12 @@ TEST_ENDPOINT_OBJ = $(TEST_OBJ_F)$(TEST_ENDPOINT_NAME:.c=.o)
 TEST_TOOL_OBJS = $(addprefix $(TEST_OBJ_F), $(TEST_TOOL_NAMES:.c=.o))
 INCLUDES = -I . -I libft
 
-DIRS = $(COMMANDS_F) $(INPUT_TO_TEXT_TREE_MOCK_F) $(TOKENIZING_F)
+DIRS = $(COMMANDS_F) $(INPUT_TO_TEXT_TREE_MOCK_F) $(TOKENIZING_F) $(TREE_MAKE_F)
 
 OBJ_DIRS = $(addprefix $(OBJ_F), $(DIRS))
 
-vpath %.c $(SOURCE_F) $(SOURCE_F)/$(COMMANDS_F) $(SOURCE_F)/$(INPUT_TO_TEXT_TREE_MOCK_F) $(SOURCE_F)/$(TOKENIZING_F)
+vpath %.c $(SOURCE_F) $(SOURCE_F)/$(COMMANDS_F) $(SOURCE_F)/$(INPUT_TO_TEXT_TREE_MOCK_F) $(SOURCE_F)/$(TREE_MAKE_F)\
+			$(SOURCE_F)/$(TOKENIZING_F)
 
 all: pre $(NAME)
 

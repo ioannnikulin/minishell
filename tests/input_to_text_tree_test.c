@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   input_to_text_tree_test.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 23:53:00 by inikulin          #+#    #+#             */
 /*   Updated: 2024/12/06 13:46:55 by inikulin         ###   ########.fr       */
