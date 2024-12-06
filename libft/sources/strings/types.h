@@ -1,24 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   unit_tests.c                                       :+:      :+:    :+:   */
+/*   types.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/21 00:03:03 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/03 15:56:48 by taretiuk         ###   ########.fr       */
+/*   Created: 2024/12/03 13:33:55 by taretiuk          #+#    #+#             */
+/*   Updated: 2024/12/03 13:35:48 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tests_internal.h"
+#ifndef TYPES_H
+# define TYPES_H
 
-int	unit_tests(void)
+typedef struct s_delim
 {
-	printf("input_to_text_tree in progress\n");
-	input_to_text_tree_test();
-	ft_printf("input_to_text_tree tests completed\n");
-	printf("tokenize_cmd in progress\n");
-	tokenize_cmd_test();
-	ft_printf("tokenize_cmd tests completed\n");
-	return (0);
-}
+	char	*delim;
+}	t_delim;
+
+typedef struct s_delims
+{
+	t_delim		*delims;
+	int			error;
+	size_t		count;
+}	t_delims;
+
+#endif
