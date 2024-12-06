@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 00:08:15 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/06 15:50:00 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/11/25 16:51:22 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static char	*get_checked_path(t_treenode *node, char *pwd, t_mapss *envvars,
 
 static int	couldnt(t_treenode *node, char *fullpath, int *ret, int errno)
 {
-	if (errno == 4 || errno == 6)
+	if (errno == 4 || errno == 6 || errno == 0)
 		printf("cd: %s: %s\n", (char *)node->child->content, ERR_CD_NOWHERE);
 	else if (errno == 1)
 		printf("cd: %s\n", ERR_CD_NO_HOME);
@@ -86,6 +86,7 @@ int	option_cd(t_control control, t_treenode *node, t_param *param)
 	envvars = param->envvar_path_head->next;
 	ft_dlist_delone(param->envvar_path_head, ft_free_s);
 	param->envvar_path_head = envvars;
+	envvars->prev = 0;
 	param_get_cur_dir(param);
 	*control.retval = 0;
 	free(fullpath);

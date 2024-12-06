@@ -1,37 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free_s.c                                        :+:      :+:    :+:   */
+/*   ft_free_s_1.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 18:43:58 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/05 21:57:38 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/05 21:58:09 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../libft.h"
 
-/*
- * treenode *node;
- * node->content = ft_calloc_if(sizeof(char) * 15, 1);
- * ...
- * ft_free_s(node->content);
- * //node->content still contains pointer to freshly freed memory
- *
- * target usage: containers (i.e. a tree with strings in nodes,
- * but since containers are generalized and content stored as void*,
- * we need a conversion here)
- * */
-void	ft_free_s(void *c)
-{
-	char	*cc;
-
-	cc = c;
-	free(cc);
-}
-
-static void	ft_free_ss_sz_map(void **c, int sz, void (*f)(void **))
+static void	ft_free_ss_uptonull_map(void **c, void (*f)(void **))
 {
 	char	**cc;
 	int		i;
@@ -40,7 +21,7 @@ static void	ft_free_ss_sz_map(void **c, int sz, void (*f)(void **))
 		return ;
 	cc = (char **)c;
 	i = -1;
-	while (++i < sz)
+	while (c[++ i])
 		f((void **)&cc[i]);
 	free(cc);
 }
@@ -60,19 +41,19 @@ static void	free_s_p(void **c)
  * node->content = ft_calloc_if(sizeof(char*) * 3, 1);
  * node->content[0] = ft_calloc_if(sizeof(char) * 15, 1);
  * node->content[1] = ft_calloc_if(sizeof(char) * 15, 1);
- * node->content[2] = ft_calloc_if(sizeof(char) * 15, 1);
+ * node->content[2] = 0;
  * ...
- * ft_free_ss_sz(node->content, 3);
- * // node->content and each element in it still contain pointers
- * // to freshly freed memory
+ * ft_free_ss_uptonull(node->content);
+ * //node->content and each element in it still contain pointers
+ * to freshly freed memory
  *
- * target usage: containers (i.e. a tree with strings in nodes, 
- * but since containers are generalized and content stored as void*, 
+ * target usage: containers (i.e. a tree with strings in nodes,
+ * but since containers are generalized and content stored as void*,
  * we need a conversion here)
  * */
-void	ft_free_ss_sz(void **c, int sz)
+void	ft_free_ss_uptonull(void **c)
 {
-	ft_free_ss_sz_map(c, sz, free_s_p);
+	ft_free_ss_uptonull_map(c, free_s_p);
 }
 
 /*
@@ -80,17 +61,17 @@ void	ft_free_ss_sz(void **c, int sz)
  * node->content = ft_calloc_if(sizeof(char*) * 3, 1);
  * node->content[0] = ft_calloc_if(sizeof(char) * 15, 1);
  * node->content[1] = ft_calloc_if(sizeof(char) * 15, 1);
- * node->content[2] = ft_calloc_if(sizeof(char) * 15, 1);
+ * node->content[2] = 0;
  * ...
- * ft_free_ss_sz_null(&node->content, 3);
+ * ft_free_ss_uptonull_null(&node->content);
  *
- * same as above, but also assigns nullpointers to all the pointers 
+ * same as above, but also assigns nullpointers to all the pointers
  * in node->content and to node->content intself
  * */
-void	ft_free_ss_sz_null(void ***c, int sz)
+void	ft_free_ss_uptonull_null(void ***c)
 {
 	if (!c)
 		return ;
-	ft_free_ss_sz_map(*c, sz, ft_free_s_null);
+	ft_free_ss_uptonull_map(*c, ft_free_s_null);
 	*c = 0;
 }

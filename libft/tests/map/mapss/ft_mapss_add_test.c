@@ -6,13 +6,13 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 21:34:36 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/06 12:56:48 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/11/11 02:49:57 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mapss_test.h"
 
-#define SZ 9
+#define SZ 10
 //#define DEBUG
 
 typedef struct s_testcase
@@ -39,6 +39,7 @@ static void	generate_tests(t_testcase *tests)
 	tests[6] = (t_testcase){"OLDPWD", ":0", 6, {"HOME", "OLDPWD", "PATH", "SHELL", "SHLVL", "USERNAME"}, {"/home/user", ":0", "/usr/local/sbin", "/bin/bash", "1", "/usr/local/sbin"}};
 	tests[7] = (t_testcase){"DISPLAY", "X Window", 7, {"DISPLAY", "HOME", "OLDPWD", "PATH", "SHELL", "SHLVL", "USERNAME"}, {"X Window", "/home/user", ":0", "/usr/local/sbin", "/bin/bash", "1", "/usr/local/sbin"}};
 	tests[8] = (t_testcase){"", "Empty_sring", 8, {"", "DISPLAY", "HOME", "OLDPWD", "PATH", "SHELL", "SHLVL", "USERNAME"}, {"Empty_sring", "X Window", "/home/user", ":0", "/usr/local/sbin", "/bin/bash", "1", "/usr/local/sbin"}};
+	tests[9] = (t_testcase){"DISPLAY", "nuffin", 8, {"", "DISPLAY", "HOME", "OLDPWD", "PATH", "SHELL", "SHLVL", "USERNAME"}, {"Empty_sring", "nuffin", "/home/user", ":0", "/usr/local/sbin", "/bin/bash", "1", "/usr/local/sbin"}};
 }
 
 void	ft_mapss_add_test(void)
