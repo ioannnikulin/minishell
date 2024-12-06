@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 18:10:38 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/29 20:22:42 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/06 16:29:07 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,10 +70,9 @@ t_param	*param_alloc(void)
 static void	parent_sigint(int sig)
 {
 	(void)sig;
-	g_interrupt_flag = SIGINT;
-	ft_printf("\n");
-	rl_replace_line("", 0);
+	write(1, "\n", 1);
 	rl_on_new_line();
+	rl_replace_line("", 0);
 	rl_redisplay();
 }
 
