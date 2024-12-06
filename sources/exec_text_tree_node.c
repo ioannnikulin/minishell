@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   exec_text_tree_node.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:39:01 by inikulin          #+#    #+#             */
 /*   Updated: 2024/12/06 18:32:41 by inikulin         ###   ########.fr       */
@@ -38,7 +38,7 @@ int	execute_text_tree_node(t_param *param, t_treenode *node)
 	t_tree	t;
 
 	if (!node || !node->content)
-		return (printf("%s\n", ERR_NO_COMMAND_FOUND) * 0);
+		return (ft_printf("%s\n", ERR_NO_COMMAND_FOUND) * 0);
 	if (expand(node, param))
 		return (ft_assign_i(&param->opts.errno, 1, 0));
 	cmd = node->content;

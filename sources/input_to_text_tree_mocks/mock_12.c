@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mock_12.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 23:07:09 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/07 12:10:06 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/11/29 14:31:43 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ int	mock_12_tree(t_treenode *cur)
 		return (1);
 	cur = cur->sibling_next->sibling_next;
 	if (ft_treenode_insert_child_idx_s_dup(cur, "./testf/..", 0) == -1
-		|| ft_treenode_insert_child_idx_s_dup(cur->parent, "&&", 3) == -1
-		|| ft_treenode_insert_child_idx_s_dup(cur->parent, "pwd", 4) == -1)
+		|| ft_treenode_insert_child_idx_s_dup(cur->parent, "&&", 5) == -1
+		|| ft_treenode_insert_child_idx_s_dup(cur->parent, "pwd", 6) == -1)
 		return (1);
 	return (0);
 }

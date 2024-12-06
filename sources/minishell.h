@@ -23,6 +23,9 @@
 # include "resources.h"
 # include "commands/commands.h"
 
+# include "tokenizing/input_processing.h"
+# include "tree_make/tree_processing.h"
+
 # define DBG_EXTERNAL_SEARCH_FOLDERS 1
 # define DBG_PRINT_TREE_BEFORE_EXEC 2
 # define DBG_PRINT_NODE_BEFORE_INSPECTION 4
@@ -69,6 +72,7 @@ int		opts_fill(int argc, const char **argv, t_param *param);
 int		param_get_envvars(t_param *param);
 int		finalize(t_param *param, int mode, char *message, int retval);
 int		input_to_text_tree(t_param *param);
+int		tokenize_cmd(const char *s, int *t_sz, char ***ss);
 int		exec_text_tree(t_param *param);
 int		execute_text_tree_node(t_param *param, t_treenode *node);
 int		param_get_cur_dir(t_param *param);
