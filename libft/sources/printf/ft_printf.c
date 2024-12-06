@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 12:46:27 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/06 12:11:10 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/11/29 17:30:05 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,17 @@ int	ft_fprintf(int fd, const char *s, ...)
 
 #ifdef PRINTF_ALLOWED
 
+// dup2 to self is a fflush
 int	ft_printf(const char *s, ...)
 {
 	va_list	argv;
+	int		res;
 
 	va_start(argv, s);
-	return (vprintf(s, argv));
+	dup2(STDOUT_FILENO, STDOUT_FILENO);
+	res = vprintf(s, argv);
+	va_end(argv);
+	return (res);
 }
 #else
 

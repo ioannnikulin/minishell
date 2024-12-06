@@ -2,7 +2,7 @@ CC = cc
 NAME = minishell
 COMPILE_FLAGS = -Wall -Wextra -Werror -g -c
 LINK_FLAGS = -lft -Llibft -lreadline
-PREFIX =
+PREFIX = @
 PREPROC_DEFINES =
 
 SOURCE_F = sources
@@ -77,8 +77,14 @@ $(TEST_OBJ_F):
 $(TEST_TOOL_FNAME): $(TEST_TOOL_OBJS)
 	$(PREFIX)$(CC) $(TEST_TOOL_OBJS) -o $(TEST_TOOL_FNAME) $(LINK_FLAGS)
 
-$(TEST_OBJ_F)%.o: $(TEST_F)/%.c $(TEST_OBJ_F) $(TEST_ENDPOINT_OBJ)
-	$(PREFIX)$(CC) $(COMPILE_FLAGS) $< -o $@ $(INCLUDES) $(MOCK_FLAG)
+$(TEST_OBJ_F)%.o: $(TEST_F)/%.c $(TEST_OBJ_F)
+	$(PREFIX)$(CC) $(COMPILE_FLAGS) $< -o $@ $(INCLUDES) $(PREPROC_DEFINES)
+
+test_trapped:
+	$(PREFIX)make PREPROC_DEFINES="$(PREPROC_DEFINES) -DFT_CALLOC_IF_TRAPPED" test
+
+test_trapped_mocked:
+	$(PREFIX)make PREPROC_DEFINES="$(PREPROC_DEFINES) -DMOCK_TANIA" test_trapped
 
 test: $(OBJ_DIRS) $(TEST_OBJ_F) $(OBJS) $(TEST_OBJS) $(TEST_ENDPOINT_OBJ) $(TEST_TOOL_FNAME)
 	$(PREFIX)$(CC) $(OBJS) $(TEST_OBJS) $(TEST_ENDPOINT_OBJ) -o $(TEST_FNAME) $(LINK_FLAGS)
@@ -97,7 +103,7 @@ prere:
 
 clean: testclean
 	$(PREFIX)rm -f $(OBJS) $(ENDPOINT_OBJ) $(TANIA_ENDPOINT_OBJ)
-	$(PREFIX)@if [ -d $(OBJ_F) ]; then $(PREFIX)rm -rf $(OBJ_F); fi
+	$(PREFIX)@if [ -d $(OBJ_F) ]; then rm -rf $(OBJ_F); fi
 
 fclean: clean testfclean
 	$(PREFIX)rm -f $(NAME)
@@ -106,7 +112,7 @@ re: fclean all
 
 testclean:
 	$(PREFIX)rm -f $(TEST_OBJS) $(TEST_ENDPOINT_OBJ) $(TEST_TOOL_OBJS)
-	$(PREFIX)@if [ -d $(TEST_OBJ_F) ]; then $(PREFIX)rm -rf $(TEST_OBJ_F); fi
+	$(PREFIX)@if [ -d $(TEST_OBJ_F) ]; then rm -rf $(TEST_OBJ_F); fi
 
 testfclean: testclean
 	$(PREFIX)rm -f $(TEST_FNAME) $(TEST_TOOL_FNAME)
@@ -114,13 +120,19 @@ testfclean: testclean
 retest: testfclean test
 
 memcheck:
-	$(PREFIX)valgrind --leak-check=full --show-leak-kinds=all $(TEST_FNAME)
+	$(PREFIX)valgrind --suppressions=tests/valgrind.supp --leak-check=full --show-leak-kinds=all $(TEST_FNAME)
 
-fulltest:
+fulltest_common:
 	$(PREFIX)cd libft && make fulltest_trapped_stdprintf
 	$(PREFIX)make fclean testfclean
 	$(PREFIX)cd sources && norminette
-	$(PREFIX)make vania_trapped test memcheck
+	$(PREFIX)make all_mocked_parser_trapped
+
+fulltest_vania: fulltest_common
+	$(PREFIX)make PREPROC_DEFINES="$(PREPROC_DEFINES) -DVANIA" test_trapped_mocked memcheck
+
+fulltest: fulltest_common
+	$(PREFIX)make test_trapped_mocked memcheck
 
 PHONY: all pre clean fclean re test fulltest testclean testfclean retest tania vania vania_trapped
 
@@ -143,8 +155,13 @@ tania: $(OBJ_DIRS) $(TANIA_OBJ_F) $(OBJS) $(TANIA_ENDPOINT_OBJ)
 
 ########################################
 
-vania: PREPROC_DEFINES += -DMOCK_TANIA
-vania: all
+all_mocked_parser:
+	$(PREFIX)make PREPROC_DEFINES="$(PREPROC_DEFINES) -DMOCK_TANIA" all
 
-vania_trapped: PREPROC_DEFINES += -DFT_CALLOC_IF_TRAPPED
-vania_trapped: vania
+all_mocked_parser_trapped:
+	$(PREFIX)make PREPROC_DEFINES="$(PREPROC_DEFINES) -DFT_CALLOC_IF_TRAPPED" all_mocked_parser
+
+vania:
+	$(PREFIX)cd libft && make fulltest_trapped_stdprintf_nonorm
+	$(PREFIX)make fclean testfclean
+	$(PREFIX)make all_mocked_parser test && ./$(TEST_FNAME)

@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 23:07:09 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/07 12:11:53 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/11/08 23:16:21 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,7 @@ static t_treenode	*p1(t_treenode *cur, t_treenode *root)
 		|| ft_treenode_insert_child_idx_s_dup(root, "cd", 2) == -1)
 		return (0);
 	cur = cur->sibling_next->sibling_next;
-	if (ft_treenode_insert_child_idx_s_dup(cur, "-L", 0) == -1
-		|| ft_treenode_insert_child_idx_s_dup(cur, "testf", 1) == -1
+	if (ft_treenode_insert_child_idx_s_dup(cur, "testf", 0) == -1
 		|| ft_treenode_insert_child_idx_s_dup(root, "&&", 3) == -1
 		|| ft_treenode_insert_child_idx_s_dup(root, "mkdir", 4) == -1)
 		return (0);
