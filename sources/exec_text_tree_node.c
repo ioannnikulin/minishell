@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:39:01 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/02 21:09:56 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/06 18:32:41 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,9 @@ static int	is(char *a, char *b, int c)
 {
 	return (ft_strncmp(a, b, c) == 0);
 }
+
+static int	switch(t_param *param, t_treenode *node, t_control control)
+{}
 
 int	execute_text_tree_node(t_param *param, t_treenode *node)
 {
