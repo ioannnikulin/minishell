@@ -16,6 +16,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <signal.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "../libft/libft.h"
@@ -42,6 +43,7 @@ typedef struct s_opts
 	t_ull	debug_output_level;
 	int		exiting;
 	int		errno;
+	void	(*sigint_handler)(int);
 }	t_opts;
 
 typedef struct s_param

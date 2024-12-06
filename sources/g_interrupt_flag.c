@@ -1,31 +1,15 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   finalize.c                                         :+:      :+:    :+:   */
+/*   g_interrupt_flag.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/03 17:11:19 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/29 18:47:42 by inikulin         ###   ########.fr       */
+/*   Created: 2024/11/29 19:21:43 by inikulin          #+#    #+#             */
+/*   Updated: 2024/11/29 19:22:07 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	finalize(t_param *param, int mode, char *message, int retval)
-{
-	if (param)
-	{
-		(void)mode;
-		ft_tree_free(&param->text_tree);
-		ft_mapss_finalize_i(param->envvars, 0, 0);
-		free(param->cur_command);
-		ft_dlist_clear_s(&param->envvar_path_head, 0);
-		free(param->opts.file);
-		free(param);
-	}
-	rl_clear_history();
-	if (message)
-		printf("%s\n", message);
-	return (retval);
-}
+volatile sig_atomic_t	g_interrupt_flag = 0;

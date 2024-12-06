@@ -6,11 +6,13 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 18:10:38 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/06 23:55:12 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/11/29 19:38:50 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+extern volatile sig_atomic_t	g_interrupt_flag;
 
 static char	*cwd(void)
 {
@@ -65,10 +67,30 @@ t_param	*param_alloc(void)
 	return (param);
 }
 
+static void	parent_sigint(int sig)
+{
+	(void)sig;
+	g_interrupt_flag = SIGINT;
+	ft_printf("\n");
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	rl_redisplay();
+	rl_done = 1;
+}
+
 int	param_init(t_param *param)
 {
+	struct sigaction	sa;
+
+	sa.sa_handler = parent_sigint;
+	sa.sa_flags = SA_RESTART;
+	sigemptyset(&sa.sa_mask);
+	if (sigaction(SIGINT, &sa, NULL) == -1)
+		return (2);
 	param->envvars = ft_mapss_init();
 	if (!param->envvars)
 		return (1);
+	signal(SIGTSTP, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
 	return (0);
 }
