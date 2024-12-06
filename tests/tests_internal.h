@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TESTS_COMMON_H
-# define TESTS_COMMON_H
+#ifndef TESTS_INTERNAL_H
+# define TESTS_INTERNAL_H
 # include "../sources/minishell.h"
 # include <assert.h>
 # include <fcntl.h>
@@ -19,5 +19,6 @@
 
 int	    input_to_text_tree_test(void);
 void    tokenize_cmd_test(void);
+void	tokens_to_tree_test(void);
 
 #endif
