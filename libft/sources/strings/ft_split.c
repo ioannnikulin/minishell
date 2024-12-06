@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inikulin <inikulin@student.42berlin.d      +#+  +:+       +#+        */
+/*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 20:24:25 by inikulin          #+#    #+#             */
-/*   Updated: 2024/08/17 21:41:14 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/11/26 15:42:32 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,23 +62,6 @@ static void	parse_word(char **res, const char **f, const char *charset)
 		(*from)++;
 	}
 	(*res)[cwlen] = 0;
-}
-
-static int	check_edges(char **res, int *cwi)
-{
-	if (!res[*cwi])
-	{
-		while (-- (*cwi) > -1)
-			free(res[*cwi]);
-		free(res);
-		return (1);
-	}
-	if (!res[*cwi][0])
-	{
-		free(res[*cwi]);
-		(*cwi)--;
-	}
-	return (0);
 }
 
 char	**ft_split_set(const char *str, const char *charset, int *sz)

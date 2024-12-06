@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   ft_free_s.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 18:43:58 by inikulin          #+#    #+#             */
 /*   Updated: 2024/12/05 21:57:38 by inikulin         ###   ########.fr       */

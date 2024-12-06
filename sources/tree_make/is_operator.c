@@ -1,24 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   unit_tests.c                                       :+:      :+:    :+:   */
+/*   is_operator.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/21 00:03:03 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/03 15:56:48 by taretiuk         ###   ########.fr       */
+/*   Created: 2024/12/02 20:05:21 by taretiuk          #+#    #+#             */
+/*   Updated: 2024/12/05 12:43:43 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tests_internal.h"
+#include "tree_processing_internal.h"
 
-int	unit_tests(void)
+int	is_operator(char *token)
 {
-	printf("input_to_text_tree in progress\n");
-	input_to_text_tree_test();
-	ft_printf("input_to_text_tree tests completed\n");
-	printf("tokenize_cmd in progress\n");
-	tokenize_cmd_test();
-	ft_printf("tokenize_cmd tests completed\n");
-	return (0);
+	return (!ft_strncmp(token, "&&", 2)
+		|| !ft_strncmp(token, "||", 2)
+		|| !ft_strncmp(token, ";", 1)
+		|| !ft_strncmp(token, "|", 1)
+		|| !ft_strncmp(token, "&", 1));
 }
