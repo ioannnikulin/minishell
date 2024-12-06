@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 22:57:54 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/29 18:31:50 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/05 21:40:34 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,14 +63,14 @@ static void	finally_err(int *out, int *save)
 }
 #endif
 
-static int	file_compare(char *exp_contens, char *act_fname)
+static int	file_compare(char *exp_content, char *act_fname)
 {
 	#ifdef DEBUG
 	fprintf(stderr, "comparing files\n");
 	fflush(stderr);
-	fprintf(stderr, "expected [%p]\n", exp_contens);
+	fprintf(stderr, "expected [%p]\n", exp_content);
 	fflush(stderr);
-	fprintf(stderr, "expected [%s]\n", exp_contens);
+	fprintf(stderr, "expected [%s]\n", exp_content);
 	fflush(stderr);
 	fprintf(stderr, "actual fname [%s]\n", act_fname);
 	fflush(stderr);
@@ -86,7 +86,7 @@ static int	file_compare(char *exp_contens, char *act_fname)
 	fclose(f);
 
 	regex_t re;
-	char	*exp_re = ft_strjoin(exp_contens, "(Total ft_calloc_calls: [0-9]*\n)?");
+	char	*exp_re = ft_strjoin(exp_content, "(Total ft_calloc_calls: [0-9]*\n)?");
 	assert(exp_re);
 	assert(regcomp(&re, exp_re, REG_EXTENDED | REG_NOSUB) == 0);
 	int comp_res = regexec(&re, act, 0, NULL, 0);
@@ -98,13 +98,13 @@ static int	file_compare(char *exp_contens, char *act_fname)
 			diff = i;
 			break ;
 		}
-	ft_printf("comparison result %i, expected:{{%s}}\nactual:{{%s}}\nstrncmp %i\nstart to differ from index %i\n", comp_res, exp_re, act, ft_strncmp(exp_contens, act, fsize), diff);
+	ft_printf("comparison result %i, expected:{{%s}}\nactual:{{%s}}\nstrncmp %i\nstart to differ from index %i\n", comp_res, exp_re, act, ft_strncmp(exp_content, act, fsize), diff); // a strcmp giving not 0 is possible, since the actual result should be matched to regexp, not strcompared to it. Regexps contain special characters in most cases, hence direct comparison will fail. Hence strcmp result is not asserted to be 0 only regcomp is asseted. This output is for my reference.
 	fflush(stdout);
 	#endif
 	assert(comp_res == 0);
 	free(exp_re);
 	int i;
-	for (i = fsize - 2; act[i] >= '0' && act[i] <= '9'; i --);
+	for (i = fsize - 2; act[i] >= '0' && act[i] <= '9'; i --); // When started with traps, the output always ends in a number. Counter of callocs. Here I navigate fron the end of file to the last non-digit to find the start of this number to parse it out.
 	char *sub = ft_substr(act, i, fsize - i);
 	int mallocs = ft_atoi(sub, 0);
 	free(sub);
@@ -248,8 +248,8 @@ int	e2e_tests(void)
 		#ifdef DEBUG
 		printf("%i\n", i);
 		#endif
-		#ifdef GITHUB
-		if (i == 15) // cannot cd without arguments in Github (go to home)
+		#ifndef VANIA
+		if (i == 15) // cd without arguments is 'go home'. mocked home /home/ioann only available for vania, so skipping everywhere else. can remove this when envvars will be actually read, not mocked.
 		{
 			ft_mapss_finalize_i(m[i], 0, 0);
 			continue ;
