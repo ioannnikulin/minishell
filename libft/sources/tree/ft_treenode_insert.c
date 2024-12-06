@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 18:43:58 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/06 15:11:28 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/06 13:48:45 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int	ft_treenode_insert_child_idx(t_treenode *parent, t_treenode *child,
 	child->parent = parent;
 	parent->children_qtty ++;
 	after = parent->child;
+	child->depth = parent->depth + 1;
 	if (!after || before_idx <= 0)
 		return (idx_first(after, before_idx, parent, child));
 	i = 0;
@@ -79,6 +80,7 @@ int	ft_treenode_insert_child_before_first(t_treenode *parent, t_treenode *child,
 
 	child->parent = parent;
 	parent->children_qtty ++;
+	child->depth = parent->depth + 1;
 	if (before_first(parent, child, cmp))
 		return (0);
 	cur = parent->child;
