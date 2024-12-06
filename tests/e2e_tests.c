@@ -263,6 +263,5 @@ int	e2e_tests(void)
 		ft_mapss_finalize_i(m[i], 0, 0);
 	}
 	system("(rm -r e2e_f && rm e2e.stdout e2e.stderr) 2> /dev/null");
-	malloc_failure_recoveries(0, 0); // to avdoid unused function warning
 	return (0);
 }

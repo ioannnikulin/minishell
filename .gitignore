@@ -1,6 +1,7 @@
 libft.a
 *.o
 *.sf
+*.txt
 libft/tests/test
 .vscode
 minishell

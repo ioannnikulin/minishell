@@ -6,11 +6,13 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 15:21:17 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/14 23:38:32 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/11/29 19:38:22 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+extern volatile sig_atomic_t	g_interrupt_flag;
 
 static int	interactive(t_param *param)
 {
@@ -20,6 +22,13 @@ static int	interactive(t_param *param)
 	{
 		free(param->cur_command);
 		param->cur_command = readline(TXT_INVITATION);
+		if (g_interrupt_flag)
+		{
+			g_interrupt_flag = 0;
+			continue ;
+		}
+		if (!param->cur_command)
+			break ;
 		add_history(param->cur_command);
 		ret = input_to_text_tree(param);
 		if (ret)

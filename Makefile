@@ -2,7 +2,7 @@ CC = cc
 NAME = minishell
 COMPILE_FLAGS = -Wall -Wextra -Werror -g -c
 LINK_FLAGS = -lft -Llibft -lreadline
-PREFIX = @
+PREFIX = 
 PREPROC_DEFINES =
 
 SOURCE_F = sources
@@ -20,7 +20,7 @@ TOKENIZING_NAMES = tokenize_cmd.c tokenize_cmd_utils.c
 TOKENIZING_F = tokenizing
 TOKENIZING_SRCS = $(addprefix $(TOKENIZING_F)/, $(TOKENIZING_NAMES))
 
-SRC_NAMES = finalize.c param_init.c param_get_envvars.c wrappers.c input_to_text_tree.c $(INPUT_TO_TEXT_TREE_MOCK_SRCS) exec_text_tree.c exec_text_tree_node.c $(COMMANDS_SRCS) $(TOKENIZING_SRCS) w_execve.c pre_post.c opts_fill.c opts.c
+SRC_NAMES = finalize.c param_init.c param_get_envvars.c wrappers.c input_to_text_tree.c $(INPUT_TO_TEXT_TREE_MOCK_SRCS) exec_text_tree.c exec_text_tree_node.c $(COMMANDS_SRCS) $(TOKENIZING_SRCS) w_execve.c pre_post.c opts_fill.c opts.c g_interrupt_flag.c
 ENDPOINT_NAME = main.c
 
 SRC_SRCS = $(addprefix $(SOURCE_F)/, $(SRC_NAMES))
@@ -81,6 +81,9 @@ test_trapped:
 test_trapped_mocked:
 	$(PREFIX)make PREPROC_DEFINES="$(PREPROC_DEFINES) -DMOCK_TANIA" test_trapped
 
+test_mocked:
+	$(PREFIX)make PREPROC_DEFINES="$(PREPROC_DEFINES) -DMOCK_TANIA" test
+
 test: $(OBJ_DIRS) $(TEST_OBJ_F) $(OBJS) $(TEST_OBJS) $(TEST_ENDPOINT_OBJ) $(TEST_TOOL_FNAME)
 	$(PREFIX)$(CC) $(OBJS) $(TEST_OBJS) $(TEST_ENDPOINT_OBJ) -o $(TEST_FNAME) $(LINK_FLAGS)
 
@@ -116,6 +119,9 @@ retest: testfclean test
 
 memcheck:
 	$(PREFIX)valgrind --suppressions=tests/valgrind.supp --leak-check=full --show-leak-kinds=all $(TEST_FNAME)
+
+memcheck_interactive:
+	$(PREFIX)valgrind --suppressions=tests/valgrind.supp --leak-check=full --show-leak-kinds=all ./$(NAME) --interactive
 
 fulltest_common:
 	$(PREFIX)cd libft && make fulltest_trapped_stdprintf
@@ -159,4 +165,8 @@ all_mocked_parser_trapped:
 vania:
 	$(PREFIX)cd libft && make fulltest_trapped_stdprintf_nonorm
 	$(PREFIX)make fclean testfclean
-	$(PREFIX)make all_mocked_parser test && ./$(TEST_FNAME)
+	$(PREFIX)make minivania
+
+minivania:
+	$(PREFIX)make all_mocked_parser test_mocked && ./$(TEST_FNAME)
+
