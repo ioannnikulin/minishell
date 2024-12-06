@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 23:53:00 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/29 20:34:10 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/06 13:46:55 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int	a_test(t_param *param, char *input, int (*treegen)(t_treenode *), int
 	(void)i;
 	t_tree *exp_tree = ft_tree_make();
 	assert(exp_tree);
-	t_treenode *exp_node = ft_treenode_make(TEXT_TREE_ROOT, 0, 0, ft_free_nop);
+	t_treenode *exp_node = ft_treenode_make(TEXT_TREE_ROOT, 0, ft_free_nop);
 	assert(exp_node);
 	exp_tree->root = exp_node;
 	treegen(exp_node);
