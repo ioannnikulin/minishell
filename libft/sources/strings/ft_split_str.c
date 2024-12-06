@@ -6,19 +6,19 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 14:08:20 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/12/06 16:20:54 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/12/06 19:45:21 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "strings_internal.h"
 
-static void	calc_tokens(const char *pp, int *token_q, t_delims arr)
+static int	calc_tokens(const char *p, int *token_q, t_delims arr)
 {
 	size_t		op_len;
-	const char	*p;
 
 	*token_q = 0;
-	p = pp;
+	if (!*p)
+		return (ft_assign_i(token_q, 1, 0));
 	while (*p)
 	{
 		while (*p == ' ')
@@ -37,6 +37,7 @@ static void	calc_tokens(const char *pp, int *token_q, t_delims arr)
 			(*token_q)++;
 		}
 	}
+	return (0);
 }
 
 static int	extract_token(char **res, const char **s, int token_q, t_delims arr)

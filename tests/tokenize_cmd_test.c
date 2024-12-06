@@ -6,13 +6,13 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 06:11:45 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/12/03 15:23:40 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/12/06 19:54:29 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tests_internal.h"
 #include "../sources/tokenizing/input_processing.h"
-// #define DEBUG
+//#define DEBUG
 #define NUM_TEST_CASES 11
 #define MAX_ARGS 16
 
@@ -85,28 +85,26 @@ void	tokenize_cmd_test()
 		{"mv", "new_dir", "old_dir", NULL},
 		{"&&", NULL},
 		{")", "(", "(", ")", ")", "(", NULL},
-		{NULL}
+		{"", NULL}
 	};
 	for (int i = 0; i < NUM_TEST_CASES; i ++)
 	{
-		tokenize_cmd(str_arr.strs[i].str, &sz, &tokens);
-		#ifdef define
-		ft_printf("sz: %i\n", sz);
+		#ifdef DEBUG
+		ft_printf("====== %i ======\n", i);
 		#endif
-		if (tokens == NULL)
+		int ret = tokenize_cmd(str_arr.strs[i].str, &sz, &tokens);
+		#ifdef DEBUG
+		ft_printf("ret: %i, sz: %i\n", ret, sz);
+		#endif
+		assert(ret == 0);
+
+		for (int j = 0; tokens[j] != NULL; j++)
 		{
-			assert(t[i][0] == NULL);
-		}
-		else
-		{
-			for (int j = 0; tokens[j] != NULL; j++)
-			{
-				#ifdef DEBUG
-				ft_printf("%s\n", tokens[j]);
-				#endif
-				assert((tokens[j] == NULL) == (t[i][j] == NULL));
-				assert(ft_strcmp(tokens[j], t[i][j]) == 0);
-			}
+			#ifdef DEBUG
+			ft_printf("%s\n", tokens[j]);
+			#endif
+			assert((tokens[j] == NULL) == (t[i][j] == NULL));
+			assert(ft_strcmp(tokens[j], t[i][j]) == 0);
 		}
 		ft_free_ss_sz_null((void *)&(tokens), sz);
 		sz = 0;

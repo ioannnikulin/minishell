@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 18:49:54 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/12/06 18:19:39 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/12/06 19:14:21 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	count_tokens(char **ss, t_delims arr, int *t_sz)
 		i++;
 	}
 	if (*t_sz == 0)
-		return (1);
+		*t_sz = 1;
 	return (0);
 }
 

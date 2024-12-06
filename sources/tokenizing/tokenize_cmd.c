@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 06:08:59 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/12/06 18:21:49 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/12/06 19:53:18 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,7 @@ static int	split_excluding_quotes(char **s, t_delims arr, char ***p_ss)
 	while (s[++i] != NULL)
 	{
 		temp_split = ft_split_skip_delim(s[i], arr, '"', &sz);
-		if (temp_split == NULL || temp_split[0] == NULL
-			|| temp_split[0][0] == '\0')
+		if (temp_split == NULL)
 		{
 			ft_free_ss_uptonull((void **)temp_split);
 			return (1);
@@ -62,7 +61,7 @@ static int	split_by_spcs_tabs(char **ss, t_delims arr, int *t_sz, char ***p_ss)
 		return (1);
 	if (split_excluding_quotes(ss, arr, p_ss) != 0)
 		return (1);
-	if (*p_ss == NULL || (*p_ss)[0] == NULL)
+	if (*p_ss == NULL)
 		return (cleanup(0, *p_ss, 2));
 	return (0);
 }
@@ -77,7 +76,7 @@ static int	split_by_operators(const char *s, int *sz, char ***p_ss)
 	if (op_arr.error)
 		return (1);
 	*p_ss = ft_split_str(s, op_arr, sz);
-	if (*p_ss == NULL || (*p_ss)[0] == NULL)
+	if (*p_ss == NULL)
 		return (cleanup(&op_arr, *p_ss, 2));
 	return (cleanup(&op_arr, 0, 0));
 }
@@ -88,6 +87,14 @@ int	tokenize_cmd(const char *s, int *t_sz, char ***p_ss)
 	char		**tok_oper;
 	t_delims	delim_arr;
 
+	if (!*s)
+	{
+		*p_ss = ft_calloc_if(sizeof(char *) * 2, 1);
+		if (!*p_ss)
+			return (1);
+		*t_sz = 1;
+		return (0);
+	}
 	s_sz = 0;
 	tok_oper = NULL;
 	delim_arr = create_delim_arr();
