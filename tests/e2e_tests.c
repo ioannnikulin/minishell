@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   e2e_tests.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 22:57:54 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/05 21:40:34 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/06 19:54:46 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,7 +168,8 @@ static void	malloc_failure_recoveries(char *cmd, int mallocs)
 		finally(&out, &save);
 		finally_err(&outerr, &saveerr);
 		char *err = ft_calloc(sizeof(char *), 256);
-		read(open("e2e.stderr", O_RDONLY, 0600), err, 256);
+		int fd = open("e2e.stderr", O_RDONLY, 0600);
+		read(fd, err, 256);
 		int i = 0;
 		// expected output
 	  	// ==130278== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: ... from ...)
@@ -179,6 +180,7 @@ static void	malloc_failure_recoveries(char *cmd, int mallocs)
 		// TODO: check no files were created
 		free(tmp);
 		free(err);
+		close(fd);
 	}
 	system("(rm -r e2e_f && rm e2e.stdout e2e.stderr) 2> /dev/null");
 }

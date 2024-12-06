@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   input_to_text_tree_mock.h                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 00:19:45 by inikulin          #+#    #+#             */
 /*   Updated: 2024/12/02 16:49:33 by inikulin         ###   ########.fr       */
