@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   e2e_tests.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 22:57:54 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/05 21:40:34 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/06 15:41:34 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tests_internal.h"
-#define START 0
+#define START 6
 #define TRAP_START 0
 #define SZ 19
-//#define DEBUG
+#define DEBUG
 #define PRINT_MALLOC_FAILURE_NO
 
 typedef struct s_testcase

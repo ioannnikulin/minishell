@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 18:49:54 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/11/27 12:28:13 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/12/06 15:54:03 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	cleanup(t_delims *arr, char ***sss, int sz, int retval)
 	}
 	if (sss != NULL && *sss != NULL)
 	{
-		ft_free_ss_sz_null((void ***)sss, sz);
+		ft_free_ss_sz_null((void ***)sss, sz + 1);
 	}
 	return (retval);
 }

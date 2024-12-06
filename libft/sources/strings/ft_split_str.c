@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 14:08:20 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/12/03 15:55:02 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/12/06 16:08:16 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,13 @@ static int	extract_token(char **res, const char **s, int token_q, t_delims arr)
 			(*s)++;
 		if (find_delimiter(*s, arr, &op_len))
 		{
-			extract_delimiter(res, s, op_len, cwi);
+			if (extract_delimiter(res, s, op_len, cwi) != 0)
+				return (1);
 		}
 		else
 		{
-			extract_plain_token(res, s, arr, cwi);
+			if (extract_plain_token(res, s, arr, cwi) != 0)
+				return (1);
 		}
 		if (check_edges(res, &cwi))
 			return (1);
@@ -80,7 +82,11 @@ char	**ft_split_str(const char *s, t_delims arr, int *sz)
 	res[token_q] = 0;
 	if (token_q == 0)
 		return (res);
-	extract_token(res, &s, token_q, arr);
+	if (extract_token(res, &s, token_q, arr) != 0)
+	{
+		ft_free_ss_sz_null((void **)res, (*sz + 1));
+		return (NULL);
+	}
 	if (sz)
 		*sz = token_q;
 	return (res);
