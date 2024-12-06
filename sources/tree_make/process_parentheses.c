@@ -33,8 +33,10 @@ int	process_open_parentheses(char *token, t_treenode **cur_1,
 int	process_closing_parentheses(t_treenode **cur_1, t_treenode **cur_2,
 			int *num)
 {
+	if (!cur_1 || !*cur_1)
+		return (1);
+	*cur_2 = *cur_1;
 	*cur_1 = (*cur_1)->parent;
-	*cur_2 = (*cur_1)->child;
 	*num = 0;
 	return (0);
 }

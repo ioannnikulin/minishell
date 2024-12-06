@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 15:22:58 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/15 10:52:00 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/06 17:41:55 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,13 @@
 
 # include "tokenizing/input_processing.h"
 # include "tree_make/tree_processing.h"
-# define FREE_ENVVARS_ENTRIES 2
-# define FREE_ENVVARS_KEYS 4
-# define FREE_ENVVARS_VALUES 8
-# define STAGE_FULL 15
 
 # define DBG_EXTERNAL_SEARCH_FOLDERS 1
 # define DBG_PRINT_TREE_BEFORE_EXEC 2
 # define DBG_PRINT_NODE_BEFORE_EXEC 4
 # define DBG_EXECVE_PREPRINT 8
-# define DBG_FULL 15
+# define DBG_PRINT_NODE_BEFORE_EXECUTION 16
+# define DBG_FULL 31
 
 typedef unsigned long long	t_ull;
 

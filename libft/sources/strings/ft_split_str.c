@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 14:08:20 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/12/06 16:08:16 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/12/06 16:20:54 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ char	**ft_split_str(const char *s, t_delims arr, int *sz)
 		return (res);
 	if (extract_token(res, &s, token_q, arr) != 0)
 	{
-		ft_free_ss_sz_null((void **)res, (*sz + 1));
+		ft_free_ss_uptonull((void **)res);
 		return (NULL);
 	}
 	if (sz)

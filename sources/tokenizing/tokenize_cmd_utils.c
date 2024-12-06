@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 18:49:54 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/12/06 15:54:03 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/12/06 18:19:39 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,15 +54,33 @@ t_delims	create_delim_arr(void)
 	return (delim_array);
 }
 
-int	cleanup(t_delims *arr, char ***sss, int sz, int retval)
+int	count_tokens(char **ss, t_delims arr, int *t_sz)
+{
+	int		i;
+	int		sz;
+
+	i = 0;
+	sz = 0;
+	while (ss[i] != NULL)
+	{
+		sz = count_words_skip_delim(ss[i], arr, '"');
+		*t_sz += sz;
+		i++;
+	}
+	if (*t_sz == 0)
+		return (1);
+	return (0);
+}
+
+int	cleanup(t_delims *arr, char **ss, int retval)
 {
 	if (arr != NULL)
 	{
 		ft_free_delims_arr(arr);
 	}
-	if (sss != NULL && *sss != NULL)
+	if (ss != NULL && *ss != NULL)
 	{
-		ft_free_ss_sz_null((void ***)sss, sz + 1);
+		ft_free_ss_uptonull((void **)ss);
 	}
 	return (retval);
 }
