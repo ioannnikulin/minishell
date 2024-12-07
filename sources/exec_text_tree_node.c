@@ -6,46 +6,29 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:39:01 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/06 18:32:41 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/07 14:51:54 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static t_control	control(int choice, int *retval, int *found)
+static t_control	make_ctrl(int *retval, int *found)
 {
 	t_control	res;
 
-	res.choice = choice;
 	res.retval = retval;
 	res.found = found;
+	*retval = 0;
+	*found = 0;
 	return (res);
 }
 
-static int	is(char *a, char *b, int c)
+static int	switch(t_param *param, t_treenode *node, t_control *control)
 {
-	return (ft_strncmp(a, b, c) == 0);
-}
-
-static int	switch(t_param *param, t_treenode *node, t_control control)
-{}
-
-int	execute_text_tree_node(t_param *param, t_treenode *node)
-{
-	int		res;
 	char	*cmd;
-	int		found;
-	t_tree	t;
 
-	if (!node || !node->content)
-		return (ft_printf("%s\n", ERR_NO_COMMAND_FOUND) * 0);
-	if (expand(node, param))
-		return (ft_assign_i(&param->opts.errno, 1, 0));
 	cmd = node->content;
-	t.root = node;
-	if (param->opts.debug_output_level & DBG_PRINT_NODE_BEFORE_EXECUTION)
-		ft_tree_print_s(&t);
-	ft_assign_i(&found, 0, ft_assign_i(&res, 0, 0));
+	if ()
 	option_cd(control(is(cmd, "cd", 3), &res, &found), node, param);
 	option_echo(control(is(cmd, "echo", 5), &res, &found), node, param);
 	option_env(control(is(cmd, "env", 4), &res, &found), node, param);
@@ -54,6 +37,21 @@ int	execute_text_tree_node(t_param *param, t_treenode *node)
 	option_pwd(control(is(cmd, "pwd", 4), &res, &found), node, param);
 	option_unset(control(is(cmd, "unset", 6), &res, &found), node, param);
 	option_external(control(!found, &res, &found), node, param);
+}
+
+int	execute_text_tree_node(t_param *param, t_treenode *node)
+{
+	t_tree	t;
+	t_control	ctrl;
+
+	if (!node || !node->content)
+		return (ft_printf("%s\n", ERR_NO_COMMAND_FOUND) * 0);
+	if (expand(node, param))
+		return (ft_assign_i(&param->opts.errno, 1, 0));
+	t.root = node;
+	if (param->opts.debug_output_level & DBG_PRINT_NODE_BEFORE_EXECUTION)
+		ft_tree_print_s(&t);
+	ctrl = control();
 	if (!found)
 		printf("%s: %s\n", cmd, ERR_COMMAND_NOT_FOUND);
 	return (res);
