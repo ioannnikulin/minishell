@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 00:09:30 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/02 12:23:46 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/07 18:15:41 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,16 +88,14 @@ static int	one(char *src, t_mapss *map, t_dlist **path_head, int *errno)
 }
 
 // return value is ignored
-int	option_export(t_control control, t_treenode *node, t_param *param)
+int	option_export(t_control *control, t_treenode *node, t_param *param)
 {
-	if (*control.found || !control.choice)
-		return (0);
-	*control.found = 1;
+	control->found = 1;
 	node = node->child;
 	while (node && !one(node->content, param->envvars,
 			&param->envvar_path_head, &param->opts.errno)
 	)
 		node = node->sibling_next;
-	*control.retval = ft_if_i(node == 0, 0, 1);
+	control->retval = ft_if_i(node == 0, 0, 1);
 	return (1);
 }

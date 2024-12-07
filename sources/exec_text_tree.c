@@ -6,18 +6,30 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:39:01 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/02 20:37:47 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/07 20:09:41 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "tree_make/tree_processing_internal.h"
 
-static int	is(char *a, char *b)
+static t_control	make_control_set_redirs(t_treenode *node)
 {
-	return (ft_strcmp(a, b));
+	t_control	res;
+
+	res.retval = 0;
+	res.found = 0;
+	res.in_fd = -1;
+	res.out_fd = -1;
+	if (node->sibling_next && (!ft_strcmp(node->sibling_next->content, "|")
+		|| is_redirection(node->sibling_next->content)))
+	{
+		
+	}
+	return (res);
 }
 
-static	int	nonbrace(t_param *param, t_treenode *node)
+static int	nonbrace(t_param *param, t_treenode *node)
 {
 	t_tree	t;
 	int		res;
@@ -29,28 +41,35 @@ static	int	nonbrace(t_param *param, t_treenode *node)
 	return (res);
 }
 
-/* brackets execution is actually wrong, should be smth like
-* res = exec_rec(node->child) and then go on with siblings
-* */
-static int	exec_rec(t_param *param, t_treenode *node)
+static int same_cmd(char *op, char *skipop)
 {
-	int		res;
+	if ((skipop && !ft_strcmp(op, skipop))
+		|| ft_strcmp(op, "|") == 0 || is_redirection(op))
+		return (1);
+	return (0);
+}
+
+static int	exec_rec(t_param *param, t_treenode *node, t_control *ctrl)
+{
+	int			res;
+	t_control	ctrl;
 
 	if (!node || !param || param->opts.errno || !node->content)
 		return (0);
+	ctrl = make_control_set_redirs(node);
 	if (ft_strcmp(node->content, "(") == 0)
-		res = exec_rec(param, node->child);
+		res = exec_rec(param, node->child, &ctrl);
 	else
-		res = nonbrace(param, node);
+		res = nonbrace(param, node, &ctrl);
 	if (param->opts.errno)
 	{
 		printf("ERROR %i\n", param->opts.errno);
 		return (0);
 	}
 	node = node->sibling_next;
-	while (res && node && !is(node->content, "&&") && node->sibling_next)
+	while (res && node && same_cmd(node->content, "&&") && node->sibling_next)
 		node = node->sibling_next->sibling_next;
-	while (!res && node && !is(node->content, "||") && node->sibling_next)
+	while (!res && node && same_cmd(node->content, "||") && node->sibling_next)
 		node = node->sibling_next->sibling_next;
 	if (param->opts.exiting || !node || !node->sibling_next)
 		return (ft_if_i(param->opts.exiting, 0, res));

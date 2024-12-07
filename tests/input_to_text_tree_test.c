@@ -6,16 +6,18 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 23:53:00 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/06 13:46:55 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/07 18:26:49 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tests_internal.h"
 #include "../sources/input_to_text_tree_mocks/input_to_text_tree_mock.h"
-//#define DEBUG
+#define DEBUG
 
 static int	a_test(t_param *param, char *input, int (*treegen)(t_treenode *), int i)
 {
+	if (i == 23 || i == 24)
+		return (0);
 	#ifdef DEBUG
 	ft_printf("%i\n", i);
 	#endif

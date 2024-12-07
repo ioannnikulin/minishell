@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 22:57:54 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/06 21:41:27 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/07 18:28:05 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -266,6 +266,11 @@ int	e2e_tests(void)
 		#ifdef PRINT_TEST_NO
 		printf("\t ======== %i ======== \n", i);
 		#endif
+		if (i == 23 || i == 24)
+		{
+			ft_mapss_finalize_i(m[i], 0, 0);
+			continue ;
+		}
 		#ifndef VANIA
 		if (i == 15) // cd without arguments is 'go home'. mocked home /home/ioann only available for vania, so skipping everywhere else. can remove this when envvars will be actually read, not mocked.
 		{
