@@ -6,20 +6,21 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 11:52:17 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/12/08 20:13:37 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/12/09 12:53:04 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "strings_internal.h"
 
-static void	process_char(const char **p, t_delims delim_arr, t_delims ex_arr,
-					int *word_qtty)
+static void	process_char(const char **p, t_delims delim_arr,
+			t_skip_chars ex_arr, int *word_qtty)
 {
 	size_t		match_len;
 	static int	in_quotes;
 
-	is_in_quotes(p, ex_arr, &in_quotes);
-	if (!in_quotes && ft_is_delim(*p, delim_arr.delims, delim_arr.count, &match_len))
+	is_in_quotes(**p, ex_arr, &in_quotes);
+	if (!in_quotes && ft_is_delim(*p, delim_arr.delims, delim_arr.count,
+			&match_len))
 	{
 		if (*word_qtty > 0)
 			*word_qtty = -*word_qtty;
@@ -33,7 +34,8 @@ static void	process_char(const char **p, t_delims delim_arr, t_delims ex_arr,
 	}
 }
 
-int	count_words_skip_delim(const char *pp, t_delims delim_arr, t_delims ex_arr)
+int	count_words_skip_delim(const char *pp, t_delims delim_arr,
+			t_skip_chars ex_arr)
 {
 	const char	*p;
 	int			word_qtty;

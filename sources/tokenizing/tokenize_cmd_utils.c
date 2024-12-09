@@ -6,79 +6,22 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 18:49:54 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/12/08 20:05:41 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/12/09 16:11:09 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "input_processing.h"
 
-t_delims	create_operator_array(void)
+int	count_tokens(char **ss, t_delims arr, t_skip_chars ex_arr, int *t_sz)
 {
-	t_delims	op_arr;
-
-	op_arr.count = 10;
-	op_arr.error = 0;
-	op_arr.delims = ft_calloc_if(sizeof(t_delim) * op_arr.count, 1);
-	if (op_arr.delims == NULL)
-	{
-		op_arr.error = 1;
-		return (op_arr);
-	}
-	op_arr.delims[0].delim = ">>";
-	op_arr.delims[1].delim = ">";
-	op_arr.delims[2].delim = "<<";
-	op_arr.delims[3].delim = "<";
-	op_arr.delims[4].delim = "||";
-	op_arr.delims[5].delim = ")";
-	op_arr.delims[6].delim = "&&";
-	op_arr.delims[7].delim = "&";
-	op_arr.delims[8].delim = "(";
-	op_arr.delims[9].delim = "|";
-	return (op_arr);
-}
-
-t_delims	create_delim_arr(void)
-{
-	t_delims	delim_array;
-
-	delim_array.count = 2;
-	delim_array.error = 0;
-	delim_array.delims = ft_calloc_if(sizeof(t_delim) * delim_array.count, 1);
-	if (delim_array.delims == NULL)
-	{
-		delim_array.error = 1;
-		return (delim_array);
-	}
-	delim_array.delims[0].delim = " ";
-	delim_array.delims[1].delim = "\t";
-	return (delim_array);
-}
-
-int	create_ex_arr(t_delims *ex_array)
-{
-	ex_array->count = 2;
-	ex_array->error = 0;
-	ex_array->delims = ft_calloc_if(sizeof(t_delim) * ex_array->count, 1);
-	if (ex_array->delims == NULL)
-	{
-		ex_array->error = 1;
-		return (ex_array->error);
-	}
-	ex_array->delims[0].delim = '"';
-	ex_array->delims[1].delim = '\'';
-	return (0);
-}
-
-int	count_tokens(char **ss, t_delims arr, int *t_sz)
-{
-	int		i;
-	int		sz;
+	int				i;
+	int				sz;
 
 	i = 0;
 	sz = 0;
 	while (ss[i] != NULL)
 	{
-		sz = count_words_skip_delim(ss[i], arr, '"');
+		sz = count_words_skip_delim(ss[i], arr, ex_arr);
 		*t_sz += sz;
 		i++;
 	}
@@ -87,7 +30,7 @@ int	count_tokens(char **ss, t_delims arr, int *t_sz)
 	return (0);
 }
 
-int	cleanup(t_delims *arr, char **ss, int retval)
+int	cleanup(t_delims *arr, t_skip_chars *ex_arr, char **ss, int retval)
 {
 	if (arr != NULL)
 	{
@@ -97,5 +40,21 @@ int	cleanup(t_delims *arr, char **ss, int retval)
 	{
 		ft_free_ss_uptonull((void **)ss);
 	}
+	if (ex_arr != NULL)
+	{
+		ft_free_delim_c(ex_arr);
+	}
 	return (retval);
+}
+
+int	check_empty_string(const char *s, char ***p_ss)
+{
+	if (!*s)
+	{
+		*p_ss = ft_calloc_if(sizeof(char *) * 2, 1);
+		if (!*p_ss)
+			return (1);
+		return (2);
+	}
+	return (0);
 }

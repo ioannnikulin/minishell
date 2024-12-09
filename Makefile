@@ -2,7 +2,7 @@ CC = cc
 NAME = minishell
 COMPILE_FLAGS = -Wall -Wextra -Werror -g -c
 LINK_FLAGS = -lft -Llibft -lreadline
-PREFIX = 
+PREFIX =
 PREPROC_DEFINES =
 
 SOURCE_F = sources
@@ -16,7 +16,7 @@ COMMANDS_NAMES = option_cd.c option_echo.c option_env.c option_exit.c option_exp
 COMMANDS_F = commands
 COMMANDS_SRCS = $(addprefix $(COMMANDS_F)/,$(COMMANDS_NAMES))
 
-TOKENIZING_NAMES = tokenize_cmd.c tokenize_cmd_utils.c
+TOKENIZING_NAMES = tokenize_cmd.c init_structs.c tokenize_cmd_utils.c
 TOKENIZING_F = tokenizing
 TOKENIZING_SRCS = $(addprefix $(TOKENIZING_F)/, $(TOKENIZING_NAMES))
 

@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 06:11:45 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/12/06 19:54:29 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/12/09 16:34:39 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,22 @@ static void	free_string_array(t_string *strs, size_t count)
 	free(strs);
 }
 
-t_strings	create_string_array()
+static int	init_ex_arr(t_skip_chars *ex_arr)
+{
+	ex_arr->count = 2;
+	ex_arr->error = 0;
+	ex_arr->exs = ft_calloc_if(sizeof(t_skip_chars) * ex_arr->count, 1);
+	if (ex_arr->exs == NULL)
+	{
+		ex_arr->error = 1;
+		return (ex_arr->error);
+	}
+	ex_arr->exs[0].ex = '"';
+	ex_arr->exs[1].ex = '\'';
+	return (0);
+}
+
+t_strings	init_string_array()
 {
 	t_strings	str_array;
 	str_array.count = 11;
@@ -67,7 +82,14 @@ t_strings	create_string_array()
 
 void	tokenize_cmd_test()
 {
-	t_strings	str_arr = create_string_array();
+	t_strings	str_arr = init_string_array();
+	t_skip_chars	ex_arr;
+
+	if (init_ex_arr(&ex_arr) != 0)
+	{
+		free_string_array(str_arr.strs, str_arr.count);
+		return ;
+	}
 	char		**tokens;
 	int			sz = 0;
 
@@ -92,7 +114,7 @@ void	tokenize_cmd_test()
 		#ifdef DEBUG
 		ft_printf("====== %i ======\n", i);
 		#endif
-		int ret = tokenize_cmd(str_arr.strs[i].str, &sz, &tokens);
+		int ret = tokenize_cmd(str_arr.strs[i].str, &tokens);
 		#ifdef DEBUG
 		ft_printf("ret: %i, sz: %i\n", ret, sz);
 		#endif
@@ -106,8 +128,9 @@ void	tokenize_cmd_test()
 			assert((tokens[j] == NULL) == (t[i][j] == NULL));
 			assert(ft_strcmp(tokens[j], t[i][j]) == 0);
 		}
-		ft_free_ss_sz_null((void *)&(tokens), sz);
+		ft_free_ss_uptonull((void **)tokens);
 		sz = 0;
 	}
 	free_string_array(str_arr.strs, str_arr.count);
+
 }

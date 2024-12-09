@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 16:24:51 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/12/03 15:24:06 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/12/09 15:52:57 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static void	free_string_array(t_string *strs, size_t count)
 	free(strs);
 }
 
-t_delims	create_delim_arr(void)
+t_delims	init_delim_arr(void)
 {
 	t_delims	delim_array;
 
@@ -57,12 +57,17 @@ t_delims	create_delim_arr(void)
 	return (delim_array);
 }
 
-static t_strings	create_string_array()
+t_strings	init_string_array()
 {
 	t_strings	str_array;
 	str_array.count = 12;
 	str_array.error = 0;
 	str_array.strs = ft_calloc_if(sizeof(t_string) * str_array.count, 1);
+	if (str_array.strs == NULL)
+	{
+		str_array.error = 1;
+		return (str_array);
+	}
 	assert(str_array.strs != NULL);
 	for (int i = 0; i < (int)str_array.count; i++)
 	{
@@ -83,16 +88,46 @@ static t_strings	create_string_array()
 	return (str_array);
 }
 
-void ft_split_skip_delim_test()
+static int	init_ex_arr(t_skip_chars *ex_arr)
 {
-	t_strings	strings_arr = create_string_array();
-	t_delims	delim_arr;
-	char		**tokens;
-	int			sz = 0;
+	ex_arr->count = 2;
+	ex_arr->error = 0;
+	ex_arr->exs = ft_calloc_if(sizeof(t_skip_chars) * ex_arr->count, 1);
+	if (ex_arr->exs == NULL)
+	{
+		ex_arr->error = 1;
+		return (ex_arr->error);
+	}
+	ex_arr->exs[0].ex = '"';
+	ex_arr->exs[1].ex = '\'';
+	return (0);
+}
 
-	delim_arr = create_delim_arr();
-	if (delim_arr.error)
+void	ft_split_skip_delim_test()
+{
+	t_strings		strings_arr;
+	t_delims		delim_arr;
+	t_skip_chars	ex_arr;
+	char			**tokens;
+	int				sz = 0;
+
+	strings_arr = init_string_array();
+	if (strings_arr.error)
+	{
 		return ;
+	}
+	delim_arr = init_delim_arr();
+	if (delim_arr.error)
+	{
+		free_string_array(strings_arr.strs, strings_arr.count);
+		return ;
+	}
+	if (init_ex_arr(&ex_arr) != 0)
+	{
+		free_string_array(strings_arr.strs, strings_arr.count);
+		ft_free_delims_arr(&delim_arr);
+		return ;
+	}
 	char *t[NUM_TEST_CASES][MAX_ARGS] =
 	{
 		{"cat", "(", "file1.txt", "file2.txt", ")", "|", "grep", "keyword", NULL},
@@ -106,11 +141,11 @@ void ft_split_skip_delim_test()
 		{"&&", NULL},
 		{"echo", "ls -l && cd ..", NULL},
 		{")(())(", NULL},
-		{NULL},
+		{"", NULL},
 	};
 	for (int i = 0; i < NUM_TEST_CASES; i ++)
 	{
-		tokens = ft_split_skip_delim(strings_arr.strs[i].str, delim_arr, '"', &sz);
+		tokens = ft_split_skip_delim(strings_arr.strs[i].str, delim_arr, ex_arr, &sz);
 		if (tokens == NULL)
 		{
 			assert(t[i][0] == NULL);
@@ -132,5 +167,6 @@ void ft_split_skip_delim_test()
 	}
 	free_string_array(strings_arr.strs, strings_arr.count);
 	ft_free_delims_arr(&delim_arr);
+	ft_free_delim_c(&ex_arr);
 	return ;
 }
