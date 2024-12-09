@@ -6,18 +6,24 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 17:58:31 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/11/26 15:12:40 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/12/08 20:27:11 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "strings_internal.h"
 
-bool	is_in_quotes(const char **p, const char ex, int *in_quotes)
+bool	is_in_quotes(const char **p, t_delims ex_arr, int *in_quotes)
 {
-	if (**p == ex)
+	size_t	i;
+
+	i = 0;
+	while (i < ex_arr.count)
 	{
-		*in_quotes = !(*in_quotes);
-		return (true);
+		if (**p == ex_arr.delims[i].delim)
+		{
+			*in_quotes = !(*in_quotes);
+			return (true);
+		}	
 	}
 	return (false);
 }

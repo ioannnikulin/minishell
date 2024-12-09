@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 18:49:54 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/12/06 19:14:21 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/12/08 20:05:41 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,21 @@ t_delims	create_delim_arr(void)
 	delim_array.delims[0].delim = " ";
 	delim_array.delims[1].delim = "\t";
 	return (delim_array);
+}
+
+int	create_ex_arr(t_delims *ex_array)
+{
+	ex_array->count = 2;
+	ex_array->error = 0;
+	ex_array->delims = ft_calloc_if(sizeof(t_delim) * ex_array->count, 1);
+	if (ex_array->delims == NULL)
+	{
+		ex_array->error = 1;
+		return (ex_array->error);
+	}
+	ex_array->delims[0].delim = '"';
+	ex_array->delims[1].delim = '\'';
+	return (0);
 }
 
 int	count_tokens(char **ss, t_delims arr, int *t_sz)

@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 06:08:59 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/12/06 19:53:18 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/12/08 20:09:45 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,17 +30,20 @@ static int	process_temp_split(char ***p_ss, char **temp_split,
 	return (0);
 }
 
-static int	split_excluding_quotes(char **s, t_delims arr, char ***p_ss)
+static int	split_excluding_quotes(char **s, t_delims delim_arr, char ***p_ss)
 {
-	int		i;
-	int		sz;
-	int		res_i;
-	char	**temp_split;
+	int			i;
+	int			sz;
+	int			res_i;
+	char		**temp_split;
+	t_delims	ex_arr;
 
 	ft_assign_i(&i, -1, ft_assign_i(&res_i, 0, 0));
+	if (create_ex_arr(&ex_arr) != 0)
+		return (1);
 	while (s[++i] != NULL)
 	{
-		temp_split = ft_split_skip_delim(s[i], arr, '"', &sz);
+		temp_split = ft_split_skip_delim(s[i], delim_arr, ex_arr, &sz);
 		if (temp_split == NULL)
 		{
 			ft_free_ss_uptonull((void **)temp_split);
