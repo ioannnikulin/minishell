@@ -1,6 +1,7 @@
 libft.a
 *.o
 *.sf
+*.txt
 libft/tests/test
 .vscode
 minishell
@@ -9,3 +10,4 @@ tests/tool_print_environment
 e2e_f/*
 e2e.stdout
 e2e.stderr
+*.txt

@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 00:10:22 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/03 19:23:27 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/11/29 17:30:57 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,17 +33,16 @@ static char	*find_executable(char *tgt, t_dlist *path, int *errno)
 	return (0);
 }
 
-static int	run_executable(char *fullpath, t_treenode *node, t_param *param)
+static char	**get_argv(char *fullpath, t_treenode *node)
 {
 	char	**argv;
 	int		argc;
 	int		i;
-	char	**envvars;
 
 	argc = node->children_qtty;
 	argv = ft_calloc_if(sizeof(char *) * (argc + 2), 1);
 	if (!argv)
-		return (ft_assign_i(&param->opts.errno, 5, 0));
+		return (0);
 	argv[0] = fullpath;
 	argv[argc + 1] = 0;
 	i = 1;
@@ -53,13 +52,28 @@ static int	run_executable(char *fullpath, t_treenode *node, t_param *param)
 		argv[i ++] = node->content;
 		node = node->sibling_next;
 	}
+	return (argv);
+}
+
+static int	run_executable(char *fullpath, t_treenode *node, t_param *param)
+{
+	char	**argv;
+	int		ret;
+	char	**envvars;
+
+	argv = get_argv(fullpath, node);
+	if (!argv)
+		return (ft_assign_i(&param->opts.errno, 5, 0));
 	envvars = get_envvars_for_execve(param);
 	if (param->opts.errno)
+	{
+		free(argv);
 		return (0);
-	i = w_execve(fullpath, argv, envvars, &param->opts.errno);
+	}
+	ret = w_execve(fullpath, argv, envvars, param);
 	free(argv);
-	free(envvars);
-	return (i);
+	ft_free_ss_uptonull_null((void ***)&envvars);
+	return (ret);
 }
 
 /* test with empty path, found in first, found in last, not found,
@@ -73,8 +87,9 @@ int	option_external(t_control control, t_treenode *node, t_param *param)
 	*control.found = 1;
 	if (param->opts.debug_output_level & DBG_EXTERNAL_SEARCH_FOLDERS)
 	{
-		printf("searching for command in folders:\n");
+		ft_printf("searching for command in folders:\n");
 		ft_dlist_print_s(param->envvar_path_head, "\n");
+		ft_printf("--\n");
 	}
 	fullpath = find_executable(node->content, param->envvar_path_head,
 			&param->opts.errno);
@@ -84,6 +99,6 @@ int	option_external(t_control control, t_treenode *node, t_param *param)
 	free(fullpath);
 	if (!param->opts.errno)
 		return (0);
-	printf("%s: ERROR %i\n", (char *)node->content, param->opts.errno);
+	ft_printf("%s: ERROR %i\n", (char *)node->content, param->opts.errno);
 	return (0);
 }

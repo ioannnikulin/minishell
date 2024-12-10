@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 00:09:30 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/06 15:50:28 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/11/11 03:26:52 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,12 @@ static int	path(char *key, char *val, t_dlist **path_head)
 	return (0);
 }
 
-static int	err_malloc(char *key)
+static int	err_malloc(char *key, char *val, int *errno)
 {
 	printf("export: %s\n", ERR_MALLOC);
+	ft_assign_i(errno, 1, 0);
 	free(key);
+	free(val);
 	return (2);
 }
 
@@ -56,7 +58,7 @@ static int	err_malloc(char *key)
 // check on empty string (aaa=) and multiple = signs in a row and separate
 // check nonalphanum
 // check path
-static int	one(char *src, t_mapss *map, t_dlist **path_head)
+static int	one(char *src, t_mapss *map, t_dlist **path_head, int *errno)
 {
 	char	*key;
 	char	*val;
@@ -76,10 +78,13 @@ static int	one(char *src, t_mapss *map, t_dlist **path_head)
 	key = ft_substr(src, 0, i);
 	val = ft_substr(src, i + 1, ft_strlen(src) - i - 1);
 	if (!key || !val)
-		return (err_malloc(key));
+		return (err_malloc(key, val, errno));
 	if (ft_strcmp(key, "PATH") == 0)
 		return (path(key, val, path_head));
-	return (ft_mapss_add(map, key, val));
+	i = ft_mapss_add(map, key, val);
+	free(key);
+	free(val);
+	return (i);
 }
 
 // return value is ignored
@@ -90,7 +95,7 @@ int	option_export(t_control control, t_treenode *node, t_param *param)
 	*control.found = 1;
 	node = node->child;
 	while (node && !one(node->content, param->envvars,
-			&param->envvar_path_head))
+			&param->envvar_path_head, &param->opts.errno))
 		node = node->sibling_next;
 	*control.retval = ft_if_i(node == 0, 0, 1);
 	return (1);

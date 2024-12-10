@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_text_tree_node.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:39:01 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/03 12:43:01 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/06 17:43:07 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,16 @@ int	execute_text_tree_node(t_param *param, t_treenode *node)
 	int		res;
 	char	*cmd;
 	int		found;
+	t_tree	t;
 
 	if (!node || !node->content)
-	{
-		printf("%s\n", ERR_NO_COMMAND_FOUND);
-		return (0);
-	}
+		return (ft_printf("%s\n", ERR_NO_COMMAND_FOUND) * 0);
 	cmd = node->content;
 	found = 0;
 	res = 0;
+	t.root = node;
+	if (param->opts.debug_output_level & DBG_PRINT_NODE_BEFORE_EXECUTION)
+		ft_tree_print_s(&t);
 	option_cd(control(is(cmd, "cd", 3), &res, &found), node, param);
 	option_echo(control(is(cmd, "echo", 5), &res, &found), node, param);
 	option_env(control(is(cmd, "env", 4), &res, &found), node, param);

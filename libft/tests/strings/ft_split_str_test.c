@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 11:13:18 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/10/22 17:11:35 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/12/03 15:19:26 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,15 +86,12 @@ t_strings	create_string_array()
 }
 
 
-void	free_split_op(char **split_op, int sz)
+static void	free_tokens(char ***sss, int sz)
 {
-	for (int j = 0; j < sz; j++)
+	if (sss != NULL && *sss != NULL)
 	{
-		if(split_op[j] != NULL)
-			free(split_op[j]);
+		ft_free_ss_sz_null((void ***)sss, sz);
 	}
-	if (split_op != NULL)
-		free(split_op);
 }
 
 void	free_string_array(t_strings str_array)
@@ -135,7 +132,7 @@ void	ft_split_str_test(void)
 	for (int i = 0; i < NUM_TEST_CASES; i ++)
 	{
 		int sz = 0;
-		char **split_op = ft_split_str(str_arr.strs[i].str, &op_arr, &sz);
+		char **split_op = ft_split_str(str_arr.strs[i].str, op_arr, &sz);
 		for (int j = 0; j < sz; j ++)
 		{
 			assert((split_op[j] == NULL) == (t[i][j] == NULL));
@@ -145,7 +142,8 @@ void	ft_split_str_test(void)
 			}
 			assert(strcmp(split_op[j], t[i][j]) == 0);
 		}
-		free_split_op(split_op, sz);
+		free_tokens(&split_op, sz);
+		sz = 0;
 	}
 	free(op_arr.delims);
 	free_string_array(str_arr);
