@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 17:50:43 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/12/09 18:31:49 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/12/10 16:55:32 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,22 +18,22 @@ static void	parse_word(char **res, const char **f,
 	int			cwlen;
 	const char	*start;
 	int			in_quotes;
+	int			quote_type;
 	size_t		match_len;
 
 	in_quotes = 0;
+	quote_type = 0;
 	while (**f && ft_is_delim(*f, arr.delims, arr.count, &match_len))
 		(*f)++;
 	start = *f;
 	cwlen = 0;
+	is_in_quotes(**f, ex_arr, &in_quotes, &quote_type);
 	while ((**f) && (in_quotes || !ft_is_delim(*f, arr.delims,
 				arr.count, &match_len)))
 	{
-		is_in_quotes(**f, ex_arr, &in_quotes);
-		if (!in_quotes || (in_quotes && !ft_is_quote(**f, ex_arr)))
-			cwlen++;
-		if (in_quotes && ft_is_quote(**f, ex_arr))
-			start = (*f);
+		cwlen++;
 		(*f)++;
+		is_in_quotes(**f, ex_arr, &in_quotes, &quote_type);
 	}
 	if (cwlen == 0)
 		return ;

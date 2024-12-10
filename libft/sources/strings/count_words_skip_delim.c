@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 11:52:17 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/12/09 12:53:04 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/12/10 16:53:50 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,11 @@ static void	process_char(const char **p, t_delims delim_arr,
 {
 	size_t		match_len;
 	static int	in_quotes;
+	static int	quote_type;
 
-	is_in_quotes(**p, ex_arr, &in_quotes);
+	if (!p || !*p)
+		return ;
+	is_in_quotes(**p, ex_arr, &in_quotes, &quote_type);
 	if (!in_quotes && ft_is_delim(*p, delim_arr.delims, delim_arr.count,
 			&match_len))
 	{

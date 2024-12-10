@@ -6,13 +6,13 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 16:24:51 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/12/09 15:52:57 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/12/10 15:29:37 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../libft.h"
 #include "tests.h"
-
+#define DEBUG
 #define NUM_TEST_CASES 12
 #define MAX_ARGS 16
 
@@ -57,6 +57,21 @@ t_delims	init_delim_arr(void)
 	return (delim_array);
 }
 
+static int	init_ex_arr(t_skip_chars *ex_arr)
+{
+	ex_arr->count = 2;
+	ex_arr->error = 0;
+	ex_arr->exs = ft_calloc_if(sizeof(t_skip_chars) * ex_arr->count, 1);
+	if (ex_arr->exs == NULL)
+	{
+		ex_arr->error = 1;
+		return (ex_arr->error);
+	}
+	ex_arr->exs[0].ex = '"';
+	ex_arr->exs[1].ex = '\'';
+	return (0);
+}
+
 t_strings	init_string_array()
 {
 	t_strings	str_array;
@@ -88,21 +103,6 @@ t_strings	init_string_array()
 	return (str_array);
 }
 
-static int	init_ex_arr(t_skip_chars *ex_arr)
-{
-	ex_arr->count = 2;
-	ex_arr->error = 0;
-	ex_arr->exs = ft_calloc_if(sizeof(t_skip_chars) * ex_arr->count, 1);
-	if (ex_arr->exs == NULL)
-	{
-		ex_arr->error = 1;
-		return (ex_arr->error);
-	}
-	ex_arr->exs[0].ex = '"';
-	ex_arr->exs[1].ex = '\'';
-	return (0);
-}
-
 void	ft_split_skip_delim_test()
 {
 	t_strings		strings_arr;
@@ -130,16 +130,16 @@ void	ft_split_skip_delim_test()
 	}
 	char *t[NUM_TEST_CASES][MAX_ARGS] =
 	{
-		{"cat", "(", "file1.txt", "file2.txt", ")", "|", "grep", "keyword", NULL},
-		{"cat", "<", "input.txt", "&&", "echo", "|", "grep", "Done", NULL},
-		{"grep", "error", "log.txt", "||", "echo", "No errors    found", NULL},
+		{"cat", "(", "file1.txt", "file2.txt", ")", "|", "grep", "\"keyword\"", NULL},
+		{"cat", "<", "input.txt", "&&", "echo", "|", "grep", "\"Done\"", NULL},
+		{"grep", "\"error\"", "log.txt", "||", "echo", "\"No errors    found\"", NULL},
 		{"gcc", "main.c", "-o", "program", ">>", "build.log", NULL},
-		{"find", ".", "-name", "*.txt", "|", "xargs", "rm", "-rf", "||", "fer", "&&", "def", "&", "echo", "Hello", NULL},
-		{"echo", "Compiling...", "&&", "gcc", "main.c", "-o", "program", "&&", "./program", NULL},
+		{"find", ".", "-name",  "\"*.txt\"", "|", "xargs", "rm", "-rf", "||", "fer", "&&", "def", "&", "echo", "\"Hello\"", NULL},
+		{"echo", "\"Compiling...\"", "&&", "gcc", "main.c", "-o", "program", "&&", "./program", NULL},
 		{"mkdir", "new_dir", "&&", "cd", "new_dir", "&&", "touch", "file.txt", NULL},
 		{"mv", "new_dir", "old_dir", NULL},
 		{"&&", NULL},
-		{"echo", "ls -l && cd ..", NULL},
+		{"echo", "\"ls -l && cd ..\"", NULL},
 		{")(())(", NULL},
 		{"", NULL},
 	};
@@ -154,6 +154,9 @@ void	ft_split_skip_delim_test()
 		{
 			for (int j = 0; tokens[j] != NULL; j++)
 			{
+				#ifdef DEBUG
+				ft_printf("%s\n", tokens[j]);
+				#endif
 				assert((tokens[j] == NULL) == (t[i][j] == NULL));
 				if (tokens[j] == NULL)
 				{

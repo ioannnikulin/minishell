@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 17:58:31 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/12/09 16:46:57 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/12/10 15:45:33 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,16 @@ bool	ft_is_quote(const char p, t_skip_chars ex_arr)
 	return (false);
 }
 
-bool	is_in_quotes(const char p, t_skip_chars ex_arr, int *in_quotes)
+/*if not in quotes and delimeter - we check if flag is positive
+(mean its first delimeter), we change flag to negative and
+shift pointer to the next symbol.
+everything else: in quotes, or not quotes but not delimeter -
+we look if flag negative (mean previous symbols were delimeters)
+we change the flag to positive, increment word count, and shift
+pointer to the next symbol*/
+
+bool	is_in_quotes(const char p, t_skip_chars ex_arr, int *in_quotes,
+				int *quote_type)
 {
 	size_t	i;
 
@@ -35,8 +44,20 @@ bool	is_in_quotes(const char p, t_skip_chars ex_arr, int *in_quotes)
 	{
 		if (p == ex_arr.exs[i].ex)
 		{
-			*in_quotes = !(*in_quotes);
-			return (true);
+			if (*in_quotes)
+			{
+				if (*quote_type == p)
+				{
+					*in_quotes = 0;
+					*quote_type = 0;
+					return (true);
+				}
+			}
+			else
+			{
+				*quote_type = p;
+				*in_quotes = 1;
+			}
 		}
 		i++;
 	}
