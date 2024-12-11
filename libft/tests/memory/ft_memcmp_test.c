@@ -6,11 +6,12 @@
 /*   By: inikulin <inikulin@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 15:56:31 by inikulin          #+#    #+#             */
-/*   Updated: 2023/11/16 17:46:38 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/10/27 01:36:32 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tests.h"
+//#define DEBUG
 
 typedef struct s_testcase
 {
@@ -19,6 +20,7 @@ typedef struct s_testcase
 	size_t	n;
 }	t_testcase;
 
+#define START 0
 #define SZ 32
 
 void	ft_memcmp_test(void)
@@ -48,10 +50,20 @@ void	ft_memcmp_test(void)
 	t[21] = (t_testcase){"ab", "abc", 4};
 	t[22] = (t_testcase){"!@#", "$%*&", 0};
 	t[23] = (t_testcase){"!@#", "$%*&", 1};
-	char s1[20] = "abcdefghijk";
-	char s2[20] = "abcdefghijiK";
+	char *s1 = malloc(20);
+	assert(s1 != NULL);
+	strcpy(s1, "abcdefghijk");
+	char *s2 = malloc(20);
+	assert(s2 != NULL);
+	strcpy(s2, "abcdefghijiK");
+	for (int i = 12; i < 20; i++)
+	{
+		s1[i] = 0;
+		s2[i] = 0;
+	}
 	s1[5] = 0;
 	s1[6] = 0;
+	s1[11] = 0;
 	s2[5] = 0;
 	s2[6] = 0;
 	t[24] = (t_testcase){s1, s2, 0};
@@ -62,8 +74,11 @@ void	ft_memcmp_test(void)
 	t[29] = (t_testcase){0, s2, 0};
 	t[30] = (t_testcase){s1, 0, 0};
 	t[31] = (t_testcase){0, 0, 0};
-	for (int i = 0; i < SZ; i ++)
+	for (int i = START; i < SZ; i ++)
 	{
+		#ifdef DEBUG
+		printf("#%i\n", i);
+		#endif
 		int std = memcmp(
 				t[i].s1
 				, t[i].s2
@@ -74,7 +89,11 @@ void	ft_memcmp_test(void)
 				, t[i].s2
 				, t[i].n
 				);
-		//printf("!%i %i %i\n\n", i, std, custom);
-		assert(std == custom);
+		#ifdef DEBUG
+		printf("%i %i\n", std, custom);
+		#endif
+		assert(ft_sign_i(std) == ft_sign_i(custom));
 	}
+	free(s1);
+	free(s2);
 }

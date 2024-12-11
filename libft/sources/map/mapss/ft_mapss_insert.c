@@ -6,34 +6,15 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 13:20:33 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/08/17 19:19:55 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/11/03 12:22:56 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../libft.h"
 #include <stdlib.h>
 
-/*
-else if (ft_strcmp(node_entry->key, cur_entry->key) < 0)
-		{
-			node->next = cur;
-			node->prev = cur->prev;
-			if (cur->prev != NULL)
-			{
-				cur->prev->next = node;
-			}
-			else
-			{
-				// Inserting at the beginning
-				map->head = node;
-			}
-			cur->prev = node;
-			map->size ++;
-			return (0);
-		}
-*/
-
-static int insert_at_the_end(t_mapss *map, t_dlist *node, t_mapss_entry *node_entry, t_mapss_entry *tail_entry)
+static int	insert_at_the_end(t_mapss *map, t_dlist *node,
+				t_mapss_entry *node_entry, t_mapss_entry *tail_entry)
 {
 	if (ft_strcmp(node_entry->key, tail_entry->key) > 0)
 	{
@@ -47,7 +28,8 @@ static int insert_at_the_end(t_mapss *map, t_dlist *node, t_mapss_entry *node_en
 	return (1);
 }
 
-static	int insert_at_the_beginning(t_mapss *map, t_dlist *node, t_mapss_entry *node_entry, t_mapss_entry *head_entry)
+static	int	insert_at_the_beginning(t_mapss *map, t_dlist *node,
+			t_mapss_entry *node_entry, t_mapss_entry *head_entry)
 {
 	if (map->head == NULL)
 	{
@@ -70,7 +52,21 @@ static	int insert_at_the_beginning(t_mapss *map, t_dlist *node, t_mapss_entry *n
 	return (1);
 }
 
-static	int insert_int_between(t_mapss *map, t_dlist *node, t_mapss_entry *node_entry, t_mapss_entry *cur_entry)
+static	int	insert_before_current(t_mapss *map, t_dlist *node, t_dlist *cur)
+{
+	node->next = cur;
+	node->prev = cur->prev;
+	if (cur->prev)
+		cur->prev->next = node;
+	else
+		map->head = node;
+	cur->prev = node;
+	map->size ++;
+	return (0);
+}
+
+static	int	insert_in_between(t_mapss *map, t_dlist *node,
+			t_mapss_entry *node_entry, t_mapss_entry *cur_entry)
 {
 	t_dlist	*cur;
 
@@ -80,25 +76,21 @@ static	int insert_int_between(t_mapss *map, t_dlist *node, t_mapss_entry *node_e
 	{
 		if (ft_strcmp(node_entry->key, cur_entry->key) == 0)
 		{
-			free(cur_entry->value); // Assuming value was dynamically allocated
+			free(cur_entry->value);
 			cur_entry->value = node_entry->value;
-			free(node_entry->key); // Free the old key if necessary
-			free(node->content); // Free the new entry structure
-			free(node); // Free the new node
+			free(node_entry->key);
+			free(node->content);
+			free(node);
 			return (0);
 		}
 		else if (ft_strcmp(node_entry->key, cur_entry->key) < 0)
 		{
-			node->next = cur;
-			node->prev = cur->prev;
-			cur->prev->next = node;
-			cur->prev = node;
-			map->size ++;
-			return (0);
+			return (insert_before_current(map, node, cur));
 		}
 		cur = cur->next;
 		cur_entry = cur->content;
 	}
+	return (1);
 }
 
 int	ft_mapss_insert(t_mapss *map, t_dlist *node)
@@ -107,6 +99,8 @@ int	ft_mapss_insert(t_mapss *map, t_dlist *node)
 	t_mapss_entry	*node_entry;
 
 	node_entry = node->content;
+	if (map->head == NULL)
+		return (insert_at_the_beginning(map, node, node_entry, NULL));
 	cur_entry = map->head->content;
 	if (!insert_at_the_beginning(map, node, node_entry, cur_entry))
 		return (0);

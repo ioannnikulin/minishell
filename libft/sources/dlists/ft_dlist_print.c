@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 19:01:40 by inikulin          #+#    #+#             */
-/*   Updated: 2024/03/24 18:20:36 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/10/06 22:59:47 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,16 @@ static int	print_check(t_dlist *err, int debug_lvl)
 	}
 	ft_printf("Link incosistencies not found\n");
 	return (0);
+}
+
+static void	prints(void *p)
+{
+	ft_printf("%s", (char *)p);
+}
+
+int	ft_dlist_print_s(t_dlist *lst, char *delim)
+{
+	return (ft_dlist_print(lst, 0, delim, prints));
 }
 
 int	ft_dlist_print(t_dlist *lst, int dbg, char *delim, void (*p)(void *))

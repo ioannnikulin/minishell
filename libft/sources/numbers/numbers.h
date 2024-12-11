@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   numbers.c                                          :+:      :+:    :+:   */
+/*   numbers.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 20:57:30 by inikulin          #+#    #+#             */
-/*   Updated: 2024/08/13 20:58:55 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/10/27 01:32:06 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,5 @@ unsigned char	*ft_min_uc(unsigned char *a, unsigned char *b);
 unsigned char	*ft_max_uc(unsigned char *a, unsigned char *b);
 unsigned char	*ft_min_uc_va(int sz, ...);
 unsigned char	*ft_max_uc_va(int sz, ...);
+int				ft_sign_i(int i);
 #endif

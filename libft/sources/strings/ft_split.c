@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inikulin <inikulin@student.42berlin.d      +#+  +:+       +#+        */
+/*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 20:24:25 by inikulin          #+#    #+#             */
-/*   Updated: 2024/05/01 15:00:49 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/11/26 15:42:32 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static void	parse_word(char **res, const char **f, const char *charset)
 		cwlen ++;
 	if (cwlen == 0)
 		return ;
-	(*res) = (char *) malloc((cwlen + 1) * sizeof(char));
+	(*res) = (char *) ft_calloc_if((cwlen + 1) * sizeof(char), 1);
 	if (*res == 0)
 		return ;
 	cwlen = 0;
@@ -64,23 +64,6 @@ static void	parse_word(char **res, const char **f, const char *charset)
 	(*res)[cwlen] = 0;
 }
 
-static int	check_edges(char **res, int *cwi)
-{
-	if (!res[*cwi])
-	{
-		while (-- (*cwi) > -1)
-			free(res[*cwi]);
-		free(res);
-		return (1);
-	}
-	if (!res[*cwi][0])
-	{
-		free(res[*cwi]);
-		(*cwi)--;
-	}
-	return (0);
-}
-
 char	**ft_split_set(const char *str, const char *charset, int *sz)
 {
 	char	**res;
@@ -90,7 +73,7 @@ char	**ft_split_set(const char *str, const char *charset, int *sz)
 	word_qtty = count_words(str, charset);
 	if (sz)
 		*sz = -1;
-	res = (char **) malloc((word_qtty + 1) * sizeof(char *));
+	res = (char **) ft_calloc_if((word_qtty + 1) * sizeof(char *), 1);
 	if (!res)
 		return (0);
 	res[word_qtty] = 0;

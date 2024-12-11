@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 15:22:58 by inikulin          #+#    #+#             */
-/*   Updated: 2024/08/10 18:21:33 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/12/06 17:41:55 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,66 +15,59 @@
 
 # include <stdio.h>
 # include <stdlib.h>
-# include "libft.h"
+# include <unistd.h>
+# include <signal.h>
+# include <readline/readline.h>
+# include <readline/history.h>
+# include "../libft/libft.h"
+# include "resources.h"
+# include "commands/commands.h"
 
-# define FREE_ENVVARS_DLISTS 1
-# define FREE_ENVVARS_ENTRIES 2
-# define FREE_ENVVARS_KEYS 4
-# define FREE_ENVVARS_VALUES 8
-# define STAGE_FULL 15
+# include "tokenizing/input_processing.h"
+# include "tree_make/tree_processing.h"
 
-typedef struct s_envvar // 4. contens of each double-linked list node
+# define DBG_EXTERNAL_SEARCH_FOLDERS 1
+# define DBG_PRINT_TREE_BEFORE_EXEC 2
+# define DBG_PRINT_NODE_BEFORE_EXEC 4
+# define DBG_EXECVE_PREPRINT 8
+# define DBG_PRINT_NODE_BEFORE_EXECUTION 16
+# define DBG_FULL 31
+
+typedef unsigned long long	t_ull;
+
+typedef struct s_opts
 {
-	char	*key;
-	char	*value;
-}	t_envvar;
+	char	*file;
+	int		calloc_trap;
+	int		interactive;
+	t_ull	debug_output_level;
+	int		exiting;
+	int		errno;
+	void	(*sigint_handler)(int);
+}	t_opts;
 
-typedef struct s_dlist
+typedef struct s_param
 {
-	struct s_dlist 	*next;
-	struct s_dlist	*prev;
-	t_envvar 		*content;
-} t_dlist;
-
-typedef struct s_ssmap
-{
-	t_dlist	*head;
-	t_dlist *tail; // 3. double-linked list head - for the envvars associative array
-	int		size;
-}	t_ssmap;
-
-typedef  struct s_history
-{
-	char	**commands;
-	int		top;
-}	t_history;
-
-typedef struct s_command
-{
-	char	*source;
-	char	*parts;
-	int		blocks;
-	int		passes_output;
-}	t_command;
-
-typedef struct s_line
-{
-	char	*source;
-	int		source_size;
-	t_dlist	*commands_head;
-	int		commands_size;
-}	t_line;
-
-typedef struct s_param // 1. "global" parameter structure
-{
-	int			errno;
-	t_ssmap		envvars; // 2. "map" (associative array) of environment variables
-	t_history	history;
-
+	t_mapss	*envvars;
+	t_dlist	*envvar_path_head;
+	char	*cur_command;
+	t_tree	*text_tree;
+	t_opts	opts;
 }	t_param;
 
-int	init_param(t_param *param);
-int	finalize(t_param *param, int mode, char *message, int retval);
-int	ft_free(int choice, void **obj, int bytes, int ret);
-int	insert_envvar(t_param *param, char *key, char *value);
+# define TEXT_TREE_ROOT "ROOT"
+
+t_param	*param_alloc(void);
+int		param_init(t_param *param);
+int		opts_fill(int argc, const char **argv, t_param *param);
+int		param_get_envvars(t_param *param);
+int		finalize(t_param *param, int mode, char *message, int retval);
+int		input_to_text_tree(t_param *param);
+int		tokenize_cmd(const char *s, int *t_sz, char ***ss);
+int		exec_text_tree(t_param *param);
+int		execute_text_tree_node(t_param *param, t_treenode *node);
+int		param_get_cur_dir(t_param *param);
+int		w_execve(char *fullpath, char **argv, char **envvars, t_param *param);
+void	pre(t_param *param);
+void	post(t_param *param);
 #endif

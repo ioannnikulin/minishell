@@ -6,15 +6,14 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 21:34:36 by inikulin          #+#    #+#             */
-/*   Updated: 2024/08/17 18:10:45 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/11/11 02:49:57 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <assert.h>
-#include "mapss.h"
+#include "mapss_test.h"
 
-#define SZ 9
-#undef DEBUG
+#define SZ 10
+//#define DEBUG
 
 typedef struct s_testcase
 {
@@ -40,6 +39,7 @@ static void	generate_tests(t_testcase *tests)
 	tests[6] = (t_testcase){"OLDPWD", ":0", 6, {"HOME", "OLDPWD", "PATH", "SHELL", "SHLVL", "USERNAME"}, {"/home/user", ":0", "/usr/local/sbin", "/bin/bash", "1", "/usr/local/sbin"}};
 	tests[7] = (t_testcase){"DISPLAY", "X Window", 7, {"DISPLAY", "HOME", "OLDPWD", "PATH", "SHELL", "SHLVL", "USERNAME"}, {"X Window", "/home/user", ":0", "/usr/local/sbin", "/bin/bash", "1", "/usr/local/sbin"}};
 	tests[8] = (t_testcase){"", "Empty_sring", 8, {"", "DISPLAY", "HOME", "OLDPWD", "PATH", "SHELL", "SHLVL", "USERNAME"}, {"Empty_sring", "X Window", "/home/user", ":0", "/usr/local/sbin", "/bin/bash", "1", "/usr/local/sbin"}};
+	tests[9] = (t_testcase){"DISPLAY", "nuffin", 8, {"", "DISPLAY", "HOME", "OLDPWD", "PATH", "SHELL", "SHLVL", "USERNAME"}, {"Empty_sring", "nuffin", "/home/user", ":0", "/usr/local/sbin", "/bin/bash", "1", "/usr/local/sbin"}};
 }
 
 void	ft_mapss_add_test(void)
@@ -47,26 +47,25 @@ void	ft_mapss_add_test(void)
 	t_mapss		*map;
 	t_testcase	tests[SZ];
 
-	map = ft_calloc_if(sizeof(t_mapss*), 1);
-	if (!map)
-		return ;
+	map = ft_calloc(sizeof(t_mapss), 1);
+	assert(map);
 	generate_tests(tests);
 	for (int i = 0; i < SZ; i++)
 	{
 		#ifdef DEBUG
-		ft_printf("%i\n", i);
+		printf("%i\n", i);
 		#endif
-		if (i == 8)
-		{
-			int abc = 0;
-		}
 		ft_mapss_add(map, tests[i].key, tests[i].value);
+	  	#ifdef DEBUG
+		if (map->size != tests[i].size_expected)
+			printf("expected size %i, got %i\n", tests[i].size_expected, map->size);
+		#endif
 		assert(map->size == tests[i].size_expected);
 		t_dlist *node = map->head;
 		for (int j = 0; j < map->size; j ++)
 		{
 			#ifdef DEBUG
-			ft_printf("%i ", j);
+			printf("%i ", j);
 			#endif
 			t_mapss_entry *entry = node->content;
 			assert(ft_strcmp(tests[i].keys_expected[j], entry->key) == 0);
@@ -74,7 +73,8 @@ void	ft_mapss_add_test(void)
 			node = node->next;
 		}
 		#ifdef DEBUG
-		ft_printf("\n");
+		printf("\n");
 		#endif
 	}
+	ft_mapss_finalize_i(map, 0, 0);
 }

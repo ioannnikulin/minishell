@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 15:56:43 by inikulin          #+#    #+#             */
-/*   Updated: 2024/08/10 12:00:14 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/09/23 23:27:56 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ typedef struct s_testcase
 	char	*texts[20];
 }	t_testcase;
 
-void	ft_lstadd_back_test(void)
+void	ft_list_add_back_test(void)
 {
 	t_testcase	t[SZ];
 	t[0] = (t_testcase){-1, 3, "s", {"hello", "i", "", NULL}};
@@ -73,15 +73,17 @@ void	ft_lstadd_back_test(void)
 		ft_list_add_back(&n, nnode);
 		t_list *orig = ft_list_generate(t[i].texts, t[i].end_to);
 		t_list *origroot = orig;
+#ifdef DEBUG
 		t_list* loop_start;
+#endif
 		for (int j = 0; t[i].texts[j] != NULL; j ++)
 		{
 #ifdef DEBUG
 			printf("%p [%s] -> ", n, (char*)n->content);
 			fflush(stdout);
-#endif
 			if (t[i].end_to == j)
 				loop_start = n;
+#endif
 			assert(strcmp(n->content, orig->content) == 0);
 			orig = orig->next;
 			n = n->next;

@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 19:01:40 by inikulin          #+#    #+#             */
-/*   Updated: 2023/11/17 18:33:36 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/08/17 21:43:51 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char	*ft_strtrim(const char *s1, const char *set)
 			last = cur;
 		cur ++;
 	}
-	res = malloc((last - first + 2) * sizeof(char));
+	res = ft_calloc_if((last - first + 2) * sizeof(char), 1);
 	if (!res)
 		return (0);
 	ft_strlcpy(res, &s1[first], last - first + 2);

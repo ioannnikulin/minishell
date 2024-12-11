@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 15:56:43 by inikulin          #+#    #+#             */
-/*   Updated: 2024/08/10 12:03:22 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/08/17 12:06:42 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #define SZ 4
 //#define DEBUG
 
-void	ft_lstnew_test(void)
+void	ft_list_new_test(void)
 {
 	char **tests = malloc(SZ * sizeof(char *));
 	if (!tests)

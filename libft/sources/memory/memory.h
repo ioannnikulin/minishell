@@ -3,15 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   memory.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 20:59:34 by inikulin          #+#    #+#             */
-/*   Updated: 2024/08/14 21:02:18 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/11/15 10:51:47 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MEMORY_H
 # define MEMORY_H
+# include "../../libft.h"
+
 void	*ft_memchr(const void *s, int c, size_t n);
 void	*ft_memset(void *s, int c, size_t n);
 void	*ft_bzero(void *s, size_t n);
@@ -27,5 +29,30 @@ void	ft_swap_ll(long long *a, long long *b);
 void	ft_swap_ull(unsigned long long *a, unsigned long long *b);
 void	ft_swap_d(double *a, double *b);
 void	ft_swap_c(char *a, char *b);
-int		ft_assign(int *where, int what, int retval);
+int		ft_assign_i(int *where, int what, int retval);
+int		ft_assign_pc(char **where, char *what, int retval);
+char	*ft_assign_i_pc(int *where, int what, char *retval);
+
+int		ft_cmp_pvoid_pi(void *a, void *b);
+int		ft_less_eq_pvoid_pi(void *a, void *b);
+int		ft_cmp_pvoid_s(void *a, void *b);
+
+void	*ft_new_pi_pvoid(int i);
+int		*ft_new_pi(int i);
+
+void	ft_free_s_null(void **c);
+void	ft_free_s(void *c);
+void	ft_free_s_p(void **c);
+void	ft_free_nop(void **c);
+void	ft_free_pi_null(void **p);
+void	ft_free_pi(void *p);
+void	ft_free_ss_sz(void **c, int sz);
+void	ft_free_ss_sz_null(void ***c, int sz);
+void	ft_free_ss_uptonull(void **c);
+void	ft_free_ss_uptonull_null(void ***c);
+
+char	**ft_s2(char *s1, char *s2);
+char	**ft_s3(char *s1, char *s2, char *s3);
+char	***ft_ss2(char **s1, char **s2);
+char	***ft_ss3(char **s1, char **s2, char **s3);
 #endif
