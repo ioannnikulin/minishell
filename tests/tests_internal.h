@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 00:04:08 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/11 02:05:51 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/12 20:54:33 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <regex.h>
 
 int	    input_to_text_tree_test(void);
+int		expand_tree_test(void);
 void    tokenize_cmd_test(void);
 void	tokens_to_tree_test(void);
 

@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 00:10:22 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/07 20:01:27 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/12 20:15:48 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ int	option_external(t_control *control, t_treenode *node, t_param *param)
 	fullpath = find_executable(node->content, param->envvar_path_head,
 			&param->opts.errno);
 	if (!fullpath)
-		return (ft_assign(&control->found, 0, 0));
+		return (ft_assign_i(&control->found, 0, 0));
 	control->retval = run_executable(fullpath, node, param);
 	free(fullpath);
 	if (!param->opts.errno)

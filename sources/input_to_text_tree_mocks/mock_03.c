@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mock_3.c                                           :+:      :+:    :+:   */
+/*   mock_03.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 23:07:09 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/08 23:16:21 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/12 22:21:40 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static t_treenode	*p2(t_treenode *cur, t_treenode *root)
 	return (cur);
 }
 
-int	mock_3_tree(t_treenode *root)
+int	mock_03_tree(t_treenode *root)
 {
 	t_treenode	*cur;
 
@@ -76,12 +76,41 @@ int	mock_3_tree(t_treenode *root)
 	return (0);
 }
 
-/* returns 1 on success - to allow condition usage outside */
-int	mock_3(char *input, t_treenode *root, int *errno)
+int	mock_03_tree_expanded(t_treenode *root)
 {
-	if (ft_strcmp(input, MOCK_3_TEXT) != 0 && ft_strcmp(input, "MOCK_3") != 0)
+	int			i;
+	t_treenode	*new;
+
+	i = mock_03_tree(root);
+	if (i)
+		return (i);
+	root = root->child;
+	while (ft_strcmp(root->sibling_next->content, "ls") != 0)
+	{
+		root = root->sibling_next;
+		i ++;
+	}
+	if (ft_treenode_insert_child_idx_s_nop(root->parent, TEXT_TREE_BLOCK, i + 1) == -1)
+		return (2);
+	new = root->sibling_next;
+	root = new->sibling_next->sibling_next;
+	i = -1;
+	while (++ i < 3)
+	{
+		ft_treenode_insert_child_idx(new, root->sibling_prev, i);
+		root = root->sibling_next;
+	}
+	new->sibling_next = root->sibling_prev;
+	root->sibling_prev->sibling_next = 0;
+	return (0);
+}
+
+/* returns 1 on success - to allow condition usage outside */
+int	mock_03(char *input, t_treenode *root, int *errno)
+{
+	if (ft_strcmp(input, MOCK_03_TEXT) != 0 && ft_strcmp(input, "MOCK_03") != 0)
 		return (0);
-	if (mock_3_tree(root))
+	if (mock_03_tree(root))
 		return (ft_assign_i(errno, 1, 1));
 	return (1);
 }

@@ -6,13 +6,13 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 23:53:00 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/07 18:26:49 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/12 20:58:21 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tests_internal.h"
 #include "../sources/input_to_text_tree_mocks/input_to_text_tree_mock.h"
-#define DEBUG
+//#define DEBUG
 
 static int	a_test(t_param *param, char *input, int (*treegen)(t_treenode *), int i)
 {
@@ -43,16 +43,16 @@ int	input_to_text_tree_test(void)
 {
 	t_param	*param = ft_calloc(sizeof(t_param), 1);
 	param->text_tree = ft_tree_make();
-	assert(a_test(param, MOCK_0_TEXT, mock_0_tree, 0) == 0);
-	assert(a_test(param, MOCK_1_TEXT, mock_1_tree, 1) == 0);
-	assert(a_test(param, MOCK_2_TEXT, mock_2_tree, 2) == 0);
-	assert(a_test(param, MOCK_3_TEXT, mock_3_tree, 3) == 0);
-	assert(a_test(param, MOCK_4_TEXT, mock_4_tree, 4) == 0);
-	assert(a_test(param, MOCK_5_TEXT, mock_5_tree, 5) == 0);
-	assert(a_test(param, MOCK_6_TEXT, mock_6_tree, 6) == 0);
-	assert(a_test(param, MOCK_7_TEXT, mock_7_tree, 7) == 0);
-	assert(a_test(param, MOCK_8_TEXT, mock_8_tree, 8) == 0);
-	assert(a_test(param, MOCK_9_TEXT, mock_9_tree, 9) == 0);
+	assert(a_test(param, MOCK_00_TEXT, mock_00_tree, 0) == 0);
+	assert(a_test(param, MOCK_01_TEXT, mock_01_tree, 1) == 0);
+	assert(a_test(param, MOCK_02_TEXT, mock_02_tree, 2) == 0);
+	assert(a_test(param, MOCK_03_TEXT, mock_03_tree, 3) == 0);
+	assert(a_test(param, MOCK_04_TEXT, mock_04_tree, 4) == 0);
+	assert(a_test(param, MOCK_05_TEXT, mock_05_tree, 5) == 0);
+	assert(a_test(param, MOCK_06_TEXT, mock_06_tree, 6) == 0);
+	assert(a_test(param, MOCK_07_TEXT, mock_07_tree, 7) == 0);
+	assert(a_test(param, MOCK_08_TEXT, mock_08_tree, 8) == 0);
+	assert(a_test(param, MOCK_09_TEXT, mock_09_tree, 9) == 0);
 	assert(a_test(param, MOCK_10_TEXT, mock_10_tree, 10) == 0);
 	assert(a_test(param, MOCK_11_TEXT, mock_11_tree, 11) == 0);
 	assert(a_test(param, MOCK_12_TEXT, mock_12_tree, 12) == 0);

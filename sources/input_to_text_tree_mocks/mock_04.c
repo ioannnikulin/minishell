@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mock_6.c                                           :+:      :+:    :+:   */
+/*   mock_4.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 23:07:09 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/07 12:09:08 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/10 17:15:08 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,42 +24,35 @@ static t_treenode	*p1(t_treenode *cur, t_treenode *root)
 	cur = cur->sibling_next->sibling_next;
 	if (ft_treenode_insert_child_idx_s_dup(cur, "2", 0) == -1
 		|| ft_treenode_insert_child_idx_s_dup(root, "&&", 3) == -1
-		|| ft_treenode_insert_child_idx_s_dup(root, "(", 4) == -1)
+		|| ft_treenode_insert_child_idx_s_dup(root, "echo", 4) == -1)
 		return (0);
 	cur = cur->sibling_next->sibling_next;
-	return (cur);
-}
-
-static t_treenode	*p2(t_treenode *cur)
-{
-	if (ft_treenode_insert_child_idx_s_dup(cur, "echo", 0) == -1
-		|| ft_treenode_insert_child_idx_s_dup(cur->child, "3", 0) == -1
-		|| ft_treenode_insert_child_idx_s_dup(cur, "&&", 1) == -1
-		|| ft_treenode_insert_child_idx_s_dup(cur, "echo", 2) == -1)
+	if (ft_treenode_insert_child_idx_s_dup(cur, "3", 0) == -1
+		|| ft_treenode_insert_child_idx_s_dup(root, "&&", 5) == -1
+		|| ft_treenode_insert_child_idx_s_dup(root, "echo", 6) == -1)
 		return (0);
-	cur = cur->child->sibling_next->sibling_next;
+	cur = cur->sibling_next->sibling_next;
 	if (ft_treenode_insert_child_idx_s_dup(cur, "4", 0) == -1
-		|| ft_treenode_insert_child_idx_s_dup(cur->parent, "||", 3) == -1
-		|| ft_treenode_insert_child_idx_s_dup(cur->parent, "(", 4) == -1)
+		|| ft_treenode_insert_child_idx_s_dup(root, "||", 7) == -1
+		|| ft_treenode_insert_child_idx_s_dup(root, "echo", 8) == -1)
 		return (0);
+	cur = cur->sibling_next->sibling_next;
 	return (cur);
 }
 
-static t_treenode	*p3(t_treenode *cur)
+static t_treenode	*p2(t_treenode *cur, t_treenode *root)
 {
-	cur = cur->sibling_next->sibling_next;
-	if (ft_treenode_insert_child_idx_s_dup(cur, "echo", 0) == -1
-		|| ft_treenode_insert_child_idx_s_dup(cur->child, "5", 0) == -1
-		|| ft_treenode_insert_child_idx_s_dup(cur, "&&", 1) == -1
-		|| ft_treenode_insert_child_idx_s_dup(cur, "echo", 2) == -1)
+	if (ft_treenode_insert_child_idx_s_dup(cur, "5", 0) == -1
+		|| ft_treenode_insert_child_idx_s_dup(root, "&&", 9) == -1
+		|| ft_treenode_insert_child_idx_s_dup(root, "echo", 10) == -1)
 		return (0);
-	cur = cur->child->sibling_next->sibling_next;
+	cur = cur->sibling_next->sibling_next;
 	if (ft_treenode_insert_child_idx_s_dup(cur, "6", 0) == -1)
 		return (0);
 	return (cur);
 }
 
-int	mock_6_tree(t_treenode *root)
+int	mock_04_tree(t_treenode *root)
 {
 	t_treenode	*cur;
 
@@ -67,21 +60,23 @@ int	mock_6_tree(t_treenode *root)
 	cur = p1(cur, root);
 	if (!cur)
 		return (1);
-	cur = p2(cur);
-	if (!cur)
-		return (1);
-	cur = p3(cur);
+	cur = p2(cur, root);
 	if (!cur)
 		return (1);
 	return (0);
 }
 
-/* returns 1 on success - to allow condition usage outside */
-int	mock_6(char *input, t_treenode *root, int *errno)
+int	mock_04_tree_expanded(t_treenode *root)
 {
-	if (ft_strcmp(input, MOCK_6_TEXT) != 0 && ft_strcmp(input, "MOCK_6") != 0)
+	return (mock_04_tree(root));
+}
+
+/* returns 1 on success - to allow condition usage outside */
+int	mock_04(char *input, t_treenode *root, int *errno)
+{
+	if (ft_strcmp(input, MOCK_04_TEXT) != 0 && ft_strcmp(input, "MOCK_04") != 0)
 		return (0);
-	if (mock_6_tree(root))
+	if (mock_04_tree(root))
 		return (ft_assign_i(errno, 1, 1));
 	return (1);
 }

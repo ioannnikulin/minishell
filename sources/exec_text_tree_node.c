@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:39:01 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/07 20:00:41 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/12 20:11:48 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ static int	chooser(t_param *param, t_treenode *node, t_control *control)
 	return (0);
 }
 
-int	execute_text_tree_node(t_param *param, t_treenode *node)
+int	execute_text_tree_node(t_param *param, t_treenode *node, t_control *ctrl)
 {
-	t_tree		t;
+	t_tree	t;
 
 	if (!node || !node->content)
 		return (ft_printf("%s\n", ERR_NO_COMMAND_FOUND) * 0);
@@ -54,8 +54,8 @@ int	execute_text_tree_node(t_param *param, t_treenode *node)
 	t.root = node;
 	if (param->opts.debug_output_level & DBG_PRINT_NODE_BEFORE_EXECUTION)
 		ft_tree_print_s(&t);
-	chooser(param, node, &ctrl);
-	if (!ctrl.found)
+	chooser(param, node, ctrl);
+	if (!ctrl->found)
 		printf("%s: %s\n", (char *)node->content, ERR_COMMAND_NOT_FOUND);
-	return (ctrl.retval);
+	return (ctrl->retval);
 }

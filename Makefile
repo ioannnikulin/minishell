@@ -8,7 +8,7 @@ PREPROC_DEFINES =
 SOURCE_F = sources
 TEST_F = tests
 
-INPUT_TO_TEXT_TREE_MOCK_NAMES = input_to_text_tree_mock.c mock_0.c mock_1.c mock_2.c mock_3.c mock_4.c mock_5.c mock_6.c mock_7.c mock_8.c mock_9.c mock_10.c mock_11.c mock_12.c mock_13.c mock_14.c mock_15.c mock_16.c mock_17.c mock_18.c mock_19.c mock_20.c mock_21.c mock_22.c mock_23.c mock_24.c mock_25.c mock_26.c mock_27.c
+INPUT_TO_TEXT_TREE_MOCK_NAMES = input_to_text_tree_mock.c mock_00.c mock_01.c mock_02.c mock_03.c mock_04.c mock_05.c mock_06.c mock_07.c mock_08.c mock_09.c mock_10.c mock_11.c mock_12.c mock_13.c mock_14.c mock_15.c mock_16.c mock_17.c mock_18.c mock_19.c mock_20.c mock_21.c mock_22.c mock_23.c mock_24.c mock_25.c mock_26.c mock_27.c mock_28.c mock_29.c mock_30.c mock_31.c mock_32.c
 INPUT_TO_TEXT_TREE_MOCK_F = input_to_text_tree_mocks
 INPUT_TO_TEXT_TREE_MOCK_SRCS = $(addprefix $(INPUT_TO_TEXT_TREE_MOCK_F)/, $(INPUT_TO_TEXT_TREE_MOCK_NAMES))
 
@@ -24,14 +24,14 @@ TREE_MAKE_NAMES = tokens_to_tree.c is_closing_parenthesis.c is_opening_parenthes
 TREE_MAKE_F = tree_make
 TREE_MAKE_SRCS =  $(addprefix $(TREE_MAKE_F)/, $(TREE_MAKE_NAMES))
 
-SRC_NAMES = finalize.c param_init.c param_get_envvars.c wrappers.c input_to_text_tree.c $(INPUT_TO_TEXT_TREE_MOCK_SRCS) exec_text_tree.c exec_text_tree_node.c $(COMMANDS_SRCS) $(TOKENIZING_SRCS) w_execve.c $(TREE_MAKE_SRCS) pre_post.c opts_fill.c opts.c g_interrupt_flag.c  substitute_envvars.c expand.c
+SRC_NAMES = finalize.c param_init.c param_get_envvars.c wrappers.c input_to_text_tree.c $(INPUT_TO_TEXT_TREE_MOCK_SRCS) exec_text_tree.c exec_text_tree_node.c $(COMMANDS_SRCS) $(TOKENIZING_SRCS) w_execve.c $(TREE_MAKE_SRCS) pre_post.c opts_fill.c opts.c g_interrupt_flag.c  substitute_envvars.c expand.c expand_tree.c
 
 ENDPOINT_NAME = main.c
 
 SRC_SRCS = $(addprefix $(SOURCE_F)/, $(SRC_NAMES))
 ENDPOINT_SRC = $(addprefix $(SOURCE_F)/, $(ENDPOINT_NAME))
 
-TEST_NAMES = input_to_text_tree_test.c tokenize_cmd_test.c unit_tests.c e2e_tests.c
+TEST_NAMES = input_to_text_tree_test.c tokenize_cmd_test.c unit_tests.c e2e_tests.c expand_tree_test.c
 TEST_ENDPOINT_NAME = main_test.c
 TEST_SRCS = $(addprefix $(TEST_F)/, $(TEST_NAMES))
 TEST_ENDPOINT_SRC = $(addprefix $(TEST_F)/, $(TEST_ENDPOINT_NAME))
