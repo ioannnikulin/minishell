@@ -1,40 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   types.h                                            :+:      :+:    :+:   */
+/*   copy_token.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/03 13:33:55 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/12/12 15:15:38 by taretiuk         ###   ########.fr       */
+/*   Created: 2024/12/11 14:02:37 by taretiuk          #+#    #+#             */
+/*   Updated: 2024/12/12 14:57:56 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TYPES_H
-# define TYPES_H
+#include "strings_internal.h"
 
-typedef struct s_delim
+int	copy_token(char **res, const char *s, size_t len)
 {
-	char	*delim;
-}	t_delim;
-
-typedef struct s_delims
-{
-	t_delim		*delims;
-	int			error;
-	size_t		count;
-}	t_delims;
-
-typedef struct s_skip_char
-{
-	char	ex;
-}	t_skip_char;
-
-typedef struct s_skip_chars
-{
-	t_skip_char	*exs;
-	int			error;
-	size_t		count;
-}	t_skip_chars;
-
-#endif
+	*res = (char *)ft_calloc_if((len + 1) * sizeof(char), 1);
+	if (res == 0)
+		return (1);
+	ft_strlcpy(*res, s, len + 1);
+	(*res)[len] = '\0';
+	return (0);
+}

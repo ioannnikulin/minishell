@@ -6,14 +6,14 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 11:13:18 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/12/09 15:31:09 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/12/12 18:14:10 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../sources/strings/strings.h"
 #include "tests.h"
-
-#define NUM_TEST_CASES 11
+#define DEBUG
+#define NUM_TEST_CASES 12
 #define MAX_ARGS 10
 
 typedef struct s_string
@@ -27,6 +27,16 @@ typedef struct s_string_array
 	int			error;
 	size_t		count;
 }	t_strings;
+
+void	free_string_array(t_strings str_array)
+{
+	for (int i = 0; i < (int)str_array.count; i++)
+	{
+		if (str_array.strs[i].str != NULL)
+		free(str_array.strs[i].str);
+	}
+	free(str_array.strs);
+}
 
 t_delims create_operator_array()
 {
@@ -70,8 +80,7 @@ t_strings	create_string_array()
 	{
 		str_array.strs[i].str = NULL;
 	}
-
-	str_array.strs[0].str = strdup("cat ( file1.txt file2.txt ) | grep \"keyword\"");
+	str_array.strs[0].str = strdup("echo '$(echo \"$(echo \"$(echo \"bla\")\")\")'");
 	str_array.strs[1].str = strdup("cat < input.txt && echo | grep \"Done\"");
 	str_array.strs[2].str = strdup("grep \"error\" log.txt || echo \"No errors found\"");
 	str_array.strs[3].str = strdup("gcc main.c -o program >> build.log");
@@ -82,42 +91,27 @@ t_strings	create_string_array()
 	str_array.strs[8].str = strdup("&&");
 	str_array.strs[9].str = strdup("");
 	str_array.strs[10].str = strdup(")(())(");
+	str_array.strs[11].str = strdup("cat ( file1.txt file2.txt ) | grep \"keyword\"");
 	return (str_array);
-}
-
-
-static void	free_tokens(char ***sss, int sz)
-{
-	if (sss != NULL && *sss != NULL)
-	{
-		ft_free_ss_sz_null((void ***)sss, sz);
-	}
-}
-
-void	free_string_array(t_strings str_array)
-{
-	for (int i = 0; i < (int)str_array.count; i++)
-	{
-		if (str_array.strs[i].str != NULL)
-		free(str_array.strs[i].str);
-	}
-	free(str_array.strs);
 }
 
 void	ft_split_str_test(void)
 {
-	t_delims	op_arr = create_operator_array();
-	t_strings	str_arr = create_string_array();
+	t_delims	op_arr;
+	t_strings	str_arr;
 
-	 if (str_arr.error || op_arr.error)
-	 {
-		fprintf(stderr, "Failed to create string array.\n");
-		exit(1);
+	op_arr = create_operator_array();
+	if (op_arr.error)
+		return  ;
+	str_arr = create_string_array();
+	if (str_arr.error)
+	{
+		free(op_arr.delims);
+		return ;
 	}
-
-	 char *t[NUM_TEST_CASES][MAX_ARGS] =
-	 {
-		{"cat ", "(", "file1.txt file2.txt ", ")", "|", "grep \"keyword\"", NULL},
+	char *t[NUM_TEST_CASES][MAX_ARGS] =
+	{
+		{"echo ", "'$(echo \"$(echo \"$(echo \"bla\")\")\")'", NULL},
 		{"cat ", "<", "input.txt ", "&&", "echo ", "|", "grep \"Done\"", NULL},
 		{"grep \"error\" log.txt ", "||", "echo \"No errors found\"", NULL},
 		{"gcc main.c -o program ", ">>", "build.log", NULL},
@@ -127,7 +121,8 @@ void	ft_split_str_test(void)
 		{"mv new_dir old_dir", NULL},
 		{"&&", NULL},
 		{"", NULL},
-		{")", "(", "(", ")", ")", "(", NULL}
+		{")", "(", "(", ")", ")", "(", NULL},
+		{"cat ", "(", "file1.txt file2.txt ", ")", "|", "grep \"keyword\"", NULL},
 	};
 	for (int i = 0; i < NUM_TEST_CASES; i ++)
 	{
@@ -135,6 +130,11 @@ void	ft_split_str_test(void)
 		char **split_op = ft_split_str(str_arr.strs[i].str, op_arr, &sz);
 		for (int j = 0; j < sz; j ++)
 		{
+			#ifdef DEBUG
+			ft_printf("Result: %s\n", split_op[j]);
+			ft_printf("Expect: %s\n", t[i][j]);
+			ft_printf("Size is: %i\n", sz);
+			#endif
 			assert((split_op[j] == NULL) == (t[i][j] == NULL));
 			if (split_op[j] == NULL)
 			{
@@ -142,8 +142,7 @@ void	ft_split_str_test(void)
 			}
 			assert(strcmp(split_op[j], t[i][j]) == 0);
 		}
-		free_tokens(&split_op, sz);
-		sz = 0;
+		ft_free_ss_uptonull((void **)split_op);
 	}
 	free(op_arr.delims);
 	free_string_array(str_arr);

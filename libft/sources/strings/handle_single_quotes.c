@@ -1,40 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   types.h                                            :+:      :+:    :+:   */
+/*   handle_single_quotes.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/03 13:33:55 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/12/12 15:15:38 by taretiuk         ###   ########.fr       */
+/*   Created: 2024/12/11 12:21:25 by taretiuk          #+#    #+#             */
+/*   Updated: 2024/12/11 14:00:53 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TYPES_H
-# define TYPES_H
+#include "strings_internal.h"
 
-typedef struct s_delim
+int	locate_single_quotes(const char *s, size_t *len)
 {
-	char	*delim;
-}	t_delim;
+	if (*s == '\'')
+	{
+		s++;
+		*len = 1;
+	}
+	while (*s && *s != '\'')
+	{
+		s++;
+		(*len)++;
+	}
+	if (*s == '\'')
+	{
+		s++;
+		(*len)++;
+	}
+	return (0);
+}
 
-typedef struct s_delims
+int	handle_single_quotes(char **res, const char *s, size_t *len)
 {
-	t_delim		*delims;
-	int			error;
-	size_t		count;
-}	t_delims;
-
-typedef struct s_skip_char
-{
-	char	ex;
-}	t_skip_char;
-
-typedef struct s_skip_chars
-{
-	t_skip_char	*exs;
-	int			error;
-	size_t		count;
-}	t_skip_chars;
-
-#endif
+	locate_single_quotes(s, len);
+	if (copy_token(res, s, *len) != 0)
+		return (0);
+	return (1);
+}
