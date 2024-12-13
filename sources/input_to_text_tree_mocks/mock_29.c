@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 23:07:09 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/13 13:27:09 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/13 15:46:23 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,10 @@ int	mock_29_tree_expanded(t_treenode *root)
 	i = mock_29_tree(root);
 	if (i)
 		return (i);
-	ft_treenode_insert_child_idx_s_nop(root, TEXT_TREE_BLOCK, 0);
+	ft_treenode_insert_child_idx_s_nop(root, TEXT_TREE_BLOCK_REDIR, 0);
 	new = root->child;
 	new->child = ft_treenode_cut(root, 1, 4);
-	ft_treenode_insert_child_idx_s_nop(root, TEXT_TREE_BLOCK, 0);
+	ft_treenode_insert_child_idx_s_nop(root, TEXT_TREE_BLOCK_REDIR, 0);
 	new = root->child;
 	new->child = ft_treenode_cut(root, 1, 4);
 	return (0);

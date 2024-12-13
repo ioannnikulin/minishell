@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 15:22:58 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/13 12:48:12 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/13 15:45:07 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ typedef struct s_control
 
 # define TEXT_TREE_ROOT "ROOT"
 # define TEXT_TREE_BLOCK "("
+# define TEXT_TREE_BLOCK_REDIR "["
 
 t_param	*param_alloc(void);
 int		param_init(t_param *param);

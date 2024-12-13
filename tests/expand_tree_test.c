@@ -6,15 +6,15 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 22:21:08 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/13 14:02:05 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/13 15:56:16 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tests_internal.h"
 #include "../sources/input_to_text_tree_mocks/input_to_text_tree_mock.h"
 #define SZ 33
-#define START 31
-#define DEBUG
+#define START 0
+//#define DEBUG
 
 typedef struct s_testcase
 {
@@ -39,7 +39,7 @@ int	expand_tree_test(void)
 		assert(expand_tree(&param) == 0);
 		int cmpres = ft_tree_cmp_s(t[i].exp, param.text_tree);
 		#ifdef DEBUG
-		if (1)//cmpres != 0)
+		if (cmpres != 0)
 		{
 			ft_tree_print_s(t[i].exp);
 			ft_tree_print_s(param.text_tree);
