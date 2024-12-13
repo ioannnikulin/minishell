@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   handle_single_quotes.c                            :+:      :+:    :+:   */
+/*   handle_quotes.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -11,6 +11,26 @@
 /* ************************************************************************** */
 
 #include "strings_internal.h"
+
+int	locate_double_quotes(const char *s, size_t *len)
+{
+	if (*s == '"')
+	{
+		s++;
+		*len = 1;
+	}
+	while (*s && *s != '"')
+	{
+		s++;
+		(*len)++;
+	}
+	if (*s == '"')
+	{
+		s++;
+		(*len)++;
+	}
+	return (0);
+}
 
 int	locate_single_quotes(const char *s, size_t *len)
 {
@@ -32,10 +52,35 @@ int	locate_single_quotes(const char *s, size_t *len)
 	return (0);
 }
 
-int	handle_single_quotes(char **res, const char *s, size_t *len)
+int	handle_quotes(char **res, const char *s, size_t *len)
 {
-	locate_single_quotes(s, len);
-	if (copy_token(res, s, *len) != 0)
-		return (0);
+	if (*s == '\'')
+	{
+		locate_single_quotes(s, len);
+		if (copy_token(res, s, *len) != 0)
+			return (0);
+		return (1);
+	}
+	if (*s == '"')
+	{
+		locate_double_quotes(s, len);
+		if (copy_token(res, s, *len) != 0)
+			return (0);
+		return (1);
+	}
 	return (1);
+}
+
+void	process_quotes(const char *p, size_t *len)
+{
+	if (*p == '\'')
+	{
+		locate_single_quotes(p, len);
+		return ;
+	}
+	else if (*p == '"')
+	{
+		locate_double_quotes(p, len);
+		return ;
+	}
 }

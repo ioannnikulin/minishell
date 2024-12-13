@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 16:40:11 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/12/12 14:59:02 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/12/13 17:17:04 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,14 @@
 # include "strings.h"
 
 int		copy_token(char **res, const char *s, size_t len);
-int		handle_single_quotes(char **res, const char *s, size_t *len);
+void	process_quotes(const char *p, size_t *len);
+int		handle_quotes(char **res, const char *s, size_t *len);
 int		find_delimiter(const char *s, t_delims arr, size_t *op_len);
 int		locate_single_quotes(const char *s, size_t *op_len);
+int		locate_double_quotes(const char *s, size_t *len);
+void	process_plain_token(const char *p, t_delims arr, size_t *len);
 int		locate_plain_token(const char *s, t_delims arr, size_t *len);
+void	calc_tokens(const char *p, t_delims arr, int *token_q);
 int		copy_word(char **res, const char *from, int length);
 bool	is_in_quotes(const char p, t_skip_chars ex_arr, int *in_quotes,
 			int *quote_type);

@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 17:50:43 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/12/10 16:55:32 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/12/13 13:07:50 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ char	**ft_split_set_skip_delim(const char *str, t_delims arr,
 	return (res);
 }
 
+/*delim_arr " "*/
 char	**ft_split_skip_delim(const char *str, t_delims delim_arr,
 					t_skip_chars ex_arr, int *sz)
 {

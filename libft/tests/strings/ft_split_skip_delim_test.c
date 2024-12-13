@@ -6,13 +6,13 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 16:24:51 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/12/10 15:29:37 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/12/13 14:35:29 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../libft.h"
 #include "tests.h"
-#define DEBUG
+// #define DEBUG
 #define NUM_TEST_CASES 12
 #define MAX_ARGS 16
 
