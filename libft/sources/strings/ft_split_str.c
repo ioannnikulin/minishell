@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 14:08:20 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/12/12 17:50:36 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/12/13 11:17:00 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static int	extract_token(char **res, const char **s, t_delims arr)
 	size_t		len;
 
 	len = 0;
-	while (**s == ' ')
+	while (**s == ' ' || **s == '\t')
 		(*s)++;
 	if (**s == '\'')
 	{

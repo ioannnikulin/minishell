@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 11:13:18 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/12/12 18:14:10 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/12/13 12:27:24 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #define DEBUG
 #define NUM_TEST_CASES 12
 #define MAX_ARGS 10
+#define START 0
 
 typedef struct s_string
 {
@@ -33,7 +34,7 @@ void	free_string_array(t_strings str_array)
 	for (int i = 0; i < (int)str_array.count; i++)
 	{
 		if (str_array.strs[i].str != NULL)
-		free(str_array.strs[i].str);
+			free(str_array.strs[i].str);
 	}
 	free(str_array.strs);
 }
@@ -66,9 +67,9 @@ t_delims create_operator_array()
 t_strings	create_string_array()
 {
 	t_strings	str_array;
-	str_array.count = 11;
+	str_array.count = NUM_TEST_CASES;
 	str_array.error = 0;
-	str_array.strs = ft_calloc_if(sizeof(t_string) * str_array.count, 1);;
+	str_array.strs = ft_calloc_if(sizeof(t_string) * str_array.count, 1);
 	if (str_array.strs == NULL)
 	{
 		fprintf(stderr, "Memory allocation failed for str_array.strs\n");
@@ -133,7 +134,6 @@ void	ft_split_str_test(void)
 			#ifdef DEBUG
 			ft_printf("Result: %s\n", split_op[j]);
 			ft_printf("Expect: %s\n", t[i][j]);
-			ft_printf("Size is: %i\n", sz);
 			#endif
 			assert((split_op[j] == NULL) == (t[i][j] == NULL));
 			if (split_op[j] == NULL)

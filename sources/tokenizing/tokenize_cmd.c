@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 06:08:59 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/12/10 17:18:56 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/12/11 14:29:31 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static int	process_temp_split(char ***p_ss, char **temp_split,
 	return (0);
 }
 
-static int	split_excluding_quotes(char *s, t_delims delim_arr,
+static int	split_excluding_quotes(char **s, t_delims delim_arr,
 			t_skip_chars ex_arr, char ***p_ss)
 {
 	int				i;
@@ -55,7 +55,7 @@ static int	split_excluding_quotes(char *s, t_delims delim_arr,
 	return (0);
 }
 
-static int	split_by_spcs_tabs(char *ss, t_delims arr, t_skip_chars ex_arr,
+static int	split_by_spcs_tabs(char **ss, t_delims arr, t_skip_chars ex_arr,
 				char ***p_ss)
 {
 	int	t_sz;
@@ -73,41 +73,41 @@ static int	split_by_spcs_tabs(char *ss, t_delims arr, t_skip_chars ex_arr,
 	return (0);
 }
 
-// static int	split_by_operators(const char *s, t_skip_chars ex_arr, char ***p_ss)
-// {
-// 	int			sz;
-// 	t_delims	op_arr;
+static int	split_by_operators(const char *s, char ***p_ss)
+{
+	int			sz;
+	t_delims	op_arr;
 
-// 	sz = 0;
-// 	if (s == NULL)
-// 		return (1);
-// 	op_arr = create_operator_array();
-// 	if (op_arr.error)
-// 		return (1);
-// 	*p_ss = ft_split_str(s, op_arr, ex_arr, &sz);
-// 	if (*p_ss == NULL)
-// 		return (cleanup(&op_arr, 0, *p_ss, 2));
-// 	return (cleanup(&op_arr, 0, 0, 0));
-// }
+	sz = 0;
+	if (s == NULL)
+		return (1);
+	op_arr = create_operator_array();
+	if (op_arr.error)
+		return (1);
+	*p_ss = ft_split_str(s, op_arr, &sz);
+	if (*p_ss == NULL)
+		return (cleanup(&op_arr, 0, *p_ss, 2));
+	return (cleanup(&op_arr, 0, 0, 0));
+}
 
 int	tokenize_cmd(const char *s, char ***p_ss)
 {
-	//char			**tok_oper;
+	char			**tok_oper;
 	t_delims		delim_arr;
 	t_skip_chars	ex_arr;
 
-	// tok_oper = NULL;
-	if (check_empty_string(s, p_ss) != 0)
+	tok_oper = NULL;
+	if (if_empty_string(s, p_ss) != 0)
 		return (0);
 	delim_arr = create_delim_arr();
 	if (delim_arr.error)
 		return (cleanup(0, 0, 0, 1));
 	if (create_ex_arr(&ex_arr) != 0)
 		return (cleanup(&delim_arr, 0, 0, 2));
-	// if (split_by_operators(s, ex_arr, &tok_oper) != 0)
-	// 	return (cleanup(&delim_arr, &ex_arr, tok_oper, 2));
-	if (split_by_spcs_tabs(s, delim_arr, ex_arr, p_ss) != 0)
-		return (cleanup(&delim_arr, &ex_arr, 0, 4));
-	cleanup(&delim_arr, &ex_arr, 0, 0);
+	if (split_by_operators(s, &tok_oper) != 0)
+		return (cleanup(&delim_arr, &ex_arr, tok_oper, 2));
+	if (split_by_spcs_tabs(tok_oper, delim_arr, ex_arr, p_ss) != 0)
+		return (cleanup(&delim_arr, &ex_arr, tok_oper, 4));
+	cleanup(&delim_arr, &ex_arr, tok_oper, 0);
 	return (0);
 }

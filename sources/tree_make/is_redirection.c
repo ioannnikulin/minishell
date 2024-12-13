@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 20:05:54 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/12/06 20:18:41 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/12/11 10:19:57 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,5 @@ int	is_redirection(char *token)
 		|| !ft_strncmp(token, "2>", 2)
 		|| !ft_strncmp(token, "&>", 2)
 		|| !ft_strncmp(token, "1>", 2)
-		|| !ft_strncmp(token, "1,2>", 4)
 	);
 }
