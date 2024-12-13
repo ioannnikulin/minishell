@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 15:22:58 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/12 20:16:32 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/13 12:48:12 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,8 @@ int		input_to_text_tree(t_param *param);
 int		tokenize_cmd(const char *s, int *t_sz, char ***ss);
 int		expand_tree(t_param *param);
 int		exec_text_tree(t_param *param);
-int		execute_text_tree_node(t_param *param, t_treenode *node, t_control *ctrl);
+int		execute_text_tree_node(t_param *param, t_treenode *node,
+			t_control *ctrl);
 int		param_get_cur_dir(t_param *param);
 int		collect_path(t_dlist *head, char **where);
 int		unpack_block(t_treenode *node, char *open, char *close);

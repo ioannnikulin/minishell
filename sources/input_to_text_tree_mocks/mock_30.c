@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 23:07:09 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/10 18:47:25 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/13 14:01:42 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,23 +57,22 @@ int	mock_30_tree(t_treenode *root)
 int	mock_30_tree_expanded(t_treenode *root)
 {
 	int			i;
-	t_treenode	*new;
+	t_treenode	*cur;
 
 	i = mock_30_tree(root);
 	if (i)
 		return (i);
-	root = root->child->sibling_next->sibling_next;
-	ft_treenode_insert_child_idx_s_nop(root, TEXT_TREE_BLOCK, 0);
-	new = root->child;
-	root = new->sibling_next;
-	i = -1;
-	while (++i < 3)
-	{
-		ft_treenode_insert_child_idx(new, root, i);
-		root = root->sibling_next;
-	}
-	new->sibling_next = root->sibling_next;
-	root->sibling_next = 0;
+	cur = root;
+	ft_treenode_insert_child_idx_s_nop(cur, TEXT_TREE_BLOCK, 2);
+	cur = cur->child->sibling_next->sibling_next;
+	cur->child = ft_treenode_cut(cur->parent, 3, 6);
+	cur = cur->child->child->sibling_next;
+	ft_treenode_insert_child_idx_s_nop(cur->parent, TEXT_TREE_BLOCK, 2);
+	cur = cur->sibling_next;
+	cur->child = ft_treenode_cut(cur->parent, 3, 8);
+	ft_treenode_insert_child_idx_s_nop(cur, TEXT_TREE_BLOCK, 0);
+	cur = cur->child;
+	cur->child = ft_treenode_cut(cur->parent, 1, 4);
 	return (0);
 }
 

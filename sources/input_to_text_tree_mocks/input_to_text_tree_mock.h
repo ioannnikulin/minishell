@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 00:19:45 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/10 18:35:59 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/13 12:49:06 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,8 @@ $say [$foo] ['$sea'] [\"$sea\"] [$food] [$_1] [$_] [$] [$PATH] [$some]"
 # define MOCK_27_TEXT "cd a b && echo 1"
 # define MOCK_28_TEXT "echo 1 && echo 1 | wc | wc"
 # define MOCK_29_TEXT "(echo 1 && echo 1) | wc | wc"
-# define MOCK_30_TEXT "echo 1 && (echo 1 && (echo 1 && echo 1) | wc | wc) | wc && echo 1"
+# define MOCK_30_TEXT "echo 1 && (echo 1 && (echo 1 && echo 1) | wc | wc) \
+| wc && echo 1"
 # define MOCK_31_TEXT "echo 1 > out.a && echo 2 > out.a"
 # define MOCK_32_TEXT "echo 1 >> out.a && echo 2 >> out.a"
 

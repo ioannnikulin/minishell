@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 15:22:58 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/12 20:15:31 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/13 12:43:41 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define COMMANDS_H
 # include "../minishell.h"
 
-typedef struct s_param	t_param;
+typedef struct s_param		t_param;
 typedef struct s_control	t_control;
 
 int		option_cd(t_control *ctrl, t_treenode *node, t_param *param);

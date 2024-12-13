@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 23:07:09 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/10 18:46:46 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/13 13:12:23 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,24 +31,18 @@ int	mock_28_tree(t_treenode *root)
 
 int	mock_28_tree_expanded(t_treenode *root)
 {
-	int			i;
-	t_treenode	*new;
+	int		i;
 
 	i = mock_28_tree(root);
 	if (i)
 		return (i);
-	root = root->child->sibling_next;
 	ft_treenode_insert_child_idx_s_nop(root, TEXT_TREE_BLOCK, 2);
-	new = root->sibling_next;
-	root = new->sibling_next;
-	i = -1;
-	while (++i < 3)
-	{
-		ft_treenode_insert_child_idx(new, root, i);
-		root = root->sibling_next;
-	}
-	new->sibling_next = root->sibling_next;
-	root->sibling_next = 0;
+	root = root->child->sibling_next->sibling_next;
+	root->child = ft_treenode_cut(root->parent, 3, 6);
+	root = root->sibling_prev;
+	ft_treenode_insert_child_idx_s_nop(root->parent, TEXT_TREE_BLOCK, 2);
+	root = root->sibling_next;
+	root->child = ft_treenode_cut(root->parent, 3, 6);
 	return (0);
 }
 

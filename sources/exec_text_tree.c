@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:39:01 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/12 20:11:32 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/13 12:43:08 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static int	nonbrace(t_param *param, t_treenode *node, t_control *ctrl)
 	return (res);
 }
 
-static int same_cmd(char *op, char *skipop)
+static int	same_cmd(char *op, char *skipop)
 {
 	if ((skipop && !ft_strcmp(op, skipop))
 		|| ft_strcmp(op, "|") == 0 || is_redirection(op))
