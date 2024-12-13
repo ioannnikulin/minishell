@@ -6,12 +6,14 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 14:00:52 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/12 23:01:56 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/13 12:31:51 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../tests_internal.h"
-#define DEBUG
+#define SZ 9
+#define START 0
+//#define DEBUG
 
 typedef struct s_testcase
 {
@@ -24,8 +26,6 @@ typedef struct s_testcase
 	int	exp_ret[20];
 	int	exp_ret_sz;
 }	t_testcase;
-
-#define SZ 5
 
 static int	cmp(int exp[], int exp_sz, t_treenode *act)
 {
@@ -63,8 +63,12 @@ int	ft_treenode_cut_test(void)
 	t[2] = (t_testcase){{0, 1, 2, 3, 4, 5, 6, 7}, 8, 10, 11, {0, 1, 2, 3, 4, 5, 6, 7}, 8, {}, 0};
 	t[3] = (t_testcase){{0, 1, 2, 3, 4, 5, 6, 7}, 8, 2, 4, {0, 1, 4, 5, 6, 7}, 6, {2, 3}, 2};
 	t[4] = (t_testcase){{0, 1, 2, 3, 4, 5, 6, 7}, 8, 4, 2, {0, 1, 2, 3, 4, 5, 6, 7}, 8, {}, 0};
+	t[5] = (t_testcase){{0, 1, 2, 3, 4, 5, 6, 7}, 8, 0, 4, {4, 5, 6, 7}, 4, {0, 1, 2, 3}, 4};
+	t[6] = (t_testcase){{0, 1, 2, 3, 4, 5, 6, 7}, 8, 4, 8, {0, 1, 2, 3}, 4, {4, 5, 6, 7}, 4};
+	t[7] = (t_testcase){{0, 1, 2, 3, 4, 5, 6, 7}, 8, 4, 10, {0, 1, 2, 3}, 4, {4, 5, 6, 7}, 4};
+	t[8] = (t_testcase){{0, 1, 2, 3, 4, 5, 6, 7}, 8, 0, 10, {}, 0, {0, 1, 2, 3, 4, 5, 6, 7}, 8};
 	
-	for (int i = 0; i < SZ; i ++) {
+	for (int i = START; i < SZ; i ++) {
 		#ifdef DEBUG
 		ft_printf("===%i===\n", i);
 		#endif

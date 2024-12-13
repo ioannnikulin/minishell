@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 22:23:32 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/12 23:12:28 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/13 12:31:07 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,13 @@ static t_treenode	*top(t_treenode *parent, int toExcl)
 	ret = parent->child;
 	next = ret;
 	i = -1;
-	while (++i < toExcl)
+	while (++i < toExcl && next)
 		next = next->sibling_next;
-	if (i != toExcl)
-		return (0);
+	if (next)
+	{
+		next->sibling_prev->sibling_next = 0;
+		next->sibling_prev = 0;
+	}
 	parent->child = next;
 	return (ret);
 }
@@ -37,11 +40,10 @@ t_treenode	*ft_treenode_cut(t_treenode *parent, int fromIncl, int toExcl)
 	t_treenode	*next;
 	t_treenode	*ret;
 
-	if (!parent || toExcl <= fromIncl)
+	if (!parent || toExcl <= fromIncl || ft_assign_i(&i, 0, 0))
 		return (0);
 	if (fromIncl == 0)
 		return (top(parent, toExcl));
-	i = 0;
 	prev = parent->child;
 	while (++ i < fromIncl && prev->sibling_next)
 		prev = prev->sibling_next;
@@ -49,9 +51,13 @@ t_treenode	*ft_treenode_cut(t_treenode *parent, int fromIncl, int toExcl)
 		return (0);
 	ret = prev->sibling_next;
 	next = ret;
-	while (++i < toExcl - 1 && next->sibling_next)
+	while (++i <= toExcl && next)
 		next = next->sibling_next;
 	prev->sibling_next = next;
-	next->sibling_prev = prev;
+	if (next)
+	{
+		next->sibling_prev->sibling_next = 0;
+		next->sibling_prev = prev;
+	}
 	return (ret);
 }
