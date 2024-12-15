@@ -6,13 +6,14 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 15:22:58 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/13 12:43:41 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/13 17:54:52 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef COMMANDS_H
 # define COMMANDS_H
 # include "../minishell.h"
+# include "../execution_internal.h"
 
 typedef struct s_param		t_param;
 typedef struct s_control	t_control;

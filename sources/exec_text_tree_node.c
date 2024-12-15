@@ -6,11 +6,12 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:39:01 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/12 20:11:48 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/13 17:53:55 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "execution_internal.h"
 #include <sys/wait.h>
 
 static int	builtin(int (*f)(t_control *, t_treenode *, t_param *)

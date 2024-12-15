@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 15:22:58 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/13 15:45:07 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/15 11:43:12 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@
 # include "../libft/libft.h"
 # include "resources.h"
 # include "commands/commands.h"
-
 # include "tokenizing/input_processing.h"
 # include "tree_make/tree_processing.h"
 
@@ -64,14 +63,6 @@ typedef struct s_param
 	t_flows	flows;
 }	t_param;
 
-typedef struct s_control
-{
-	int	retval;
-	int	found;
-	int	in_fd;
-	int	out_fd;
-}	t_control;
-
 # define TEXT_TREE_ROOT "ROOT"
 # define TEXT_TREE_BLOCK "("
 # define TEXT_TREE_BLOCK_REDIR "["
@@ -85,11 +76,8 @@ int		input_to_text_tree(t_param *param);
 int		tokenize_cmd(const char *s, int *t_sz, char ***ss);
 int		expand_tree(t_param *param);
 int		exec_text_tree(t_param *param);
-int		execute_text_tree_node(t_param *param, t_treenode *node,
-			t_control *ctrl);
 int		param_get_cur_dir(t_param *param);
 int		collect_path(t_dlist *head, char **where);
-int		unpack_block(t_treenode *node, char *open, char *close);
 int		expand(t_treenode *node, t_param *param);
 int		w_execve(char *fullpath, char **argv, char **envvars, t_param *param);
 void	pre(t_param *param);
