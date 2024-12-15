@@ -6,6 +6,7 @@ libft/tests/test
 .vscode
 minishell
 test
+testf/*
 tests/tool_print_environment
 e2e_f/*
 e2e.stdout
