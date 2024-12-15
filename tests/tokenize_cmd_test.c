@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 06:11:45 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/12/15 21:36:38 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/12/15 21:56:02 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static int	init_ex_arr(t_skip_chars *ex_arr)
 static t_strings	init_string_array()
 {
 	t_strings	str_array;
-	str_array.count = 11;
+	str_array.count = NUM_TEST_CASES;
 	str_array.error = 0;
 	str_array.strs = ft_calloc_if(sizeof(t_string) * str_array.count, 1);
 	assert(str_array.strs != NULL);
