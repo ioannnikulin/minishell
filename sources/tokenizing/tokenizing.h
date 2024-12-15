@@ -1,24 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tests_internal.h                                   :+:      :+:    :+:   */
+/*   tokenizing.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/21 00:04:08 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/15 21:14:04 by taretiuk         ###   ########.fr       */
+/*   Created: 2024/12/15 21:33:29 by taretiuk          #+#    #+#             */
+/*   Updated: 2024/12/15 21:33:59 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TESTS_INTERNAL_H
-# define TESTS_INTERNAL_H
-# include "../sources/minishell.h"
-# include <assert.h>
-# include <fcntl.h>
-# include <regex.h>
+#ifndef TOKENIZING_H
+# define TOKENIZING_H
 
-int		input_to_text_tree_test(void);
-void	tokenize_cmd_test(void);
-void	ft_split_str_test(void);
-
+int	tokenize_cmd(const char *s, char ***p_ss);
 #endif

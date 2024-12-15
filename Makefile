@@ -2,7 +2,7 @@ CC = cc
 NAME = minishell
 COMPILE_FLAGS = -Wall -Wextra -Werror -g -c
 LINK_FLAGS = -lft -Llibft -lreadline
-PREFIX = 
+PREFIX =
 PREPROC_DEFINES =
 
 SOURCE_F = sources
@@ -16,7 +16,11 @@ COMMANDS_NAMES = option_cd.c option_echo.c option_env.c option_exit.c option_exp
 COMMANDS_F = commands
 COMMANDS_SRCS = $(addprefix $(COMMANDS_F)/,$(COMMANDS_NAMES))
 
-TOKENIZING_NAMES = tokenize_cmd.c tokenize_cmd_utils.c
+SPLIT_NAMES = ft_split_str.c calc_tokens.c locate_plain_token.c handle_quotes.c copy_token.c if_empty_string.c
+SPLIT_F = split
+SPLIT_SRCS = $(addprefix $(SPLIT_F)/, $(SPLIT_NAMES))
+
+TOKENIZING_NAMES = tokenize_cmd.c init_structs.c tokenize_cmd_utils.c
 TOKENIZING_F = tokenizing
 TOKENIZING_SRCS = $(addprefix $(TOKENIZING_F)/, $(TOKENIZING_NAMES))
 
@@ -24,14 +28,14 @@ TREE_MAKE_NAMES = tokens_to_tree.c is_closing_parenthesis.c is_opening_parenthes
 TREE_MAKE_F = tree_make
 TREE_MAKE_SRCS =  $(addprefix $(TREE_MAKE_F)/, $(TREE_MAKE_NAMES))
 
-SRC_NAMES = finalize.c param_init.c param_get_envvars.c wrappers.c input_to_text_tree.c $(INPUT_TO_TEXT_TREE_MOCK_SRCS) exec_text_tree.c exec_text_tree_node.c $(COMMANDS_SRCS) $(TOKENIZING_SRCS) w_execve.c $(TREE_MAKE_SRCS) pre_post.c opts_fill.c opts.c g_interrupt_flag.c  substitute_envvars.c expand.c
+SRC_NAMES = finalize.c param_init.c param_get_envvars.c wrappers.c input_to_text_tree.c $(INPUT_TO_TEXT_TREE_MOCK_SRCS) exec_text_tree.c exec_text_tree_node.c $(COMMANDS_SRCS) $(TOKENIZING_SRCS) w_execve.c $(TREE_MAKE_SRCS) pre_post.c opts_fill.c opts.c g_interrupt_flag.c  substitute_envvars.c expand.c $(SPLIT_SRCS)
 
 ENDPOINT_NAME = main.c
 
 SRC_SRCS = $(addprefix $(SOURCE_F)/, $(SRC_NAMES))
 ENDPOINT_SRC = $(addprefix $(SOURCE_F)/, $(ENDPOINT_NAME))
 
-TEST_NAMES = input_to_text_tree_test.c tokenize_cmd_test.c unit_tests.c e2e_tests.c
+TEST_NAMES = input_to_text_tree_test.c ft_split_str_test.c tokenize_cmd_test.c unit_tests.c e2e_tests.c
 TEST_ENDPOINT_NAME = main_test.c
 TEST_SRCS = $(addprefix $(TEST_F)/, $(TEST_NAMES))
 TEST_ENDPOINT_SRC = $(addprefix $(TEST_F)/, $(TEST_ENDPOINT_NAME))
@@ -51,7 +55,7 @@ TEST_ENDPOINT_OBJ = $(TEST_OBJ_F)$(TEST_ENDPOINT_NAME:.c=.o)
 TEST_TOOL_OBJS = $(addprefix $(TEST_OBJ_F), $(TEST_TOOL_NAMES:.c=.o))
 INCLUDES = -I . -I libft
 
-DIRS = $(COMMANDS_F) $(INPUT_TO_TEXT_TREE_MOCK_F) $(TOKENIZING_F) $(TREE_MAKE_F)
+DIRS = $(COMMANDS_F) $(INPUT_TO_TEXT_TREE_MOCK_F) $(TOKENIZING_F) $(TREE_MAKE_F) $(SPLIT_F)
 
 OBJ_DIRS = $(addprefix $(OBJ_F), $(DIRS))
 
