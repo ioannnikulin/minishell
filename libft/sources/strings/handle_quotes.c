@@ -26,7 +26,6 @@ int	locate_double_quotes(const char *s, size_t *len)
 	}
 	if (*s == '"')
 	{
-		s++;
 		(*len)++;
 	}
 	return (0);
@@ -46,7 +45,6 @@ int	locate_single_quotes(const char *s, size_t *len)
 	}
 	if (*s == '\'')
 	{
-		s++;
 		(*len)++;
 	}
 	return (0);

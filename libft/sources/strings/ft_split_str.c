@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 14:08:20 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/12/13 17:17:21 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/12/15 17:48:01 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,10 @@ static int	extract_token(char **res, const char **s, t_delims arr)
 	size_t		len;
 
 	len = 0;
-	while (**s == ' ' || **s == '\t')
+	while (**s && (**s == ' ' || **s == '\t'))
 		(*s)++;
+	if (!**s)
+		return (0);
 	if (**s == '\'' || **s == '"')
 	{
 		handle_quotes(res, *s, &len);
@@ -58,7 +60,6 @@ char	**ft_split_str(const char *s, t_delims arr, int *sz)
 	cwi = -1;
 	p = s;
 	calc_tokens(p, arr, &token_q);
-	ft_printf("Tokens number: %i\n", token_q);
 	res = allocate_res(token_q);
 	if (!res)
 		return (NULL);

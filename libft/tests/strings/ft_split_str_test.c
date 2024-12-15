@@ -6,17 +6,18 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 11:13:18 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/12/13 17:51:03 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/12/15 17:47:35 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../sources/strings/strings.h"
 #include "tests.h"
-#define DEBUG
-// #define TEST
+// #define DEBUG
+#define TEST
 #define NUM_TEST_CASES 14
 #define MAX_ARGS 15
 #define START 0
+#define STOP NUM_TEST_CASES
 
 typedef struct s_string
 {
@@ -40,12 +41,11 @@ void	free_string_array(t_strings str_array)
 	free(str_array.strs);
 }
 
-void	print_array(char **res, char **exp, int sz, int j)
+void	print_array(char **res, int act_sz, char **exp, int exp_sz)
 {
 	int	i = 0;
-	ft_printf("\n=========Test %i=============\n\n", j);
 	ft_printf("Result:\n");
-	while (i < sz)
+	while (i < act_sz)
 	{
 		ft_printf("%s\n", res[i]);
 		i++;
@@ -53,7 +53,7 @@ void	print_array(char **res, char **exp, int sz, int j)
 
 	i = 0;
 	ft_printf("\nExpected:\n");
-	while (i < sz)
+	while (i < exp_sz)
 	{
 		ft_printf("%s\n", exp[i]);
 		i++;
@@ -116,7 +116,7 @@ t_strings	create_string_array()
 	str_array.strs[10].str = strdup("");
 	str_array.strs[11].str = strdup(")(())(");
 	str_array.strs[12].str = strdup("cat ( file1.txt file2.txt ) | grep \"keyword\"");
-	str_array.strs[13].str = strdup("echo [\"$sea\"]");
+	str_array.strs[13].str = strdup("[\"a\"]");
 	return (str_array);
 }
 
@@ -149,13 +149,21 @@ void	ft_split_str_test(void)
 		{"", NULL},
 		{")", "(", "(", ")", ")", "(", NULL},
 		{"cat", "(", "file1.txt", "file2.txt", ")", "|", "grep", "\"keyword\"", NULL},
-		{"echo", "[\"$sea\"]", NULL},
+		{"[\"a\"]", NULL},
 	};
-	for (int i = 0; i < NUM_TEST_CASES; i ++)
+	for (int i = START; i < STOP; i ++)
 	{
-		int sz = 0;
-		char **split_op = ft_split_str(str_arr.strs[i].str, op_arr, &sz);
-		for (int j = 0; j < sz; j ++)
+		#ifdef DEBUG
+		ft_printf("\n=========Test %i=============\n\n", i);
+		#endif
+		int act_sz = 0;
+		char **split_op = ft_split_str(str_arr.strs[i].str, op_arr, &act_sz);
+		int exp_sz = 0;
+		while (t[i][exp_sz]) exp_sz ++;
+		#ifdef DEBUG
+		print_array(split_op, act_sz, t[i], exp_sz);
+		#endif
+		for (int j = 0; j < act_sz; j ++)
 		{
 			#ifdef TEST
 			assert((split_op[j] == NULL) == (t[i][j] == NULL));
@@ -166,9 +174,6 @@ void	ft_split_str_test(void)
 			assert(strcmp(split_op[j], t[i][j]) == 0);
 			#endif
 		}
-		#ifdef DEBUG
-		print_array(split_op, t[i], sz, i);
-		#endif
 		ft_free_ss_uptonull((void **)split_op);
 	}
 	free(op_arr.delims);

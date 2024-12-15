@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 17:16:01 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/12/13 17:45:27 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/12/15 17:46:16 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ void	calc_tokens_2(const char *p, t_delims arr, int *token_q,
 	size_t	sz;
 
 	sz = 0;
-	*len = 0;
+	if (!p || !*p)
+		return ;
 	if (*p == '\'' || *p == '"')
 	{
 		process_quotes(p, len);
@@ -42,12 +43,14 @@ void	calc_tokens(const char *p, t_delims arr, int *token_q)
 {
 	size_t	len;
 
-	len = 0;
 	*token_q = 0;
-	while (*p)
+	while (p && *p)
 	{
+		len = 0;
 		while (*p && (*p == ' ' || *p == '\t'))
 			p++;
+		if (!*p)
+			break ;
 		calc_tokens_2(p, arr, token_q, &len);
 		p += len;
 	}
