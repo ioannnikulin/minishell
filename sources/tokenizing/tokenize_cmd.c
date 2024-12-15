@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 06:08:59 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/12/11 14:29:31 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/12/13 13:20:56 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,10 @@ static int	process_temp_split(char ***p_ss, char **temp_split,
 static int	split_excluding_quotes(char **s, t_delims delim_arr,
 			t_skip_chars ex_arr, char ***p_ss)
 {
-	int				i;
-	int				sz;
-	int				res_i;
-	char			**temp_split;
+	int		i;
+	int		sz;
+	int		res_i;
+	char	**temp_split;
 
 	ft_assign_i(&i, -1, ft_assign_i(&res_i, 0, 0));
 	while (s[++i] != NULL)

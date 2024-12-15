@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 23:53:00 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/10 13:08:16 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/12/13 13:13:15 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,14 @@ int	input_to_text_tree_test(void)
 	param->text_tree = ft_tree_make();
 	assert(a_test(param, MOCK_0_TEXT, mock_0_tree, 0) == 0);
 	assert(a_test(param, MOCK_1_TEXT, mock_1_tree, 1) == 0);
-	//assert(a_test(param, MOCK_2_TEXT, mock_2_tree, 2) == 0);
+	assert(a_test(param, MOCK_2_TEXT, mock_2_tree, 2) == 0);
 	assert(a_test(param, MOCK_3_TEXT, mock_3_tree, 3) == 0);
 	assert(a_test(param, MOCK_4_TEXT, mock_4_tree, 4) == 0);
 	assert(a_test(param, MOCK_5_TEXT, mock_5_tree, 5) == 0);
 	assert(a_test(param, MOCK_6_TEXT, mock_6_tree, 6) == 0);
 	assert(a_test(param, MOCK_7_TEXT, mock_7_tree, 7) == 0);
-	// assert(a_test(param, MOCK_8_TEXT, mock_8_tree, 8) == 0);
-	// assert(a_test(param, MOCK_9_TEXT, mock_9_tree, 9) == 0);
+	assert(a_test(param, MOCK_8_TEXT, mock_8_tree, 8) == 0);
+	assert(a_test(param, MOCK_9_TEXT, mock_9_tree, 9) == 0);
 	assert(a_test(param, MOCK_10_TEXT, mock_10_tree, 10) == 0);
 	assert(a_test(param, MOCK_11_TEXT, mock_11_tree, 11) == 0);
 	assert(a_test(param, MOCK_12_TEXT, mock_12_tree, 12) == 0);
