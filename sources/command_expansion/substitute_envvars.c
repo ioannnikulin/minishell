@@ -6,11 +6,10 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 15:01:39 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/04 12:33:39 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/15 13:12:35 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
 #include "expander_internal.h"
 
 static char	*grab_name(char *content, int start)

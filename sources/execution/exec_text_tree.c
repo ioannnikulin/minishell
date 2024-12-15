@@ -6,12 +6,11 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:39:01 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/15 11:48:58 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/15 20:42:19 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-#include "tree_make/tree_processing_internal.h"
+#include "../tree_make/tree_processing_internal.h"
 #include "execution_internal.h"
 
 static int	nonbrace(t_executor *e)
@@ -26,38 +25,41 @@ static int	nonbrace(t_executor *e)
 	return (res);
 }
 
-static int	same_cmd(char *op, char *skipop)
-{
-	if ((skipop && !ft_strcmp(op, skipop))
-		|| ft_strcmp(op, "|") == 0 || is_redirection(op))
-		return (1);
-	return (0);
-}
-
-static int	exec_rec(t_e *e)
+static int	exec_rec(t_executor *e)
 {
 	int	res;
 
 	if (!e)
 		return (0);
+	if (ft_strcmp(e->node->content, "ls") == 0)
+		res = 0; // TODO: breakpoint here
+	if (ft_strcmp(e->node->content, "grep") == 0)
+		res = 0; // TODO: breakpoint here
 	if (set_redirs(e))
 		return (1);
-	if (ft_strcmp(e->node->content, "(") == 0)
+	if (ft_strcmp(e->node->content, TEXT_TREE_BLOCK) == 0
+		|| ft_strcmp(e->node->content, TEXT_TREE_BLOCK_REDIR) == 0)
+	{
+		e->node = e->node->child;
 		res = exec_rec(e);
+	}
 	else
 		res = nonbrace(e);
 	if (e->param->opts.errno)
-	{
-		printf("ERROR %i\n", e->param->opts.errno);
-		return (0);
-	}
-	e->node = e->node->sibling_next;
-	while (res && e->node && same_cmd(e->node->content, "&&") && e->node->sibling_next)
+		return (0 * printf("ERROR %i\n", e->param->opts.errno));
+	if (e->node)
+		e->node = e->node->sibling_next;
+	while (res != 0 && e->node && e->node->content
+		&& ft_strcmp(e->node->content, "&&") == 0 && e->node->sibling_next)
 		e->node = e->node->sibling_next->sibling_next;
-	while (!res && e->node && same_cmd(e->node->content, "||") && e->node->sibling_next)
+	while (res == 0 && e->node && e->node->content
+		&& ft_strcmp(e->node->content, "||") == 0 && e->node->sibling_next)
 		e->node = e->node->sibling_next->sibling_next;
 	if (e->param->opts.exiting || !e->node || !e->node->sibling_next)
 		return (ft_if_i(e->param->opts.exiting, 0, res));
+	e->node = e->node->sibling_next;
+	if (unset_redirs(e))
+		return (1);
 	return (exec_rec(e));
 }
 
@@ -78,5 +80,8 @@ int	exec_text_tree(t_param *param)
 	if (!executor)
 		return (2);
 	res = exec_rec(executor);
+	ft_dlist_clear_i(&executor->in_fd, 0);
+	ft_dlist_clear_i(&executor->out_fd, 0);
+	free(executor);
 	return (res);
 }

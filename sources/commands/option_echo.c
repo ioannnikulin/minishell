@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 00:08:39 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/07 18:13:56 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/15 13:50:21 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 // return value is ignored
 // is there a way for echo to fail?
-int	option_echo(t_control *control, t_treenode *node, t_param *param)
+int	option_echo(t_executor *control, t_treenode *node, t_param *param)
 {
 	int			n;
 	t_treenode	*child;

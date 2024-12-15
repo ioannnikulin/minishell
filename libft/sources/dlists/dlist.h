@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 20:49:23 by inikulin          #+#    #+#             */
-/*   Updated: 2024/10/06 23:00:50 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/15 18:44:34 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ t_dlist	*ft_dlist_new(void *content);
 t_dlist	*ft_dlist_generate(char *texts[], int end_to);
 t_dlist	*ft_dlist_generate_int(int nums[], int sz, int end_to);
 void	ft_dlist_add_front(t_dlist **lst, t_dlist *new);
+t_dlist	*ft_dlist_add_front_i(t_dlist **lst, int value);
 int		ft_dlist_size(t_dlist *lst);
 t_dlist	*ft_dlist_last(t_dlist *lst);
 void	ft_dlist_add_back(t_dlist **lst, t_dlist *new);
@@ -37,6 +38,7 @@ t_dlist	*ft_dlist_add_back_s(t_dlist **lst, char *new);
 void	ft_dlist_delone(t_dlist *lst, void (*del)(void *));
 int		ft_dlist_clear(t_dlist **lst, void (*del)(void *), int ret);
 int		ft_dlist_clear_s(t_dlist **lst, int ret);
+int		ft_dlist_clear_i(t_dlist **lst, int ret);
 void	ft_dlist_iter(t_dlist *lst, void (*f)(void *));
 t_dlist	*ft_dlist_map(t_dlist *lst, void *(*f)(void *),
 			void (*del)(void *));

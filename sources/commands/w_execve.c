@@ -6,11 +6,11 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 22:30:29 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/29 18:31:04 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/15 14:13:22 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 #include <sys/wait.h>
 
 static void	dbg(char *fullpath, char **argv, char **envvars)

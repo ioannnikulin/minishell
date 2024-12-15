@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 00:10:22 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/12 20:15:48 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/15 13:57:15 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ static int	run_executable(char *fullpath, t_treenode *node, t_param *param)
 
 /* test with empty path, found in first, found in last, not found,
  * found but not allowed, empty command */
-int	option_external(t_control *control, t_treenode *node, t_param *param)
+int	option_external(t_executor *control, t_treenode *node, t_param *param)
 {
 	char	*fullpath;
 

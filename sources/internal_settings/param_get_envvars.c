@@ -6,11 +6,11 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/06 20:45:38 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/15 14:53:09 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/15 13:07:38 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 #ifdef MOCK_TANIA
 
 /* returns error code */

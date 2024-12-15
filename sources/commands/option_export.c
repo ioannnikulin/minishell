@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 00:09:30 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/07 18:15:41 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/15 13:57:23 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ static int	one(char *src, t_mapss *map, t_dlist **path_head, int *errno)
 }
 
 // return value is ignored
-int	option_export(t_control *control, t_treenode *node, t_param *param)
+int	option_export(t_executor *control, t_treenode *node, t_param *param)
 {
 	control->found = 1;
 	node = node->child;

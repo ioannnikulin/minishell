@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 00:09:55 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/07 18:17:32 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/15 13:57:38 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 // return value is ignored
 // unset path separately
-int	option_unset(t_control *control, t_treenode *node, t_param *param)
+int	option_unset(t_executor *control, t_treenode *node, t_param *param)
 {
 	char	*key;
 

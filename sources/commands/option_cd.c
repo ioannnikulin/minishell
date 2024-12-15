@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 00:08:15 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/07 17:59:35 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/15 13:50:10 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ static int	couldnt(t_treenode *node, char *fullpath, int *ret, int errno)
 // return value is ignored
 // check on nonexisting folders
 // check on unset HOME
-int	option_cd(t_control *control, t_treenode *node, t_param *param)
+int	option_cd(t_executor *control, t_treenode *node, t_param *param)
 {
 	char	*fullpath;
 	t_dlist	*envvars;

@@ -6,12 +6,11 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 20:11:36 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/13 15:55:02 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/15 13:10:42 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-#include "tree_make/tree_processing_internal.h"
+#include "../tree_make/tree_processing_internal.h"
 
 static int	expand_cmd(t_treenode *node, int *i)
 {
@@ -30,7 +29,8 @@ static int	expand_cmd(t_treenode *node, int *i)
 		*i += 2;
 		return (expand_cmd(node->sibling_next->sibling_next, i));
 	}
-	if (ft_treenode_insert_child_idx_s_nop(node->parent, TEXT_TREE_BLOCK_REDIR, *i) != *i)
+	if (ft_treenode_insert_child_idx_s_nop(node->parent,
+			TEXT_TREE_BLOCK_REDIR, *i) != *i)
 		return (1);
 	new = node->parent->child;
 	j = -1;

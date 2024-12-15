@@ -6,14 +6,14 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 00:08:59 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/07 18:14:27 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/15 13:56:46 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "commands.h"
 
 // return value is ignored
-int	option_env(t_control *control, t_treenode *node, t_param *param)
+int	option_env(t_executor *control, t_treenode *node, t_param *param)
 {
 	char	**lines;
 	int		i;

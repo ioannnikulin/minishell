@@ -6,14 +6,14 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 22:23:32 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/13 12:31:07 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/15 18:37:12 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tree.h"
 #include "../../libft.h"
 
-static t_treenode	*top(t_treenode *parent, int toExcl)
+static t_treenode	*top(t_treenode *parent, int to_excl)
 {
 	t_treenode	*next;
 	t_treenode	*ret;
@@ -22,7 +22,7 @@ static t_treenode	*top(t_treenode *parent, int toExcl)
 	ret = parent->child;
 	next = ret;
 	i = -1;
-	while (++i < toExcl && next)
+	while (++i < to_excl && next)
 		next = next->sibling_next;
 	if (next)
 	{
@@ -33,25 +33,25 @@ static t_treenode	*top(t_treenode *parent, int toExcl)
 	return (ret);
 }
 
-t_treenode	*ft_treenode_cut(t_treenode *parent, int fromIncl, int toExcl)
+t_treenode	*ft_treenode_cut(t_treenode *parent, int from_incl, int to_excl)
 {
 	int			i;
 	t_treenode	*prev;
 	t_treenode	*next;
 	t_treenode	*ret;
 
-	if (!parent || toExcl <= fromIncl || ft_assign_i(&i, 0, 0))
+	if (!parent || to_excl <= from_incl || ft_assign_i(&i, 0, 0))
 		return (0);
-	if (fromIncl == 0)
-		return (top(parent, toExcl));
+	if (from_incl == 0)
+		return (top(parent, to_excl));
 	prev = parent->child;
-	while (++ i < fromIncl && prev->sibling_next)
+	while (++ i < from_incl && prev->sibling_next)
 		prev = prev->sibling_next;
-	if (i != fromIncl)
+	if (i != from_incl)
 		return (0);
 	ret = prev->sibling_next;
 	next = ret;
-	while (++i <= toExcl && next)
+	while (++i <= to_excl && next)
 		next = next->sibling_next;
 	prev->sibling_next = next;
 	if (next)
