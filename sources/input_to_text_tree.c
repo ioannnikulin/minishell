@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 23:07:09 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/09 16:06:11 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/12/15 17:58:31 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,9 @@ static int	ret(char **tokens, t_tree *tree, int ret)
 
 int	input_to_text_tree(t_param *param)
 {
-	int		sz;
 	char	**tokens;
 	t_tree	*tree;
 
-	sz = 0;
 	tokens = NULL;
 	if (tokenize_cmd(param->cur_command, &tokens) != 0)
 		return (ret(tokens, 0, 1));
