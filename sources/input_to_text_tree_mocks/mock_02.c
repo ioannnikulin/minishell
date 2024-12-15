@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mock_2.c                                           :+:      :+:    :+:   */
+/*   mock_02.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 23:07:09 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/10 16:33:56 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/15 22:43:53 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	mock_02_tree(t_treenode *root)
 {
 	if (ft_treenode_insert_child_idx_s_dup(root, "echo", 0) == -1
-		|| ft_treenode_insert_child_idx_s_dup(root->child, "1   2", 0) == -1
+		|| ft_treenode_insert_child_idx_s_dup(root->child, "\"1   2\"", 0) == -1
 		|| ft_treenode_insert_child_idx_s_dup(root->child, "3", 1) == -1)
 		return (1);
 	return (0);

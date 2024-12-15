@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 15:22:58 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/15 11:43:12 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/15 22:45:37 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # include "../libft/libft.h"
 # include "resources.h"
 # include "commands/commands.h"
-# include "tokenizing/input_processing.h"
+# include "tokenizing/tokenizing.h"
 # include "tree_make/tree_processing.h"
 
 # define DBG_EXTERNAL_SEARCH_FOLDERS 1
@@ -73,7 +73,6 @@ int		opts_fill(int argc, const char **argv, t_param *param);
 int		param_get_envvars(t_param *param);
 int		finalize(t_param *param, int mode, char *message, int retval);
 int		input_to_text_tree(t_param *param);
-int		tokenize_cmd(const char *s, int *t_sz, char ***ss);
 int		expand_tree(t_param *param);
 int		exec_text_tree(t_param *param);
 int		param_get_cur_dir(t_param *param);

@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   substitute_envvars.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 15:01:39 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/15 13:12:35 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/15 22:42:36 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expander_internal.h"
 
+/*extract alphanum/underscore string after $*/
 static char	*grab_name(char *content, int start)
 {
 	char	*res;
@@ -66,6 +67,11 @@ static int	not_an_envvar(t_crawler *c, char *key)
 	return (0);
 }
 
+/*extracts the variable name
+handle cases when key is empty
+if key is inside single quotes it appends the key name without extension
+else - extract the value corresponding to the key
+move index of command line to process the rest of it*/
 int	expand_envvar(t_crawler *c)
 {
 	char	*key;

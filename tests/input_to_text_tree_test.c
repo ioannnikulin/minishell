@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 23:53:00 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/12 20:58:21 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/15 22:46:17 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@
 
 static int	a_test(t_param *param, char *input, int (*treegen)(t_treenode *), int i)
 {
-	if (i == 23 || i == 24)
-		return (0);
 	#ifdef DEBUG
 	ft_printf("%i\n", i);
 	#endif
