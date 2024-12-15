@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 06:11:45 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/12/15 17:52:54 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/12/15 18:00:14 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,6 @@ void	tokenize_cmd_test()
 		return ;
 	}
 	char		**tokens;
-	int			sz = 0;
 
 	tokens = NULL;
 	assert(str_arr.error == 0 && "Failed to create string array.");
