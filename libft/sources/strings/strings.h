@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 20:55:01 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/11 11:19:43 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/12/15 21:27:59 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 # define STRINGS_H
 
 # include "../../libft.h"
-# include "types.h"
-# include "strings_internal.h"
+# include "ft_split_structs.h"
 
 typedef struct s_sbuf
 {

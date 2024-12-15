@@ -6,11 +6,11 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 17:16:01 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/12/15 17:46:16 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/12/15 21:01:19 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "strings_internal.h"
+#include "split.h"
 
 void	calc_tokens_2(const char *p, t_delims arr, int *token_q,
 			size_t *len)

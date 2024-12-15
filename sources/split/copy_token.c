@@ -1,25 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   if_empty_string.c                               :+:      :+:    :+:   */
+/*   copy_token.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/11 14:27:51 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/12/11 14:28:02 by taretiuk         ###   ########.fr       */
+/*   Created: 2024/12/11 14:02:37 by taretiuk          #+#    #+#             */
+/*   Updated: 2024/12/15 21:01:07 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "strings_internal.h"
+#include "split.h"
 
-int	if_empty_string(const char *s, char ***p_ss)
+int	copy_token(char **res, const char *s, size_t len)
 {
-	if (!*s)
-	{
-		*p_ss = ft_calloc_if(sizeof(char *) * 2, 1);
-		if (!*p_ss)
-			return (1);
-		return (2);
-	}
+	*res = (char *)ft_calloc_if((len + 1) * sizeof(char), 1);
+	if (*res == 0)
+		return (1);
+	ft_strlcpy(*res, s, len + 1);
+	(*res)[len] = '\0';
 	return (0);
 }

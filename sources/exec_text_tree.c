@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:39:01 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/02 20:37:47 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/15 20:04:08 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,6 @@ static	int	nonbrace(t_param *param, t_treenode *node)
 	return (res);
 }
 
-/* brackets execution is actually wrong, should be smth like
-* res = exec_rec(node->child) and then go on with siblings
-* */
 static int	exec_rec(t_param *param, t_treenode *node)
 {
 	int		res;

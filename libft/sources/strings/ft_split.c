@@ -6,12 +6,13 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 20:24:25 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/26 15:42:32 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/12/15 21:29:11 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include "libft.h"
+#include "strings_internal.h"
 
 static int	count_words(const char *pp, const char *charset)
 {

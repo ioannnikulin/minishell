@@ -6,11 +6,11 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 14:08:20 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/12/15 17:48:01 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/12/15 21:00:29 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "strings_internal.h"
+#include "split.h"
 
 static int	extract_token(char **res, const char **s, t_delims arr)
 {

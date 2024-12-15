@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 16:40:11 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/12/13 17:17:04 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/12/15 21:28:41 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,24 +15,14 @@
 
 # include "strings.h"
 
-int		copy_token(char **res, const char *s, size_t len);
-void	process_quotes(const char *p, size_t *len);
-int		handle_quotes(char **res, const char *s, size_t *len);
-int		find_delimiter(const char *s, t_delims arr, size_t *op_len);
-int		locate_single_quotes(const char *s, size_t *op_len);
-int		locate_double_quotes(const char *s, size_t *len);
-void	process_plain_token(const char *p, t_delims arr, size_t *len);
-int		locate_plain_token(const char *s, t_delims arr, size_t *len);
-void	calc_tokens(const char *p, t_delims arr, int *token_q);
 int		copy_word(char **res, const char *from, int length);
+int		find_delimiter(const char *s, t_delims arr, size_t *op_len);
 bool	is_in_quotes(const char p, t_skip_chars ex_arr, int *in_quotes,
 			int *quote_type);
-bool	ft_is_quote(const char p, t_skip_chars ex_arr);
 int		if_empty_string(const char *s, char ***p_ss);
-int		check_edges(char **res, int *cwi);
 int		ft_is_delim(const char *s, t_delim *delims, int count,
 			size_t *match_len);
 int		count_words_skip_delim(const char *pp, t_delims arr,
 			t_skip_chars ex_arr);
-
+int		check_edges(char **res, int *cwi);
 #endif

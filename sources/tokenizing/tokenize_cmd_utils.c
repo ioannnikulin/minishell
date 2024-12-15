@@ -6,11 +6,11 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 18:49:54 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/12/12 18:04:18 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/12/15 21:31:34 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "input_processing.h"
+#include "tokenizing_internal.h"
 
 int	count_tokens(char **ss, t_delims arr, t_skip_chars ex_arr, int *t_sz)
 {

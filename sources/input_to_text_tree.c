@@ -6,12 +6,12 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 23:07:09 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/15 17:58:31 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/12/15 21:34:29 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "tokenizing/input_processing.h"
+#include "tokenizing/tokenizing.h"
 
 static int	ret(char **tokens, t_tree *tree, int ret)
 {

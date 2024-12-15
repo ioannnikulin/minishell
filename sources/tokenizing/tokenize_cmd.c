@@ -6,11 +6,11 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 06:08:59 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/12/13 13:20:56 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/12/15 21:31:47 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "input_processing.h"
+#include "tokenizing_internal.h"
 
 static int	process_temp_split(char ***p_ss, char **temp_split,
 			int sz, int *res_i)

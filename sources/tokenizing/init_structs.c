@@ -6,11 +6,11 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 13:30:21 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/12/09 13:30:39 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/12/15 21:31:39 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "input_processing.h"
+#include "tokenizing_internal.h"
 
 t_delims	create_operator_array(void)
 {

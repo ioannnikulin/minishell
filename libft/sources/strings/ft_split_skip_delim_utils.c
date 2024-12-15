@@ -6,25 +6,11 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 17:58:31 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/12/10 15:45:33 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/12/15 20:41:47 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "strings_internal.h"
-
-bool	ft_is_quote(const char p, t_skip_chars ex_arr)
-{
-	size_t	i;
-
-	i = 0;
-	while (i < ex_arr.count)
-	{
-		if (p == ex_arr.exs[i].ex)
-			return (true);
-		i++;
-	}
-	return (false);
-}
 
 /*if not in quotes and delimeter - we check if flag is positive
 (mean its first delimeter), we change flag to negative and

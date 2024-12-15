@@ -6,12 +6,12 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 06:11:45 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/12/15 18:00:14 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/12/15 21:36:38 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tests_internal.h"
-#include "../sources/tokenizing/input_processing.h"
+#include "../sources/tokenizing/tokenizing.h"
 // #define DEBUG
 #define TEST
 #define NUM_TEST_CASES 14
@@ -58,7 +58,7 @@ static int	init_ex_arr(t_skip_chars *ex_arr)
 	return (0);
 }
 
-t_strings	init_string_array()
+static t_strings	init_string_array()
 {
 	t_strings	str_array;
 	str_array.count = 11;
@@ -124,7 +124,7 @@ void	tokenize_cmd_test()
 		#endif
 		int ret = tokenize_cmd(str_arr.strs[i].str, &tokens);
 		#ifdef DEBUG
-		ft_printf("ret: %i, sz: %i\n", ret, sz);
+		ft_printf("ret: %i\n", ret);
 		#endif
 		assert(ret == 0);
 		for (int j = 0; tokens[j] != NULL; j++)
@@ -136,7 +136,6 @@ void	tokenize_cmd_test()
 			assert(ft_strcmp(tokens[j], t[i][j]) == 0);
 		}
 		ft_free_ss_uptonull((void **)tokens);
-		sz = 0;
 	}
 	free_string_array(str_arr.strs, str_arr.count);
 

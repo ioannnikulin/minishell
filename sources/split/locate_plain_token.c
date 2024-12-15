@@ -6,11 +6,11 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 15:51:25 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/12/15 17:26:11 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/12/15 21:00:48 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "strings_internal.h"
+#include "split.h"
 
 void	process_plain_token(const char *p, t_delims arr, size_t *len)
 {

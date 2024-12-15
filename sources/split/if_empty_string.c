@@ -1,24 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tests_internal.h                                   :+:      :+:    :+:   */
+/*   if_empty_string.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/21 00:04:08 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/15 21:14:04 by taretiuk         ###   ########.fr       */
+/*   Created: 2024/12/11 14:27:51 by taretiuk          #+#    #+#             */
+/*   Updated: 2024/12/11 14:28:02 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TESTS_INTERNAL_H
-# define TESTS_INTERNAL_H
-# include "../sources/minishell.h"
-# include <assert.h>
-# include <fcntl.h>
-# include <regex.h>
+#include "split.h"
 
-int		input_to_text_tree_test(void);
-void	tokenize_cmd_test(void);
-void	ft_split_str_test(void);
-
-#endif
+int	if_empty_string(const char *s, char ***p_ss)
+{
+	if (!*s)
+	{
+		*p_ss = ft_calloc_if(sizeof(char *) * 2, 1);
+		if (!*p_ss)
+			return (1);
+		return (2);
+	}
+	return (0);
+}

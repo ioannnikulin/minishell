@@ -10,7 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "strings_internal.h"
+#include "../../libft/sources/strings/strings_internal.h"
+#include "split.h"
 
 int	locate_double_quotes(const char *s, size_t *len)
 {

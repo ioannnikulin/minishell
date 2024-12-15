@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 15:22:58 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/09 16:26:34 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/12/15 21:34:09 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # include "resources.h"
 # include "commands/commands.h"
 
-# include "tokenizing/input_processing.h"
+# include "tokenizing/tokenizing.h"
 # include "tree_make/tree_processing.h"
 
 # define DBG_EXTERNAL_SEARCH_FOLDERS 1

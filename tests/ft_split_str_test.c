@@ -6,14 +6,15 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 11:13:18 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/12/15 17:47:35 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/12/15 21:36:19 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../sources/strings/strings.h"
-#include "tests.h"
+#include "../sources/split/split.h"
+#include "../sources/tokenizing/tokenizing_internal.h"
+#include "tests_internal.h"
 // #define DEBUG
-#define TEST
+#define DO_ASSERT
 #define NUM_TEST_CASES 14
 #define MAX_ARGS 15
 #define START 0
@@ -31,7 +32,7 @@ typedef struct s_string_array
 	size_t		count;
 }	t_strings;
 
-void	free_string_array(t_strings str_array)
+static void	free_string_array(t_strings str_array)
 {
 	for (int i = 0; i < (int)str_array.count; i++)
 	{
@@ -41,8 +42,10 @@ void	free_string_array(t_strings str_array)
 	free(str_array.strs);
 }
 
-void	print_array(char **res, int act_sz, char **exp, int exp_sz)
+static void	print_array(char **res, int act_sz, char **exp, int exp_sz)
 {
+	if (!res)
+		return ;
 	int	i = 0;
 	ft_printf("Result:\n");
 	while (i < act_sz)
@@ -61,32 +64,7 @@ void	print_array(char **res, int act_sz, char **exp, int exp_sz)
 	ft_printf("\n");
 }
 
-t_delims create_operator_array()
-{
-	t_delims delim_array;
-	delim_array.count = 10;
-	delim_array.error = 0;
-	delim_array.delims = (t_delim *)malloc(sizeof(t_delim) * delim_array.count);
-	if (delim_array.delims == NULL)
-	{
-		fprintf(stderr, "Memory allocation failed\n");
-		delim_array.error = 1;
-		return (delim_array);
-	}
-	delim_array.delims[0].delim = ">>";
-	delim_array.delims[1].delim = ">";
-	delim_array.delims[2].delim = "<<";
-	delim_array.delims[3].delim = "<";
-	delim_array.delims[4].delim = "||";
-	delim_array.delims[5].delim = ")";
-	delim_array.delims[6].delim = "&&";
-	delim_array.delims[7].delim = "&";
-	delim_array.delims[8].delim = "(";
-	delim_array.delims[9].delim = "|";
-	return (delim_array);
-}
-
-t_strings	create_string_array()
+static t_strings	create_string_array()
 {
 	t_strings	str_array;
 	str_array.count = NUM_TEST_CASES;
@@ -165,7 +143,7 @@ void	ft_split_str_test(void)
 		#endif
 		for (int j = 0; j < act_sz; j ++)
 		{
-			#ifdef TEST
+			#ifdef DO_ASSERT
 			assert((split_op[j] == NULL) == (t[i][j] == NULL));
 			if (split_op[j] == NULL)
 			{
@@ -178,4 +156,5 @@ void	ft_split_str_test(void)
 	}
 	free(op_arr.delims);
 	free_string_array(str_arr);
+	print_array(0, 0, 0, 0);//to avoid unused function warning
 }
