@@ -7,6 +7,7 @@ libft/tests/test
 minishell
 test
 testf/*
+testf
 tests/tool_print_environment
 e2e_f/*
 e2e.stdout
