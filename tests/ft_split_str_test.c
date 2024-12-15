@@ -1,19 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tokenize_cmd_test.c                                :+:      :+:    :+:   */
+/*   ft_split_str_test.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/04 06:11:45 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/12/15 21:56:02 by inikulin         ###   ########.fr       */
+/*   Created: 2024/09/21 11:13:18 by taretiuk          #+#    #+#             */
+/*   Updated: 2024/12/15 21:36:19 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../sources/split/split.h"
+#include "../sources/tokenizing/tokenizing_internal.h"
 #include "tests_internal.h"
-#include "../sources/tokenizing/tokenizing.h"
 // #define DEBUG
-#define TEST
+#define DO_ASSERT
 #define NUM_TEST_CASES 14
 #define MAX_ARGS 15
 #define START 0
@@ -31,40 +32,51 @@ typedef struct s_string_array
 	size_t		count;
 }	t_strings;
 
-static void	free_string_array(t_string *strs, size_t count)
+static void	free_string_array(t_strings str_array)
 {
-	if (!strs)
-		return;
-
-	for (size_t i = 0; i < count; i++)
+	for (int i = 0; i < (int)str_array.count; i++)
 	{
-		free(strs[i].str);
+		if (str_array.strs[i].str != NULL)
+			free(str_array.strs[i].str);
 	}
-	free(strs);
+	free(str_array.strs);
 }
 
-static int	init_ex_arr(t_skip_chars *ex_arr)
+static void	print_array(char **res, int act_sz, char **exp, int exp_sz)
 {
-	ex_arr->count = 2;
-	ex_arr->error = 0;
-	ex_arr->exs = ft_calloc_if(sizeof(t_skip_chars) * ex_arr->count, 1);
-	if (ex_arr->exs == NULL)
+	if (!res)
+		return ;
+	int	i = 0;
+	ft_printf("Result:\n");
+	while (i < act_sz)
 	{
-		ex_arr->error = 1;
-		return (ex_arr->error);
+		ft_printf("%s\n", res[i]);
+		i++;
 	}
-	ex_arr->exs[0].ex = '"';
-	ex_arr->exs[1].ex = '\'';
-	return (0);
+
+	i = 0;
+	ft_printf("\nExpected:\n");
+	while (i < exp_sz)
+	{
+		ft_printf("%s\n", exp[i]);
+		i++;
+	}
+	ft_printf("\n");
 }
 
-static t_strings	init_string_array()
+static t_strings	create_string_array()
 {
 	t_strings	str_array;
 	str_array.count = NUM_TEST_CASES;
 	str_array.error = 0;
 	str_array.strs = ft_calloc_if(sizeof(t_string) * str_array.count, 1);
-	assert(str_array.strs != NULL);
+	if (str_array.strs == NULL)
+	{
+		fprintf(stderr, "Memory allocation failed for str_array.strs\n");
+		str_array.error = 1;
+		str_array.strs = NULL;
+		return (str_array);
+	}
 	for (int i = 0; i < (int)str_array.count; i++)
 	{
 		str_array.strs[i].str = NULL;
@@ -86,21 +98,21 @@ static t_strings	init_string_array()
 	return (str_array);
 }
 
-void	tokenize_cmd_test()
+void	ft_split_str_test(void)
 {
-	t_strings	str_arr = init_string_array();
-	t_skip_chars	ex_arr;
+	t_delims	op_arr;
+	t_strings	str_arr;
 
-	if (init_ex_arr(&ex_arr) != 0)
+	op_arr = create_operator_array();
+	if (op_arr.error)
+		return ;
+	str_arr = create_string_array();
+	if (str_arr.error)
 	{
-		free_string_array(str_arr.strs, str_arr.count);
+		free(op_arr.delims);
 		return ;
 	}
-	char		**tokens;
-
-	tokens = NULL;
-	assert(str_arr.error == 0 && "Failed to create string array.");
-	char	*t[NUM_TEST_CASES][MAX_ARGS] =
+	char *t[NUM_TEST_CASES][MAX_ARGS] =
 	{
 		{"echo", "\"&&\"", NULL},
 		{"echo", "'$(echo \"$(echo \"$(echo \"bla\")\")\")'", NULL},
@@ -117,26 +129,32 @@ void	tokenize_cmd_test()
 		{"cat", "(", "file1.txt", "file2.txt", ")", "|", "grep", "\"keyword\"", NULL},
 		{"[\"a\"]", NULL},
 	};
-	for (int i = START; i < NUM_TEST_CASES; i ++)
+	for (int i = START; i < STOP; i ++)
 	{
 		#ifdef DEBUG
 		ft_printf("\n=========Test %i=============\n\n", i);
 		#endif
-		int ret = tokenize_cmd(str_arr.strs[i].str, &tokens);
+		int act_sz = 0;
+		char **split_op = ft_split_str(str_arr.strs[i].str, op_arr, &act_sz);
+		int exp_sz = 0;
+		while (t[i][exp_sz]) exp_sz ++;
 		#ifdef DEBUG
-		ft_printf("ret: %i\n", ret);
+		print_array(split_op, act_sz, t[i], exp_sz);
 		#endif
-		assert(ret == 0);
-		for (int j = 0; tokens[j] != NULL; j++)
+		for (int j = 0; j < act_sz; j ++)
 		{
-			#ifdef DEBUG
-			ft_printf("%s\n", tokens[j]);
+			#ifdef DO_ASSERT
+			assert((split_op[j] == NULL) == (t[i][j] == NULL));
+			if (split_op[j] == NULL)
+			{
+				break;
+			}
+			assert(strcmp(split_op[j], t[i][j]) == 0);
 			#endif
-			assert((tokens[j] == NULL) == (t[i][j] == NULL));
-			assert(ft_strcmp(tokens[j], t[i][j]) == 0);
 		}
-		ft_free_ss_uptonull((void **)tokens);
+		ft_free_ss_uptonull((void **)split_op);
 	}
-	free_string_array(str_arr.strs, str_arr.count);
-
+	free(op_arr.delims);
+	free_string_array(str_arr);
+	print_array(0, 0, 0, 0);//to avoid unused function warning
 }
