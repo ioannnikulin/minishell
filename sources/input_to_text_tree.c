@@ -6,12 +6,28 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 23:07:09 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/06 15:46:28 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/12/15 13:29:39 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "tokenizing/input_processing.h"
+#ifdef MOCK_TANIA
+# include "input_to_text_tree_mocks/input_to_text_tree_mock.h"
+
+int	input_to_text_tree(t_param *param)
+{
+	t_tree	*tree;
+	char	*s;
+	int		ret;
+
+	s = param->cur_command;
+	ret = input_to_text_tree_mock(&tree, s);
+	ft_tree_free(&param->text_tree);
+	param->text_tree = tree;
+	return (ret);
+}
+#else
 
 static int	ret(char **tokens, int sz, t_tree *tree, int ret)
 {
@@ -41,3 +57,4 @@ int	input_to_text_tree(t_param *param)
 	param->text_tree = tree;
 	return (ret(tokens, sz, 0, 0));
 }
+#endif
