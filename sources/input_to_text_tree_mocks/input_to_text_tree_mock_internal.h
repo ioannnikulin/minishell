@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 00:19:45 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/27 22:53:39 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/11/29 20:01:49 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,9 @@ int	mock_19(char *input, t_treenode *root, int *errno);
 int	mock_20(char *input, t_treenode *root, int *errno);
 int	mock_21(char *input, t_treenode *root, int *errno);
 int	mock_22(char *input, t_treenode *root, int *errno);
+int	mock_23(char *input, t_treenode *root, int *errno);
+int	mock_24(char *input, t_treenode *root, int *errno);
+int	mock_25(char *input, t_treenode *root, int *errno);
+int	mock_26(char *input, t_treenode *root, int *errno);
+int	mock_27(char *input, t_treenode *root, int *errno);
 #endif

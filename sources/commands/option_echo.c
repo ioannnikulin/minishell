@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 00:08:39 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/08 11:45:12 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/02 22:08:39 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,6 @@ int	option_echo(t_control control, t_treenode *node, t_param *param)
 		printf("%s", (char *)child->content);
 	if (!n)
 		printf("\n");
-	*control.retval = 0;
-	return (1);
+	dup2(1, 1);
+	return (ft_assign_i(control.retval, 0, 1));
 }

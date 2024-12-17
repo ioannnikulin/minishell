@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:39:01 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/06 17:43:07 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/12/02 21:09:56 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,13 @@ int	execute_text_tree_node(t_param *param, t_treenode *node)
 
 	if (!node || !node->content)
 		return (ft_printf("%s\n", ERR_NO_COMMAND_FOUND) * 0);
+	if (expand(node, param))
+		return (ft_assign_i(&param->opts.errno, 1, 0));
 	cmd = node->content;
-	found = 0;
-	res = 0;
 	t.root = node;
 	if (param->opts.debug_output_level & DBG_PRINT_NODE_BEFORE_EXECUTION)
 		ft_tree_print_s(&t);
+	ft_assign_i(&found, 0, ft_assign_i(&res, 0, 0));
 	option_cd(control(is(cmd, "cd", 3), &res, &found), node, param);
 	option_echo(control(is(cmd, "echo", 5), &res, &found), node, param);
 	option_env(control(is(cmd, "env", 4), &res, &found), node, param);

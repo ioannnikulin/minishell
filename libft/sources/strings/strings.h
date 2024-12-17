@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 20:55:01 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/06 20:28:22 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/12/15 18:34:28 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,15 @@
 # define STRINGS_H
 
 # include "../../libft.h"
-# include "types.h"
-# include "strings_internal.h"
+# include "ft_split_structs.h"
+
+typedef struct s_sbuf
+{
+	char	*content;
+	int		sz;
+	int		capacity;
+	int		step;
+}	t_sbuf;
 
 char	*ft_strchr(const char *s, int c);
 char	*ft_strrchr(const char *s, int c);
@@ -36,7 +43,7 @@ char	**ft_split(const char *s, char delim, int *sz);
 char	**ft_split_set(const char *s, const char *charset, int *sz);
 char	**ft_split_str(const char *s, t_delims arr, int *sz);
 char	**ft_split_skip_delim(const char *str, t_delims delim_arr,
-			char ex, int *sz);
+			t_skip_chars ex_arr, int *sz);
 char	*ft_strmapi(const char *s, char (*f)(unsigned int, char));
 void	ft_striteri(char *s, void (*f)(unsigned int, char *));
 char	*ft_empty_string(void);
@@ -45,5 +52,13 @@ void	ft_putendl_fd(char *s, int fd);
 void	ft_putnbr_fd(int n, int fd);
 void	ft_putstr_fd(char *s, int fd);
 void	ft_free_delims_arr(t_delims *arr);
+void	ft_free_delim_c(t_skip_chars *arr);
 void	ft_free_delim_s(t_delims *arr);
+char	*ft_replace_idx(char **where, int from_incl, int to_excl, char *with);
+
+t_sbuf	*ft_sbuf_make(char *src);
+t_sbuf	*ft_sbuf_realloc(t_sbuf *sbuf, int ncap);
+t_sbuf	*ft_sbuf_append(t_sbuf *sbuf, char *what);
+char	*ft_sbuf_get(t_sbuf *sbuf);
+int		ft_sbuf_finalize(t_sbuf **sbuf);
 #endif

@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:39:01 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/29 14:19:00 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/12/15 20:04:08 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,22 +17,28 @@ static int	is(char *a, char *b)
 	return (ft_strcmp(a, b));
 }
 
-/* brackets execution is actually wrong, should be smth like
-* res = exec_rec(node->child) and then go on with siblings
-* */
+static	int	nonbrace(t_param *param, t_treenode *node)
+{
+	t_tree	t;
+	int		res;
+
+	t.root = node;
+	if (param->opts.debug_output_level & DBG_PRINT_NODE_BEFORE_INSPECTION)
+		ft_tree_print_s(&t);
+	res = execute_text_tree_node(param, node);
+	return (res);
+}
+
 static int	exec_rec(t_param *param, t_treenode *node)
 {
 	int		res;
-	t_tree	t;
 
 	if (!node || !param || param->opts.errno || !node->content)
 		return (0);
-	if (!ft_strcmp(node->content, "("))
-		return (exec_rec(param, node->child));
-	t.root = node;
-	if (param->opts.debug_output_level & DBG_PRINT_NODE_BEFORE_EXEC)
-		ft_tree_print_s(&t);
-	res = execute_text_tree_node(param, node);
+	if (ft_strcmp(node->content, "(") == 0)
+		res = exec_rec(param, node->child);
+	else
+		res = nonbrace(param, node);
 	if (param->opts.errno)
 	{
 		printf("ERROR %i\n", param->opts.errno);

@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 14:26:40 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/06 13:24:28 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/02 16:37:10 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,11 @@
 # define ERR_NO_SCRIPT "No such file or directory"
 # define ERR_CMD_ARG_UNKNOWN "argument not supported"
 # define ERR_CMD_ARG_MISSING "argument incomplete"
+# define ERR_UNTERMINATED_SINGLE_QUOTE "single quote block not terminated"
+# define ERR_UNTERMINATED_BLOCK "block not terminated"
 
 # define TXT_INVITATION "> "
+# define TXT_MINISHELL "minishell"
 
 # define PARAM_INTERACTIVE "--interactive"
 # define PARAM_CALLOC_TRAP "--trap"

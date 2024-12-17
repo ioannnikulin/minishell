@@ -1,24 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   input_processing.h                                 :+:      :+:    :+:   */
+/*   copy_token.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/17 15:11:56 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/12/06 18:22:34 by taretiuk         ###   ########.fr       */
+/*   Created: 2024/12/11 14:02:37 by taretiuk          #+#    #+#             */
+/*   Updated: 2024/12/15 21:01:07 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef INPUT_PROCESSING_H
-# define INPUT_PROCESSING_H
+#include "split.h"
 
-# include "../../libft/libft.h"
-
-int			tokenize_cmd(const char *s, int *t_sz, char ***ss);
-t_delims	create_operator_array(void);
-t_delims	create_delim_arr(void);
-int			cleanup(t_delims *arr, char **ss, int retval);
-int			count_tokens(char **ss, t_delims arr, int *t_sz);
-
-#endif
+int	copy_token(char **res, const char *s, size_t len)
+{
+	*res = (char *)ft_calloc_if((len + 1) * sizeof(char), 1);
+	if (*res == 0)
+		return (1);
+	ft_strlcpy(*res, s, len + 1);
+	(*res)[len] = '\0';
+	return (0);
+}

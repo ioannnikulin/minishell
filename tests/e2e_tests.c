@@ -13,9 +13,10 @@
 #include "tests_internal.h"
 #define START 0
 #define TRAP_START 0
-#define SZ 19
+#define SZ 27
 //#define DEBUG
 #define PRINT_MALLOC_FAILURE_NO
+#define PRINT_TEST_NO
 
 typedef struct s_testcase
 {
@@ -126,9 +127,6 @@ static void	successful_execution(t_testcase *test, int *mallocs)
 	#endif
 	assert(system(tmp) == 0);
 	finally(&out, &save);
-	#ifdef DEBUG
-	fprintf(stderr, "executing [%s]\n", tmp);
-	#endif
 	*mallocs = file_compare(ft_mapss_get(test->exp, "stdout"), "e2e.stdout");
 	t_dlist	*entry;
 	char	*key;
@@ -158,7 +156,7 @@ static void	malloc_failure_recoveries(char *cmd, int mallocs)
 		assert(system("mkdir e2e_f") == 0);
 		assert(system("cp minishell e2e_f/minishell") == 0);
 		#ifdef PRINT_MALLOC_FAILURE_NO
-		printf("\t%i\n", i);
+		printf("\t == %i == \n", i);
 		#endif
 		char *is = ft_itoa(i);
 		char *tmp = ft_strjoin_multi_free_outer(ft_s3("cd e2e_f && valgrind --leak-check=full --show-leak-kinds=all -s -q ./minishell --trap", is, cmd), 3, " ");
@@ -221,6 +219,14 @@ int	e2e_tests(void)
 	ft_mapss_add(m[16], "stdout", "HOME=/home/ioann\nsome=BODYONCETOLDME\nPATH=/usr/local/bin:/usr/sbin:/usr/bin:/sbin/bin\nsome=BODYONCETOLDME\n");
 	ft_mapss_add(m[17], "stdout", "1\nexit\n");
 	ft_mapss_add(m[18], "stdout", "1\nexit\n");
+	ft_mapss_add(m[19], "stdout", "1\n3\n4\n6\n");
+	ft_mapss_add(m[20], "stdout", "1\n3\n4\n6\n");
+	ft_mapss_add(m[21], "stdout", "1\n");
+	ft_mapss_add(m[22], "stdout", "1\n6\n");
+	ft_mapss_add(m[23], "stdout", "\\[bar\\] \\[\\$sea\\] \\[\\] \\[\\] \\[\\] \\[\\] \\[\\$\\] \\[/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin/bin\\] \\[BODYONCETOLDME\\]\n");
+	ft_mapss_add(m[24], "stdout", "\\$\\(echo \"\\$\\(echo \"\\$\\(echo \"bla\")\")\")\n");
+	ft_mapss_add(m[25], "stdout", "1 2");
+	ft_mapss_add(m[26], "stdout", "1 -n 2\n3\n");
 	tests[0] = (t_testcase){"--command echo hello world", m[0]};
 	tests[1] = (t_testcase){"--command echo hello world", m[1]};
 //	tests[1] = (t_testcase){"--command \"   echo hello\\n		my openworld \"", m[1]};
@@ -244,11 +250,19 @@ int	e2e_tests(void)
 	tests[16] = (t_testcase){"--command \"env && unset HOME PATH && env\"", m[16]};
 	tests[17] = (t_testcase){"--command \"echo 1 && exit && echo 2\"", m[17]};
 	tests[18] = (t_testcase){"--command \"echo 1 && exit || echo 2\"", m[18]};
+	tests[19] = (t_testcase){"--command \"echo 1 || echo 2 && (echo 3 && (echo 4 || echo 5) && echo 6)\"", m[19]};
+	tests[20] = (t_testcase){"--command \"echo 1 || echo 2 && (echo 3 && (echo 4) || echo 5 && echo 6)\"", m[20]};
+	tests[21] = (t_testcase){"--command \"echo 1 || (echo 2 && (echo 3 && (echo 4) || echo 5 && echo 6))\"", m[21]};
+	tests[22] = (t_testcase){"--command \"echo 1 || (echo 2 && (echo 3 && (echo 4) || echo 5)) && echo 6\"", m[22]};
+	tests[23] = (t_testcase){"--command \"export foo=bar sea=\\$foo say=echo _1=\\$_1 _= && \\$say [\\$foo] ['\\$sea'] [\\\"\\$sea\\\"] [\\$food] [\\$_1] [\\$_] [\\$] [\\$PATH] [\\$some]\"", m[23]};
+	tests[24] = (t_testcase){"--command \"echo \'\\$(echo \\\"\\$(echo \\\"\\$(echo \\\"bla\\\")\\\")\\\")\'\"", m[24]};
+	tests[25] = (t_testcase){"--command \"echo -nn 1 2\"", m[25]};
+	tests[26] = (t_testcase){"--command \"echo 1 -n 2&&echo 3||echo 4   ||echo 5 ||   echo 6\"", m[26]};
 
 	for (int i = START; i < SZ; i ++)
 	{
-		#ifdef DEBUG
-		printf("%i\n", i);
+		#ifdef PRINT_TEST_NO
+		printf("\t ======== %i ======== \n", i);
 		#endif
 		#ifndef VANIA
 		if (i == 15) // cd without arguments is 'go home'. mocked home /home/ioann only available for vania, so skipping everywhere else. can remove this when envvars will be actually read, not mocked.
@@ -266,4 +280,7 @@ int	e2e_tests(void)
 	}
 	system("(rm -r e2e_f && rm e2e.stdout e2e.stderr) 2> /dev/null");
 	return (0);
+
+	//void	(*f)(char *cmd, int mallocs) = malloc_failure_recoveries;
+	//f = f + 0;
 }
