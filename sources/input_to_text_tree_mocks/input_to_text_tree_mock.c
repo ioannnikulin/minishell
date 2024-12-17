@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 23:07:09 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/29 20:46:17 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/06 13:46:33 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	input_to_text_tree_mock(t_tree **tree, char *in)
 	*tree = ft_tree_make();
 	if (!*tree)
 		return (4);
-	(*tree)->root = ft_treenode_make(TEXT_TREE_ROOT, 0, 0, ft_free_nop);
+	(*tree)->root = ft_treenode_make(TEXT_TREE_ROOT, 0, ft_free_nop);
 	if (!((*tree)->root))
 		return (2);
 	r = (*tree)->root;
@@ -44,6 +44,7 @@ int	input_to_text_tree_mock(t_tree **tree, char *in)
 			|| mock_18(in, r, &e) || mock_19(in, r, &e) || mock_20(in, r, &e)
 			|| mock_21(in, r, &e) || mock_22(in, r, &e) || mock_23(in, r, &e)
 			|| mock_24(in, r, &e) || mock_25(in, r, &e) || mock_26(in, r, &e)
+			|| mock_27(in, r, &e)
 		) && !e)
 		return (0);
 	return (ret(e, in));

@@ -138,6 +138,7 @@ $(AUXOBJ): %.o: %.c
 
 testfclean:
 	$(FTPREFIX)rm -f $(TESTOBJS)
+	$(FTPREFIX)rm -f $(AUXOBJ)
 	$(FTPREFIX)rm -f $(SEGFAULTOBJS)
 	$(FTPREFIX)rm -f $(TESTNAME)
 #	$(FTPREFIX)rm -f $(SEGFAULTNAMES)

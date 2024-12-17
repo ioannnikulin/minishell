@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 15:21:17 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/04 12:22:36 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/06 16:28:45 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,6 @@ static int	interactive(t_param *param)
 	{
 		free(param->cur_command);
 		param->cur_command = readline(TXT_INVITATION);
-		if (g_interrupt_flag)
-		{
-			g_interrupt_flag = 0;
-			continue ;
-		}
 		if (!param->cur_command)
 			break ;
 		add_history(param->cur_command);
