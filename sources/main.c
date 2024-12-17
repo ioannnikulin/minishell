@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 15:21:17 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/04 12:22:36 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/07 20:11:59 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,19 +22,17 @@ static int	interactive(t_param *param)
 	{
 		free(param->cur_command);
 		param->cur_command = readline(TXT_INVITATION);
-		if (g_interrupt_flag)
-		{
-			g_interrupt_flag = 0;
-			continue ;
-		}
 		if (!param->cur_command)
 			break ;
 		add_history(param->cur_command);
 		ret = input_to_text_tree(param);
 		if (ret)
 			break ;
+		ret = expand_tree(param);
+		if (ret)
+			break ;
 		ret = exec_text_tree(param);
-		if (ret || param->opts.exiting)
+		if (param->opts.exiting)
 			break ;
 	}
 	return (0);
@@ -47,7 +45,10 @@ static int	one_cmd(t_param *param)
 	if (param->opts.debug_output_level & DBG_ONE_CMD_ECHO)
 		ft_printf("[%s]\n", param->cur_command);
 	ret = input_to_text_tree(param);
-	if (ret != 0)
+	if (ret)
+		return (1);
+	ret = expand_tree(param);
+	if (ret)
 		return (1);
 	exec_text_tree(param);
 	return (0);

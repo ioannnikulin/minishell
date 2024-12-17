@@ -6,11 +6,11 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 15:21:17 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/29 17:31:31 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/15 13:06:59 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "opts.h"
 
 #ifdef FT_CALLOC_IF_TRAPPED
 # include "../libft/tests/memory/memory_test.h"

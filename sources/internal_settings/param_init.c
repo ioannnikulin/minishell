@@ -6,11 +6,11 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 18:10:38 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/15 19:42:05 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/12/15 22:44:31 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 extern volatile sig_atomic_t	g_interrupt_flag;
 
@@ -70,10 +70,9 @@ t_param	*param_alloc(void)
 static void	parent_sigint(int sig)
 {
 	(void)sig;
-	g_interrupt_flag = SIGINT;
-	ft_printf("\n");
-	rl_replace_line("", 0);
+	write(1, "\n", 1);
 	rl_on_new_line();
+	rl_replace_line("", 0);
 	rl_redisplay();
 }
 

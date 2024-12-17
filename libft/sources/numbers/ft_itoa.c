@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 19:01:40 by inikulin          #+#    #+#             */
-/*   Updated: 2024/08/17 21:44:46 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/13 16:15:53 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include <stdlib.h>
 #include "../memory/memory.h"
 #include "../strings/strings.h"
+#include "numbers.h"
 
 static char	*zero(void)
 {
@@ -62,4 +63,14 @@ char	*ft_itoa(int n)
 		is_neg = 1;
 	}
 	return (go(nn, is_neg, c, buf));
+}
+
+size_t	ft_ulltoa(unsigned long long nbr, char *buf)
+{
+	return (ft_ulltoa_base(nbr, "0123456789", buf));
+}
+
+size_t	ft_lltoa(long long nbr, char *buf)
+{
+	return (ft_lltoa_base(nbr, "0123456789", buf));
 }

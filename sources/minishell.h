@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 15:22:58 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/15 21:34:09 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/12/15 22:45:37 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@
 # include "../libft/libft.h"
 # include "resources.h"
 # include "commands/commands.h"
-
 # include "tokenizing/tokenizing.h"
 # include "tree_make/tree_processing.h"
 
@@ -48,6 +47,12 @@ typedef struct s_opts
 	void	(*sigint_handler)(int);
 }	t_opts;
 
+typedef struct s_flows
+{
+	int		pipe_fd;
+	int		pipe_res;
+}	t_flows;
+
 typedef struct s_param
 {
 	t_mapss	*envvars;
@@ -55,9 +60,12 @@ typedef struct s_param
 	char	*cur_command;
 	t_tree	*text_tree;
 	t_opts	opts;
+	t_flows	flows;
 }	t_param;
 
 # define TEXT_TREE_ROOT "ROOT"
+# define TEXT_TREE_BLOCK "("
+# define TEXT_TREE_BLOCK_REDIR "["
 
 t_param	*param_alloc(void);
 int		param_init(t_param *param);
@@ -65,12 +73,10 @@ int		opts_fill(int argc, const char **argv, t_param *param);
 int		param_get_envvars(t_param *param);
 int		finalize(t_param *param, int mode, char *message, int retval);
 int		input_to_text_tree(t_param *param);
-int		tokenize_cmd(const char *s, char ***p_ss);
+int		expand_tree(t_param *param);
 int		exec_text_tree(t_param *param);
-int		execute_text_tree_node(t_param *param, t_treenode *node);
 int		param_get_cur_dir(t_param *param);
 int		collect_path(t_dlist *head, char **where);
-int		unpack_block(t_treenode *node, char *open, char *close);
 int		expand(t_treenode *node, t_param *param);
 int		w_execve(char *fullpath, char **argv, char **envvars, t_param *param);
 void	pre(t_param *param);

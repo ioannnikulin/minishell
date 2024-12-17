@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 19:01:40 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/06 23:48:38 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/15 18:30:37 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,19 @@ static void	free_s_p(void *c)
 int	ft_dlist_clear_s(t_dlist **lst, int ret)
 {
 	return (ft_dlist_clear(lst, free_s_p, ret));
+}
+
+static void	free_pi(void *c)
+{
+	int	*cc;
+
+	if (!c)
+		return ;
+	cc = c;
+	free(cc);
+}
+
+int	ft_dlist_clear_i(t_dlist **lst, int ret)
+{
+	return (ft_dlist_clear(lst, free_pi, ret));
 }

@@ -6,11 +6,10 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 17:06:11 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/04 14:26:43 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/15 13:09:57 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
 #include "expander_internal.h"
 
 static t_crawler	crawler_make(char *src, t_param *param)

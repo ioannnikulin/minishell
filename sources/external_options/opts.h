@@ -1,33 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expander_internal.h                                :+:      :+:    :+:   */
+/*   opts.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/02 20:27:55 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/02 20:29:57 by inikulin         ###   ########.fr       */
+/*   Created: 2024/11/03 19:06:16 by inikulin          #+#    #+#             */
+/*   Updated: 2024/12/15 12:56:02 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXPANDER_INTERNAL_H
-# define EXPANDER_INTERNAL_H
+#ifndef OPTS_H
+# define OPTS_H
+# include "../minishell.h"
 
-# include "minishell.h"
-
-typedef struct s_crawler
-{
-	char	*src;
-	int		i;
-	int		squote;
-	int		dquote;
-	int		envvar;
-	int		normal;
-	t_sbuf	*sbuf;
-	int		errno;
-	t_param	*param;
-}	t_crawler;
-
-int	expand_envvar(t_crawler *c);
+int	opt_debug(const char **act, int *i, t_param *param);
+int	opt_single(const char **act, int *f, int t, t_param *param);
 
 #endif

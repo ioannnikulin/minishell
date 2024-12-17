@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 14:26:40 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/02 16:37:10 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/06 11:49:34 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # define ERR_TEXT_TREE_EMPTY "Command analysis failed"
 # define ERR_CD_NOWHERE "No such file or directory"
 # define ERR_CD_NO_HOME "HOME not set"
+# define ERR_CD_TOO_MANY_ARGS "too many arguments"
 # define ERR_EXPORT_INVALID "not a valid identifier"
 # define ERR_MALLOC "failed to allocate memory"
 # define ERR_NO_SCRIPT "No such file or directory"

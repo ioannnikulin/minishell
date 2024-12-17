@@ -6,14 +6,13 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 15:01:39 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/15 19:36:06 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/12/15 22:42:36 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
 #include "expander_internal.h"
 
-/*substract string after $*/
+/*extract alphanum/underscore string after $*/
 static char	*grab_name(char *content, int start)
 {
 	char	*res;

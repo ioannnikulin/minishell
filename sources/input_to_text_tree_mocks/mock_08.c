@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mock_8.c                                           :+:      :+:    :+:   */
+/*   mock_08.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 23:07:09 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/10 14:50:05 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/15 22:44:01 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "input_to_text_tree_mock_internal.h"
 
-int	mock_8_tree(t_treenode *cur)
+int	mock_08_tree(t_treenode *cur)
 {
 	if (ft_treenode_insert_child_idx_s_dup(cur,
 			"./tests/tool_print_environment", 0) == -1)
@@ -25,12 +25,17 @@ int	mock_8_tree(t_treenode *cur)
 	return (0);
 }
 
-/* returns 1 on success - to allow condition usage outside */
-int	mock_8(char *input, t_treenode *root, int *errno)
+int	mock_08_tree_expanded(t_treenode *root)
 {
-	if (ft_strcmp(input, MOCK_8_TEXT) != 0 && ft_strcmp(input, "MOCK_8") != 0)
+	return (mock_08_tree(root));
+}
+
+/* returns 1 on success - to allow condition usage outside */
+int	mock_08(char *input, t_treenode *root, int *errno)
+{
+	if (ft_strcmp(input, MOCK_08_TEXT) != 0 && ft_strcmp(input, "MOCK_08") != 0)
 		return (0);
-	if (mock_8_tree(root))
+	if (mock_08_tree(root))
 		return (ft_assign_i(errno, 1, 1));
 	return (1);
 }
