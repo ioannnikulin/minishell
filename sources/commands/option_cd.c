@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 00:08:15 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/25 16:51:22 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/06 11:51:01 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,14 @@ static char	*get_checked_path(t_treenode *node, char *pwd, t_mapss *envvars,
 static int	couldnt(t_treenode *node, char *fullpath, int *ret, int errno)
 {
 	if (errno == 4 || errno == 6 || errno == 0)
-		printf("cd: %s: %s\n", (char *)node->child->content, ERR_CD_NOWHERE);
+		ft_printf("%s: cd: %s: %s\n", TXT_MINISHELL,
+			(char *)node->child->content, ERR_CD_NOWHERE);
 	else if (errno == 1)
-		printf("cd: %s\n", ERR_CD_NO_HOME);
+		ft_printf("%s: cd: %s\n", TXT_MINISHELL, ERR_CD_NO_HOME);
+	else if (errno == 7)
+		ft_printf("%s: cd: %s\n", TXT_MINISHELL, ERR_CD_TOO_MANY_ARGS);
 	else
-		printf("cd: %s\n", ERR_MALLOC);
+		ft_printf("%s: cd: %s\n", TXT_MINISHELL, ERR_MALLOC);
 	*ret = 1;
 	free(fullpath);
 	return (1);
@@ -78,6 +81,8 @@ int	option_cd(t_control control, t_treenode *node, t_param *param)
 	if (*control.found || !control.choice)
 		return (0);
 	*control.found = 1;
+	if (node->child->sibling_next)
+		return (couldnt(0, 0, control.retval, 7));
 	errno = 0;
 	fullpath = get_checked_path(node, param->envvar_path_head->content,
 			param->envvars, &errno);

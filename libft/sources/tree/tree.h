@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 18:40:45 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/26 15:00:58 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/12/06 21:49:12 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ typedef struct s_tree_traversal_mode
 }	t_tree_traversal_mode;
 
 t_tree		*ft_tree_make(void);
-t_treenode	*ft_treenode_make(void *c, t_treenode *p, int d,
+t_treenode	*ft_treenode_make(void *c, t_treenode *p,
 				void (*freecontent)(void **));
 int			ft_tree_free(t_tree **t);
 int			ft_treenode_free(t_treenode **n);

@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 12:22:57 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/12/02 19:30:12 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/12/06 21:52:04 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	tokens_to_tree(t_tree *tree, char **tokens)
 	t_treenode	*cur_2;
 
 	i = 0;
-	tree->root = ft_treenode_make(TEXT_TREE_ROOT, 0, 0, ft_free_nop);
+	tree->root = ft_treenode_make(TEXT_TREE_ROOT, 0, ft_free_nop);
 	if (!tree->root)
 		return (2);
 	insert_first_node(tokens[i++], tree->root);
