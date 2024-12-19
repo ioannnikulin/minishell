@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 18:43:58 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/29 14:18:51 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/12/06 21:48:55 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_tree	*ft_tree_make(void)
 	return (res);
 }
 
-t_treenode	*ft_treenode_make(void *c, t_treenode *p, int d,
+t_treenode	*ft_treenode_make(void *c, t_treenode *p,
 				void (*freecontent)(void **))
 {
 	t_treenode	*res;
@@ -32,7 +32,9 @@ t_treenode	*ft_treenode_make(void *c, t_treenode *p, int d,
 		return (0);
 	res->content = c;
 	res->parent = p;
-	res->depth = d;
+	res->depth = 0;
+	if (p)
+		res->depth = p->depth + 1;
 	res->sibling_next = 0;
 	res->sibling_prev = 0;
 	res->child = 0;
