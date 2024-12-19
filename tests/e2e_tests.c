@@ -6,14 +6,14 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 22:57:54 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/06 19:54:46 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/12/06 21:41:27 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tests_internal.h"
 #define START 0
 #define TRAP_START 0
-#define SZ 27
+#define SZ 28
 //#define DEBUG
 #define PRINT_MALLOC_FAILURE_NO
 #define PRINT_TEST_NO
@@ -227,6 +227,7 @@ int	e2e_tests(void)
 	ft_mapss_add(m[24], "stdout", "\\$\\(echo \"\\$\\(echo \"\\$\\(echo \"bla\")\")\")\n");
 	ft_mapss_add(m[25], "stdout", "1 2");
 	ft_mapss_add(m[26], "stdout", "1 -n 2\n3\n");
+	ft_mapss_add(m[27], "stdout", "minishell: cd: too many arguments\n");
 	tests[0] = (t_testcase){"--command echo hello world", m[0]};
 	tests[1] = (t_testcase){"--command echo hello world", m[1]};
 //	tests[1] = (t_testcase){"--command \"   echo hello\\n		my openworld \"", m[1]};
@@ -258,6 +259,7 @@ int	e2e_tests(void)
 	tests[24] = (t_testcase){"--command \"echo \'\\$(echo \\\"\\$(echo \\\"\\$(echo \\\"bla\\\")\\\")\\\")\'\"", m[24]};
 	tests[25] = (t_testcase){"--command \"echo -nn 1 2\"", m[25]};
 	tests[26] = (t_testcase){"--command \"echo 1 -n 2&&echo 3||echo 4   ||echo 5 ||   echo 6\"", m[26]};
+	tests[27] = (t_testcase){"--command \"cd a b && echo 1\"", m[27]};
 
 	for (int i = START; i < SZ; i ++)
 	{
@@ -280,7 +282,4 @@ int	e2e_tests(void)
 	}
 	system("(rm -r e2e_f && rm e2e.stdout e2e.stderr) 2> /dev/null");
 	return (0);
-
-	//void	(*f)(char *cmd, int mallocs) = malloc_failure_recoveries;
-	//f = f + 0;
 }

@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 18:43:58 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/06 15:11:28 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/06 13:55:53 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,14 @@ static int	idx_first(t_treenode *after, int before_idx
 	return (0);
 }
 
+static int	links_and_depth(t_treenode *parent, t_treenode *child)
+{
+	child->parent = parent;
+	parent->children_qtty ++;
+	child->depth = parent->depth + 1;
+	return (0);
+}
+
 int	ft_treenode_insert_child_idx(t_treenode *parent, t_treenode *child,
 		int before_idx)
 {
@@ -33,8 +41,7 @@ int	ft_treenode_insert_child_idx(t_treenode *parent, t_treenode *child,
 
 	if (!parent || !child)
 		return (-1);
-	child->parent = parent;
-	parent->children_qtty ++;
+	links_and_depth(parent, child);
 	after = parent->child;
 	if (!after || before_idx <= 0)
 		return (idx_first(after, before_idx, parent, child));
@@ -77,9 +84,9 @@ int	ft_treenode_insert_child_before_first(t_treenode *parent, t_treenode *child,
 	t_treenode	*cur;
 	t_treenode	*prev;
 
-	child->parent = parent;
-	parent->children_qtty ++;
-	if (before_first(parent, child, cmp))
+	if (!parent || !child || !cmp)
+		return (-1);
+	if (links_and_depth(parent, child) == 0 && before_first(parent, child, cmp))
 		return (0);
 	cur = parent->child;
 	i = 0;

@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 00:19:45 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/11 10:20:49 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/12/15 21:59:37 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ $say [$foo] ['$sea'] [\"$sea\"] [$food] [$_1] [$_] [$] [$PATH] [$some]"
 # define MOCK_24_TEXT "echo '$(echo \"$(echo \"$(echo \"bla\")\")\")'"
 # define MOCK_25_TEXT "echo -nn 1 2"
 # define MOCK_26_TEXT "echo 1 -n 2&&echo 3||echo 4   ||echo 5 ||   echo 6"
+# define MOCK_27_TEXT "cd a b && echo 1"
 
 int	input_to_text_tree_mock(t_tree **tree, char *input);
 int	mock_0_tree(t_treenode *root);
@@ -79,4 +80,5 @@ int	mock_23_tree(t_treenode *root);
 int	mock_24_tree(t_treenode *root);
 int	mock_25_tree(t_treenode *root);
 int	mock_26_tree(t_treenode *root);
+int	mock_27_tree(t_treenode *root);
 #endif

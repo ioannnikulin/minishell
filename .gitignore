@@ -10,6 +10,8 @@ minishell_tester
 test
 tests/tool_print_environment
 e2e_f/*
+testf
+testf/*
 e2e.stdout
 e2e.stderr
 *.txt
