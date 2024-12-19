@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 22:57:54 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/19 12:16:33 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/12/19 20:45:35 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #define START 0
 #define TRAP_START 0
 #define SZ 27
-#define DEBUG
+// #define DEBUG
 #define PRINT_MALLOC_FAILURE_NO
 #define PRINT_TEST_NO
 
