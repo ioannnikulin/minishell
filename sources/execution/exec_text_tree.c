@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:39:01 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/15 20:42:19 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/19 22:45:11 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,34 @@ static int	nonbrace(t_executor *e)
 		ft_tree_print_s(&t);
 	res = execute_text_tree_node(e);
 	return (res);
+}
+
+static int	to_pipe(t_executor *e)
+{
+	//TODO: do here
+}
+
+static int	iterate_siblings(t_executor *e)
+{
+	if (e->node)
+		e->node = e->node->sibling_next;
+	if (ft_strcmp("|", e->node->content) == 0)
+	{
+		e->node = e->node->sibling_next;
+		return (to_pipe(e));
+	}
+	while (res != 0 && e->node && e->node->content
+		&& ft_strcmp(e->node->content, "&&") == 0 && e->node->sibling_next)
+		e->node = e->node->sibling_next->sibling_next;
+	while (res == 0 && e->node && e->node->content
+		&& ft_strcmp(e->node->content, "||") == 0 && e->node->sibling_next)
+		e->node = e->node->sibling_next->sibling_next;
+	if (e->param->opts.exiting || !e->node || !e->node->sibling_next)
+		return (ft_if_i(e->param->opts.exiting, 0, res));
+	e->node = e->node->sibling_next;
+	if (unset_redirs(e) != 0)
+		return (1);
+	return (0);
 }
 
 static int	exec_rec(t_executor *e)
@@ -47,18 +75,7 @@ static int	exec_rec(t_executor *e)
 		res = nonbrace(e);
 	if (e->param->opts.errno)
 		return (0 * printf("ERROR %i\n", e->param->opts.errno));
-	if (e->node)
-		e->node = e->node->sibling_next;
-	while (res != 0 && e->node && e->node->content
-		&& ft_strcmp(e->node->content, "&&") == 0 && e->node->sibling_next)
-		e->node = e->node->sibling_next->sibling_next;
-	while (res == 0 && e->node && e->node->content
-		&& ft_strcmp(e->node->content, "||") == 0 && e->node->sibling_next)
-		e->node = e->node->sibling_next->sibling_next;
-	if (e->param->opts.exiting || !e->node || !e->node->sibling_next)
-		return (ft_if_i(e->param->opts.exiting, 0, res));
-	e->node = e->node->sibling_next;
-	if (unset_redirs(e))
+	if (iterate_siblings(e) != 0)
 		return (1);
 	return (exec_rec(e));
 }
