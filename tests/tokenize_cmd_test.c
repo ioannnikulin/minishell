@@ -6,13 +6,13 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 06:11:45 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/12/19 12:16:07 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/12/19 20:43:33 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tests_internal.h"
 #include "../sources/tokenizing/tokenizing.h"
-#define DEBUG
+// #define DEBUG
 #define TEST
 #define NUM_TEST_CASES 14
 #define MAX_ARGS 15
