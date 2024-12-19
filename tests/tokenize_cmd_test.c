@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 06:11:45 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/12/15 21:56:02 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/19 20:43:33 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,21 +43,6 @@ static void	free_string_array(t_string *strs, size_t count)
 	free(strs);
 }
 
-static int	init_ex_arr(t_skip_chars *ex_arr)
-{
-	ex_arr->count = 2;
-	ex_arr->error = 0;
-	ex_arr->exs = ft_calloc_if(sizeof(t_skip_chars) * ex_arr->count, 1);
-	if (ex_arr->exs == NULL)
-	{
-		ex_arr->error = 1;
-		return (ex_arr->error);
-	}
-	ex_arr->exs[0].ex = '"';
-	ex_arr->exs[1].ex = '\'';
-	return (0);
-}
-
 static t_strings	init_string_array()
 {
 	t_strings	str_array;
@@ -89,13 +74,6 @@ static t_strings	init_string_array()
 void	tokenize_cmd_test()
 {
 	t_strings	str_arr = init_string_array();
-	t_skip_chars	ex_arr;
-
-	if (init_ex_arr(&ex_arr) != 0)
-	{
-		free_string_array(str_arr.strs, str_arr.count);
-		return ;
-	}
 	char		**tokens;
 
 	tokens = NULL;
@@ -138,5 +116,4 @@ void	tokenize_cmd_test()
 		ft_free_ss_uptonull((void **)tokens);
 	}
 	free_string_array(str_arr.strs, str_arr.count);
-
 }
