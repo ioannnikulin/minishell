@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 15:01:39 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/15 19:36:06 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/12/19 19:06:24 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,11 @@ static char	*grab_name(char *content, int start)
 
 	len = 0;
 	c = content[start + len];
-	while (c && ((len == 0 && c == '$') || ft_isalnum(c) || c == '_'))
+	while (c
+		&& ((len == 0 && c == '$')
+			|| (len == 1 && c == '?')
+			|| ft_isalnum(c) || c == '_')
+	)
 	{
 		len ++;
 		c = content[start + len];
@@ -40,6 +44,8 @@ static char	*get_value(char *key, t_param *param)
 		if (collect_path(param->envvar_path_head, &value))
 			return (0);
 	}
+	else if (ft_strcmp(key, "?") == 0)
+		return (ft_lltoa_strdup(param->opts.last_pipe_status));
 	else
 	{
 		value = ft_mapss_get(param->envvars, key);

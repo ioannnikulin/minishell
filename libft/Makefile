@@ -32,7 +32,7 @@ FT_CALLOC_IF_TRAPPED_OBJ = $(FT_CALLOC_IF_TRAPPED_SRC:.c=.o)
 FT_CALLOC_IF_CHOSEN = $(FT_CALLOC_IF_STD_SRC)
 
 NUM_F = numbers
-NUM_NAMES = ft_atoi.c ft_itoa.c ft_xtoa_base.c ft_minmax_int.c ft_minmax_double.c ft_minmax_char.c ft_minmax_uchar.c ft_sign.c ft_ceil_floor.c
+NUM_NAMES = ft_atoi.c ft_itoa.c ft_xtoa_base.c ft_xtoa_base_strdup.c ft_minmax_int.c ft_minmax_double.c ft_minmax_char.c ft_minmax_uchar.c ft_sign.c ft_ceil_floor.c
 NUM_SRCS = $(addprefix $(SOURCES_F)/$(NUM_F)/, $(NUM_NAMES))
 
 STR_F = strings
@@ -101,7 +101,7 @@ TREE_TEST_SRCS = $(addprefix $(TESTS_F)/$(TREE_F)/, $(TREE_TEST_NAMES))
 MEM_TEST_NAMES = ft_bzero_test.c ft_memchr_test.c ft_memcmp_test.c ft_memcpy_test.c ft_memmove_test.c ft_memset_test.c memory_test.c
 MEM_TEST_SRCS = $(addprefix $(TESTS_F)/$(MEM_F)/, $(MEM_TEST_NAMES))
 
-NUM_TEST_NAMES = ft_ceil_floor_test.c ft_atoi_test.c ft_itoa_test.c ft_lltoa_base_test.c ft_ulltoa_base_test.c numbers_test.c
+NUM_TEST_NAMES = ft_ceil_floor_test.c ft_atoi_test.c ft_itoa_test.c ft_lltoa_base_test.c ft_ulltoa_base_test.c ft_lltoa_base_strdup_test.c ft_ulltoa_base_strdup_test.c numbers_test.c
 NUM_TEST_SRCS = $(addprefix $(TESTS_F)/$(NUM_F)/, $(NUM_TEST_NAMES))
 
 STR_TEST_NAMES = ft_split.c ft_split_skip_delim.c ft_strlen.c ft_strchr.c ft_strdup.c ft_striteri.c ft_strjoin.c ft_strlcpy.c ft_strlcat.c ft_strmapi.c ft_strncmp.c ft_strnstr.c ft_strrchr.c ft_strtrim.c ft_substr.c ft_putchar_fd.c ft_putendl_fd.c ft_putnbr_fd.c ft_putstr_fd.c ft_replace_idx.c ft_sbuf.c
