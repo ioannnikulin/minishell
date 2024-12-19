@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   resources.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 14:26:40 by inikulin          #+#    #+#             */
 /*   Updated: 2024/12/06 11:49:34 by inikulin         ###   ########.fr       */
@@ -28,7 +28,7 @@
 # define ERR_UNTERMINATED_SINGLE_QUOTE "single quote block not terminated"
 # define ERR_UNTERMINATED_BLOCK "block not terminated"
 
-# define TXT_INVITATION "> "
+# define TXT_INVITATION "minishell > "
 # define TXT_MINISHELL "minishell"
 
 # define PARAM_INTERACTIVE "--interactive"

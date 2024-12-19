@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 15:22:58 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/15 21:34:09 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/12/19 18:26:38 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ typedef struct s_opts
 	int		exiting;
 	int		errno;
 	void	(*sigint_handler)(int);
+	int		last_pipe_status;
 }	t_opts;
 
 typedef struct s_param
