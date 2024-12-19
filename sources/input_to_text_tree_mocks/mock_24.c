@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 23:07:09 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/29 20:45:38 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/10 17:42:44 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,11 @@ int	mock_24_tree(t_treenode *root)
 	)
 		return (1);
 	return (0);
+}
+
+int	mock_24_tree_expanded(t_treenode *root)
+{
+	return (mock_24_tree(root));
 }
 
 /* returns 1 on success - to allow condition usage outside */

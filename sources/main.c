@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 15:21:17 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/06 16:28:45 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/07 20:11:59 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,11 @@ static int	interactive(t_param *param)
 		ret = input_to_text_tree(param);
 		if (ret)
 			break ;
+		ret = expand_tree(param);
+		if (ret)
+			break ;
 		ret = exec_text_tree(param);
-		if (ret || param->opts.exiting)
+		if (param->opts.exiting)
 			break ;
 	}
 	return (0);
@@ -42,7 +45,10 @@ static int	one_cmd(t_param *param)
 	if (param->opts.debug_output_level & DBG_ONE_CMD_ECHO)
 		ft_printf("[%s]\n", param->cur_command);
 	ret = input_to_text_tree(param);
-	if (ret != 0)
+	if (ret)
+		return (1);
+	ret = expand_tree(param);
+	if (ret)
 		return (1);
 	exec_text_tree(param);
 	return (0);

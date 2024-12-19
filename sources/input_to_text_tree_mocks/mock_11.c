@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 23:07:09 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/07 12:10:11 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/10 17:20:32 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,11 @@ int	mock_11_tree(t_treenode *cur)
 		|| ft_treenode_insert_child_idx_s_dup(cur->parent, "pwd", 4) == -1)
 		return (1);
 	return (0);
+}
+
+int	mock_11_tree_expanded(t_treenode *root)
+{
+	return (mock_11_tree(root));
 }
 
 /* returns 1 on success - to allow condition usage outside */

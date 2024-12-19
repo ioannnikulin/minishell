@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 00:10:22 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/29 17:30:57 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/15 13:57:15 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,13 +78,11 @@ static int	run_executable(char *fullpath, t_treenode *node, t_param *param)
 
 /* test with empty path, found in first, found in last, not found,
  * found but not allowed, empty command */
-int	option_external(t_control control, t_treenode *node, t_param *param)
+int	option_external(t_executor *control, t_treenode *node, t_param *param)
 {
 	char	*fullpath;
 
-	if (*control.found || !control.choice)
-		return (0);
-	*control.found = 1;
+	control->found = 1;
 	if (param->opts.debug_output_level & DBG_EXTERNAL_SEARCH_FOLDERS)
 	{
 		ft_printf("searching for command in folders:\n");
@@ -94,8 +92,8 @@ int	option_external(t_control control, t_treenode *node, t_param *param)
 	fullpath = find_executable(node->content, param->envvar_path_head,
 			&param->opts.errno);
 	if (!fullpath)
-		return (0);
-	*control.retval = run_executable(fullpath, node, param);
+		return (ft_assign_i(&control->found, 0, 0));
+	control->retval = run_executable(fullpath, node, param);
 	free(fullpath);
 	if (!param->opts.errno)
 		return (0);
