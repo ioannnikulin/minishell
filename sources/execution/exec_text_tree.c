@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:39:01 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/19 22:45:11 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/19 23:22:33 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,6 @@ static int	nonbrace(t_executor *e)
 	return (res);
 }
 
-static int	to_pipe(t_executor *e)
-{
-	//TODO: do here
-}
-
 static int	iterate_siblings(t_executor *e)
 {
 	if (e->node)
@@ -37,42 +32,41 @@ static int	iterate_siblings(t_executor *e)
 	if (ft_strcmp("|", e->node->content) == 0)
 	{
 		e->node = e->node->sibling_next;
-		return (to_pipe(e));
+		return (from_pipe(e));
 	}
-	while (res != 0 && e->node && e->node->content
+	while (e->retval != 0 && e->node && e->node->content
 		&& ft_strcmp(e->node->content, "&&") == 0 && e->node->sibling_next)
 		e->node = e->node->sibling_next->sibling_next;
-	while (res == 0 && e->node && e->node->content
+	while (e->retval == 0 && e->node && e->node->content
 		&& ft_strcmp(e->node->content, "||") == 0 && e->node->sibling_next)
 		e->node = e->node->sibling_next->sibling_next;
 	if (e->param->opts.exiting || !e->node || !e->node->sibling_next)
-		return (ft_if_i(e->param->opts.exiting, 0, res));
+		return (ft_if_i(e->param->opts.exiting, 0, 0));
 	e->node = e->node->sibling_next;
 	if (unset_redirs(e) != 0)
 		return (1);
 	return (0);
 }
 
-static int	exec_rec(t_executor *e)
+int	exec_rec(t_executor *e)
 {
-	int	res;
-
 	if (!e)
 		return (0);
 	if (ft_strcmp(e->node->content, "ls") == 0)
-		res = 0; // TODO: breakpoint here
+		e->retval = e->retval; // TODO: breakpoint here
 	if (ft_strcmp(e->node->content, "grep") == 0)
-		res = 0; // TODO: breakpoint here
+		e->retval = e->retval; // TODO: breakpoint here
 	if (set_redirs(e))
 		return (1);
 	if (ft_strcmp(e->node->content, TEXT_TREE_BLOCK) == 0
 		|| ft_strcmp(e->node->content, TEXT_TREE_BLOCK_REDIR) == 0)
 	{
 		e->node = e->node->child;
-		res = exec_rec(e);
+		if (exec_rec(e) != 0)
+			return (1);
 	}
-	else
-		res = nonbrace(e);
+	else if (nonbrace(e) != 0)
+		return (2);
 	if (e->param->opts.errno)
 		return (0 * printf("ERROR %i\n", e->param->opts.errno));
 	if (iterate_siblings(e) != 0)

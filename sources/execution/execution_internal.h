@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 17:46:39 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/15 13:16:27 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/19 23:22:43 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,7 @@ int			set_redirs(t_executor *e);
 int			unset_redirs(t_executor *e);
 int			execute_node(t_executor *executor);
 int			execute_text_tree_node(t_executor *executor);
+int			from_pipe(t_executor *e);
+int			to_pipe(t_executor *e);
+int			exec_rec(t_executor *e);
 #endif

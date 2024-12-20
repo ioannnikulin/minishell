@@ -44,7 +44,7 @@ COMMAND_EXPANSION_NAMES = substitute_envvars.c expand.c
 COMMAND_EXPANSION_F = command_expansion
 COMMAND_EXPANSION_SRCS = $(addprefix $(COMMAND_EXPANSION_F)/, $(COMMAND_EXPANSION_NAMES))
 
-EXECUTION_NAMES = exec_text_tree.c exec_text_tree_node.c exec_text_tree_controls.c
+EXECUTION_NAMES = exec_text_tree.c exec_text_tree_node.c exec_text_tree_controls.c pipes.c
 EXECUTION_F = execution
 EXECUTION_SRCS = $(addprefix $(EXECUTION_F)/, $(EXECUTION_NAMES))
 
