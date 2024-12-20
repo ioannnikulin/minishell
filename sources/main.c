@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 21:24:29 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/12/19 21:32:36 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/12/20 15:40:54 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ static void	usage(void)
 --file script.sh\n\trun commands from given file.\n");
 }
 
-int	main(int argc, const char **argv)
+int	main(int argc, const char **argv, char **envp)
 {
 	t_param	*param;
 
@@ -98,7 +98,7 @@ int	main(int argc, const char **argv)
 		return (finalize(param, 0, 0, 2));
 	pre(param);
 	if (param_init(param) || param_get_cur_dir(param)
-		|| param_get_envvars(param))
+		|| param_get_envvars(param, envp))
 		return (finalize(param, 0, ERR_MALLOC, 3));
 	if (param->opts.interactive)
 		interactive(param);
