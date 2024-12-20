@@ -6,43 +6,26 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:39:01 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/19 23:14:47 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/20 17:41:10 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../tree_make/tree_processing_internal.h"
-#include <fcntl.h>
 
-static int	to_file(t_executor *e, char *fname, int append)
+int	is_pipe(char *c)
 {
-	if (!ft_dlist_add_front_i(&e->out_fd, open(fname, O_WRONLY | O_CREAT
-				| ft_if_i(append, O_APPEND, 0), 0600))
-		|| *(int *)e->out_fd->content == -1)
-		return (1);
-	dup2(*(int *)e->out_fd->content, STDOUT_FILENO);
-	return (0);
-}
-//maybe will have to dup not here, but in w_execve
-
-//TODO: if in_fd exists, it's the input for us here
-int	set_redirs(t_executor *e)
-{
-	if (!e->node->sibling_next)
-		return (0);
-	if (ft_strcmp(e->node->sibling_next->content, "|") == 0)
-		return (to_pipe(e));
-	else if (is_redirection(e->node->sibling_next->content))
-		return (to_file(e, e->node->sibling_next->sibling_next->content,
-				ft_if_i(((char *)e->node->sibling_next->content)[1]
-				== 0, 0, 1)));
-	return (0);
+	return (ft_strcmp(c, "|") == 0);
 }
 
-//TODO: 
-int	unset_redirs(t_executor *e)
+int	is_pipe_or_redir(char *c)
 {
-	(void)e;
-	return (0);
+	return (is_pipe(c) || is_redirection(c));
+}
+
+int	takes_part_in_pipe(t_treenode *node)
+{
+	return ((node->sibling_next && is_pipe(node->sibling_next->content))
+		|| (node->sibling_prev && is_pipe(node->sibling_prev->content)));
 }
 
 t_executor	*make_executor(t_treenode *node, t_param *param)
@@ -54,8 +37,6 @@ t_executor	*make_executor(t_treenode *node, t_param *param)
 		return (0);
 	res->retval = 0;
 	res->found = 0;
-	res->in_fd = 0;
-	res->out_fd = 0;
 	res->node = node;
 	res->param = param;
 	return (res);

@@ -44,7 +44,7 @@ SYM_NAMES = ft_isalpha.c ft_isalnum.c ft_isascii.c ft_isdigit.c ft_is_in.c ft_is
 SYM_SRCS = $(addprefix $(SOURCES_F)/$(SYM_F)/, $(SYM_NAMES))
 
 PRINTF_F = printf
-PRINTF_NAMES = aux_printf.c ft_printf.c pad_n_put.c put_c.c put_d.c put_percent.c put_s.c put_u.c put_x.c put_p.c
+PRINTF_NAMES = aux_printf.c ft_printf.c pad_n_put.c put_c.c put_d.c put_percent.c put_s.c put_u.c put_x.c put_p.c ft_print_arr.c
 PRINTF_SRCS = $(addprefix $(SOURCES_F)/$(PRINTF_F)/, $(PRINTF_NAMES))
 
 GNL_F = get_next_line

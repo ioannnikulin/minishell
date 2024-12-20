@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 22:30:29 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/15 14:13:22 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/20 20:07:16 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,20 +17,22 @@ static void	dbg(char *fullpath, char **argv, char **envvars)
 {
 	int	i;
 
-	ft_printf("starting: %s", fullpath);
-	ft_printf("\nargs:\n");
+	ft_fprintf(2, "starting: %s", fullpath);
+	ft_fprintf(2, "\nargs:\n");
 	i = -1;
 	while (argv[++ i])
-		ft_printf(" %s", argv[i]);
-	ft_printf("\nenvvars:\n");
+		ft_fprintf(2, " %s", argv[i]);
+	ft_fprintf(2, "\nenvvars:\n");
 	i = -1;
 	while (envvars[++ i])
-		ft_printf(" %s", envvars[i]);
-	ft_printf("\n\n");
+		ft_fprintf(2, " %s", envvars[i]);
+	ft_fprintf(2, "\nin status: %i\n", fcntl(STDIN_FILENO, F_GETFD));
+	ft_fprintf(2, "out status: %i\n", fcntl(STDOUT_FILENO, F_GETFD));
+	ft_fprintf(2, "\n\n");
 }
 
 // dup2 to self is a fflush
-static int	parent(pid_t pid, int *errno)
+int	parent(pid_t pid, int *errno)
 {
 	int	status;
 	int	done;
@@ -50,6 +52,7 @@ static int	parent(pid_t pid, int *errno)
 // dup2 to self is a fflush
 // emulate execve failure to make sure no memory leaks here
 // check errno readings outside
+// possible data race in child's errno, but can't use mutexes in the task
 int	w_execve(char *fullpath, char **argv, char **envvars, t_param *param)
 {
 	pid_t	pid;

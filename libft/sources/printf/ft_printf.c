@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 12:46:27 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/29 17:30:05 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/20 16:51:28 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,11 @@ int	ft_printf(const char *s, ...)
 int	ft_printf(const char *s, ...)
 {
 	va_list	argv;
+	int		res;
 
 	va_start(argv, s);
-	return (printf_impl(1, s, &argv));
+	res = printf_impl(1, s, &argv);
+	va_end(argv);
+	return (res);
 }
 #endif

@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 15:22:58 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/15 22:45:37 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/20 18:19:21 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@
 # define DBG_PRINT_NODE_BEFORE_EXECUTION 16
 # define DBG_PRINT_TOKEN_BEFORE_EXPANSION 32
 # define DBG_ONE_CMD_ECHO 64
-# define DBG_FULL 127
+# define DBG_EXEC_CHAIN_PRINT_FDS 128
+# define DBG_FULL 255
 
 typedef unsigned long long	t_ull;
 

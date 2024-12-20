@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 15:22:58 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/15 12:57:15 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/20 15:42:47 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,4 +28,5 @@ int		option_unset(t_executor *ctrl, t_treenode *node, t_param *param);
 int		option_external(t_executor *ctrl, t_treenode *node, t_param *param);
 
 char	**get_envvars_for_execve(t_param *param);
+int		parent(pid_t pid, int *errno);
 #endif
