@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:39:01 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/20 20:07:36 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/20 20:59:47 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,20 @@ static int	child(t_executor *e, int tgt)
 	int		i;
 
 	i = -1;
+	if (e->fds[tgt][IN] != STDIN_FILENO)
+	{
+		wdup2(e->fds[tgt][IN], STDIN_FILENO, tgt, tgt);//TODO: check errors
+		//wclose(e->fds[tgt][IN], tgt, tgt);
+	}
+	if (e->fds[tgt][OUT] != STDOUT_FILENO)
+	{
+		wdup2(e->fds[tgt][OUT], STDOUT_FILENO, tgt, tgt);
+		//wclose(e->fds[tgt][OUT], tgt, tgt);
+	}
 	while (++i < e->chain_length)
 	{
 		if (i == tgt)
-		{
-			wdup2(e->fds[i][IN], STDIN_FILENO, i, tgt);//TODO: check errors
-			//wclose(e->fds[i][IN], i, tgt);
-			wdup2(e->fds[i][OUT], STDOUT_FILENO, i, tgt);
-			//wclose(e->fds[i][OUT], i, tgt);
 			continue ;
-		}
 		if (e->fds[i][IN] != e->fds[tgt][IN] && e->fds[i][IN] != e->fds[tgt][OUT])
 			wclose(e->fds[i][IN], i, tgt);
 		if (e->fds[i][OUT] != e->fds[tgt][IN] && e->fds[i][OUT] != e->fds[tgt][OUT])
@@ -49,6 +53,8 @@ static int	child(t_executor *e, int tgt)
 			e->node = e->node->sibling_next->sibling_next;
 	}
 	execute_text_tree_node(e);
+	//wclose(e->fds[tgt][IN], tgt, tgt);
+	//wclose(e->fds[tgt][OUT], tgt, tgt);
 	return (0);
 }
 
