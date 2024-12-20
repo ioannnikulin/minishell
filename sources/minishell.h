@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 15:22:58 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/19 18:26:38 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/12/20 15:41:13 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ typedef struct s_param
 t_param	*param_alloc(void);
 int		param_init(t_param *param);
 int		opts_fill(int argc, const char **argv, t_param *param);
-int		param_get_envvars(t_param *param);
+int		param_get_envvars(t_param *param, char **envp);
 int		finalize(t_param *param, int mode, char *message, int retval);
 int		input_to_text_tree(t_param *param);
 int		tokenize_cmd(const char *s, char ***p_ss);
