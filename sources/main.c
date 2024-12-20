@@ -5,14 +5,36 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/03 15:21:17 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/06 16:28:45 by inikulin         ###   ########.fr       */
+/*   Created: 2024/12/19 21:24:29 by taretiuk          #+#    #+#             */
+/*   Updated: 2024/12/19 21:32:36 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 extern volatile sig_atomic_t	g_interrupt_flag;
+
+static char	*read_input(void)
+{
+	char	*line;
+	size_t	len;
+	ssize_t	nread;
+
+	if (!isatty(STDIN_FILENO))
+	{
+		len = 0;
+		nread = getline(&line, &len, stdin);
+		if (nread == -1)
+		{
+			free(line);
+			return (NULL);
+		}
+		if (line[nread - 1] == '\n')
+			line[nread - 1] = '\0';
+		return (line);
+	}
+	return (readline(TXT_INVITATION));
+}
 
 static int	interactive(t_param *param)
 {
@@ -21,10 +43,18 @@ static int	interactive(t_param *param)
 	while (1)
 	{
 		free(param->cur_command);
-		param->cur_command = readline(TXT_INVITATION);
+		param->cur_command = read_input();
+		if (g_interrupt_flag)
+		{
+			g_interrupt_flag = 0;
+			continue ;
+		}
 		if (!param->cur_command)
 			break ;
-		add_history(param->cur_command);
+		if (ft_strlen(param->cur_command) == 0)
+			continue ;
+		if (isatty(STDIN_FILENO))
+			add_history(param->cur_command);
 		ret = input_to_text_tree(param);
 		if (ret)
 			break ;
