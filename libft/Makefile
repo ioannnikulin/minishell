@@ -12,7 +12,7 @@ LIST_NAMES = ft_list_add_back.c ft_list_add_front.c ft_list_clear.c ft_list_delo
 LIST_SRCS = $(addprefix $(SOURCES_F)/$(LIST_F)/, $(LIST_NAMES))
 
 DLIST_F = dlists
-DLIST_NAMES = ft_dlist_add_back.c ft_dlist_add_front.c ft_dlist_clear.c ft_dlist_delone.c ft_dlist_iter.c ft_dlist_generate.c ft_dlist_generate_int.c ft_dlist_last.c ft_dlist_new.c ft_dlist_size.c ft_dlist_map.c ft_dlist_print.c ft_dlist_ncmp.c
+DLIST_NAMES = ft_dlist_add_back.c ft_dlist_add_front.c ft_dlist_clear.c ft_dlist_delone.c ft_dlist_iter.c ft_dlist_generate.c ft_dlist_generate_int.c ft_dlist_last.c ft_dlist_new.c ft_dlist_size.c ft_dlist_map.c ft_dlist_print.c ft_dlist_ncmp.c ft_dlist_ncmp_1.c
 DLIST_SRCS = $(addprefix $(SOURCES_F)/$(DLIST_F)/, $(DLIST_NAMES))
 
 MAPSS_F = map/mapss

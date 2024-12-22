@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/06 20:45:38 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/20 17:43:42 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/12/22 16:40:37 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,12 @@ char	**split_env(char *s)
 	char	**res;
 
 	calc_len(s, &key_start, &len_1, &len_2);
-	res = (char **)malloc(2 * sizeof(char *));
+	res = (char **)ft_calloc_if(sizeof(char *) * 3, 1);
 	if (!res)
 		return (NULL);
 	res[0] = ft_substr(s, 0, len_1);
 	res[1] = ft_substr(s, key_start, len_2);
+	res[2] = NULL;
 	if (!res[0] || !res[1])
 	{
 		ft_free_ss_uptonull((void **)res);
@@ -115,7 +116,7 @@ int	param_get_envvars(t_param *param, char **envp)
 			return (1);
 		}
 		i++;
+		ft_free_ss_uptonull((void **)tmp);
 	}
-	ft_free_ss_uptonull((void **)tmp);
 	return (0);
 }

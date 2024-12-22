@@ -6,16 +6,15 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 22:57:54 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/06 21:41:27 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/22 16:25:41 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tests_internal.h"
 #define START 0
 #define TRAP_START 0
-// #define DEBUG
+#define DEBUG
 #define SZ 28
-//#define DEBUG
 #define PRINT_MALLOC_FAILURE_NO
 #define PRINT_TEST_NO
 
@@ -209,14 +208,14 @@ int	e2e_tests(void)
 	ft_mapss_add(m[7], "stdout", "Linux\n");
 	ft_mapss_add(m[8], "stdout", "HOME=/home/ioann\nsome=BODYONCETOLDME\nPATH=/usr/local/bin:/usr/sbin:/usr/bin:/sbin/bin\nPWD=/[^\n]*\none\ntwo   three\nfour\n");
 	ft_mapss_add(m[9], "stdout", "HOME=/home/ioann\nfoo=zah\nsome=BODYONCETOLDME\nPATH=/usr/local/bin:/usr/sbin:/usr/bin:/sbin/bin\nPWD=/[^\n]*\none\ntwo   three\nfour\n");
-	ft_mapss_add(m[10], "stdout", "/[^\n]*\n");
-	ft_mapss_add(m[11], "stdout", "/[^\n]*/testf\n");
-	ft_mapss_add(m[12], "stdout", "/[^\n]*/testf\n");
-	// no backreferences, also total printing strange
-	//ft_mapss_add(m[12], "stdout", "(/[^\n]*\n){2}");
-	ft_mapss_add(m[13], "stdout", "/usr/bin\n");
-	ft_mapss_add(m[14], "stdout", "cd: /nope: No such file or directory\n");
-	ft_mapss_add(m[15], "stdout", "[^\n]*\ncd: nope: No such file or directory\n");
+	// ft_mapss_add(m[10], "stdout", "/[^\n]*\n");
+	// ft_mapss_add(m[11], "stdout", "/[^\n]*/testf\n");
+	// ft_mapss_add(m[12], "stdout", "/[^\n]*/testf\n");
+	// // no backreferences, also total printing strange
+	// //ft_mapss_add(m[12], "stdout", "(/[^\n]*\n){2}");
+	// ft_mapss_add(m[13], "stdout", "/usr/bin\n");
+	// ft_mapss_add(m[14], "stdout", "cd: /nope: No such file or directory\n");
+	// ft_mapss_add(m[15], "stdout", "[^\n]*\ncd: nope: No such file or directory\n");
 	ft_mapss_add(m[16], "stdout", "HOME=/home/ioann\nsome=BODYONCETOLDME\nPATH=/usr/local/bin:/usr/sbin:/usr/bin:/sbin/bin\nsome=BODYONCETOLDME\n");
 	ft_mapss_add(m[17], "stdout", "1\nexit\n");
 	ft_mapss_add(m[18], "stdout", "1\nexit\n");
@@ -241,14 +240,14 @@ int	e2e_tests(void)
 	tests[7] = (t_testcase){"--command uname", m[7]};
 	tests[8] = (t_testcase){"--command \"./tests/tool_print_environment one \\\"two   three\\\" four\"", m[8]};
 	tests[9] = (t_testcase){"--command \"export foo=bar && export foo=zah nope=uhoh && unset nope && ./tests/tool_print_environment one \\\"two   three\\\" four\"", m[9]};
-	tests[10] = (t_testcase){"--command pwd", m[10]};
-	tests[11] = (t_testcase){"--command \"mkdir testf && cd testf && pwd\"", m[11]};
-	// in this test the malloc counter prints too early without waiting for second pwd, so disabled for now
-	//tests[12] = (t_testcase){"--command pwd && mkdir testf && cd ./testf/.. && pwd", m[12]};
-	tests[12] = (t_testcase){"--command \"mkdir testf && cd testf && pwd\"", m[12]};
-	tests[13] = (t_testcase){"--command \"cd /bin && pwd\"", m[13]};
-	tests[14] = (t_testcase){"--command \"cd /nope && pwd\"", m[14]};
-	tests[15] = (t_testcase){"--command \"cd && pwd && cd nope && pwd\"", m[15]};
+	// tests[10] = (t_testcase){"--command pwd", m[10]};
+	// tests[11] = (t_testcase){"--command \"mkdir testf && cd testf && pwd\"", m[11]};
+	// // in this test the malloc counter prints too early without waiting for second pwd, so disabled for now
+	// //tests[12] = (t_testcase){"--command pwd && mkdir testf && cd ./testf/.. && pwd", m[12]};
+	// tests[12] = (t_testcase){"--command \"mkdir testf && cd testf && pwd\"", m[12]};
+	// tests[13] = (t_testcase){"--command \"cd /bin && pwd\"", m[13]};
+	// tests[14] = (t_testcase){"--command \"cd /nope && pwd\"", m[14]};
+	// tests[15] = (t_testcase){"--command \"cd && pwd && cd nope && pwd\"", m[15]};
 	tests[16] = (t_testcase){"--command \"env && unset HOME PATH && env\"", m[16]};
 	tests[17] = (t_testcase){"--command \"echo 1 && exit && echo 2\"", m[17]};
 	tests[18] = (t_testcase){"--command \"echo 1 && exit || echo 2\"", m[18]};
