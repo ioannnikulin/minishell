@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 22:57:54 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/22 19:05:21 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/22 19:13:21 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -232,7 +232,7 @@ int	e2e_tests(void)
 	tests[1] = (t_testcase){"--command \"echo hello world\"", m[1]};
 //	tests[1] = (t_testcase){"--command \"   echo hello\\n		my openworld \"", m[1]};
 	tests[2] = (t_testcase){"--command \"echo \\\"1   2\\\"   3\"", m[2]};
-	tests[3] = (t_testcase){"--command \"mkdir testf && cd testf && mkdir f1 f2 && touch 1 && touch 11 2 && ls -a -h -c | grep 1\"", m[3]};
+	tests[3] = (t_testcase){"--command \"mkdir testf && cd testf && mkdir f1 f2 && touch 1 && touch 11 2 && ls -a -h | grep 1\"", m[3]};
 	//tests[3] = (t_testcase){"--command mkdir testf && cd testf && mkdir f1 f2 && touch 1 && touch 11 2 && ls -a -fh -c | grep 1 >> out.txt", m[3]};
 	tests[4] = (t_testcase){"--command \"echo 1 || echo 2 && echo 3 && echo 4 || echo 5 && echo 6\"", m[4]};
 	tests[5] = (t_testcase){"--command \"echo 1 || echo 2 && (echo 3 && echo 4 || echo 5 && echo 6)\"", m[5]};
