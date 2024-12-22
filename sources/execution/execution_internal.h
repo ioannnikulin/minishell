@@ -6,15 +6,16 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 17:46:39 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/20 18:19:27 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/22 18:22:09 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EXECUTION_INTERNAL_H
 # define EXECUTION_INTERNAL_H
 
-#include <fcntl.h>
+# include <fcntl.h>
 # include "../minishell.h"
+# include "../tree_make/tree_processing_internal.h"
 
 typedef struct s_param	t_param;
 typedef struct s_executor
@@ -25,6 +26,8 @@ typedef struct s_executor
 	int			chain_length;
 	t_treenode	*node;
 	t_param		*param;
+	int			orig_stdout;
+	pid_t		*pids;
 	int			errno;
 }	t_executor;
 
@@ -39,4 +42,7 @@ int			redirections(t_executor *e);
 int			is_pipe_or_redir(char *s);
 int			is_pipe(char *s);
 int			takes_part_in_pipe(t_treenode *node);
+int			setup_file(t_executor *e, t_treenode *node, int i);
+int			close_pipes(t_executor *e);
+int			setup_pipe(t_executor *e, int i);
 #endif

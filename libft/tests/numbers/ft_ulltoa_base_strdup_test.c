@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 15:56:43 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/19 19:02:09 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/12/22 18:22:50 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 #include "tests.h"
 #define SZ 18
 #define MX 65
-#define DEBUG
-#define START 15
+//#define DEBUG
+#define START 0
 
 typedef struct s_testcase
 {

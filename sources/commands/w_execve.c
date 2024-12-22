@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 22:30:29 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/20 20:07:16 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/22 15:19:26 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ static void	dbg(char *fullpath, char **argv, char **envvars)
 	ft_fprintf(2, "\n\n");
 }
 
-// dup2 to self is a fflush
 int	parent(pid_t pid, int *errno)
 {
 	int	status;
@@ -43,13 +42,11 @@ int	parent(pid_t pid, int *errno)
 		if (done == pid || done == -1)
 			break ;
 	}
-	dup2(STDOUT_FILENO, STDOUT_FILENO);
 	if (done == -1)
 		return (ft_assign_i(errno, 3, 0));
 	return (status >> 8);
 }
 
-// dup2 to self is a fflush
 // emulate execve failure to make sure no memory leaks here
 // check errno readings outside
 // possible data race in child's errno, but can't use mutexes in the task
@@ -66,7 +63,6 @@ int	w_execve(char *fullpath, char **argv, char **envvars, t_param *param)
 			dbg(fullpath, argv, envvars);
 		if (param->opts.sigint_handler)
 			signal(SIGINT, param->opts.sigint_handler);
-		dup2(STDOUT_FILENO, STDOUT_FILENO);
 		execve(fullpath, argv, envvars);
 		return (ft_assign_i(&param->opts.errno, 2, 0));
 	}

@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:39:01 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/20 17:41:10 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/22 18:17:35 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,11 @@ int	is_pipe_or_redir(char *c)
 
 int	takes_part_in_pipe(t_treenode *node)
 {
-	return ((node->sibling_next && is_pipe(node->sibling_next->content))
-		|| (node->sibling_prev && is_pipe(node->sibling_prev->content)));
+	int	res;
+
+	res = ((node->sibling_next && is_pipe(node->sibling_next->content))
+			|| (node->sibling_prev && is_pipe(node->sibling_prev->content)));
+	return (res);
 }
 
 t_executor	*make_executor(t_treenode *node, t_param *param)
