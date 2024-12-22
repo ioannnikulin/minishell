@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:39:01 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/22 18:21:55 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/22 18:31:13 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ static int	alloc(t_treenode *node, int ***fds, int *sz)
 			return (2);
 		}
 	}
-	return (0);
+	return (ft_assign_i(&(*fds)[0][IN], IN, 0));
 }
 
 /*
@@ -106,15 +106,16 @@ int	redirections(t_executor *e)
 		return (ft_assign_i(&e->errno, 1, 1));
 	node = e->node;
 	i = -1;
-	e->fds[0][IN] = IN;
 	while (++i < e->chain_length)
 	{
 		e->fds[i][OUT] = OUT;
 		if (i + 1 != e->chain_length)
 			e->fds[i + 1][IN] = IN;
-		if (node->sibling_next && is_pipe(node->sibling_next->content)
-			&& setup_pipe(e, i) != 0)
-			return (ft_assign_i(&e->errno, 2, 2));
+		if (node->sibling_next && is_pipe(node->sibling_next->content))
+		{
+			if (setup_pipe(e, i) != 0)
+				return (ft_assign_i(&e->errno, 2, 2));
+		}
 		else if (node->sibling_next && setup_file(e, node, i) != 0)
 			return (ft_assign_i(&e->errno, 3, 3));
 		if (node->sibling_next)

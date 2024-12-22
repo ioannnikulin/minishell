@@ -6,16 +6,15 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 22:57:54 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/07 18:28:05 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/22 18:42:25 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tests_internal.h"
 #define START 0
 #define TRAP_START 0
-// #define DEBUG
+#define DEBUG
 #define SZ 28
-//#define DEBUG
 #define PRINT_MALLOC_FAILURE_NO
 #define PRINT_TEST_NO
 
@@ -202,7 +201,7 @@ int	e2e_tests(void)
 	ft_mapss_add(m[1], "stdout", "hello world\n");
 	ft_mapss_add(m[2], "stdout", "1   2 3\n");
 	// pipes and redirections not implemented yet, so the previous test one more time
-	ft_mapss_add(m[3], "stdout", "1   2 3\n");
+	ft_mapss_add(m[3], "stdout", "f1\n1\n11\n");
 	ft_mapss_add(m[4], "stdout", "1\n3\n4\n6\n");
 	ft_mapss_add(m[5], "stdout", "1\n3\n4\n6\n");
 	ft_mapss_add(m[6], "stdout", "1\n3\n4\n");
@@ -229,11 +228,11 @@ int	e2e_tests(void)
 	ft_mapss_add(m[25], "stdout", "1 2");
 	ft_mapss_add(m[26], "stdout", "1 -n 2\n3\n");
 	ft_mapss_add(m[27], "stdout", "minishell: cd: too many arguments\n");
-	tests[0] = (t_testcase){"--command echo hello world", m[0]};
-	tests[1] = (t_testcase){"--command echo hello world", m[1]};
+	tests[0] = (t_testcase){"--command \"echo hello world\"", m[0]};
+	tests[1] = (t_testcase){"--command \"echo hello world\"", m[1]};
 //	tests[1] = (t_testcase){"--command \"   echo hello\\n		my openworld \"", m[1]};
 	tests[2] = (t_testcase){"--command \"echo \\\"1   2\\\"   3\"", m[2]};
-	tests[3] = (t_testcase){"--command \"echo \\\"1   2\\\"   3\"", m[3]};
+	tests[3] = (t_testcase){"--command \"mkdir testf && cd testf && mkdir f1 f2 && touch 1 && touch 11 2 && ls -a -fh -c | grep 1\"", m[3]};
 	//tests[3] = (t_testcase){"--command mkdir testf && cd testf && mkdir f1 f2 && touch 1 && touch 11 2 && ls -a -fh -c | grep 1 >> out.txt", m[3]};
 	tests[4] = (t_testcase){"--command \"echo 1 || echo 2 && echo 3 && echo 4 || echo 5 && echo 6\"", m[4]};
 	tests[5] = (t_testcase){"--command \"echo 1 || echo 2 && (echo 3 && echo 4 || echo 5 && echo 6)\"", m[5]};

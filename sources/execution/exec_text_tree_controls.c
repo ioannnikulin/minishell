@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:39:01 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/22 18:17:35 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/22 18:33:57 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	is_pipe(char *c)
 {
-	return (ft_strcmp(c, "|") == 0);
+	return (ft_strncmp(c, "|", 2) == 0);
 }
 
 int	is_pipe_or_redir(char *c)

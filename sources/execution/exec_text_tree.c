@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:39:01 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/22 18:17:50 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/22 18:59:41 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,16 @@ static int	nonbrace(t_executor *e)
 	if (e->param->opts.debug_output_level & DBG_PRINT_NODE_BEFORE_INSPECTION)
 		ft_tree_print_s(&t);
 	res = execute_text_tree_node(e);
-	e->node = e->node->sibling_next;
 	return (res);
 }
 
 static int	skip_logical_siblings(t_executor *e)
 {
 	if (!e->node || !e->node->sibling_next)
+	{
+		e->node = 0;
 		return (0);
+	}
 	e->node = e->node->sibling_next;
 	while (e->retval != 0 && e->node && e->node->content
 		&& ft_strcmp(e->node->content, "&&") == 0 && e->node->sibling_next)
@@ -36,13 +38,15 @@ static int	skip_logical_siblings(t_executor *e)
 	while (e->retval == 0 && e->node && e->node->content
 		&& ft_strcmp(e->node->content, "||") == 0 && e->node->sibling_next)
 		e->node = e->node->sibling_next->sibling_next;
-	if (!e->node->sibling_next)
-		e->node = 0;
+	if (e->node)
+		e->node = e->node->sibling_next;
 	return (0);
 }
 
 int	exec_rec(t_executor *e)
 {
+	t_treenode	*parent;
+
 	if (!e)
 		return (0);
 	if (e->node && e->node->sibling_next
@@ -50,9 +54,11 @@ int	exec_rec(t_executor *e)
 		return (redirections(e));
 	if (ft_strcmp(e->node->content, TEXT_TREE_BLOCK) == 0)
 	{
+		parent = e->node;
 		e->node = e->node->child;
 		if (exec_rec(e) != 0)
 			return (1);
+		e->node = parent;
 	}
 	else if (nonbrace(e) != 0)
 		return (2);
