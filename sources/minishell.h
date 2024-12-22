@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 15:22:58 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/22 13:52:22 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/22 20:33:36 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,6 @@ typedef struct s_opts
 	int		last_pipe_status;
 }	t_opts;
 
-typedef struct s_flows
-{
-	int		pipe_fd;
-	int		pipe_res;
-}	t_flows;
-
 typedef struct s_param
 {
 	t_mapss	*envvars;
@@ -62,11 +56,12 @@ typedef struct s_param
 	char	*cur_command;
 	t_tree	*text_tree;
 	t_opts	opts;
-	t_flows	flows;
 }	t_param;
 
 # define TEXT_TREE_ROOT "ROOT"
 # define TEXT_TREE_BLOCK "("
+
+// unused, keeping just in case
 # define TEXT_TREE_BLOCK_REDIR "["
 
 t_param	*param_alloc(void);

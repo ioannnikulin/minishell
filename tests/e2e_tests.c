@@ -6,15 +6,15 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 22:57:54 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/22 20:06:39 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/22 20:39:37 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tests_internal.h"
-#define START 0
+#define START 28
 #define TRAP_START 0
-//#define DEBUG
-#define SZ 28
+#define DEBUG
+#define SZ 31
 #define PRINT_MALLOC_FAILURE_NO
 #define PRINT_TEST_NO
 
@@ -228,6 +228,9 @@ int	e2e_tests(void)
 	ft_mapss_add(m[25], "stdout", "1 2");
 	ft_mapss_add(m[26], "stdout", "1 -n 2\n3\n");
 	ft_mapss_add(m[27], "stdout", "minishell: cd: too many arguments\n");
+	ft_mapss_add(m[28], "stdout", "1\n     1       3      24\n");
+	ft_mapss_add(m[29], "stdout", "     1       3      24\n");
+	ft_mapss_add(m[30], "stdout", "1\n     1       3      24\n1\n");
 	tests[0] = (t_testcase){"--command \"echo hello world\"", m[0]};
 	tests[1] = (t_testcase){"--command \"echo hello world\"", m[1]};
 //	tests[1] = (t_testcase){"--command \"   echo hello\\n		my openworld \"", m[1]};
@@ -260,6 +263,9 @@ int	e2e_tests(void)
 	tests[25] = (t_testcase){"--command \"echo -nn 1 2\"", m[25]};
 	tests[26] = (t_testcase){"--command \"echo 1 -n 2&&echo 3||echo 4   ||echo 5 ||   echo 6\"", m[26]};
 	tests[27] = (t_testcase){"--command \"cd a b && echo 1\"", m[27]};
+	tests[28] = (t_testcase){"--command \"echo 1 && echo 1 | wc | wc\"", m[28]};
+	tests[29] = (t_testcase){"--command \"(echo 1 && echo 1) | wc | wc\"", m[29]};
+	tests[30] = (t_testcase){"--command \"echo 1 && (echo 1 && (echo 1 && echo 1) | wc | wc) | wc && echo 1\"", m[30]};
 
 	for (int i = START; i < SZ; i ++)
 	{

@@ -6,12 +6,13 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 20:11:36 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/15 13:10:42 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/22 20:24:36 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../tree_make/tree_processing_internal.h"
 
+//whole file unused currently, keeping logic just in case
 static int	expand_cmd(t_treenode *node, int *i)
 {
 	char		*nc;
