@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 22:57:54 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/22 19:13:21 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/22 19:17:49 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,7 +201,7 @@ int	e2e_tests(void)
 	ft_mapss_add(m[1], "stdout", "hello world\n");
 	ft_mapss_add(m[2], "stdout", "1   2 3\n");
 	// pipes and redirections not implemented yet, so the previous test one more time
-	ft_mapss_add(m[3], "stdout", "f1\n1\n11\n");
+	ft_mapss_add(m[3], "stdout", "1\n11\nf1\n");
 	ft_mapss_add(m[4], "stdout", "1\n3\n4\n6\n");
 	ft_mapss_add(m[5], "stdout", "1\n3\n4\n6\n");
 	ft_mapss_add(m[6], "stdout", "1\n3\n4\n");
