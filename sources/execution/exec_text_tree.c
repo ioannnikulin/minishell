@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:39:01 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/22 18:59:41 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/22 19:38:12 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,6 @@ int	exec_text_tree(t_param *param)
 	if (!executor)
 		return (2);
 	res = exec_rec(executor);
-	free(executor);
+	executor_finalize(executor);
 	return (res);
 }

@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 22:57:54 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/22 19:17:49 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/22 19:42:39 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,7 +159,7 @@ static void	malloc_failure_recoveries(char *cmd, int mallocs)
 		printf("\t == %i == \n", i);
 		#endif
 		char *is = ft_itoa(i);
-		char *tmp = ft_strjoin_multi_free_outer(ft_s3("cd e2e_f && valgrind --leak-check=full --show-leak-kinds=all -s -q ./minishell --trap", is, cmd), 3, " ");
+		char *tmp = ft_strjoin_multi_free_outer(ft_s3("cd e2e_f && valgrind --leak-check=full --show-leak-kinds=all --child-silent-after-fork=yes -s -q ./minishell --trap", is, cmd), 3, " ");
 		free(is);
 		assert(!!tmp);
 		catch("e2e.stdout", &out, &save);

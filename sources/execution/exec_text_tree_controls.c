@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:39:01 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/22 18:33:57 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/22 19:38:37 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,17 @@ t_executor	*make_executor(t_treenode *node, t_param *param)
 	res->node = node;
 	res->param = param;
 	return (res);
+}
+
+int	executor_finalize(t_executor *e)
+{
+	int	i;
+
+	i = -1;
+	while (++i < e->chain_length)
+		free(e->fds[i]);
+	free(e->fds);
+	free(e->pids);
+	free(e);
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 17:46:39 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/22 18:22:09 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/22 19:37:47 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ typedef struct s_executor
 # define OUT 1
 
 t_executor	*make_executor(t_treenode *node, t_param *param);
+int			executor_finalize(t_executor *e);
 int			execute_node(t_executor *executor);
 int			execute_text_tree_node(t_executor *executor);
 int			exec_rec(t_executor *e);

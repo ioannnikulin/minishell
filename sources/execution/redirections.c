@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:39:01 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/22 18:31:13 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/22 19:40:01 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	child(t_executor *e, int tgt)
 		dup2(e->fds[tgt][OUT], STDOUT_FILENO);
 	close_pipes(e);
 	execute_text_tree_node(e);
-	exit(1);
+	exit(0);
 }
 
 static int	chain_parent(t_executor *e)
