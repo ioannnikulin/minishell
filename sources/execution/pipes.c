@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:39:01 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/20 21:48:01 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/22 13:48:47 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ static int	child(t_executor *e, int tgt)
 	//wclose(e->fds[tgt][OUT], tgt, tgt);
 	return (0);
 }
+
+static int	close_fds()
 
 static int	exec_chain(t_executor *e)
 {
