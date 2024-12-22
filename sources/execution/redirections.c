@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:39:01 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/22 19:40:01 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/22 20:05:08 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,12 +83,7 @@ static int	alloc(t_treenode *node, int ***fds, int *sz)
 	{
 		(*fds)[i] = ft_calloc_if(sizeof(int) * 2, 1);
 		if (!(*fds)[i])
-		{
-			while (--i >= 0)
-				free((*fds)[i]);
-			free(*fds);
 			return (2);
-		}
 	}
 	return (ft_assign_i(&(*fds)[0][IN], IN, 0));
 }

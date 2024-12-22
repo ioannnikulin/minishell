@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 17:06:11 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/15 13:09:57 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/22 20:01:29 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static int	crawl(t_crawler *c)
 	if (!subs || !ft_sbuf_append(c->sbuf, subs))
 	{
 		free(subs);
-		return (1);
+		return (ft_assign_i(&c->errno, 1, 1));
 	}
 	free(subs);
 	c->i += i;
@@ -96,11 +96,12 @@ static int	go(t_treenode *node, t_param *param)
 		if (c.src[c.i] == '$' && expand_envvar(&c) == 0 && !c.errno)
 			continue ;
 		if (c.errno && ft_sbuf_finalize(&c.sbuf) == 0)
-			return (c.errno);
-		crawl(&c);
-		if (!c.src[c.i])
+			break ;
+		if ((crawl(&c) && ft_sbuf_finalize(&c.sbuf) == 0) || !c.src[c.i])
 			break ;
 	}
+	if (c.errno)
+		return (c.errno);
 	free(node->content);
 	node->content = ft_sbuf_get(c.sbuf);
 	ft_sbuf_finalize(&c.sbuf);
