@@ -13,6 +13,7 @@
 #include "tests_internal.h"
 #define START 0
 #define TRAP_START 0
+// #define DEBUG
 #define SZ 28
 //#define DEBUG
 #define PRINT_MALLOC_FAILURE_NO

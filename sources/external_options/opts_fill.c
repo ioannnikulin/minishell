@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   opts_fill.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 18:24:06 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/15 13:06:47 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/22 13:51:42 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,8 @@ int	opts_fill(int argc, const char **argv, t_param *param)
 	int	i;
 
 	i = -1;
+	if (argc == 0)
+		return (ft_assign_i(&param->opts.interactive, 1, 0));
 	while (++ i < argc)
 	{
 		if (one_opt(argv, &i, argc, param))
