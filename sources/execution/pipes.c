@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:39:01 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/20 20:59:47 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/20 21:48:01 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,20 +34,20 @@ static int	child(t_executor *e, int tgt)
 	if (e->fds[tgt][IN] != STDIN_FILENO)
 	{
 		wdup2(e->fds[tgt][IN], STDIN_FILENO, tgt, tgt);//TODO: check errors
-		//wclose(e->fds[tgt][IN], tgt, tgt);
+		wclose(e->fds[tgt][IN], tgt, tgt);
 	}
 	if (e->fds[tgt][OUT] != STDOUT_FILENO)
 	{
 		wdup2(e->fds[tgt][OUT], STDOUT_FILENO, tgt, tgt);
-		//wclose(e->fds[tgt][OUT], tgt, tgt);
+		wclose(e->fds[tgt][OUT], tgt, tgt);
 	}
 	while (++i < e->chain_length)
 	{
 		if (i == tgt)
 			continue ;
-		if (e->fds[i][IN] != e->fds[tgt][IN] && e->fds[i][IN] != e->fds[tgt][OUT])
+		if (e->fds[i][IN] != e->fds[tgt][IN] && e->fds[i][IN] != e->fds[tgt][OUT] && e->fds[i][IN] != STDIN_FILENO)
 			wclose(e->fds[i][IN], i, tgt);
-		if (e->fds[i][OUT] != e->fds[tgt][IN] && e->fds[i][OUT] != e->fds[tgt][OUT])
+		if (e->fds[i][OUT] != e->fds[tgt][IN] && e->fds[i][OUT] != e->fds[tgt][OUT] && e->fds[i][OUT] != STDOUT_FILENO)
 			wclose(e->fds[i][OUT], i, tgt);
 		if (i < tgt)
 			e->node = e->node->sibling_next->sibling_next;
@@ -78,11 +78,13 @@ static int	exec_chain(t_executor *e)
 				child(e, i);
 			else
 			{
+				close_fds(e);
 				res = parent(pid, &e->errno);
 				return (ft_if_i(e->errno != 0, 1, res));
 			}
 		}
-		node = node->sibling_next->sibling_next;
+		if (node->sibling_next)
+			node = node->sibling_next->sibling_next;
 	}
 	return (0);
 }
