@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/20 18:25:04 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/12/22 16:08:31 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/12/23 12:20:28 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,11 @@ int	get_envvars_test(void)
 			return (finalize(0, 0, ERR_MALLOC, 1));
 		param->envvars = ft_mapss_init();
 		if (!param->envvars)
+		{
+			finalize(param, 0, 0, 0);
 			return (1);
+		}
+
 		t_mapss *exp_envvars_map = ft_mapss_gen(t[i].exp_envvars, t[i].exp_envvars_sz);
 		t_dlist *exp_path_list = ft_dlist_generate(t[i].exp_path, -1);
 		#ifdef DEBUG
@@ -116,8 +120,8 @@ int	get_envvars_test(void)
 		assert(ft_dlist_ncmp_str(exp_path_list, param->envvar_path_head, t[i].exp_path_sz) == 0);
 		ft_dlist_clear_s(&param->envvar_path_head, 0);
 		ft_dlist_clear_s(&exp_path_list, 0);
-		ft_mapss_finalize_i(param->envvars, 0, 0);
 		ft_mapss_finalize_i(exp_envvars_map, 0, 0);
+		finalize(param, 0, 0, 0);
 	}
 	return (0);
 }
