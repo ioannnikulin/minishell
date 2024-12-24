@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:39:01 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/22 20:05:08 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/24 19:55:48 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,19 @@ static int	chain_parent(t_executor *e)
 {
 	int	i;
 	int	res;
+	int	cur_res;
 
 	close_pipes(e);
 	i = -1;
 	while (++i < e->chain_length)
 	{
-		res = parent(e->pids[i], &e->errno);
+		cur_res = parent(e->pids[i], &e->errno);
+		if (i == e->chain_length - 1)
+			res = cur_res;
 		if (e->errno != 0)
 			return (1);
 	}
+	e->param->opts.last_pipe_status = res;
 	return (res);
 }
 

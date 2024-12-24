@@ -6,12 +6,12 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 22:57:54 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/22 20:39:37 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/24 19:40:29 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tests_internal.h"
-#define START 28
+#define START 0
 #define TRAP_START 0
 #define DEBUG
 #define SZ 31

@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 15:01:39 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/22 13:51:25 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/24 20:02:45 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ static char	*grab_name(char *content, int start)
 	)
 	{
 		len ++;
+		if (len == 2 && c == '?')
+			break ;
 		c = content[start + len];
 	}
 	res = ft_substr(content, start + 1, len - 1);
