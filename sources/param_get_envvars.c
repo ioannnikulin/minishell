@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/06 20:45:38 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/22 16:40:37 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/12/24 15:52:08 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,14 @@ static int	calc_len(const char *s, int *start, int *len_1, int *len_2)
 		{
 			delim = 1;
 			*len_1 = i;
-			i++;
-			*start = i;
+			*start = i + 1;
 		}
 		i++;
 	}
-	*len_2 = i - *len_1 + 1;
+	if (delim)
+		*len_2 = i - *len_1 - 1;
+	else
+		*len_2 = 0;
 	return (0);
 }
 
@@ -48,13 +50,18 @@ char	**split_env(char *s)
 	if (!res)
 		return (NULL);
 	res[0] = ft_substr(s, 0, len_1);
+	if (!res[0])
+	{
+		free(res);
+		return (NULL);
+	}
 	res[1] = ft_substr(s, key_start, len_2);
-	res[2] = NULL;
-	if (!res[0] || !res[1])
+	if (!res[1])
 	{
 		ft_free_ss_uptonull((void **)res);
 		return (NULL);
 	}
+	res[2] = NULL;
 	return (res);
 }
 
@@ -108,8 +115,11 @@ int	param_get_envvars(t_param *param, char **envp)
 	while (envp[i])
 	{
 		tmp = split_env(envp[i]);
-		if (!tmp || !tmp[0] || !tmp[1])
+		if (!tmp || !tmp[0])
+		{
+			ft_free_ss_uptonull((void **)tmp);
 			return (1);
+		}
 		if (handle_envvar(param, tmp))
 		{
 			ft_free_ss_uptonull((void **)tmp);

@@ -6,13 +6,13 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/20 18:25:04 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/12/23 12:20:28 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/12/25 01:14:40 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tests_internal.h"
 #define SZ 3
-#define DEBUG
+// #define DEBUG
 
 typedef struct s_testcase
 {

@@ -6,14 +6,14 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 22:57:54 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/22 16:25:41 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/12/25 01:14:13 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tests_internal.h"
 #define START 0
 #define TRAP_START 0
-#define DEBUG
+// #define DEBUG
 #define SZ 28
 #define PRINT_MALLOC_FAILURE_NO
 #define PRINT_TEST_NO
@@ -230,24 +230,24 @@ int	e2e_tests(void)
 	ft_mapss_add(m[27], "stdout", "minishell: cd: too many arguments\n");
 	tests[0] = (t_testcase){"--command echo hello world", m[0]};
 	tests[1] = (t_testcase){"--command echo hello world", m[1]};
-//	tests[1] = (t_testcase){"--command \"   echo hello\\n		my openworld \"", m[1]};
+	tests[1] = (t_testcase){"--command \"   echo hello\\n		my openworld \"", m[1]};
 	tests[2] = (t_testcase){"--command \"echo \\\"1   2\\\"   3\"", m[2]};
 	tests[3] = (t_testcase){"--command \"echo \\\"1   2\\\"   3\"", m[3]};
-	//tests[3] = (t_testcase){"--command mkdir testf && cd testf && mkdir f1 f2 && touch 1 && touch 11 2 && ls -a -fh -c | grep 1 >> out.txt", m[3]};
+	tests[3] = (t_testcase){"--command mkdir testf && cd testf && mkdir f1 f2 && touch 1 && touch 11 2 && ls -a -fh -c | grep 1 >> out.txt", m[3]};
 	tests[4] = (t_testcase){"--command \"echo 1 || echo 2 && echo 3 && echo 4 || echo 5 && echo 6\"", m[4]};
 	tests[5] = (t_testcase){"--command \"echo 1 || echo 2 && (echo 3 && echo 4 || echo 5 && echo 6)\"", m[5]};
 	tests[6] = (t_testcase){"--command \"echo 1 || echo 2 && (echo 3 && echo 4 || (echo 5 && echo 6))\"", m[6]};
 	tests[7] = (t_testcase){"--command uname", m[7]};
 	tests[8] = (t_testcase){"--command \"./tests/tool_print_environment one \\\"two   three\\\" four\"", m[8]};
 	tests[9] = (t_testcase){"--command \"export foo=bar && export foo=zah nope=uhoh && unset nope && ./tests/tool_print_environment one \\\"two   three\\\" four\"", m[9]};
-	// tests[10] = (t_testcase){"--command pwd", m[10]};
-	// tests[11] = (t_testcase){"--command \"mkdir testf && cd testf && pwd\"", m[11]};
-	// // in this test the malloc counter prints too early without waiting for second pwd, so disabled for now
-	// //tests[12] = (t_testcase){"--command pwd && mkdir testf && cd ./testf/.. && pwd", m[12]};
-	// tests[12] = (t_testcase){"--command \"mkdir testf && cd testf && pwd\"", m[12]};
-	// tests[13] = (t_testcase){"--command \"cd /bin && pwd\"", m[13]};
-	// tests[14] = (t_testcase){"--command \"cd /nope && pwd\"", m[14]};
-	// tests[15] = (t_testcase){"--command \"cd && pwd && cd nope && pwd\"", m[15]};
+	tests[10] = (t_testcase){"--command pwd", m[10]};
+	tests[11] = (t_testcase){"--command \"mkdir testf && cd testf && pwd\"", m[11]};
+	// in this test the malloc counter prints too early without waiting for second pwd, so disabled for now
+	//tests[12] = (t_testcase){"--command pwd && mkdir testf && cd ./testf/.. && pwd", m[12]};
+	tests[12] = (t_testcase){"--command \"mkdir testf && cd testf && pwd\"", m[12]};
+	tests[13] = (t_testcase){"--command \"cd /bin && pwd\"", m[13]};
+	tests[14] = (t_testcase){"--command \"cd /nope && pwd\"", m[14]};
+	tests[15] = (t_testcase){"--command \"cd && pwd && cd nope && pwd\"", m[15]};
 	tests[16] = (t_testcase){"--command \"env && unset HOME PATH && env\"", m[16]};
 	tests[17] = (t_testcase){"--command \"echo 1 && exit && echo 2\"", m[17]};
 	tests[18] = (t_testcase){"--command \"echo 1 && exit || echo 2\"", m[18]};
