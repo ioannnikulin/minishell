@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mock_30.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 23:07:09 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/13 15:46:49 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/27 18:30:34 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,9 @@ static t_treenode	*p1(t_treenode *root)
 		|| ft_treenode_insert_child_idx_s_dup(root, "wc", 4) == -1
 		|| ft_treenode_insert_child_idx_s_dup(root, "&&", 5) == -1
 		|| ft_treenode_insert_child_idx_s_dup(root, "echo", 6) == -1
+		|| ft_treenode_insert_child_idx_s_dup(
+			root->child->sibling_next->sibling_next->sibling_next->sibling_next \
+			->sibling_next->sibling_next, "1", 0) == -1
 	)
 		return (0);
 	root = root->child->sibling_next->sibling_next;
