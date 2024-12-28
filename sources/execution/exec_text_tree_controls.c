@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:39:01 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/22 20:02:53 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/28 15:50:20 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	executor_finalize(t_executor *e)
 	i = -1;
 	if (e->fds)
 	{
-		while (++i < e->chain_length)
+		while (++i < e->chain_length + 1)
 			free(e->fds[i]);
 	}
 	free(e->fds);
