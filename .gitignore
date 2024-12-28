@@ -5,8 +5,8 @@ libft.a
 libft/tests/test
 .vscode
 minishell
-minishell_tester/*
 minishell_tester
+minishell_tester-main
 test
 testf/*
 testf

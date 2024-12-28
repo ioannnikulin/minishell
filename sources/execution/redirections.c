@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:39:01 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/24 19:55:48 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/28 15:17:33 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ static int	chain_parent(t_executor *e)
 			return (1);
 	}
 	e->param->opts.last_pipe_status = res;
+	e->retval = res;
 	return (res);
 }
 
@@ -62,7 +63,7 @@ static int	exec_chain(t_executor *e)
 			if (e->pids[i] == 0)
 				child(e, i);
 		}
-		if (e->node->sibling_next)
+		if (i != e->chain_length - 1)
 			e->node = e->node->sibling_next->sibling_next;
 	}
 	return (chain_parent(e));
@@ -79,11 +80,11 @@ static int	alloc(t_treenode *node, int ***fds, int *sz)
 		(*sz)++;
 		node = node->sibling_next->sibling_next;
 	}
-	*fds = ft_calloc_if(sizeof(int [2]) * (*sz), 1);
+	*fds = ft_calloc_if(sizeof(int [2]) * (*sz + 1), 1);
 	if (!*fds)
 		return (1);
 	i = -1;
-	while (++i < *sz)
+	while (++i < *sz + 1)
 	{
 		(*fds)[i] = ft_calloc_if(sizeof(int) * 2, 1);
 		if (!(*fds)[i])
@@ -110,7 +111,7 @@ int	redirections(t_executor *e)
 		e->fds[i][OUT] = OUT;
 		if (i + 1 != e->chain_length)
 			e->fds[i + 1][IN] = IN;
-		if (node->sibling_next && is_pipe(node->sibling_next->content))
+		if (takes_part_in_pipe(e->node))
 		{
 			if (setup_pipe(e, i) != 0)
 				return (ft_assign_i(&e->errno, 2, 2));

@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:39:01 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/22 19:38:12 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/28 15:37:27 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ int	exec_rec(t_executor *e)
 		return (0);
 	if (e->node && e->node->sibling_next
 		&& is_pipe_or_redir(e->node->sibling_next->content))
-		return (redirections(e));
-	if (ft_strcmp(e->node->content, TEXT_TREE_BLOCK) == 0)
+		redirections(e);
+	else if (ft_strcmp(e->node->content, TEXT_TREE_BLOCK) == 0)
 	{
 		parent = e->node;
 		e->node = e->node->child;
