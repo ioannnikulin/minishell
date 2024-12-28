@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 00:09:30 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/15 13:57:23 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/28 18:25:25 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	invalid(char *src)
 {
-	printf("export: %s: %s\n", src, ERR_EXPORT_INVALID);
+	ft_fprintf(STDERR_FILENO, "export: %s: %s\n", src, ERR_EXPORT_INVALID);
 	return (1);
 }
 
@@ -47,7 +47,7 @@ static int	path(char *key, char *val, t_dlist **path_head)
 
 static int	err_malloc(char *key, char *val, int *errno)
 {
-	printf("export: %s\n", ERR_MALLOC);
+	ft_fprintf(STDERR_FILENO, "export: %s\n", ERR_MALLOC);
 	ft_assign_i(errno, 1, 0);
 	free(key);
 	free(val);
@@ -65,7 +65,7 @@ static int	one(char *src, t_mapss *map, t_dlist **path_head, int *errno)
 	int		i;
 
 	i = 0;
-	if (src[0] == '=')
+	if (!ft_isalpha(src[0]) && src[0] != '_')
 		return (invalid(src));
 	while (src[i] && src[i] != '=')
 	{

@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:39:01 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/28 15:17:33 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/28 17:30:26 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static int	chain_parent(t_executor *e)
 		if (e->errno != 0)
 			return (1);
 	}
-	e->param->opts.last_pipe_status = res;
+	e->param->opts.retval = res;
 	e->retval = res;
 	return (res);
 }

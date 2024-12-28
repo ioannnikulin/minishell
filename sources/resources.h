@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 14:26:40 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/06 11:49:34 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/28 16:05:35 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@
 # define ERR_CMD_ARG_MISSING "argument incomplete"
 # define ERR_UNTERMINATED_SINGLE_QUOTE "single quote block not terminated"
 # define ERR_UNTERMINATED_BLOCK "block not terminated"
+# define ERR_EXIT_NO_NUMBER "numeric argument required"
+# define ERR_EXIT_TOO_MANY_ARGS "too many arguments"
 
 # define TXT_INVITATION "minishell > "
 # define TXT_MINISHELL "minishell"

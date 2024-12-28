@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 15:22:58 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/22 20:33:36 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/28 17:29:51 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ typedef struct s_opts
 	int		interactive;
 	t_ull	debug_output_level;
 	int		exiting;
+	int		retval;
 	int		errno;
 	void	(*sigint_handler)(int);
-	int		last_pipe_status;
 }	t_opts;
 
 typedef struct s_param

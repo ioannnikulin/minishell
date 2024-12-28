@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:39:01 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/28 15:37:27 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/28 17:34:43 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,13 +67,12 @@ int	exec_rec(t_executor *e)
 	if (skip_logical_siblings(e) != 0)
 		return (1);
 	if (e->param->opts.exiting || !e->node)
-		return (ft_if_i(e->param->opts.exiting, 0, 0));
+		return (e->retval);
 	return (exec_rec(e));
 }
 
 int	exec_text_tree(t_param *param)
 {
-	int			res;
 	t_executor	*executor;
 
 	if (!param || !param->text_tree || !param->text_tree->root
@@ -87,7 +86,8 @@ int	exec_text_tree(t_param *param)
 	executor = make_executor(param->text_tree->root->child, param);
 	if (!executor)
 		return (2);
-	res = exec_rec(executor);
+	exec_rec(executor);
+	param->opts.retval = executor->retval;
 	executor_finalize(executor);
-	return (res);
+	return (param->opts.retval);
 }
