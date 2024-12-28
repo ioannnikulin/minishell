@@ -6,16 +6,24 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 12:22:57 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/12/06 21:52:04 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/25 11:27:56 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tree_processing.h"
 
-static void	insert_first_node(char *token, t_treenode *root)
+static int	insert_first_node(char *token, t_treenode **cur_1, t_treenode *root)
 {
-	ft_treenode_insert_child_idx_s_dup(root, token, 0);
-	return ;
+	if (ft_treenode_insert_child_idx_s_dup(root, token, 0) == -1)
+		return (1);
+	if (is_opening_parenthesis(token))
+	{
+		if (root->child)
+			*cur_1 = root->child;
+		else
+			return (1);
+	}
+	return (0);
 }
 
 int	process_tree(char *token, t_treenode **cur_1,
@@ -55,10 +63,10 @@ int	tokens_to_tree(t_tree *tree, char **tokens)
 	tree->root = ft_treenode_make(TEXT_TREE_ROOT, 0, ft_free_nop);
 	if (!tree->root)
 		return (2);
-	insert_first_node(tokens[i++], tree->root);
-	if (tree->root->child == NULL)
-		return (1);
 	cur_1 = tree->root;
+	if (insert_first_node(tokens[i++], &cur_1, tree->root)
+		|| tree->root->child == NULL)
+		return (1);
 	cur_2 = tree->root->child;
 	num = 0;
 	while (tokens[i] != NULL)
