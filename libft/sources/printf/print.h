@@ -13,8 +13,14 @@
 #ifndef PRINT_H
 # define PRINT_H
 
+int	ft_fprintf_ss(int fd, const char **s);
+int	ft_fprintf_s(int fd, const char *s);
+#ifndef PRINTF_ALLOWED
+
 int	ft_printf(const char *s, ...);
 int	ft_fprintf(int fd, const char *s, ...);
+#endif
+
 int	ft_print_arr_i_2(int **val, int rows, int cols);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 15:21:17 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/28 17:45:32 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/28 19:32:49 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ static char	*read_input(void)
 			line[nread - 1] = '\0';
 		return (line);
 	}
-	return (readline(TXT_INVITATION));
+	ft_fprintf(STDERR_FILENO, "%s", TXT_INVITATION);
+	return (readline(0));
 }
 
 static int	interactive(t_param *param)
