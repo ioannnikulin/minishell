@@ -6,13 +6,13 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/20 18:25:04 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/12/25 01:14:40 by taretiuk         ###   ########.fr       */
+/*   Updated: 2025/01/03 18:20:24 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tests_internal.h"
 #define SZ 3
-// #define DEBUG
+//#define DEBUG
 
 typedef struct s_testcase
 {
@@ -108,7 +108,19 @@ int	get_envvars_test(void)
 		ft_mapss_print(exp_envvars_map);
 		ft_printf("\n");
 		#endif
-		assert(param_get_envvars(param, t[i].src) == 0);
+		int src_sz = -1;
+		while (t[i].src[++src_sz]);
+		char	**src = calloc(sizeof(char*), src_sz + 1);
+		assert(src);
+		for (int j = 0; j < src_sz; j ++)
+		{
+			src[j] = ft_strdup(t[i].src[j]);
+			assert(src[j]);
+		}
+		assert(param_get_envvars(param, src) == 0);
+		for (int j = 0; j < src_sz; j ++)
+			free(src[j]);
+		free(src);
 		#ifdef DEBUG
 		ft_printf("\nactual path:\n");
 		ft_dlist_print_s(param->envvar_path_head, " ");

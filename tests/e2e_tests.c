@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 22:57:54 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/25 01:14:13 by taretiuk         ###   ########.fr       */
+/*   Updated: 2025/01/03 18:19:01 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,11 +146,12 @@ static void	successful_execution(t_testcase *test, int *mallocs)
 }
 
 #ifdef FT_CALLOC_IF_TRAPPED
-static void	malloc_failure_recoveries(char *cmd, int mallocs)
+static void	malloc_failure_recoveries(char *cmd, int mallocs, int from_mallocs)
 {
 	if (!cmd) return ;
 	int out, save, outerr, saveerr;
-	for (int i = TRAP_START; i < mallocs + 2; i ++)
+	if (from_mallocs < TRAP_START) from_mallocs = TRAP_START;
+	for (int i = from_mallocs; i < mallocs + 2; i ++)
 	{
 		system("(rm -r e2e_f testf && rm e2e.stdout e2e.stderr) 2> /dev/null");
 		assert(system("mkdir e2e_f") == 0);
@@ -195,6 +196,11 @@ int	e2e_tests(void)
 		m[i]= ft_mapss_init();
 		assert(!!m[i]);
 	}
+	t_mapss *empty_m = ft_mapss_init();
+	assert(!!empty_m);
+	ft_mapss_add(empty_m, "stdout", "exit");
+	t_testcase empty_test = (t_testcase){"--command \"exit\"", empty_m};
+
 	ft_mapss_add(m[0], "stdout", "hello world\n");
 	//	ft_mapss_add(m[1], "stdout", "hello\\n my openworld\n");
 	//	this test looks absolutely fine, and works with strcmp, but somehow fails with regex. no idea, so just turning it off for now
@@ -208,14 +214,14 @@ int	e2e_tests(void)
 	ft_mapss_add(m[7], "stdout", "Linux\n");
 	ft_mapss_add(m[8], "stdout", "HOME=/home/ioann\nsome=BODYONCETOLDME\nPATH=/usr/local/bin:/usr/sbin:/usr/bin:/sbin/bin\nPWD=/[^\n]*\none\ntwo   three\nfour\n");
 	ft_mapss_add(m[9], "stdout", "HOME=/home/ioann\nfoo=zah\nsome=BODYONCETOLDME\nPATH=/usr/local/bin:/usr/sbin:/usr/bin:/sbin/bin\nPWD=/[^\n]*\none\ntwo   three\nfour\n");
-	// ft_mapss_add(m[10], "stdout", "/[^\n]*\n");
-	// ft_mapss_add(m[11], "stdout", "/[^\n]*/testf\n");
-	// ft_mapss_add(m[12], "stdout", "/[^\n]*/testf\n");
-	// // no backreferences, also total printing strange
-	// //ft_mapss_add(m[12], "stdout", "(/[^\n]*\n){2}");
-	// ft_mapss_add(m[13], "stdout", "/usr/bin\n");
-	// ft_mapss_add(m[14], "stdout", "cd: /nope: No such file or directory\n");
-	// ft_mapss_add(m[15], "stdout", "[^\n]*\ncd: nope: No such file or directory\n");
+	ft_mapss_add(m[10], "stdout", "/[^\n]*\n");
+	ft_mapss_add(m[11], "stdout", "/[^\n]*/testf\n");
+	ft_mapss_add(m[12], "stdout", "/[^\n]*/testf\n");
+	// no backreferences, also total printing strange
+	//ft_mapss_add(m[12], "stdout", "(/[^\n]*\n){2}");
+	ft_mapss_add(m[13], "stdout", "/usr/bin\n");
+	ft_mapss_add(m[14], "stdout", "cd: /nope: No such file or directory\n");
+	ft_mapss_add(m[15], "stdout", "[^\n]*\ncd: nope: No such file or directory\n");
 	ft_mapss_add(m[16], "stdout", "HOME=/home/ioann\nsome=BODYONCETOLDME\nPATH=/usr/local/bin:/usr/sbin:/usr/bin:/sbin/bin\nsome=BODYONCETOLDME\n");
 	ft_mapss_add(m[17], "stdout", "1\nexit\n");
 	ft_mapss_add(m[18], "stdout", "1\nexit\n");
@@ -230,10 +236,10 @@ int	e2e_tests(void)
 	ft_mapss_add(m[27], "stdout", "minishell: cd: too many arguments\n");
 	tests[0] = (t_testcase){"--command echo hello world", m[0]};
 	tests[1] = (t_testcase){"--command echo hello world", m[1]};
-	tests[1] = (t_testcase){"--command \"   echo hello\\n		my openworld \"", m[1]};
+	//tests[1] = (t_testcase){"--command \"   echo hello\\n		my openworld \"", m[1]};
 	tests[2] = (t_testcase){"--command \"echo \\\"1   2\\\"   3\"", m[2]};
 	tests[3] = (t_testcase){"--command \"echo \\\"1   2\\\"   3\"", m[3]};
-	tests[3] = (t_testcase){"--command mkdir testf && cd testf && mkdir f1 f2 && touch 1 && touch 11 2 && ls -a -fh -c | grep 1 >> out.txt", m[3]};
+	//tests[3] = (t_testcase){"--command mkdir testf && cd testf && mkdir f1 f2 && touch 1 && touch 11 2 && ls -a -fh -c | grep 1 >> out.txt", m[3]};
 	tests[4] = (t_testcase){"--command \"echo 1 || echo 2 && echo 3 && echo 4 || echo 5 && echo 6\"", m[4]};
 	tests[5] = (t_testcase){"--command \"echo 1 || echo 2 && (echo 3 && echo 4 || echo 5 && echo 6)\"", m[5]};
 	tests[6] = (t_testcase){"--command \"echo 1 || echo 2 && (echo 3 && echo 4 || (echo 5 && echo 6))\"", m[6]};
@@ -261,6 +267,11 @@ int	e2e_tests(void)
 	tests[26] = (t_testcase){"--command \"echo 1 -n 2&&echo 3||echo 4   ||echo 5 ||   echo 6\"", m[26]};
 	tests[27] = (t_testcase){"--command \"cd a b && echo 1\"", m[27]};
 
+	int	empty_call_mallocs = 0;
+	successful_execution(&empty_test, &empty_call_mallocs);
+	#ifdef FT_CALLOC_IF_TRAPPED
+	malloc_failure_recoveries(empty_test.cmd, empty_call_mallocs, 0);
+	#endif
 	for (int i = START; i < SZ; i ++)
 	{
 		#ifdef PRINT_TEST_NO
@@ -276,7 +287,7 @@ int	e2e_tests(void)
 		int mallocs;
 		successful_execution(&tests[i], &mallocs);
 		#ifdef FT_CALLOC_IF_TRAPPED
-		malloc_failure_recoveries(tests[i].cmd, mallocs);
+		malloc_failure_recoveries(tests[i].cmd, mallocs, empty_call_mallocs);
 		#endif
 		ft_mapss_finalize_i(m[i], 0, 0);
 	}

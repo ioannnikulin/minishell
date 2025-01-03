@@ -6,44 +6,29 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/06 20:45:38 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/02 16:08:49 by taretiuk         ###   ########.fr       */
+/*   Updated: 2025/01/03 17:31:15 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	calc_len(const char *s, int *start, int *len_1, int *len_2)
+int	split_env(char *s, char **key, char **value)
 {
 	int	i;
 
-	i = 0;
-	*len_1 = 0;
-	*len_2 = 0;
-	while (s[i])
+	i = -1;
+	*key = s;
+	*value = 0;
+	while (s[++i])
 	{
 		if (s[i] == '=')
 		{
-			*len_1 = i + 1;
-			*start = i + 1;
-			break ;
+			s[i] = 0;
+			*value = &s[i + 1];
+			return (0);
 		}
-		i++;
 	}
-	while (s[i])
-		i++;
-	*len_2 = i - *start;
-	return (0);
-}
-
-void	split_env(char *s, char *key, char *value)
-{
-	int			val_start;
-	int			key_len;
-	int			val_len;
-
-	calc_len(s, &val_start, &key_len, &val_len);
-	ft_strlcpy(key, s, key_len);
-	ft_strcpy(value, s + val_start);
+	return (1);
 }
 
 static int	extract_path_env(t_param *param, char *s)
@@ -64,6 +49,9 @@ static int	extract_path_env(t_param *param, char *s)
 		}
 		if (!ft_dlist_add_back_s(&param->envvar_path_head, current))
 			return (1);
+		start --;
+		*start = ':';
+		start ++;
 	}
 	return (0);
 }
@@ -86,15 +74,16 @@ static int	handle_envvar(t_param *param, char *key, char *value)
 int	param_get_envvars(t_param *param, char **envp)
 {
 	int		i;
-	char	key[256];
-	char	val[256];
+	char	*key;
+	char	*val;
 
 	i = 0;
 	while (envp[i])
 	{
-		split_env(envp[i], key, val);
+		split_env(envp[i], &key, &val);
 		if (handle_envvar(param, key, val))
 			return (1);
+		envp[i][ft_strlen(key) + 1] = '=';
 		i++;
 	}
 	return (0);
