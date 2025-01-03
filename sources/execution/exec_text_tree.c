@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:39:01 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/28 15:37:27 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/03 16:50:40 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,8 @@ int	exec_rec(t_executor *e)
 	}
 	else if (nonbrace(e) != 0)
 		return (2);
-	if (e->param->opts.errno)
-		return (0 * printf("ERROR %i\n", e->param->opts.errno) + 3);
+	if (e->errno)
+		return (0 * printf("ERROR %i\n", e->errno) + 3);
 	if (skip_logical_siblings(e) != 0)
 		return (1);
 	if (e->param->opts.exiting || !e->node)
