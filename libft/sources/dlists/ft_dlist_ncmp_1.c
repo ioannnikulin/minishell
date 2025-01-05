@@ -1,27 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcpy.c                                        :+:      :+:    :+:   */
+/*   ft_dlist_ncmp_1.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/13 19:01:40 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/24 15:07:06 by taretiuk         ###   ########.fr       */
+/*   Created: 2024/01/27 12:41:58 by inikulin          #+#    #+#             */
+/*   Updated: 2024/12/22 16:07:16 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stddef.h>
+#include "libft.h"
+#include <stdint.h>
 
-void	*ft_memcpy(void *dest, const void *src, size_t n)
+int	ft_voidptr_strcmp(void *a, void *b)
 {
-	char		*d;
-	const char	*s;
+	return (ft_strcmp((char *)a, (char *)b));
+}
 
-	if (n == 0)
-		return (dest);
-	d = dest;
-	s = src;
-	while (n --)
-		d[n] = s[n];
-	return (dest);
+int	ft_dlist_ncmp_str(t_dlist *a, t_dlist *b, int n)
+{
+	return (ft_dlist_ncmp(a, b, n, ft_voidptr_strcmp));
 }

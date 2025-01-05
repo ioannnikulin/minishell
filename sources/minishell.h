@@ -67,7 +67,7 @@ typedef struct s_param
 t_param	*param_alloc(void);
 int		param_init(t_param *param);
 int		opts_fill(int argc, const char **argv, t_param *param);
-int		param_get_envvars(t_param *param);
+int		param_get_envvars(t_param *param, char **envp);
 int		finalize(t_param *param, int mode, char *message, int retval);
 int		input_to_text_tree(t_param *param);
 int		expand_tree(t_param *param);

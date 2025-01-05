@@ -146,11 +146,12 @@ static void	successful_execution(t_testcase *test, int *mallocs)
 }
 
 #ifdef FT_CALLOC_IF_TRAPPED
-static void	malloc_failure_recoveries(char *cmd, int mallocs)
+static void	malloc_failure_recoveries(char *cmd, int mallocs, int from_mallocs)
 {
 	if (!cmd) return ;
 	int out, save, outerr, saveerr;
-	for (int i = TRAP_START; i < mallocs + 2; i ++)
+	if (from_mallocs < TRAP_START) from_mallocs = TRAP_START;
+	for (int i = from_mallocs; i < mallocs + 2; i ++)
 	{
 		system("(rm -r e2e_f testf && rm e2e.stdout e2e.stderr) 2> /dev/null");
 		assert(system("mkdir e2e_f") == 0);
@@ -276,7 +277,7 @@ int	e2e_tests(void)
 		int mallocs;
 		successful_execution(&tests[i], &mallocs);
 		#ifdef FT_CALLOC_IF_TRAPPED
-		malloc_failure_recoveries(tests[i].cmd, mallocs);
+		malloc_failure_recoveries(tests[i].cmd, mallocs, empty_call_mallocs);
 		#endif
 		ft_mapss_finalize_i(m[i], 0, 0);
 	}

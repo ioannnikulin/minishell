@@ -5,6 +5,10 @@ libft.a
 libft/tests/test
 .vscode
 minishell
+<<<<<<< HEAD
+=======
+minishell_tester-main
+>>>>>>> github/dev
 minishell_tester
 minishell_tester-main
 test

@@ -1,27 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcpy.c                                        :+:      :+:    :+:   */
+/*   ft_strcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/13 19:01:40 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/24 15:07:06 by taretiuk         ###   ########.fr       */
+/*   Created: 2025/01/02 15:19:12 by taretiuk          #+#    #+#             */
+/*   Updated: 2025/01/02 15:21:34 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stddef.h>
 
-void	*ft_memcpy(void *dest, const void *src, size_t n)
+char	*ft_strcpy(char *dst, const char *src)
 {
-	char		*d;
-	const char	*s;
+	size_t	c;
 
-	if (n == 0)
-		return (dest);
-	d = dest;
-	s = src;
-	while (n --)
-		d[n] = s[n];
-	return (dest);
+	c = 0;
+	while (src[c])
+	{
+		dst[c] = src[c];
+		c ++;
+	}
+	dst[c] = 0;
+	while (src[c])
+		c ++;
+	return (dst);
 }

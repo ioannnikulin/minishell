@@ -1,27 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcpy.c                                        :+:      :+:    :+:   */
+/*   ft_dlist_print_1.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 19:01:40 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/24 15:07:06 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/12/22 13:40:14 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stddef.h>
+#include "libft.h"
 
-void	*ft_memcpy(void *dest, const void *src, size_t n)
+static void	printpi(void *p)
 {
-	char		*d;
-	const char	*s;
+	ft_printf("%i", *(int *)p);
+}
 
-	if (n == 0)
-		return (dest);
-	d = dest;
-	s = src;
-	while (n --)
-		d[n] = s[n];
-	return (dest);
+int	ft_dlist_print_pi(t_dlist *lst, char *delim)
+{
+	return (ft_dlist_print(lst, 0, delim, printpi));
 }

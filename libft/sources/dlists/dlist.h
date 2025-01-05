@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   dlist.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 20:49:23 by inikulin          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/12/15 18:44:34 by inikulin         ###   ########.fr       */
+=======
+/*   Updated: 2024/12/22 13:40:38 by taretiuk         ###   ########.fr       */
+>>>>>>> github/dev
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +47,7 @@ void	ft_dlist_iter(t_dlist *lst, void (*f)(void *));
 t_dlist	*ft_dlist_map(t_dlist *lst, void *(*f)(void *),
 			void (*del)(void *));
 int		ft_dlist_print_s(t_dlist *lst, char *delim);
+int		ft_dlist_print_pi(t_dlist *lst, char *delim);
 int		ft_dlist_print(t_dlist *lst, int debug_lvl, char *delim,
 			void (*p)(void *));
 // compares return 0 if lists equal,
