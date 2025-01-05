@@ -6,11 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 00:08:15 by inikulin          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2024/12/15 13:50:10 by inikulin         ###   ########.fr       */
-=======
-/*   Updated: 2025/01/05 14:58:00 by taretiuk         ###   ########.fr       */
->>>>>>> github/dev
+/*   Updated: 2025/01/05 18:10:00 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,17 +78,9 @@ int	option_cd(t_executor *control, t_treenode *node, t_param *param)
 	t_dlist	*envvars;
 	int		errno;
 
-<<<<<<< HEAD
 	control->found = 1;
-	if (node->child->sibling_next)
-		return (couldnt(0, 0, &control->retval, 7));
-=======
-	if (*control.found || !control.choice)
-		return (0);
-	*control.found = 1;
 	if (node->child && node->child->sibling_next)
-		return (couldnt(0, 0, control.retval, 7));
->>>>>>> github/dev
+		return (couldnt(0, 0, &control->retval, 7));
 	errno = 0;
 	fullpath = get_checked_path(node, param->envvar_path_head->content,
 			param->envvars, &errno);

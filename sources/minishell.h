@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 15:22:58 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/22 20:33:36 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/05 18:14:05 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define MINISHELL_H
 
 # include <stdio.h>
+# include <stddef.h>
 # include <stdlib.h>
 # include <unistd.h>
 # include <signal.h>
