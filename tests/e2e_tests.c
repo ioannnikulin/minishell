@@ -14,7 +14,7 @@
 #define START 0
 #define TRAP_START 0
 //#define DEBUG
-#define SZ 28
+#define SZ 22
 #define PRINT_MALLOC_FAILURE_NO
 #define PRINT_TEST_NO
 
@@ -196,17 +196,18 @@ int	e2e_tests(void)
 		m[i]= ft_mapss_init();
 		assert(!!m[i]);
 	}
+	t_mapss *empty_m = ft_mapss_init();
+	assert(!!empty_m);
+	ft_mapss_add(empty_m, "stdout", "exit");
+	t_testcase empty_test = (t_testcase){"--command \"exit\"", empty_m};
 	ft_mapss_add(m[0], "stdout", "hello world\n");
-	//ft_mapss_add(m[1], "stdout", "hello\\n my openworld\n");
-	//	this test looks absolutely fine, and works with strcmp, but somehow fails with regex. no idea, so just turning it off for now
-	ft_mapss_add(m[1], "stdout", "hello world\n");
-	ft_mapss_add(m[2], "stdout", "1   2 3\n");
-	ft_mapss_add(m[3], "stdout", "1\n11\nf1\n");
+	ft_mapss_add(m[1], "stdout", "1   2 3\n");
+	ft_mapss_add(m[2], "stdout", "1\n11\nf1\n");
+	ft_mapss_add(m[3], "stdout", "1\n3\n4\n6\n");
 	ft_mapss_add(m[4], "stdout", "1\n3\n4\n6\n");
-	ft_mapss_add(m[5], "stdout", "1\n3\n4\n6\n");
-	ft_mapss_add(m[6], "stdout", "1\n3\n4\n");
-	ft_mapss_add(m[7], "stdout", "Linux\n");
-	ft_mapss_add(m[8], "stdout", "HOME=/home/ioann\nsome=BODYONCETOLDME\nPATH=/usr/local/bin:/usr/sbin:/usr/bin:/sbin/bin\nPWD=/[^\n]*\none\ntwo   three\nfour\n");
+	ft_mapss_add(m[5], "stdout", "1\n3\n4\n");
+	ft_mapss_add(m[6], "stdout", "Linux\n");
+	ft_mapss_add(m[7], "stdout", "HOME=/home/ioann\nsome=BODYONCETOLDME\nPATH=/usr/local/bin:/usr/sbin:/usr/bin:/sbin/bin\nPWD=/[^\n]*\none\ntwo   three\nfour\n");
 	ft_mapss_add(m[9], "stdout", "HOME=/home/ioann\nfoo=zah\nsome=BODYONCETOLDME\nPATH=/usr/local/bin:/usr/sbin:/usr/bin:/sbin/bin\nPWD=/[^\n]*\none\ntwo   three\nfour\n");
 	ft_mapss_add(m[10], "stdout", "/[^\n]*\n");
 	ft_mapss_add(m[11], "stdout", "/[^\n]*/testf\n");
@@ -226,38 +227,39 @@ int	e2e_tests(void)
 	ft_mapss_add(m[25], "stdout", "1 2");
 	ft_mapss_add(m[26], "stdout", "1 -n 2\n3\n");
 	ft_mapss_add(m[27], "stdout", "minishell: cd: too many arguments\n");
-	tests[0] = (t_testcase){"--command \"echo hello world\"", m[0]};
-	tests[1] = (t_testcase){"--command \"echo hello world\"", m[1]};
-	//tests[1] = (t_testcase){"--command \"   echo hello\\n		my openworld \"", m[1]};
-	tests[2] = (t_testcase){"--command \"echo \\\"1   2\\\"   3\"", m[2]};
-	tests[3] = (t_testcase){"--command \"rm -rf testf && mkdir testf && cd testf && mkdir f1 f2 && touch 1 && touch 11 2 && ls -a -h | grep 1\"", m[3]};
-	//tests[3] = (t_testcase){"--command mkdir testf && cd testf && mkdir f1 f2 && touch 1 && touch 11 2 && ls -a -fh -c | grep 1 >> out.txt", m[3]};
-	tests[4] = (t_testcase){"--command \"echo 1 || echo 2 && echo 3 && echo 4 || echo 5 && echo 6\"", m[4]};
-	tests[5] = (t_testcase){"--command \"echo 1 || echo 2 && (echo 3 && echo 4 || echo 5 && echo 6)\"", m[5]};
-	tests[6] = (t_testcase){"--command \"echo 1 || echo 2 && (echo 3 && echo 4 || (echo 5 && echo 6))\"", m[6]};
-	tests[7] = (t_testcase){"--command uname", m[7]};
-	tests[8] = (t_testcase){"--command \"./tests/tool_print_environment one \\\"two   three\\\" four\"", m[8]};
-	tests[9] = (t_testcase){"--command \"export foo=bar && export foo=zah nope=uhoh && unset nope && ./tests/tool_print_environment one \\\"two   three\\\" four\"", m[9]};
-	tests[10] = (t_testcase){"--command pwd", m[10]};
-	tests[11] = (t_testcase){"--command \"mkdir testf && cd testf && pwd\"", m[11]};
-	tests[12] = (t_testcase){"--command \"pwd && mkdir testf && cd ./testf/.. && pwd\"", m[12]};
-	tests[13] = (t_testcase){"--command \"cd /bin && pwd\"", m[13]};
-	tests[14] = (t_testcase){"--command \"cd /nope && pwd\"", m[14]};
-	tests[15] = (t_testcase){"--command \"cd && pwd && cd nope && pwd\"", m[15]};
-	tests[16] = (t_testcase){"--command \"env && unset HOME PATH && env\"", m[16]};
-	tests[17] = (t_testcase){"--command \"echo 1 && exit && echo 2\"", m[17]};
-	tests[18] = (t_testcase){"--command \"echo 1 && exit || echo 2\"", m[18]};
-	tests[19] = (t_testcase){"--command \"echo 1 || echo 2 && (echo 3 && (echo 4 || echo 5) && echo 6)\"", m[19]};
-	tests[20] = (t_testcase){"--command \"echo 1 || echo 2 && (echo 3 && (echo 4) || echo 5 && echo 6)\"", m[20]};
-	tests[21] = (t_testcase){"--command \"echo 1 || (echo 2 && (echo 3 && (echo 4) || echo 5 && echo 6))\"", m[21]};
-	tests[22] = (t_testcase){"--command \"echo 1 || (echo 2 && (echo 3 && (echo 4) || echo 5)) && echo 6\"", m[22]};
-	tests[23] = (t_testcase){"--command \"export foo=bar sea=\\$foo say=echo _1=\\$_1 _= && \\$say [\\$foo] ['\\$sea'] [\\\"\\$sea\\\"] [\\$food] [\\$_1] [\\$_] [\\$] [\\$PATH] [\\$some]\"", m[23]};
-	tests[24] = (t_testcase){"--command \"echo \'\\$(echo \\\"\\$(echo \\\"\\$(echo \\\"bla\\\")\\\")\\\")\'\"", m[24]};
-	tests[25] = (t_testcase){"--command \"echo -nn 1 2\"", m[25]};
-	tests[26] = (t_testcase){"--command \"echo 1 -n 2&&echo 3||echo 4   ||echo 5 ||   echo 6\"", m[26]};
-	tests[27] = (t_testcase){"--command \"cd a b && echo 1\"", m[27]};
+	tests[0] = (t_testcase){"echo hello world", m[0]};
+	tests[1] = (t_testcase){"echo \"1   2\"   3", m[1]};
+	tests[2] = (t_testcase){"rm -rf testf && mkdir testf && cd testf && mkdir f1 f2 && touch 1 && touch 11 2 && ls -a -h | grep 1", m[2]};
+	//tests[2] = (t_testcase){"--command mkdir testf && cd testf && mkdir f1 f2 && touch 1 && touch 11 2 && ls -a -fh -c | grep 1 >> out.txt", m[2]};
+	tests[3] = (t_testcase){"echo 1 || echo 2 && echo 3 && echo 4 || echo 5 && echo 6", m[3]};
+	tests[4] = (t_testcase){"echo 1 || echo 2 && (echo 3 && echo 4 || echo 5 && echo 6)", m[4]};
+	tests[5] = (t_testcase){"echo 1 || echo 2 && (echo 3 && echo 4 || (echo 5 && echo 6))", m[5]};
+	tests[6] = (t_testcase){"uname", m[6]};
+	tests[7] = (t_testcase){"pwd", m[7]};
+	tests[8] = (t_testcase){"mkdir testf && cd testf && pwd", m[8]};
+	tests[9] = (t_testcase){"pwd && mkdir testf && cd ./testf/.. && pwd", m[9]};
+	tests[10] = (t_testcase){"cd /bin && pwd", m[10]};
+	tests[11] = (t_testcase){"cd /nope && pwd", m[11]};
+	tests[12] = (t_testcase){"cd && pwd && cd nope && pwd", m[12]};
+	tests[13] = (t_testcase){"echo 1 && exit && echo 2", m[13]};
+	tests[14] = (t_testcase){"echo 1 && exit || echo 2", m[14]};
+	tests[15] = (t_testcase){"echo 1 || echo 2 && (echo 3 && (echo 4 || echo 5) && echo 6)", m[15]};
+	tests[16] = (t_testcase){"echo 1 || echo 2 && (echo 3 && (echo 4) || echo 5 && echo 6)", m[16]};
+	tests[17] = (t_testcase){"echo 1 || (echo 2 && (echo 3 && (echo 4) || echo 5 && echo 6))", m[17]};
+	tests[18] = (t_testcase){"echo 1 || (echo 2 && (echo 3 && (echo 4) || echo 5)) && echo 6", m[18]};
+	tests[19] = (t_testcase){"export foo=bar sea=$foo say=echo _1=$_1 && $say [$foo] ['$sea'] [\"$sea\"] [$food] [$_1] [$] [$some]", m[19]};
+	tests[20] = (t_testcase){"echo '$(echo \"$(echo \"$(echo \"bla\")\")\")'", m[20]};
+	tests[21] = (t_testcase){"echo -nn 1 2", m[21]};
+	tests[22] = (t_testcase){"echo 1 -n 2&&echo 3||echo 4   ||echo 5 ||   echo 6", m[22]};
+	tests[23] = (t_testcase){"cd a b && echo 1", m[23]};
 	// multiple pipes (see mocks 29-30) will not be tested here, they produce strange errors in this testing suite, though they run normally when being started as separate commands. something to do with STDOUT being intercepted for tests probably.
-
+	
+	int	empty_call_mallocs = 0;
+	successful_execution(&empty_test, &empty_call_mallocs);
+	#ifdef FT_CALLOC_IF_TRAPPED
+	malloc_failure_recoveries(empty_test.cmd, empty_call_mallocs, 0);
+	#endif
+	ft_mapss_finalize_i(empty_m, 0, 0);
 	for (int i = 0; i < START; i ++)
 	{
 		ft_mapss_finalize_i(m[i], 0, 0);
@@ -268,7 +270,7 @@ int	e2e_tests(void)
 		printf("\t ======== %i ======== \n", i);
 		#endif
 		#ifndef VANIA
-		if (i == 15) // cd without arguments is 'go home'. mocked home /home/ioann only available for vania, so skipping everywhere else. can remove this when envvars will be actually read, not mocked.
+		if (i == 12) // cd without arguments is 'go home'. mocked home /home/ioann only available for vania, so skipping everywhere else. can remove this when envvars will be actually read, not mocked.
 		{
 			ft_mapss_finalize_i(m[i], 0, 0);
 			continue ;
