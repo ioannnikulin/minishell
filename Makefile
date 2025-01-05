@@ -203,11 +203,3 @@ vania:
 
 minivania:
 	$(PREFIX)make all_mocked_parser test_mocked && ./$(TEST_FNAME)
-
-MOCK_03 = "ls -a -fh -c | grep e"
-
-run:
-	./minishell --debug 154 --command $(MOCK_03)
-
-debug:
-	$(PREFIX)gdbtui --args ./minishell --debug 154 --command $(MOCK_03)
