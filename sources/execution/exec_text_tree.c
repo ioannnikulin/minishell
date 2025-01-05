@@ -62,8 +62,8 @@ int	exec_rec(t_executor *e)
 	}
 	else if (nonbrace(e) != 0)
 		return (2);
-	if (e->errno)
-		return (0 * printf("ERROR %i\n", e->errno) + 3);
+	if (e->errno || e->param->opts.errno)
+		return (0 * printf("ERROR\n") + 3);
 	if (skip_logical_siblings(e) != 0)
 		return (1);
 	if (e->param->opts.exiting || !e->node)
