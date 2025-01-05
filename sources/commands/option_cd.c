@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   option_cd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 00:08:15 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/06 11:51:01 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/05 14:58:00 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int	option_cd(t_control control, t_treenode *node, t_param *param)
 	if (*control.found || !control.choice)
 		return (0);
 	*control.found = 1;
-	if (node->child->sibling_next)
+	if (node->child && node->child->sibling_next)
 		return (couldnt(0, 0, control.retval, 7));
 	errno = 0;
 	fullpath = get_checked_path(node, param->envvar_path_head->content,

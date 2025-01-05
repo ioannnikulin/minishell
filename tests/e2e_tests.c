@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 22:57:54 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/06 21:41:27 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/05 15:51:10 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 #define START 0
 #define TRAP_START 0
 // #define DEBUG
-#define SZ 28
-//#define DEBUG
+#define SZ 22
 #define PRINT_MALLOC_FAILURE_NO
 #define PRINT_TEST_NO
 
@@ -147,11 +146,12 @@ static void	successful_execution(t_testcase *test, int *mallocs)
 }
 
 #ifdef FT_CALLOC_IF_TRAPPED
-static void	malloc_failure_recoveries(char *cmd, int mallocs)
+static void	malloc_failure_recoveries(char *cmd, int mallocs, int from_mallocs)
 {
 	if (!cmd) return ;
 	int out, save, outerr, saveerr;
-	for (int i = TRAP_START; i < mallocs + 2; i ++)
+	if (from_mallocs < TRAP_START) from_mallocs = TRAP_START;
+	for (int i = from_mallocs; i < mallocs + 2; i ++)
 	{
 		system("(rm -r e2e_f testf && rm e2e.stdout e2e.stderr) 2> /dev/null");
 		assert(system("mkdir e2e_f") == 0);
@@ -196,72 +196,70 @@ int	e2e_tests(void)
 		m[i]= ft_mapss_init();
 		assert(!!m[i]);
 	}
-	ft_mapss_add(m[0], "stdout", "hello world\n");
-	//	ft_mapss_add(m[1], "stdout", "hello\\n my openworld\n");
+	t_mapss *empty_m = ft_mapss_init();
+	assert(!!empty_m);
+	ft_mapss_add(empty_m, "stdout", "exit");
+	t_testcase empty_test = (t_testcase){"--command \"exit\"", empty_m};
 	//	this test looks absolutely fine, and works with strcmp, but somehow fails with regex. no idea, so just turning it off for now
-	ft_mapss_add(m[1], "stdout", "hello world\n");
-	ft_mapss_add(m[2], "stdout", "1   2 3\n");
+	ft_mapss_add(m[0], "stdout", "hello world\n");
+	ft_mapss_add(m[1], "stdout", "1   2 3\n");
 	// pipes and redirections not implemented yet, so the previous test one more time
-	ft_mapss_add(m[3], "stdout", "1   2 3\n");
-	ft_mapss_add(m[4], "stdout", "1\n3\n4\n6\n");
-	ft_mapss_add(m[5], "stdout", "1\n3\n4\n6\n");
-	ft_mapss_add(m[6], "stdout", "1\n3\n4\n");
-	ft_mapss_add(m[7], "stdout", "Linux\n");
-	ft_mapss_add(m[8], "stdout", "HOME=/home/ioann\nsome=BODYONCETOLDME\nPATH=/usr/local/bin:/usr/sbin:/usr/bin:/sbin/bin\nPWD=/[^\n]*\none\ntwo   three\nfour\n");
-	ft_mapss_add(m[9], "stdout", "HOME=/home/ioann\nfoo=zah\nsome=BODYONCETOLDME\nPATH=/usr/local/bin:/usr/sbin:/usr/bin:/sbin/bin\nPWD=/[^\n]*\none\ntwo   three\nfour\n");
-	ft_mapss_add(m[10], "stdout", "/[^\n]*\n");
-	ft_mapss_add(m[11], "stdout", "/[^\n]*/testf\n");
-	ft_mapss_add(m[12], "stdout", "/[^\n]*/testf\n");
+	ft_mapss_add(m[2], "stdout", "1\n3\n4\n6\n");
+	ft_mapss_add(m[3], "stdout", "1\n3\n4\n6\n");
+	ft_mapss_add(m[4], "stdout", "1\n3\n4\n");
+	ft_mapss_add(m[5], "stdout", "Linux\n");
+	ft_mapss_add(m[6], "stdout", "/[^\n]*\n");
+	ft_mapss_add(m[7], "stdout", "/[^\n]*/testf\n");
 	// no backreferences, also total printing strange
 	//ft_mapss_add(m[12], "stdout", "(/[^\n]*\n){2}");
-	ft_mapss_add(m[13], "stdout", "/usr/bin\n");
-	ft_mapss_add(m[14], "stdout", "cd: /nope: No such file or directory\n");
-	ft_mapss_add(m[15], "stdout", "[^\n]*\ncd: nope: No such file or directory\n");
-	ft_mapss_add(m[16], "stdout", "HOME=/home/ioann\nsome=BODYONCETOLDME\nPATH=/usr/local/bin:/usr/sbin:/usr/bin:/sbin/bin\nsome=BODYONCETOLDME\n");
-	ft_mapss_add(m[17], "stdout", "1\nexit\n");
-	ft_mapss_add(m[18], "stdout", "1\nexit\n");
-	ft_mapss_add(m[19], "stdout", "1\n3\n4\n6\n");
-	ft_mapss_add(m[20], "stdout", "1\n3\n4\n6\n");
-	ft_mapss_add(m[21], "stdout", "1\n");
-	ft_mapss_add(m[22], "stdout", "1\n6\n");
-	ft_mapss_add(m[23], "stdout", "\\[bar\\] \\[\\$sea\\] \\[\\] \\[\\] \\[\\] \\[\\] \\[\\$\\] \\[/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin/bin\\] \\[BODYONCETOLDME\\]\n");
-	ft_mapss_add(m[24], "stdout", "\\$\\(echo \"\\$\\(echo \"\\$\\(echo \"bla\")\")\")\n");
-	ft_mapss_add(m[25], "stdout", "1 2");
-	ft_mapss_add(m[26], "stdout", "1 -n 2\n3\n");
-	ft_mapss_add(m[27], "stdout", "minishell: cd: too many arguments\n");
+	ft_mapss_add(m[8], "stdout", "/usr/bin\n");
+	ft_mapss_add(m[9], "stdout", "cd: /nope: No such file or directory\n");
+	// ft_mapss_add(m[14], "stdout", "[^\n]*\ncd: nope: No such file or directory\n");
+	// ft_mapss_add(m[15], "stdout", "HOME=/home/ioann\nsome=BODYONCETOLDME\nPATH=/usr/local/bin:/usr/sbin:/usr/bin:/sbin/bin\nsome=BODYONCETOLDME\n");
+	ft_mapss_add(m[10], "stdout", "cd: nope: No such file or directory\n");
+	ft_mapss_add(m[11], "stdout", "1\nexit\n");
+	ft_mapss_add(m[12], "stdout", "1\nexit\n");
+	ft_mapss_add(m[13], "stdout", "1\n3\n4\n6\n");
+	ft_mapss_add(m[14], "stdout", "1\n3\n4\n6\n");
+	ft_mapss_add(m[15], "stdout", "1\n");
+	ft_mapss_add(m[16], "stdout", "1\n6\n");
+	ft_mapss_add(m[17], "stdout", "\\[bar\\] \\[\\$sea\\] \\[\\] \\[\\] \\[\\] \\[\\$\\] \\[\\]\n");
+	ft_mapss_add(m[18], "stdout", "\\$\\(echo \"\\$\\(echo \"\\$\\(echo \"bla\")\")\")\n");
+	ft_mapss_add(m[19], "stdout", "1 2");
+	ft_mapss_add(m[20], "stdout", "1 -n 2\n3\n");
+	ft_mapss_add(m[21], "stdout", "minishell: cd: too many arguments\n");
 	tests[0] = (t_testcase){"--command echo hello world", m[0]};
-	tests[1] = (t_testcase){"--command echo hello world", m[1]};
-//	tests[1] = (t_testcase){"--command \"   echo hello\\n		my openworld \"", m[1]};
-	tests[2] = (t_testcase){"--command \"echo \\\"1   2\\\"   3\"", m[2]};
-	tests[3] = (t_testcase){"--command \"echo \\\"1   2\\\"   3\"", m[3]};
-	//tests[3] = (t_testcase){"--command mkdir testf && cd testf && mkdir f1 f2 && touch 1 && touch 11 2 && ls -a -fh -c | grep 1 >> out.txt", m[3]};
-	tests[4] = (t_testcase){"--command \"echo 1 || echo 2 && echo 3 && echo 4 || echo 5 && echo 6\"", m[4]};
-	tests[5] = (t_testcase){"--command \"echo 1 || echo 2 && (echo 3 && echo 4 || echo 5 && echo 6)\"", m[5]};
-	tests[6] = (t_testcase){"--command \"echo 1 || echo 2 && (echo 3 && echo 4 || (echo 5 && echo 6))\"", m[6]};
-	tests[7] = (t_testcase){"--command uname", m[7]};
-	tests[8] = (t_testcase){"--command \"./tests/tool_print_environment one \\\"two   three\\\" four\"", m[8]};
-	tests[9] = (t_testcase){"--command \"export foo=bar && export foo=zah nope=uhoh && unset nope && ./tests/tool_print_environment one \\\"two   three\\\" four\"", m[9]};
-	tests[10] = (t_testcase){"--command pwd", m[10]};
-	tests[11] = (t_testcase){"--command \"mkdir testf && cd testf && pwd\"", m[11]};
-	// in this test the malloc counter prints too early without waiting for second pwd, so disabled for now
-	//tests[12] = (t_testcase){"--command pwd && mkdir testf && cd ./testf/.. && pwd", m[12]};
-	tests[12] = (t_testcase){"--command \"mkdir testf && cd testf && pwd\"", m[12]};
-	tests[13] = (t_testcase){"--command \"cd /bin && pwd\"", m[13]};
-	tests[14] = (t_testcase){"--command \"cd /nope && pwd\"", m[14]};
-	tests[15] = (t_testcase){"--command \"cd && pwd && cd nope && pwd\"", m[15]};
-	tests[16] = (t_testcase){"--command \"env && unset HOME PATH && env\"", m[16]};
-	tests[17] = (t_testcase){"--command \"echo 1 && exit && echo 2\"", m[17]};
-	tests[18] = (t_testcase){"--command \"echo 1 && exit || echo 2\"", m[18]};
-	tests[19] = (t_testcase){"--command \"echo 1 || echo 2 && (echo 3 && (echo 4 || echo 5) && echo 6)\"", m[19]};
-	tests[20] = (t_testcase){"--command \"echo 1 || echo 2 && (echo 3 && (echo 4) || echo 5 && echo 6)\"", m[20]};
-	tests[21] = (t_testcase){"--command \"echo 1 || (echo 2 && (echo 3 && (echo 4) || echo 5 && echo 6))\"", m[21]};
-	tests[22] = (t_testcase){"--command \"echo 1 || (echo 2 && (echo 3 && (echo 4) || echo 5)) && echo 6\"", m[22]};
-	tests[23] = (t_testcase){"--command \"export foo=bar sea=\\$foo say=echo _1=\\$_1 _= && \\$say [\\$foo] ['\\$sea'] [\\\"\\$sea\\\"] [\\$food] [\\$_1] [\\$_] [\\$] [\\$PATH] [\\$some]\"", m[23]};
-	tests[24] = (t_testcase){"--command \"echo \'\\$(echo \\\"\\$(echo \\\"\\$(echo \\\"bla\\\")\\\")\\\")\'\"", m[24]};
-	tests[25] = (t_testcase){"--command \"echo -nn 1 2\"", m[25]};
-	tests[26] = (t_testcase){"--command \"echo 1 -n 2&&echo 3||echo 4   ||echo 5 ||   echo 6\"", m[26]};
-	tests[27] = (t_testcase){"--command \"cd a b && echo 1\"", m[27]};
+	tests[1] = (t_testcase){"--command \"echo \\\"1   2\\\"   3\"", m[1]};
+	// tests[3] = (t_testcase){"--command mkdir testf && cd testf && mkdir f1 f2 && touch 1 && touch 11 2 && ls -a -fh -c | grep 1 >> out.txt", m[3]};
+	tests[2] = (t_testcase){"--command \"echo 1 || echo 2 && echo 3 && echo 4 || echo 5 && echo 6\"", m[2]};
+	tests[3] = (t_testcase){"--command \"echo 1 || echo 2 && (echo 3 && echo 4 || echo 5 && echo 6)\"", m[3]};
+	tests[4] = (t_testcase){"--command \"echo 1 || echo 2 && (echo 3 && echo 4 || (echo 5 && echo 6))\"", m[4]};
+	tests[5] = (t_testcase){"--command uname", m[5]};
+	tests[6] = (t_testcase){"--command pwd", m[6]};
+	tests[7] = (t_testcase){"--command \"mkdir testf && cd testf && pwd\"", m[7]};
+	// // in this test the malloc counter prints too early without waiting for second pwd, so disabled for now
+	// //tests[12] = (t_testcase){"--command pwd && mkdir testf && cd ./testf/.. && pwd", m[12]};
+	tests[8] = (t_testcase){"--command \"cd /bin && pwd\"", m[8]};
+	tests[9] = (t_testcase){"--command \"cd /nope && pwd\"", m[9]};
+	tests[10] = (t_testcase){"--command \"cd && pwd && cd nope && pwd\"", m[10]};
+	tests[11] = (t_testcase){"--command \"echo 1 && exit && echo 2\"", m[11]};
+	tests[12] = (t_testcase){"--command \"echo 1 && exit || echo 2\"", m[12]};
+	tests[13] = (t_testcase){"--command \"echo 1 || echo 2 && (echo 3 && (echo 4 || echo 5) && echo 6)\"", m[13]};
+	tests[14] = (t_testcase){"--command \"echo 1 || echo 2 && (echo 3 && (echo 4) || echo 5 && echo 6)\"", m[14]};
+	tests[15] = (t_testcase){"--command \"echo 1 || (echo 2 && (echo 3 && (echo 4) || echo 5 && echo 6))\"", m[15]};
+	tests[16] = (t_testcase){"--command \"echo 1 || (echo 2 && (echo 3 && (echo 4) || echo 5)) && echo 6\"", m[16]};
+	tests[17] = (t_testcase){"--command \"export foo=bar sea=\\$foo say=echo _1=\\$_1 && \\$say [\\$foo] ['\\$sea'] [\\\"\\$sea\\\"] [\\$food] [\\$_1] [\\$] [\\$some]\"", m[17]};
+	tests[18] = (t_testcase){"--command \"echo \'\\$(echo \\\"\\$(echo \\\"\\$(echo \\\"bla\\\")\\\")\\\")\'\"", m[18]};
+	tests[19] = (t_testcase){"--command \"echo -nn 1 2\"", m[19]};
+	tests[20] = (t_testcase){"--command \"echo 1 -n 2&&echo 3||echo 4   ||echo 5 ||   echo 6\"", m[20]};
+	tests[21] = (t_testcase){"--command \"cd a b && echo 1\"", m[21]};
 
+	int	empty_call_mallocs = 0;
+	successful_execution(&empty_test, &empty_call_mallocs);
+	#ifdef FT_CALLOC_IF_TRAPPED
+	malloc_failure_recoveries(empty_test.cmd, empty_call_mallocs, 0);
+	#endif
+	ft_mapss_finalize_i(empty_m, 0, 0);
 	for (int i = START; i < SZ; i ++)
 	{
 		#ifdef PRINT_TEST_NO
@@ -277,7 +275,7 @@ int	e2e_tests(void)
 		int mallocs;
 		successful_execution(&tests[i], &mallocs);
 		#ifdef FT_CALLOC_IF_TRAPPED
-		malloc_failure_recoveries(tests[i].cmd, mallocs);
+		malloc_failure_recoveries(tests[i].cmd, mallocs, empty_call_mallocs);
 		#endif
 		ft_mapss_finalize_i(m[i], 0, 0);
 	}

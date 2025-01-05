@@ -12,7 +12,7 @@ LIST_NAMES = ft_list_add_back.c ft_list_add_front.c ft_list_clear.c ft_list_delo
 LIST_SRCS = $(addprefix $(SOURCES_F)/$(LIST_F)/, $(LIST_NAMES))
 
 DLIST_F = dlists
-DLIST_NAMES = ft_dlist_add_back.c ft_dlist_add_front.c ft_dlist_clear.c ft_dlist_delone.c ft_dlist_iter.c ft_dlist_generate.c ft_dlist_generate_int.c ft_dlist_last.c ft_dlist_new.c ft_dlist_size.c ft_dlist_map.c ft_dlist_print.c ft_dlist_ncmp.c
+DLIST_NAMES = ft_dlist_add_back.c ft_dlist_add_front.c ft_dlist_clear.c ft_dlist_delone.c ft_dlist_iter.c ft_dlist_generate.c ft_dlist_generate_int.c ft_dlist_last.c ft_dlist_new.c ft_dlist_size.c ft_dlist_map.c ft_dlist_print.c ft_dlist_ncmp.c ft_dlist_ncmp_1.c
 DLIST_SRCS = $(addprefix $(SOURCES_F)/$(DLIST_F)/, $(DLIST_NAMES))
 
 MAPSS_F = map/mapss
@@ -36,7 +36,7 @@ NUM_NAMES = ft_atoi.c ft_itoa.c ft_xtoa_base.c ft_xtoa_base_strdup.c ft_minmax_i
 NUM_SRCS = $(addprefix $(SOURCES_F)/$(NUM_F)/, $(NUM_NAMES))
 
 STR_F = strings
-STR_NAMES = ft_empty_string.c ft_split.c ft_split_skip_delim.c ft_split_skip_delim_utils.c ft_strlen.c ft_strchr.c ft_strdup.c ft_striteri.c ft_strjoin.c ft_strlcpy.c ft_strlcat.c ft_strmapi.c ft_strncmp.c ft_strnstr.c ft_strrchr.c ft_strtrim.c ft_substr.c ft_putchar_fd.c ft_putendl_fd.c ft_putnbr_fd.c ft_strcmp.c ft_putstr_fd.c ft_free_delims.c ft_replace_idx.c ft_sbuf.c check_edges.c count_words_skip_delim.c ft_is_delim.c find_delimiter.c
+STR_NAMES = ft_empty_string.c ft_split.c ft_split_skip_delim.c ft_split_skip_delim_utils.c ft_strlen.c ft_strchr.c ft_strdup.c ft_striteri.c ft_strcpy.c ft_strjoin.c ft_strlcpy.c ft_strlcat.c ft_strmapi.c ft_strncmp.c ft_strnstr.c ft_strrchr.c ft_strtrim.c ft_substr.c ft_putchar_fd.c ft_putendl_fd.c ft_putnbr_fd.c ft_strcmp.c ft_putstr_fd.c ft_free_delims.c ft_replace_idx.c ft_sbuf.c check_edges.c count_words_skip_delim.c ft_is_delim.c find_delimiter.c
 STR_SRCS = $(addprefix $(SOURCES_F)/$(STR_F)/, $(STR_NAMES))
 
 SYM_F = symbols

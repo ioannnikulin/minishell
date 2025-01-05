@@ -1,26 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tests_internal.h                                   :+:      :+:    :+:   */
+/*   ft_strcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/21 00:04:08 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/22 10:36:37 by taretiuk         ###   ########.fr       */
+/*   Created: 2025/01/02 15:19:12 by taretiuk          #+#    #+#             */
+/*   Updated: 2025/01/02 15:21:34 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TESTS_INTERNAL_H
-# define TESTS_INTERNAL_H
-# include "../sources/minishell.h"
-# include <assert.h>
-# include <fcntl.h>
-# include <regex.h>
-# include <stddef.h>
+#include <stddef.h>
 
-int		input_to_text_tree_test(void);
-void	tokenize_cmd_test(void);
-void	ft_split_str_test(void);
-int		get_envvars_test(void);
+char	*ft_strcpy(char *dst, const char *src)
+{
+	size_t	c;
 
-#endif
+	c = 0;
+	while (src[c])
+	{
+		dst[c] = src[c];
+		c ++;
+	}
+	dst[c] = 0;
+	while (src[c])
+		c ++;
+	return (dst);
+}

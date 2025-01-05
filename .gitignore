@@ -5,7 +5,7 @@ libft.a
 libft/tests/test
 .vscode
 minishell
-minishell_tester/*
+minishell_tester-main
 minishell_tester
 test
 tests/tool_print_environment
