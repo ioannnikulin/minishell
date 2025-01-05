@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 22:57:54 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/28 15:51:06 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/05 19:33:01 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -229,31 +229,31 @@ int	e2e_tests(void)
 	ft_mapss_add(m[22], "stdout", "1 -n 2\n3\n");
 	ft_mapss_add(m[23], "stdout", "");
 	ft_mapss_add(m[23], "stderr", "minishell: cd: too many arguments\n");
-	tests[0] = (t_testcase){"echo hello world", m[0]};
-	tests[1] = (t_testcase){"echo \"1   2\"   3", m[1]};
-	tests[2] = (t_testcase){"rm -rf testf && mkdir testf && cd testf && mkdir f1 f2 && touch 1 && touch 11 2 && ls -a -h | grep 1", m[2]};
-	//tests[2] = (t_testcase){"--command mkdir testf && cd testf && mkdir f1 f2 && touch 1 && touch 11 2 && ls -a -fh -c | grep 1 >> out.txt", m[2]};
-	tests[3] = (t_testcase){"echo 1 || echo 2 && echo 3 && echo 4 || echo 5 && echo 6", m[3]};
-	tests[4] = (t_testcase){"echo 1 || echo 2 && (echo 3 && echo 4 || echo 5 && echo 6)", m[4]};
-	tests[5] = (t_testcase){"echo 1 || echo 2 && (echo 3 && echo 4 || (echo 5 && echo 6))", m[5]};
-	tests[6] = (t_testcase){"uname", m[6]};
-	tests[7] = (t_testcase){"pwd", m[7]};
-	tests[8] = (t_testcase){"mkdir testf && cd testf && pwd", m[8]};
-	tests[9] = (t_testcase){"pwd && mkdir testf && cd ./testf/.. && pwd", m[9]};
-	tests[10] = (t_testcase){"cd /bin && pwd", m[10]};
-	tests[11] = (t_testcase){"cd /nope && pwd", m[11]};
-	tests[12] = (t_testcase){"cd && pwd && cd nope && pwd", m[12]};
-	tests[13] = (t_testcase){"echo 1 && exit && echo 2", m[13]};
-	tests[14] = (t_testcase){"echo 1 && exit || echo 2", m[14]};
-	tests[15] = (t_testcase){"echo 1 || echo 2 && (echo 3 && (echo 4 || echo 5) && echo 6)", m[15]};
-	tests[16] = (t_testcase){"echo 1 || echo 2 && (echo 3 && (echo 4) || echo 5 && echo 6)", m[16]};
-	tests[17] = (t_testcase){"echo 1 || (echo 2 && (echo 3 && (echo 4) || echo 5 && echo 6))", m[17]};
-	tests[18] = (t_testcase){"echo 1 || (echo 2 && (echo 3 && (echo 4) || echo 5)) && echo 6", m[18]};
-	tests[19] = (t_testcase){"export foo=bar sea=$foo say=echo _1=$_1 && $say [$foo] ['$sea'] [\"$sea\"] [$food] [$_1] [$] [$some]", m[19]};
-	tests[20] = (t_testcase){"echo '$(echo \"$(echo \"$(echo \"bla\")\")\")'", m[20]};
-	tests[21] = (t_testcase){"echo -nn 1 2", m[21]};
-	tests[22] = (t_testcase){"echo 1 -n 2&&echo 3||echo 4   ||echo 5 ||   echo 6", m[22]};
-	tests[23] = (t_testcase){"cd a b && echo 1", m[23]};
+	tests[0] = (t_testcase){"--command \"echo hello world\"", m[0]};
+	tests[1] = (t_testcase){"--command \"echo \"1   2\"   3\"", m[1]};
+	tests[2] = (t_testcase){"--command \"rm -rf testf && mkdir testf && cd testf && mkdir f1 f2 && touch 1 && touch 11 2 && ls -a -h | grep 1\"", m[2]};
+	//tests[2] = (t_testcase){"--command \"--command mkdir testf && cd testf && mkdir f1 f2 && touch 1 && touch 11 2 && ls -a -fh -c | grep 1 >> out.txt\"", m[2]};
+	tests[3] = (t_testcase){"--command \"echo 1 || echo 2 && echo 3 && echo 4 || echo 5 && echo 6\"", m[3]};
+	tests[4] = (t_testcase){"--command \"echo 1 || echo 2 && (echo 3 && echo 4 || echo 5 && echo 6)\"", m[4]};
+	tests[5] = (t_testcase){"--command \"echo 1 || echo 2 && (echo 3 && echo 4 || (echo 5 && echo 6))\"", m[5]};
+	tests[6] = (t_testcase){"--command \"uname\"", m[6]};
+	tests[7] = (t_testcase){"--command \"pwd\"", m[7]};
+	tests[8] = (t_testcase){"--command \"mkdir testf && cd testf && pwd\"", m[8]};
+	tests[9] = (t_testcase){"--command \"pwd && mkdir testf && cd ./testf/.. && pwd\"", m[9]};
+	tests[10] = (t_testcase){"--command \"cd /bin && pwd\"", m[10]};
+	tests[11] = (t_testcase){"--command \"cd /nope && pwd\"", m[11]};
+	tests[12] = (t_testcase){"--command \"cd && pwd && cd nope && pwd\"", m[12]};
+	tests[13] = (t_testcase){"--command \"echo 1 && exit && echo 2\"", m[13]};
+	tests[14] = (t_testcase){"--command \"echo 1 && exit || echo 2\"", m[14]};
+	tests[15] = (t_testcase){"--command \"echo 1 || echo 2 && (echo 3 && (echo 4 || echo 5) && echo 6)\"", m[15]};
+	tests[16] = (t_testcase){"--command \"echo 1 || echo 2 && (echo 3 && (echo 4) || echo 5 && echo 6)\"", m[16]};
+	tests[17] = (t_testcase){"--command \"echo 1 || (echo 2 && (echo 3 && (echo 4) || echo 5 && echo 6))\"", m[17]};
+	tests[18] = (t_testcase){"--command \"echo 1 || (echo 2 && (echo 3 && (echo 4) || echo 5)) && echo 6\"", m[18]};
+	tests[19] = (t_testcase){"--command \"export foo=bar sea=\\$foo say=echo _1=\\$_1 && \\$say [\\$foo] ['\\$sea'] [\\\"$sea\\\"] [\\$food] [\\$_1] [\\$] [\\$some]\"", m[19]};
+	tests[20] = (t_testcase){"--command \"echo '$(echo \"$(echo \"$(echo \"bla\")\")\")'\"", m[20]};
+	tests[21] = (t_testcase){"--command \"echo -nn 1 2\"", m[21]};
+	tests[22] = (t_testcase){"--command \"echo 1 -n 2&&echo 3||echo 4   ||echo 5 ||   echo 6\"", m[22]};
+	tests[23] = (t_testcase){"--command \"cd a b && echo 1\"", m[23]};
 	// multiple pipes (see mocks 29-30) will not be tested here, they produce strange errors in this testing suite, though they run normally when being started as separate commands. something to do with STDOUT being intercepted for tests probably.
 	
 	int	empty_call_mallocs = 0;
