@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 22:57:54 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/05 19:33:01 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/05 19:34:48 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -250,7 +250,7 @@ int	e2e_tests(void)
 	tests[17] = (t_testcase){"--command \"echo 1 || (echo 2 && (echo 3 && (echo 4) || echo 5 && echo 6))\"", m[17]};
 	tests[18] = (t_testcase){"--command \"echo 1 || (echo 2 && (echo 3 && (echo 4) || echo 5)) && echo 6\"", m[18]};
 	tests[19] = (t_testcase){"--command \"export foo=bar sea=\\$foo say=echo _1=\\$_1 && \\$say [\\$foo] ['\\$sea'] [\\\"$sea\\\"] [\\$food] [\\$_1] [\\$] [\\$some]\"", m[19]};
-	tests[20] = (t_testcase){"--command \"echo '$(echo \"$(echo \"$(echo \"bla\")\")\")'\"", m[20]};
+	tests[20] = (t_testcase){"--command \"echo \'$(echo \\\"$(echo \\\"$(echo \\\"bla\\\")\\\")\\\")\'\"", m[20]};
 	tests[21] = (t_testcase){"--command \"echo -nn 1 2\"", m[21]};
 	tests[22] = (t_testcase){"--command \"echo 1 -n 2&&echo 3||echo 4   ||echo 5 ||   echo 6\"", m[22]};
 	tests[23] = (t_testcase){"--command \"cd a b && echo 1\"", m[23]};
