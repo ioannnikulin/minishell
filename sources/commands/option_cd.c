@@ -56,15 +56,17 @@ static char	*get_checked_path(t_treenode *node, char *pwd, t_mapss *envvars,
 static int	couldnt(t_treenode *node, char *fullpath, int *ret, int errno)
 {
 	if (errno == 4 || errno == 6 || errno == 0)
-		ft_fprintf(STDERR_FILENO, "%s: cd: %s: %s\n", TXT_MINISHELL,
-			(char *)node->child->content, ERR_CD_NOWHERE);
+		w_perror(ft_s7(ft_s4(TXT_MINISHELL, ": cd: ", 
+			node->child->content, ": "), ERR_CD_NOWHERE, "\n", 0));
 	else if (errno == 1)
-		ft_fprintf(STDERR_FILENO, "%s: cd: %s\n", TXT_MINISHELL, ERR_CD_NO_HOME);
+		w_perror(ft_s5(ft_s4(TXT_MINISHELL, ": cd: ",
+			ERR_CD_NO_HOME, "\n"), 0));
 	else if (errno == 7)
-		ft_fprintf(STDERR_FILENO, "%s: cd: %s\n", TXT_MINISHELL,
-			ERR_CD_TOO_MANY_ARGS);
+		w_perror(ft_s5(ft_s4(TXT_MINISHELL, ": cd: ",
+			ERR_CD_TOO_MANY_ARGS, "\n"), 0));
 	else
-		ft_fprintf(STDERR_FILENO, "%s: cd: %s\n", TXT_MINISHELL, ERR_MALLOC);
+		w_perror(ft_s5(ft_s4(TXT_MINISHELL, ": cd: ",
+			ERR_MALLOC, "\n"), 0));
 	*ret = 1;
 	free(fullpath);
 	return (1);

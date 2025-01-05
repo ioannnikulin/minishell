@@ -23,12 +23,12 @@ int	option_env(t_executor *control, t_treenode *node, t_param *param)
 	lines = get_envvars_for_execve(param);
 	if (!lines)
 	{
-		ft_fprintf(STDERR_FILENO, "env: %s\n", ERR_MALLOC);
+		w_perror(ft_s4("env: ", ERR_MALLOC, "%s\n", 0));
 		return (1);
 	}
 	i = -1;
 	while (lines[++ i])
-		printf("%s\n", lines[i]);
+		FT_PRINTF("%s\n", lines[i]);
 	ft_free_ss_uptonull_null((void ***)&lines);
 	control->retval = 0;
 	return (1);

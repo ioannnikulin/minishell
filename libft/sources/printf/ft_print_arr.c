@@ -24,9 +24,9 @@ int	ft_print_arr_i_2(int **val, int rows, int cols)
 	{
 		col = -1;
 		while (++col < cols)
-			ret += ft_printf("%i ", val[row][col]);
-		ret += ft_printf("\n");
+			ret += FT_PRINTF("%i ", val[row][col]);
+		ret += FT_PRINTF("\n");
 	}
-	ret += ft_printf("\n");
+	ret += FT_PRINTF("\n");
 	return (ret);
 }

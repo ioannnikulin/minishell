@@ -38,3 +38,13 @@ int	opt_single(const char **act, int *f, int t, t_param *param)
 	*f = t;
 	return (1);
 }
+
+int	dbg(int argc, const char **argv)
+{
+	int i;
+
+	i = -1;
+	while (++i < argc)
+		FT_PRINTF("[%s]\n", argv[i]);
+	return (0);
+}

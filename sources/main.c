@@ -33,7 +33,7 @@ static char	*read_input(void)
 			line[nread - 1] = '\0';
 		return (line);
 	}
-	ft_fprintf(STDERR_FILENO, "%s", TXT_INVITATION);
+	perror(TXT_INVITATION);
 	return (readline(0));
 }
 
@@ -66,7 +66,7 @@ static int	interactive(t_param *param)
 static int	one_cmd(t_param *param)
 {
 	if (param->opts.debug_output_level & DBG_ONE_CMD_ECHO)
-		ft_printf("[%s]\n", param->cur_command);
+		FT_PRINTF("[%s]\n", param->cur_command);
 	param->opts.retval = input_to_text_tree(param);
 	if (param->opts.retval)
 		return (1);
@@ -76,7 +76,7 @@ static int	one_cmd(t_param *param)
 
 static void	usage(void)
 {
-	ft_printf("minishell usage:\n--interactive\n\tuser types in a command after command.\n\
+	FT_PRINTF("minishell usage:\n--interactive\n\tuser types in a command after command.\n\
 --debug 1023\n\tbitmask for debug output verbosity.\n\
 --command echo hello world\n\trun just one command and exit immediately.\n\
 --trap 5\n\tmalloc with given number will fail. debugging option.\n\
@@ -102,7 +102,7 @@ int	main(int argc, const char **argv)
 	else if (param->cur_command)
 		one_cmd(param);
 	else if (param->opts.file)
-		ft_printf("%s: %s\n", param->opts.file, ERR_NO_SCRIPT);
+		FT_PRINTF("%s: %s\n", param->opts.file, ERR_NO_SCRIPT);
 	else
 		usage();
 	ret = param->opts.retval;

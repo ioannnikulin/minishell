@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf_test.c                                   :+:      :+:    :+:   */
+/*   FT_PRINTF_test.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: inikulin <inikulin@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -13,7 +13,12 @@
 #include "../tests_internal.h"
 #define BONUS
 //#define DEBUG
-
+#ifdef PRINTF_ALLOWED
+int	ft_printf_test(void)
+{
+	return (0); // we're using the real printf, so no need to test it
+}
+# else
 static void	catch(char* fname, int *out, int *save)
 {
 	remove(fname);
@@ -39,7 +44,7 @@ static int	a0(void)
 
 static int	b0(void)
 {
-	return ft_printf("hello world\n");
+	return FT_PRINTF("hello world\n");
 }
 
 static int	a1(void)
@@ -49,7 +54,7 @@ static int	a1(void)
 
 static int	b1(void)
 {
-	return ft_printf("hello%c world\n", '@');
+	return FT_PRINTF("hello%c world\n", '@');
 }
 
 static int	a2(void)
@@ -59,7 +64,7 @@ static int	a2(void)
 
 static int	b2(void)
 {
-	return ft_printf("hello%s world\n", "qwe#\0\noo");
+	return FT_PRINTF("hello%s world\n", "qwe#\0\noo");
 }
 
 static int	a3(void)
@@ -69,7 +74,7 @@ static int	a3(void)
 
 static int	b3(void)
 {
-	return ft_printf("hello%-11s world\n", "qwe#\0\noo");
+	return FT_PRINTF("hello%-11s world\n", "qwe#\0\noo");
 }
 
 static int	a4(void)
@@ -79,7 +84,7 @@ static int	a4(void)
 
 static int	b4(void)
 {
-	return ft_printf("hello%-11s world\n", "qwiiiiiiiiiiiiiie#\0\noo");
+	return FT_PRINTF("hello%-11s world\n", "qwiiiiiiiiiiiiiie#\0\noo");
 }
 
 static int	a5(void)
@@ -89,7 +94,7 @@ static int	a5(void)
 
 static int	b5(void)
 {
-	return ft_printf("hello%3.4s world\n", "qwiiiiiiiiiiiiiie#\0\noo");
+	return FT_PRINTF("hello%3.4s world\n", "qwiiiiiiiiiiiiiie#\0\noo");
 }
 
 static int	a6(void)
@@ -99,7 +104,7 @@ static int	a6(void)
 
 static int	b6(void)
 {
-	return ft_printf("hello%4.3s world\n", "qwiiiiiiiiiiiiiie#\0\noo");
+	return FT_PRINTF("hello%4.3s world\n", "qwiiiiiiiiiiiiiie#\0\noo");
 }
 
 static int	a7(void)
@@ -109,7 +114,7 @@ static int	a7(void)
 
 static int	b7(void)
 {
-	return ft_printf("hello%-+4.3i world\n", 12435);
+	return FT_PRINTF("hello%-+4.3i world\n", 12435);
 }
 
 static int	a8(void)
@@ -119,7 +124,7 @@ static int	a8(void)
 
 static int	b8(void)
 {
-	return ft_printf("hello% 3.4i world\n", 12435);
+	return FT_PRINTF("hello% 3.4i world\n", 12435);
 }
 
 static int	a9(void)
@@ -129,7 +134,7 @@ static int	a9(void)
 
 static int	b9(void)
 {
-	return ft_printf("hello%+3.4d world\n", 12435);
+	return FT_PRINTF("hello%+3.4d world\n", 12435);
 }
 
 int tst_g = 0;
@@ -141,7 +146,7 @@ static int	a10(void)
 
 static int	b10(void)
 {
-	return ft_printf("hello%p world\n", &tst_g);
+	return FT_PRINTF("hello%p world\n", &tst_g);
 }
 
 static int	a11(void)
@@ -151,7 +156,7 @@ static int	a11(void)
 
 static int	b11(void)
 {
-	return ft_printf("hel%%lo%-4p world\n", (void*)12435);
+	return FT_PRINTF("hel%%lo%-4p world\n", (void*)12435);
 }
 
 static int	a12(void)
@@ -161,7 +166,7 @@ static int	a12(void)
 
 static int	b12(void)
 {
-	return ft_printf("hel%%lo%-4.3u world\n", 12435);
+	return FT_PRINTF("hel%%lo%-4.3u world\n", 12435);
 }
 
 static int	a13(void)
@@ -171,7 +176,7 @@ static int	a13(void)
 
 static int	b13(void)
 {
-	return ft_printf("hel%%lo%-#4.3x world\n", 12445);
+	return FT_PRINTF("hel%%lo%-#4.3x world\n", 12445);
 }
 
 static int	a14(void)
@@ -181,7 +186,7 @@ static int	a14(void)
 
 static int	b14(void)
 {
-	return ft_printf("hel%%lo%3.4u world\n", 12435);
+	return FT_PRINTF("hel%%lo%3.4u world\n", 12435);
 }
 
 static int	a15(void)
@@ -191,7 +196,7 @@ static int	a15(void)
 
 static int	b15(void)
 {
-	return ft_printf("hel%%lo%3.4X world\n", 12445);
+	return FT_PRINTF("hel%%lo%3.4X world\n", 12445);
 }
 
 static int	a16(void)
@@ -201,7 +206,7 @@ static int	a16(void)
 
 static int	b16(void)
 {
-	return ft_printf("hel%%lo%#3.4X world\n", 1);
+	return FT_PRINTF("hel%%lo%#3.4X world\n", 1);
 }
 
 static int	a17(void)
@@ -211,7 +216,7 @@ static int	a17(void)
 
 static int	b17(void)
 {
-	return ft_printf("hel%%lo%-p world\n", &tst_g);
+	return FT_PRINTF("hel%%lo%-p world\n", &tst_g);
 }
 
 static int	a18(void)
@@ -221,7 +226,7 @@ static int	a18(void)
 
 static int	b18(void)
 {
-	return ft_printf("hel%%lo%p world\n", &tst_g);
+	return FT_PRINTF("hel%%lo%p world\n", &tst_g);
 }
 
 static int	a19(void)
@@ -231,7 +236,7 @@ static int	a19(void)
 
 static int	b19(void)
 {
-	return ft_printf("hel%%lo%#13.14X world\n", 12445);
+	return FT_PRINTF("hel%%lo%#13.14X world\n", 12445);
 }
 
 static int	a20(void)
@@ -241,7 +246,7 @@ static int	a20(void)
 
 static int	b20(void)
 {
-	return ft_printf("hel%%lo%5.0X world\n", 0);
+	return FT_PRINTF("hel%%lo%5.0X world\n", 0);
 }
 
 static int	a21(void)
@@ -251,7 +256,7 @@ static int	a21(void)
 
 static int	b21(void)
 {
-	return ft_printf("hel%%lo%5.0i world\n", 0);
+	return FT_PRINTF("hel%%lo%5.0i world\n", 0);
 }
 
 static int	a22(void)
@@ -261,7 +266,7 @@ static int	a22(void)
 
 static int	b22(void)
 {
-	return ft_printf("hel%%lo%#.0X world\n", 0);
+	return FT_PRINTF("hel%%lo%#.0X world\n", 0);
 }
 
 static int	a23(void)
@@ -271,7 +276,7 @@ static int	a23(void)
 
 static int	b23(void)
 {
-	return ft_printf("hel%%lo%.0i world\n", 0);
+	return FT_PRINTF("hel%%lo%.0i world\n", 0);
 }
 
 char *a24s = "";
@@ -283,7 +288,7 @@ static int	a24(void)
 
 static int	b24(void)
 {
-	return ft_printf("%s", a24s);
+	return FT_PRINTF("%s", a24s);
 }
 
 static int	a25(void)
@@ -293,7 +298,7 @@ static int	a25(void)
 
 static int	b25(void)
 {
-	return ft_printf("%i", 0);
+	return FT_PRINTF("%i", 0);
 }
 
 static int	a26(void)
@@ -303,7 +308,7 @@ static int	a26(void)
 
 static int	b26(void)
 {
-	return ft_printf("%u", 0);
+	return FT_PRINTF("%u", 0);
 }
 
 static int	a27(void)
@@ -313,7 +318,7 @@ static int	a27(void)
 
 static int	b27(void)
 {
-	return ft_printf("%x", 0);
+	return FT_PRINTF("%x", 0);
 }
 
 static int	a28(void)
@@ -323,7 +328,7 @@ static int	a28(void)
 
 static int	b28(void)
 {
-	return ft_printf("%#x", 0);
+	return FT_PRINTF("%#x", 0);
 }
 
 static int	a29(void)
@@ -333,7 +338,7 @@ static int	a29(void)
 
 static int	b29(void)
 {
-	return ft_printf("%c", 0);
+	return FT_PRINTF("%c", 0);
 }
 
 static int	a30(void)
@@ -343,7 +348,7 @@ static int	a30(void)
 
 static int	b30(void)
 {
-	return ft_printf("%p", (void *)0);
+	return FT_PRINTF("%p", (void *)0);
 }
 
 static int	a31(void)
@@ -353,7 +358,7 @@ static int	a31(void)
 
 static int	b31(void)
 {
-	return ft_printf("%c", -2);
+	return FT_PRINTF("%c", -2);
 }
 
 static int	a32(void)
@@ -363,7 +368,7 @@ static int	a32(void)
 
 static int	b32(void)
 {
-	return ft_printf("%i", INT_MAX);
+	return FT_PRINTF("%i", INT_MAX);
 }
 
 static int	a33(void)
@@ -373,7 +378,7 @@ static int	a33(void)
 
 static int	b33(void)
 {
-	return ft_printf("%i", INT_MIN);
+	return FT_PRINTF("%i", INT_MIN);
 }
 
 static int	a34(void)
@@ -383,7 +388,7 @@ static int	a34(void)
 
 static int	b34(void)
 {
-	return ft_printf("%p", (void*)ULLONG_MAX);
+	return FT_PRINTF("%p", (void*)ULLONG_MAX);
 }
 
 char g_c;
@@ -411,7 +416,7 @@ static int	b35(void)
 	d = 'b';
 	num = 0x7FFFFFFF;
 	u = 0xFFFFFFFF;
-	return ft_printf("printf : a%pbc%%de%5cfg%-20.15uhij%2sk%-+20.15dlm% inop%#20.15Xq%#xr\n", (void *)&g_c, d, u, s, num, 0, u, u);
+	return FT_PRINTF("printf : a%pbc%%de%5cfg%-20.15uhij%2sk%-+20.15dlm% inop%#20.15Xq%#xr\n", (void *)&g_c, d, u, s, num, 0, u, u);
 }
 
 static int	a36(void)
@@ -425,7 +430,7 @@ static int	b36(void)
 {
 	char			*s2 = NULL;
 
-	return ft_printf("%8p-%8s\n", NULL, s2);
+	return FT_PRINTF("%8p-%8s\n", NULL, s2);
 }
 
 static int	a37(void)
@@ -435,7 +440,7 @@ static int	a37(void)
 
 static int	b37(void)
 {
-	return ft_printf("%-9sScience!\n", "Aperture");
+	return FT_PRINTF("%-9sScience!\n", "Aperture");
 }
 
 static int	a38(void)
@@ -445,7 +450,7 @@ static int	a38(void)
 
 static int	b38(void)
 {
-	return ft_printf("%.3d\n", -1234);
+	return FT_PRINTF("%.3d\n", -1234);
 }
 
 static int	a39(void)
@@ -455,7 +460,7 @@ static int	a39(void)
 
 static int	b39(void)
 {
-	return ft_printf("%10.12i", INT_MIN);
+	return FT_PRINTF("%10.12i", INT_MIN);
 }
 
 static int	a40(void)
@@ -465,7 +470,7 @@ static int	a40(void)
 
 static int	b40(void)
 {
-	return ft_printf("%12.10i", INT_MIN);
+	return FT_PRINTF("%12.10i", INT_MIN);
 }
 
 int 	a41(void)
@@ -475,7 +480,7 @@ int 	a41(void)
 
 int 	b41(void)
 {
-	return ft_printf("[%+-20.15d]", INT_MAX);
+	return FT_PRINTF("[%+-20.15d]", INT_MAX);
 }
 
 static int	a42(void)
@@ -485,7 +490,7 @@ static int	a42(void)
 
 static int	b42(void)
 {
-	return ft_printf("[%#20.15X][%#x]", UINT_MAX, UINT_MAX);
+	return FT_PRINTF("[%#20.15X][%#x]", UINT_MAX, UINT_MAX);
 }
 
 char	*s_g = "ab";
@@ -497,7 +502,7 @@ static int	a43(void)
 
 static int	b43(void)
 {
-	return ft_printf("[%p][%20.s][%p][%15.s]", s_g, s_g, s_g, s_g);
+	return FT_PRINTF("[%p][%20.s][%p][%15.s]", s_g, s_g, s_g, s_g);
 }
 
 static int	a44(void)
@@ -507,7 +512,7 @@ static int	a44(void)
 
 static int	b44(void)
 {
-	return ft_printf("[%#3.4x][%#4.3x][%-#3.4x][%#4.3X]", 0xf, 0xf, 0xf, 0xf);
+	return FT_PRINTF("[%#3.4x][%#4.3x][%-#3.4x][%#4.3X]", 0xf, 0xf, 0xf, 0xf);
 }
 
 char *a45s = "";
@@ -519,7 +524,7 @@ static int	a45(void)
 
 static int	b45(void)
 {
-	return ft_printf("[%.03s][%3.1s][%9.1s][%-3.1s][%-9.1s]", a45s, a45s, a45s, a45s, a45s);
+	return FT_PRINTF("[%.03s][%3.1s][%9.1s][%-3.1s][%-9.1s]", a45s, a45s, a45s, a45s, a45s);
 }
 
 static int	a46(void)
@@ -529,7 +534,7 @@ static int	a46(void)
 
 static int	b46(void)
 {
-	return ft_printf("[%-s][%s][%2s][%-3s][%10s][%-10s]", a45s, a45s, a45s, a45s, a45s, a45s);
+	return FT_PRINTF("[%-s][%s][%2s][%-3s][%10s][%-10s]", a45s, a45s, a45s, a45s, a45s, a45s);
 }
 
 static int	a47(void)
@@ -539,7 +544,7 @@ static int	a47(void)
 
 static int	b47(void)
 {
-	return ft_printf("[%8.5d][%8.5u][%8.5d][%8.5u]", 0, 0, 34, 34);
+	return FT_PRINTF("[%8.5d][%8.5u][%8.5d][%8.5u]", 0, 0, 34, 34);
 }
 
 static int	a48(void)
@@ -549,7 +554,7 @@ static int	a48(void)
 
 static int	b48(void)
 {
-	return ft_printf("[%05d][%07i][%03d][%05u][%-5u][%-5.u][%-5.0u]", 43, -43, 0, 34, 34, 34, 34);
+	return FT_PRINTF("[%05d][%07i][%03d][%05u][%-5u][%-5.u][%-5.0u]", 43, -43, 0, 34, 34, 34, 34);
 }
 
 static int	a49(void)
@@ -559,7 +564,7 @@ static int	a49(void)
 
 static int	b49(void)
 {
-	return ft_printf("[%.0u][%.u][%5.0d][%5.0u][%-5.0u]", 0, 0, 0, 0, 0);
+	return FT_PRINTF("[%.0u][%.u][%5.0d][%5.0u][%-5.0u]", 0, 0, 0, 0, 0);
 }
 
 static int	a50(void)
@@ -569,7 +574,7 @@ static int	a50(void)
 
 static int	b50(void)
 {
-	return ft_printf("[%.0x][%.x][%5.0x][%-5.x][%-5.0x]", 0, 0, 0, 0, 0);
+	return FT_PRINTF("[%.0x][%.x][%5.0x][%-5.x][%-5.0x]", 0, 0, 0, 0, 0);
 }
 
 static int	a51(void)
@@ -579,7 +584,7 @@ static int	a51(void)
 
 static int	b51(void)
 {
-	return ft_printf("[%08x][%x][%5x][%-5x][%-5x]", 243, 243, 243, 243, 243);
+	return FT_PRINTF("[%08x][%x][%5x][%-5x][%-5x]", 243, 243, 243, 243, 243);
 }
 
 static int	a52(void)
@@ -589,7 +594,7 @@ static int	a52(void)
 
 static int	b52(void)
 {
-	return ft_printf("a%ib%ic%id%de%df%dgh%ci%cj%ck%%l%um%un%uo\t\r\np%xq%xr%xs", INT_MIN, 0, INT_MAX, INT_MIN, 0, INT_MAX, INT_MIN, 0, INT_MAX, INT_MIN, 0, UINT_MAX, INT_MIN, 0, UINT_MAX);
+	return FT_PRINTF("a%ib%ic%id%de%df%dgh%ci%cj%ck%%l%um%un%uo\t\r\np%xq%xr%xs", INT_MIN, 0, INT_MAX, INT_MIN, 0, INT_MAX, INT_MIN, 0, INT_MAX, INT_MIN, 0, UINT_MAX, INT_MIN, 0, UINT_MAX);
 }
 
 static int	a53(void)
@@ -599,7 +604,7 @@ static int	a53(void)
 
 static int	b53(void)
 {
-	return ft_printf("a%pb%pc%pd%pe%sf%sg%shi", (void *)0, &a53, (void *)ULLONG_MAX, (void *)LLONG_MIN, (char *)0, "", "ab\0cd");
+	return FT_PRINTF("a%pb%pc%pd%pe%sf%sg%shi", (void *)0, &a53, (void *)ULLONG_MAX, (void *)LLONG_MIN, (char *)0, "", "ab\0cd");
 }
 
 static int	a54(void)
@@ -609,7 +614,7 @@ static int	a54(void)
 
 static int	b54(void)
 {
-	return ft_printf("a%pb%10pc%10pd%5pe%10pf%pg%ph%pi", (void *)0, (void *)0, (void *)0, (void *)0, (void *)0, (void *)0, (void *)0, (void *)0);
+	return FT_PRINTF("a%pb%10pc%10pd%5pe%10pf%pg%ph%pi", (void *)0, (void *)0, (void *)0, (void *)0, (void *)0, (void *)0, (void *)0, (void *)0);
 }
 
 static int	a55(void)
@@ -619,7 +624,7 @@ static int	a55(void)
 
 static int	b55(void)
 {
-	return ft_printf("a%pb%10pc%10pd%5pe%10pf%pg%ph%pi", (void *)0, (void *)0, (void *)0, (void *)0, (void *)0, (void *)0, (void *)0, (void *)0);
+	return FT_PRINTF("a%pb%10pc%10pd%5pe%10pf%pg%ph%pi", (void *)0, (void *)0, (void *)0, (void *)0, (void *)0, (void *)0, (void *)0, (void *)0);
 }
 
 static int	a56(void)
@@ -629,7 +634,7 @@ static int	a56(void)
 
 static int	b56(void)
 {
-	return ft_printf("a%-pb%-10pc%-10pd%-5pe%-10pf%-pg%-ph%-pi", (void *)0, (void *)0, (void *)0, (void *)0, (void *)0, (void *)0, (void *)0, (void *)0);
+	return FT_PRINTF("a%-pb%-10pc%-10pd%-5pe%-10pf%-pg%-ph%-pi", (void *)0, (void *)0, (void *)0, (void *)0, (void *)0, (void *)0, (void *)0, (void *)0);
 }
 
 static int	a57(void)
@@ -639,7 +644,7 @@ static int	a57(void)
 
 static int	b57(void)
 {
-	return ft_printf("a%pb%10pc%10pd%5pe%10pf%pg%ph%pi", (void *)0, (void *)0, (void *)0, (void *)0, (void *)0, (void *)0, (void *)0, (void *)0);
+	return FT_PRINTF("a%pb%10pc%10pd%5pe%10pf%pg%ph%pi", (void *)0, (void *)0, (void *)0, (void *)0, (void *)0, (void *)0, (void *)0, (void *)0);
 }
 
 static int	a58(void)
@@ -649,7 +654,7 @@ static int	a58(void)
 
 static int	b58(void)
 {
-	return ft_printf("a%pb%10pc%10pd%5pe%10pf%pg%ph%pi", (void *)0, (void *)0, (void *)0, (void *)0, (void *)0, (void *)0, (void *)0, (void *)0);
+	return FT_PRINTF("a%pb%10pc%10pd%5pe%10pf%pg%ph%pi", (void *)0, (void *)0, (void *)0, (void *)0, (void *)0, (void *)0, (void *)0, (void *)0);
 }
 
 char *a59s = "\0";
@@ -661,7 +666,7 @@ static int	a59(void)
 
 static int	b59(void)
 {
-	return ft_printf("a%.10s@%10.s@%10.5s@%5.10s@%10s@%s@%.0s@%.s@", a59s, a59s, a59s, a59s, a59s, a59s, a59s, a59s);
+	return FT_PRINTF("a%.10s@%10.s@%10.5s@%5.10s@%10s@%s@%.0s@%.s@", a59s, a59s, a59s, a59s, a59s, a59s, a59s, a59s);
 }
 
 static int	a60(void)
@@ -671,7 +676,7 @@ static int	a60(void)
 
 static int	b60(void)
 {
-	return ft_printf("a%.10s@%10.s@%10.5s@%5.10s@%10s@%s@%.0s@%.s@", a59s, a59s, a59s, a59s, a59s, a59s, a59s, a59s);
+	return FT_PRINTF("a%.10s@%10.s@%10.5s@%5.10s@%10s@%s@%.0s@%.s@", a59s, a59s, a59s, a59s, a59s, a59s, a59s, a59s);
 }
 
 static int	a61(void)
@@ -681,7 +686,7 @@ static int	a61(void)
 
 static int	b61(void)
 {
-	return ft_printf("a%-.10s@%-10.s@%-10.5s@%-5.10s@%-10s@%-s@%-.0s@%-.s@", a59s, a59s, a59s, a59s, a59s, a59s, a59s, a59s);
+	return FT_PRINTF("a%-.10s@%-10.s@%-10.5s@%-5.10s@%-10s@%-s@%-.0s@%-.s@", a59s, a59s, a59s, a59s, a59s, a59s, a59s, a59s);
 }
 
 static int	a62(void)
@@ -691,7 +696,7 @@ static int	a62(void)
 
 static int	b62(void)
 {
-	return ft_printf("a%.10s@%10.s@%10.5s@%5.10s@%10s@%0s@%.0s@%.s@", a59s, a59s, a59s, a59s, a59s, a59s, a59s, a59s);
+	return FT_PRINTF("a%.10s@%10.s@%10.5s@%5.10s@%10s@%0s@%.0s@%.s@", a59s, a59s, a59s, a59s, a59s, a59s, a59s, a59s);
 }
 
 static int	a63(void)
@@ -701,7 +706,7 @@ static int	a63(void)
 
 static int	b63(void)
 {
-	return ft_printf("a%.10s@%10.s@%10.5s@%5.10s@%10s@%s@%.0s@%.s@", a59s, a59s, a59s, a59s, a59s, a59s, a59s, a59s);
+	return FT_PRINTF("a%.10s@%10.s@%10.5s@%5.10s@%10s@%s@%.0s@%.s@", a59s, a59s, a59s, a59s, a59s, a59s, a59s, a59s);
 }
 
 static int	a64(void)
@@ -711,7 +716,7 @@ static int	a64(void)
 
 static int	b64(void)
 {
-	return ft_printf("a%pb%10pc%10pd%5pe%10pf%pg%ph%pi%p", (void*)0, (void*)0, (void*)0, (void*)0, (void*)0, (void*)0, (void*)0, (void*)0, (void*)0);
+	return FT_PRINTF("a%pb%10pc%10pd%5pe%10pf%pg%ph%pi%p", (void*)0, (void*)0, (void*)0, (void*)0, (void*)0, (void*)0, (void*)0, (void*)0, (void*)0);
 }
 
 static int	a65(void)
@@ -721,7 +726,7 @@ static int	a65(void)
 
 static int	b65(void)
 {
-	return ft_printf("a%pb%10pc%10pd%5pe%10pf%pg%ph%pi", (void*)0, (void*)0, (void*)0, (void*)0, (void*)0, (void*)0, (void*)0, (void*)0);
+	return FT_PRINTF("a%pb%10pc%10pd%5pe%10pf%pg%ph%pi", (void*)0, (void*)0, (void*)0, (void*)0, (void*)0, (void*)0, (void*)0, (void*)0);
 }
 
 static int	a66(void)
@@ -731,7 +736,7 @@ static int	a66(void)
 
 static int	b66(void)
 {
-	return ft_printf("a%-pb%-10pc%-10pd%-5pe%-10pf%-pg%-ph%-pi", (void*)0, (void*)0, (void*)0, (void*)0, (void*)0, (void*)0, (void*)0, (void*)0);
+	return FT_PRINTF("a%-pb%-10pc%-10pd%-5pe%-10pf%-pg%-ph%-pi", (void*)0, (void*)0, (void*)0, (void*)0, (void*)0, (void*)0, (void*)0, (void*)0);
 }
 
 static int	a67(void)
@@ -741,7 +746,7 @@ static int	a67(void)
 
 static int	b67(void)
 {
-	return ft_printf("a%pb%10pc%10pd%5pe%10pf%pg%ph%pi", (void*)0, (void*)0, (void*)0, (void*)0, (void*)0, (void*)0, (void*)0, (void*)0);
+	return FT_PRINTF("a%pb%10pc%10pd%5pe%10pf%pg%ph%pi", (void*)0, (void*)0, (void*)0, (void*)0, (void*)0, (void*)0, (void*)0, (void*)0);
 }
 
 static int	a68(void)
@@ -751,7 +756,7 @@ static int	a68(void)
 
 static int	b68(void)
 {
-	return ft_printf("a%pb%2pc%pd%2pe%10pf%2pg%ph%10pi", (void*)0, (void*)0, (void*)0, (void*)0, (void*)0, (void*)0, (void*)0, (void*)0);
+	return FT_PRINTF("a%pb%2pc%pd%2pe%10pf%2pg%ph%10pi", (void*)0, (void*)0, (void*)0, (void*)0, (void*)0, (void*)0, (void*)0, (void*)0);
 }
 
 
@@ -1007,3 +1012,5 @@ static void	fill_reg(void)
 	bs[13]=b53;
 }
 #endif
+
+#endif // printf_allowed

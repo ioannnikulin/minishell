@@ -16,6 +16,7 @@
 # include <assert.h>
 # include <fcntl.h>
 # include <regex.h>
+# include <sys/wait.h>
 
 int	    input_to_text_tree_test(void);
 int		expand_tree_test(void);

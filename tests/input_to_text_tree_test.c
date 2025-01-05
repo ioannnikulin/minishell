@@ -17,7 +17,7 @@
 static int	a_test(t_param *param, char *input, int (*treegen)(t_treenode *), int i)
 {
 	#ifdef DEBUG
-	ft_printf("%i\n", i);
+	FT_PRINTF("%i\n", i);
 	#endif
 	(void)i;
 	t_tree *exp_tree = ft_tree_make();

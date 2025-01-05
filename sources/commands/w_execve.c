@@ -13,22 +13,29 @@
 #include "../minishell.h"
 #include <sys/wait.h>
 
-static void	dbg(char *fullpath, char **argv, char **envvars)
+static int	dbg(char *fullpath, char **argv, char **envvars)
 {
-	int	i;
+	int		i;
+	char	*status[2];
 
-	ft_fprintf(2, "starting: %s", fullpath);
-	ft_fprintf(2, "\nargs:\n");
+	w_perror(ft_s4("starting: ", fullpath, "\nargs:\n", 0));
 	i = -1;
 	while (argv[++ i])
-		ft_fprintf(2, " %s", argv[i]);
-	ft_fprintf(2, "\nenvvars:\n");
+		w_perror(ft_s3(" ", argv[i], 0));
+	perror("\nenvvars:\n");
 	i = -1;
 	while (envvars[++ i])
-		ft_fprintf(2, " %s", envvars[i]);
-	ft_fprintf(2, "\nin status: %i\n", fcntl(STDIN_FILENO, F_GETFD));
-	ft_fprintf(2, "out status: %i\n", fcntl(STDOUT_FILENO, F_GETFD));
-	ft_fprintf(2, "\n\n");
+		w_perror(ft_s3(" ", envvars[i], 0));
+	status[0] = ft_itoa(fcntl(STDIN_FILENO, F_GETFD));
+	status[1] = ft_itoa(fcntl(STDOUT_FILENO, F_GETFD));
+	if (!status[0] || !status[1])
+		return (1);
+	w_perror(ft_s4("\nin status: ", status[0], "\n", 0));
+	w_perror(ft_s4("\nout status: ", status[1], "\n", 0));
+	perror("\n\n");
+	free(status[0]);
+	free(status[1]);
+	return (0);
 }
 
 int	parent(pid_t pid, int *errno)
@@ -59,8 +66,9 @@ int	w_execve(char *fullpath, char **argv, char **envvars, t_param *param)
 		return (ft_assign_i(&param->opts.errno, 1, 0));
 	if (pid == 0)
 	{
-		if (param->opts.debug_output_level & DBG_EXECVE_PREPRINT)
-			dbg(fullpath, argv, envvars);
+		if ((param->opts.debug_output_level & DBG_EXECVE_PREPRINT) &&
+			dbg(fullpath, argv, envvars))
+			return (ft_assign_i(&param->opts.errno, 3, 0));
 		if (param->opts.sigint_handler)
 			signal(SIGINT, param->opts.sigint_handler);
 		execve(fullpath, argv, envvars);

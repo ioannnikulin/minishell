@@ -16,5 +16,6 @@
 
 int	opt_debug(const char **act, int *i, t_param *param);
 int	opt_single(const char **act, int *f, int t, t_param *param);
+int dbg(int argc, const char **argv);
 
 #endif

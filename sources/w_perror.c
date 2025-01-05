@@ -1,21 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tania_main.c                                       :+:      :+:    :+:   */
+/*   w_perror.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/24 00:41:54 by inikulin          #+#    #+#             */
-/*   Updated: 2024/10/22 23:16:15 by taretiuk         ###   ########.fr       */
+/*   Created: 2025/01/05 17:05:24 by inikulin          #+#    #+#             */
+/*   Updated: 2025/01/05 17:05:24 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(int argc, const char **argv)
+int	w_perror(char **src)
 {
-	FT_PRINTF("tanya works here\n");
-	(void)argv;
-	(void)argc;
+    int		i;
+    t_sbuf *buf;
+    char    *txt;
+
+    buf = ft_sbuf_make(src[0]);
+    i = 0;
+    while (src[++i])
+        ft_sbuf_append(buf, src[i]);
+    txt = ft_sbuf_get(buf);
+    perror(txt);
+    free(txt);
+    ft_sbuf_finalize(&buf);
+    free(src);
 	return (0);
 }

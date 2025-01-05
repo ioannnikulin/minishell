@@ -19,18 +19,18 @@ int	option_exit(t_executor *control, t_treenode *node, t_param *param)
 	control->retval = 0;
 	if (node->child && node->child->sibling_next)
 	{
-		ft_fprintf(STDERR_FILENO,
-			"%s: exit: %s\n", TXT_MINISHELL, ERR_EXIT_TOO_MANY_ARGS);
+		w_perror(ft_s5(ft_s4(TXT_MINISHELL, ": exit: ",
+			ERR_EXIT_TOO_MANY_ARGS, "\n"), 0));
 		param->opts.exiting = 1;
 		return (1);
 	}
 	if (node->child)
 		control->retval = ft_atoi(node->child->content, &param->opts.errno);
 	if (param->opts.errno)
-		ft_assign_i(&control->retval, 1, ft_fprintf(STDERR_FILENO,
-				"%s: exit: %s\n", TXT_MINISHELL, ERR_EXIT_NO_NUMBER));
+		ft_assign_i(&control->retval, 1, w_perror(ft_s5(ft_s4(TXT_MINISHELL,
+				": exit: ", ERR_EXIT_NO_NUMBER, "\n"), 0)));
 	else
-		ft_fprintf(STDERR_FILENO, "exit\n");
+		perror("exit\n");
 	control->retval %= 256;
 	param->opts.exiting = 1;
 	return (1);

@@ -16,7 +16,7 @@
 int	option_pwd(t_executor *control, t_treenode *node, t_param *param)
 {
 	control->found = 1;
-	printf("%s\n", (char *)param->envvar_path_head->content);
+	FT_PRINTF("%s\n", (char *)param->envvar_path_head->content);
 	(void)node;
 	control->retval = 0;
 	return (1);

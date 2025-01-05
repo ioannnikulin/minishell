@@ -14,6 +14,6 @@
 
 int	main(void)
 {
-	printf("vanya works here\n");
+	FT_PRINTF("vanya works here\n");
 	return (0);
 }

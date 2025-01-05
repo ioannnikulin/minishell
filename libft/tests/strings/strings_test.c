@@ -50,11 +50,11 @@ int	strings_test(void)
 	ft_putendl_fd_test();
 	printf("putnbr_fd in testing\n");
 	ft_putnbr_fd_test();
-	ft_printf("ft_split_skip_delim in testing\n");
+	FT_PRINTF("ft_split_skip_delim in testing\n");
 	ft_split_skip_delim_test();
-	ft_printf("ft_replace_idx in testing\n");
+	FT_PRINTF("ft_replace_idx in testing\n");
 	ft_replace_idx_test();
-	ft_printf("ft_sbuf in testing\n");
+	FT_PRINTF("ft_sbuf in testing\n");
 	ft_sbuf_test();
 	return (0);
 }

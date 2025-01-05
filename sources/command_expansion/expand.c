@@ -111,14 +111,14 @@ static int	go(t_treenode *node, t_param *param)
 int	expand(t_treenode *node, t_param *param)
 {
 	if (param->opts.debug_output_level & DBG_PRINT_TOKEN_BEFORE_EXPANSION)
-		ft_printf("%s\n", node->content);
+		FT_PRINTF("%s\n", (char*)node->content);
 	if (go(node, param))
 		return (1);
 	node = node->child;
 	while (node)
 	{
 		if (param->opts.debug_output_level & DBG_PRINT_TOKEN_BEFORE_EXPANSION)
-			ft_printf("%s\n", node->content);
+			FT_PRINTF("%s\n", (char*)node->content);
 		if (go(node, param))
 			return (2);
 		node = node->sibling_next;

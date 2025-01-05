@@ -13,7 +13,6 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
 # include <signal.h>
@@ -25,6 +24,8 @@
 # include "tokenizing/tokenizing.h"
 # include "tree_make/tree_processing.h"
 
+# define STDERR STDERR_FILENO
+
 # define DBG_EXTERNAL_SEARCH_FOLDERS 1
 # define DBG_PRINT_TREE_BEFORE_EXEC 2
 # define DBG_PRINT_NODE_BEFORE_INSPECTION 4
@@ -33,7 +34,8 @@
 # define DBG_PRINT_TOKEN_BEFORE_EXPANSION 32
 # define DBG_ONE_CMD_ECHO 64
 # define DBG_EXEC_CHAIN_PRINT_FDS 128
-# define DBG_FULL 255
+# define DBG_PRINT_ARGV 256
+# define DBG_FULL 511
 
 typedef unsigned long long	t_ull;
 
@@ -76,6 +78,7 @@ int		param_get_cur_dir(t_param *param);
 int		collect_path(t_dlist *head, char **where);
 int		expand(t_treenode *node, t_param *param);
 int		w_execve(char *fullpath, char **argv, char **envvars, t_param *param);
+int		w_perror(char **ss);
 void	pre(t_param *param);
 void	post(t_param *param);
 #endif

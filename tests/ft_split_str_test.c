@@ -47,21 +47,21 @@ static void	print_array(char **res, int act_sz, char **exp, int exp_sz)
 	if (!res)
 		return ;
 	int	i = 0;
-	ft_printf("Result:\n");
+	FT_PRINTF("Result:\n");
 	while (i < act_sz)
 	{
-		ft_printf("%s\n", res[i]);
+		FT_PRINTF("%s\n", res[i]);
 		i++;
 	}
 
 	i = 0;
-	ft_printf("\nExpected:\n");
+	FT_PRINTF("\nExpected:\n");
 	while (i < exp_sz)
 	{
-		ft_printf("%s\n", exp[i]);
+		FT_PRINTF("%s\n", exp[i]);
 		i++;
 	}
-	ft_printf("\n");
+	FT_PRINTF("\n");
 }
 
 static t_strings	create_string_array()
@@ -132,7 +132,7 @@ void	ft_split_str_test(void)
 	for (int i = START; i < STOP; i ++)
 	{
 		#ifdef DEBUG
-		ft_printf("\n=========Test %i=============\n\n", i);
+		FT_PRINTF("\n=========Test %i=============\n\n", i);
 		#endif
 		int act_sz = 0;
 		char **split_op = ft_split_str(str_arr.strs[i].str, op_arr, &act_sz);

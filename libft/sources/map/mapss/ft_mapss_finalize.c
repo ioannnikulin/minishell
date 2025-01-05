@@ -34,7 +34,7 @@ int	ft_mapss_finalize_i(t_mapss *map, char *msg, int retval)
 		free(map);
 	}
 	if (msg)
-		ft_printf("%s\n", msg);
+		FT_PRINTF("%s\n", msg);
 	return (retval);
 }
 

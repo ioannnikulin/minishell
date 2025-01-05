@@ -63,7 +63,7 @@ int	exec_rec(t_executor *e)
 	else if (nonbrace(e) != 0)
 		return (2);
 	if (e->param->opts.errno)
-		return (0 * printf("ERROR %i\n", e->param->opts.errno) + 3);
+		return (0 * FT_PRINTF("ERROR %i\n", e->param->opts.errno) + 3);
 	if (skip_logical_siblings(e) != 0)
 		return (1);
 	if (e->param->opts.exiting || !e->node)
@@ -78,7 +78,7 @@ int	exec_text_tree(t_param *param)
 	if (!param || !param->text_tree || !param->text_tree->root
 		|| !param->text_tree->root->child)
 	{
-		printf("%s\n", ERR_TEXT_TREE_EMPTY);
+		FT_PRINTF("%s\n", ERR_TEXT_TREE_EMPTY);
 		return (1);
 	}
 	if (param->opts.debug_output_level & DBG_PRINT_TREE_BEFORE_EXEC)

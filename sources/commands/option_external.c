@@ -85,9 +85,9 @@ int	option_external(t_executor *control, t_treenode *node, t_param *param)
 	control->found = 1;
 	if (param->opts.debug_output_level & DBG_EXTERNAL_SEARCH_FOLDERS)
 	{
-		ft_printf("searching for command in folders:\n");
+		FT_PRINTF("searching for command in folders:\n");
 		ft_dlist_print_s(param->envvar_path_head, "\n");
-		ft_printf("--\n");
+		FT_PRINTF("--\n");
 	}
 	fullpath = find_executable(node->content, param->envvar_path_head,
 			&param->opts.errno);
@@ -97,6 +97,6 @@ int	option_external(t_executor *control, t_treenode *node, t_param *param)
 	free(fullpath);
 	if (!param->opts.errno)
 		return (0);
-	ft_printf("%s: ERROR %i\n", (char *)node->content, param->opts.errno);
+	FT_PRINTF("%s: ERROR %i\n", (char *)node->content, param->opts.errno);
 	return (0);
 }

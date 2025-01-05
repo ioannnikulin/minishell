@@ -19,8 +19,8 @@ static int	node(t_treenode *n, char *(*f)(void*), char *pad, int lvl)
 
 	cur_pad = -1;
 	while (++cur_pad < lvl)
-		ft_printf("%s", pad);
-	ft_printf("[%s]\n", f(n->content));
+		FT_PRINTF("%s", pad);
+	FT_PRINTF("[%s]\n", f(n->content));
 	child = n->child;
 	while (child)
 	{

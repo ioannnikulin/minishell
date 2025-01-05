@@ -99,17 +99,17 @@ void	tokenize_cmd_test()
 	for (int i = START; i < NUM_TEST_CASES; i ++)
 	{
 		#ifdef DEBUG
-		ft_printf("\n=========Test %i=============\n\n", i);
+		FT_PRINTF("\n=========Test %i=============\n\n", i);
 		#endif
 		int ret = tokenize_cmd(str_arr.strs[i].str, &tokens);
 		#ifdef DEBUG
-		ft_printf("ret: %i\n", ret);
+		FT_PRINTF("ret: %i\n", ret);
 		#endif
 		assert(ret == 0);
 		for (int j = 0; tokens[j] != NULL; j++)
 		{
 			#ifdef DEBUG
-			ft_printf("%s\n", tokens[j]);
+			FT_PRINTF("%s\n", tokens[j]);
 			#endif
 			assert((tokens[j] == NULL) == (t[i][j] == NULL));
 			assert(ft_strcmp(tokens[j], t[i][j]) == 0);

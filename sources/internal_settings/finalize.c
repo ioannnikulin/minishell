@@ -26,6 +26,6 @@ int	finalize(t_param *param, int mode, char *message, int retval)
 	}
 	rl_clear_history();
 	if (message)
-		printf("%s\n", message);
+		FT_PRINTF("%s\n", message);
 	return (retval);
 }

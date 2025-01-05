@@ -155,7 +155,7 @@ void	ft_split_skip_delim_test()
 			for (int j = 0; tokens[j] != NULL; j++)
 			{
 				#ifdef DEBUG
-				ft_printf("%s\n", tokens[j]);
+				FT_PRINTF("%s\n", tokens[j]);
 				#endif
 				assert((tokens[j] == NULL) == (t[i][j] == NULL));
 				if (tokens[j] == NULL)

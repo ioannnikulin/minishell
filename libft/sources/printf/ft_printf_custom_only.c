@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   FT_PRINTF.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: inikulin <inikulin@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -25,7 +25,7 @@ int	ft_printf(const char *s, ...)
 	return (res);
 }
 
-static int	ft_fprintf(int fd, const char *s, ...)
+int	ft_fprintf(int fd, const char *s, ...)
 {
 	va_list	argv;
 	int		res;

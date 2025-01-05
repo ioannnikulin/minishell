@@ -30,12 +30,12 @@ int	option_echo(t_executor *control, t_treenode *node, t_param *param)
 	}
 	while (child && child->sibling_next)
 	{
-		printf("%s ", (char *)child->content);
+		FT_PRINTF("%s ", (char *)child->content);
 		child = child->sibling_next;
 	}
 	if (child)
-		printf("%s", (char *)child->content);
+		FT_PRINTF("%s", (char *)child->content);
 	if (!n)
-		printf("\n");
+		FT_PRINTF("\n");
 	return (ft_assign_i(&control->retval, 0, 1));
 }

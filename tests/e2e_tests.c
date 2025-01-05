@@ -18,6 +18,8 @@
 #define PRINT_MALLOC_FAILURE_NO
 #define PRINT_TEST_NO
 
+extern char **environ;
+
 typedef struct s_testcase
 {
 	char	*cmd;
@@ -25,7 +27,7 @@ typedef struct s_testcase
 	int		exp_ret;
 }	t_testcase;
 
-static void	catch(char* fname, int *out, int *save)
+void	catch(char* fname, int *out, int *save)
 {
 	remove(fname);
 	fflush(stdout);
@@ -35,7 +37,7 @@ static void	catch(char* fname, int *out, int *save)
 	assert (-1 != dup2(*out, fileno(stdout)));
 }
 
-static void	catch_err(char* fname, int *out, int *save)
+void	catch_err(char* fname, int *out, int *save)
 {
 	remove(fname);
 	fflush(stderr);
@@ -45,7 +47,7 @@ static void	catch_err(char* fname, int *out, int *save)
 	assert (-1 != dup2(*out, fileno(stderr)));
 }
 
-static void	finally(int *out, int *save)
+void	finally(int *out, int *save)
 {
 	fflush(stdout);
 	close(*out);
@@ -53,7 +55,7 @@ static void	finally(int *out, int *save)
 	close(*save);
 }
 
-static void	finally_err(int *out, int *save)
+void	finally_err(int *out, int *save)
 {
 	fflush(stderr);
 	close(*out);
@@ -96,7 +98,7 @@ static int	file_compare(char *exp_content, char *act_fname)
 			diff = i;
 			break ;
 		}
-	ft_printf("comparison result %i, expected:{{%s}}\nactual:{{%s}}\nstrncmp %i\nstart to differ from index %i\n", comp_res, exp_re, act, ft_strncmp(exp_content, act, fsize), diff); // a strcmp giving not 0 is possible, since the actual result should be matched to regexp, not strcompared to it. Regexps contain special characters in most cases, hence direct comparison will fail. Hence strcmp result is not asserted to be 0 only regcomp is asseted. This output is for my reference.
+	FT_PRINTF("comparison result %i, expected:{{%s}}\nactual:{{%s}}\nstrncmp %i\nstart to differ from index %i\n", comp_res, exp_re, act, ft_strncmp(exp_content, act, fsize), diff); // a strcmp giving not 0 is possible, since the actual result should be matched to regexp, not strcompared to it. Regexps contain special characters in most cases, hence direct comparison will fail. Hence strcmp result is not asserted to be 0 only regcomp is asseted. This output is for my reference.
 	fflush(stdout);
 	#endif
 	assert(comp_res == 0);
@@ -110,23 +112,48 @@ static int	file_compare(char *exp_content, char *act_fname)
 	return (mallocs);
 }
 
-static void	successful_execution(t_testcase *test, int *mallocs)
+static int	t_execve(char *cmd)
 {
 	int out, save, outerr, saveerr;
+	catch("e2e.stdout", &out, &save);
+	catch_err("e2e.stderr", &outerr, &saveerr);
+	int	pid = fork();
+	assert(pid != -1);
+	if (pid == 0)
+	{
+		int argc = 4;//6;
+		char **argv = calloc(sizeof(char *), argc);
+		assert(argv);
+		argv[0] = "./e2e_f/minishell";
+		// argv[1] = "--debug";
+		// argv[2] = "256";
+		argv[argc - 3] = "--command";
+		argv[argc - 2] = cmd;
+		argv[argc - 1] = 0;
+		/*for (int i = 0; i < argc; i ++)
+			printf("[%s]", argv[i]);
+		printf("\n");*/
+		execve(argv[0], argv, environ);
+		exit(1);
+	} else {
+		int	status;
+		waitpid(pid, &status, 0);
+		finally(&out, &save);
+		finally_err(&outerr, &saveerr);
+		return (WEXITSTATUS(status));
+	}
+}
+
+static void	successful_execution(t_testcase *test, int *mallocs)
+{
 	system("rm -rf e2e_f testf && rm -f e2e.stdout e2e.stderr");
 	assert(system("mkdir e2e_f") == 0);
 	assert(system("cp minishell e2e_f/minishell") == 0);
-	catch("e2e.stdout", &out, &save);
-	catch_err("e2e.stderr", &outerr, &saveerr);
-	char *tmp = ft_strjoin("./e2e_f/minishell ", test->cmd);
-	assert(!!tmp);
 	#ifdef DEBUG
-	fprintf(stderr, "executing [%s]\n", tmp);
+	fprintf(stderr, "executing [%s]\n", test->cmd);
 	#endif
-	int	ret = system(tmp) >> 8;
+	int	ret = t_execve(test->cmd);
 	assert(ret == test->exp_ret);
-	finally(&out, &save);
-	finally_err(&outerr, &saveerr);
 	*mallocs = file_compare(ft_mapss_get(test->exp, "stdout"), "e2e.stdout");
 	char	*exp_err = ft_mapss_get(test->exp, "stderr");
 	if (test->exp_ret)
@@ -137,15 +164,14 @@ static void	successful_execution(t_testcase *test, int *mallocs)
 	while (entry)
 	{
 		key = ((t_mapss_entry *)entry->content)->key;
-		free(tmp);
-		tmp = ft_strjoin("e2e_f/", key);
+		char *tmp = ft_strjoin("e2e_f/", key);
 		assert(!!tmp);
 		if (ft_strcmp(key, "stdout") != 0 && ft_strcmp(key, "stderr") != 0)
 			file_compare(((t_mapss_entry *)entry->content)->value, tmp);
 		entry = entry->next;
+		free(tmp);
 		// TODO: assure no more files except mentioned in the map
 	}
-	free(tmp);
 }
 
 #ifdef FT_CALLOC_IF_TRAPPED
@@ -162,14 +188,10 @@ static void	malloc_failure_recoveries(char *cmd, int mallocs)
 		printf("\t == %i == \n", i);
 		#endif
 		char *is = ft_itoa(i);
-		char *tmp = ft_strjoin_multi_free_outer(ft_s3("cd e2e_f && valgrind --leak-check=full --show-leak-kinds=all --child-silent-after-fork=yes -s -q ./minishell --trap", is, cmd), 3, " ");
+		char *tmp = ft_strjoin_multi_free_outer(ft_s4("bash -c 'cd e2e_f && valgrind --leak-check=full --show-leak-kinds=all --child-silent-after-fork=yes -s -q ./minishell --trap", is, cmd, "' 1>e2e.stdout 2>e2e.stderr"), 4, " ");
 		free(is);
 		assert(!!tmp);
-		catch("e2e.stdout", &out, &save);
-		catch_err("e2e.stderr", &outerr, &saveerr);
 		system(tmp);
-		finally(&out, &save);
-		finally_err(&outerr, &saveerr);
 		char *err = ft_calloc(sizeof(char *), 256);
 		int fd = open("e2e.stderr", O_RDONLY, 0600);
 		read(fd, err, 256);
@@ -215,7 +237,7 @@ int	e2e_tests(void)
 	ft_mapss_add(m[12], "stdout", "(/[^\n]*\n){2}");
 	ft_mapss_add(m[13], "stdout", "/usr/bin\n");
 	ft_mapss_add(m[14], "stdout", "");
-	ft_mapss_add(m[14], "stderr", "cd: /nope: No such file or directory\n");
+	ft_mapss_add(m[14], "stderr", "minishell: cd: /nope: No such file or directory\n");
 	ft_mapss_add(m[15], "stdout", "[^\n]*\ncd: nope: No such file or directory\n");
 	ft_mapss_add(m[16], "stdout", "HOME=/home/ioann\nsome=BODYONCETOLDME\nPATH=/usr/local/bin:/usr/sbin:/usr/bin:/sbin/bin\nsome=BODYONCETOLDME\n");
 	ft_mapss_add(m[17], "stdout", "1\n");
@@ -232,36 +254,36 @@ int	e2e_tests(void)
 	ft_mapss_add(m[26], "stdout", "1 -n 2\n3\n");
 	ft_mapss_add(m[27], "stderr", "minishell: cd: too many arguments\n");
 	ft_mapss_add(m[27], "stdout", "");
-	tests[0] = (t_testcase){"--command \"echo hello world\"", m[0], 0};
-	tests[1] = (t_testcase){"--command \"echo hello world\"", m[1], 0};
-	//tests[1] = (t_testcase){"--command \"   echo hello\\n		my openworld \"", m[1], 0};
-	tests[2] = (t_testcase){"--command \"echo \\\"1   2\\\"   3\"", m[2], 0};
-	tests[3] = (t_testcase){"--command \"rm -rf testf && mkdir testf && cd testf && mkdir f1 f2 && touch 1 && touch 11 2 && ls -a -h | grep 1\"", m[3], 0};
-	//tests[3] = (t_testcase){"--command mkdir testf && cd testf && mkdir f1 f2 && touch 1 && touch 11 2 && ls -a -fh -c | grep 1 >> out.txt", m[3], 0};
-	tests[4] = (t_testcase){"--command \"echo 1 || echo 2 && echo 3 && echo 4 || echo 5 && echo 6\"", m[4], 0};
-	tests[5] = (t_testcase){"--command \"echo 1 || echo 2 && (echo 3 && echo 4 || echo 5 && echo 6)\"", m[5], 0};
-	tests[6] = (t_testcase){"--command \"echo 1 || echo 2 && (echo 3 && echo 4 || (echo 5 && echo 6))\"", m[6], 0};
-	tests[7] = (t_testcase){"--command uname", m[7], 0};
-	tests[8] = (t_testcase){"--command \"./tests/tool_print_environment one \\\"two   three\\\" four\"", m[8], 0};
-	tests[9] = (t_testcase){"--command \"export foo=bar && export foo=zah nope=uhoh && unset nope && ./tests/tool_print_environment one \\\"two   three\\\" four\"", m[9], 0};
-	tests[10] = (t_testcase){"--command pwd", m[10], 0};
-	tests[11] = (t_testcase){"--command \"mkdir testf && cd testf && pwd\"", m[11], 0};
-	tests[12] = (t_testcase){"--command \"pwd && mkdir testf && cd ./testf/.. && pwd\"", m[12], 0};
-	tests[13] = (t_testcase){"--command \"cd /bin && pwd\"", m[13], 0};
-	tests[14] = (t_testcase){"--command \"cd /nope && pwd\"", m[14], 1};
-	tests[15] = (t_testcase){"--command \"cd && pwd && cd nope && pwd\"", m[15], 0};
-	tests[16] = (t_testcase){"--command \"env && unset HOME PATH && env\"", m[16], 0};
-	tests[17] = (t_testcase){"--command \"echo 1 && exit && echo 2\"", m[17], 0};
-	tests[18] = (t_testcase){"--command \"echo 1 && exit 267 || echo 2\"", m[18], 11};
-	tests[19] = (t_testcase){"--command \"echo 1 || echo 2 && (echo 3 && (echo 4 || echo 5) && echo 6)\"", m[19], 0};
-	tests[20] = (t_testcase){"--command \"echo 1 || echo 2 && (echo 3 && (echo 4) || echo 5 && echo 6)\"", m[20], 0};
-	tests[21] = (t_testcase){"--command \"echo 1 || (echo 2 && (echo 3 && (echo 4) || echo 5 && echo 6))\"", m[21], 0};
-	tests[22] = (t_testcase){"--command \"echo 1 || (echo 2 && (echo 3 && (echo 4) || echo 5)) && echo 6\"", m[22], 0};
-	tests[23] = (t_testcase){"--command \"export foo=bar sea=\\$foo say=echo _1=\\$_1 _= && \\$say [\\$foo] ['\\$sea'] [\\\"\\$sea\\\"] [\\$food] [\\$_1] [\\$_] [\\$] [\\$PATH] [\\$some]\"", m[23], 0};
-	tests[24] = (t_testcase){"--command \"echo \'\\$(echo \\\"\\$(echo \\\"\\$(echo \\\"bla\\\")\\\")\\\")\'\"", m[24], 0};
-	tests[25] = (t_testcase){"--command \"echo -nn 1 2\"", m[25], 0};
-	tests[26] = (t_testcase){"--command \"echo 1 -n 2&&echo 3||echo 4   ||echo 5 ||   echo 6\"", m[26], 0};
-	tests[27] = (t_testcase){"--command \"cd a b && echo 1\"", m[27], 1};
+	tests[0] = (t_testcase){"echo hello world", m[0], 0};
+	tests[1] = (t_testcase){"echo hello world", m[1], 0};
+	//tests[1] = (t_testcase){"   echo hello\\n		my openworld ", m[1], 0};
+	tests[2] = (t_testcase){"echo \"1   2\"   3", m[2], 0};
+	tests[3] = (t_testcase){"rm -rf testf && mkdir testf && cd testf && mkdir f1 f2 && touch 1 && touch 11 2 && ls -a -h | grep 1", m[3], 0};
+	//tests[3] = (t_testcase){"mkdir testf && cd testf && mkdir f1 f2 && touch 1 && touch 11 2 && ls -a -fh -c | grep 1 >> out.txt", m[3], 0};
+	tests[4] = (t_testcase){"echo 1 || echo 2 && echo 3 && echo 4 || echo 5 && echo 6", m[4], 0};
+	tests[5] = (t_testcase){"echo 1 || echo 2 && (echo 3 && echo 4 || echo 5 && echo 6)", m[5], 0};
+	tests[6] = (t_testcase){"echo 1 || echo 2 && (echo 3 && echo 4 || (echo 5 && echo 6))", m[6], 0};
+	tests[7] = (t_testcase){"uname", m[7], 0};
+	tests[8] = (t_testcase){"./tests/tool_print_environment one \"two   three\" four", m[8], 0};
+	tests[9] = (t_testcase){"export foo=bar && export foo=zah nope=uhoh && unset nope && ./tests/tool_print_environment one \"two   three\" four", m[9], 0};
+	tests[10] = (t_testcase){"pwd", m[10], 0};
+	tests[11] = (t_testcase){"mkdir testf && cd testf && pwd", m[11], 0};
+	tests[12] = (t_testcase){"pwd && mkdir testf && cd ./testf/.. && pwd", m[12], 0};
+	tests[13] = (t_testcase){"cd /bin && pwd", m[13], 0};
+	tests[14] = (t_testcase){"cd /nope && pwd", m[14], 1};
+	tests[15] = (t_testcase){"cd && pwd && cd nope && pwd", m[15], 0};
+	tests[16] = (t_testcase){"env && unset HOME PATH && env", m[16], 0};
+	tests[17] = (t_testcase){"echo 1 && exit && echo 2", m[17], 0};
+	tests[18] = (t_testcase){"echo 1 && exit 267 || echo 2", m[18], 11};
+	tests[19] = (t_testcase){"echo 1 || echo 2 && (echo 3 && (echo 4 || echo 5) && echo 6)", m[19], 0};
+	tests[20] = (t_testcase){"echo 1 || echo 2 && (echo 3 && (echo 4) || echo 5 && echo 6)", m[20], 0};
+	tests[21] = (t_testcase){"echo 1 || (echo 2 && (echo 3 && (echo 4) || echo 5 && echo 6))", m[21], 0};
+	tests[22] = (t_testcase){"echo 1 || (echo 2 && (echo 3 && (echo 4) || echo 5)) && echo 6", m[22], 0};
+	tests[23] = (t_testcase){"export foo=bar sea=$foo say=echo _1=$_1 _= && $say [$foo] ['$sea'] [\"$sea\"] [$food] [$_1] [$_] [$] [$PATH] [$some]", m[23], 0};
+	tests[24] = (t_testcase){"echo '$(echo \"$(echo \"$(echo \"bla\")\")\")'", m[24], 0};
+	tests[25] = (t_testcase){"echo -nn 1 2", m[25], 0};
+	tests[26] = (t_testcase){"echo 1 -n 2&&echo 3||echo 4   ||echo 5 ||   echo 6", m[26], 0};
+	tests[27] = (t_testcase){"cd a b && echo 1", m[27], 1};
 	// multiple pipes (see mocks 29-30) will not be tested here, they produce strange errors in this testing suite, though they run normally when being started as separate commands. something to do with STDOUT being intercepted for tests probably.
 
 	for (int i = 0; i < START; i ++)
@@ -287,6 +309,6 @@ int	e2e_tests(void)
 		#endif
 		ft_mapss_finalize_i(m[i], 0, 0);
 	}
-	system("(rm -r e2e_f && rm e2e.stdout e2e.stderr) 2> /dev/null");
+	system("rm -rf e2e_f && rm -f e2e.stdout e2e.stderr");
 	return (0);
 }

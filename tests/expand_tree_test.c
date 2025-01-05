@@ -33,7 +33,7 @@ int	expand_tree_test(void)
 	for (int i = START; i < SZ; i ++)
 	{
 		#ifdef DEBUG
-		ft_printf("%i\n", i);
+		FT_PRINTF("%i\n", i);
 		#endif
 		param.text_tree = t[i].src;
 		assert(expand_tree(&param) == 0);

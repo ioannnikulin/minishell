@@ -39,4 +39,5 @@ int	put_u(char **c, va_list *argv, int fd, t_params params);
 int	put_x(char **c, va_list *argv, int fd, t_params params);
 int	put_percent(char **c, va_list *argv, int fd, t_params params);
 int	pad_n_put(char *c, int l, int fd, t_params params);
+int	printf_impl(int fd, const char *s, va_list *argv);
 #endif
