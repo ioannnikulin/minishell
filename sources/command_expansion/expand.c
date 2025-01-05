@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 17:06:11 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/22 20:01:29 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/05 20:32:20 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,14 +111,14 @@ static int	go(t_treenode *node, t_param *param)
 int	expand(t_treenode *node, t_param *param)
 {
 	if (param->opts.debug_output_level & DBG_PRINT_TOKEN_BEFORE_EXPANSION)
-		FT_PRINTF("%s\n", (char*)node->content);
+		FT_PRINTF("%s\n", (char *)node->content);
 	if (go(node, param))
 		return (1);
 	node = node->child;
 	while (node)
 	{
 		if (param->opts.debug_output_level & DBG_PRINT_TOKEN_BEFORE_EXPANSION)
-			FT_PRINTF("%s\n", (char*)node->content);
+			FT_PRINTF("%s\n", (char *)node->content);
 		if (go(node, param))
 			return (2);
 		node = node->sibling_next;

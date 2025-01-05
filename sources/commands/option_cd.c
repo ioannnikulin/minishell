@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   option_cd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 00:08:15 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/28 16:27:25 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/05 20:31:32 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,17 +56,17 @@ static char	*get_checked_path(t_treenode *node, char *pwd, t_mapss *envvars,
 static int	couldnt(t_treenode *node, char *fullpath, int *ret, int errno)
 {
 	if (errno == 4 || errno == 6 || errno == 0)
-		w_perror(ft_s7(ft_s4(TXT_MINISHELL, ": cd: ", 
-			node->child->content, ": "), ERR_CD_NOWHERE, "\n", 0));
+		w_perror(ft_s7(ft_s4(TXT_MINISHELL, ": cd: ",
+					node->child->content, ": "), ERR_CD_NOWHERE, "\n", 0));
 	else if (errno == 1)
 		w_perror(ft_s5(ft_s4(TXT_MINISHELL, ": cd: ",
-			ERR_CD_NO_HOME, "\n"), 0));
+					ERR_CD_NO_HOME, "\n"), 0));
 	else if (errno == 7)
 		w_perror(ft_s5(ft_s4(TXT_MINISHELL, ": cd: ",
-			ERR_CD_TOO_MANY_ARGS, "\n"), 0));
+					ERR_CD_TOO_MANY_ARGS, "\n"), 0));
 	else
 		w_perror(ft_s5(ft_s4(TXT_MINISHELL, ": cd: ",
-			ERR_MALLOC, "\n"), 0));
+					ERR_MALLOC, "\n"), 0));
 	*ret = 1;
 	free(fullpath);
 	return (1);
@@ -82,7 +82,7 @@ int	option_cd(t_executor *control, t_treenode *node, t_param *param)
 	int		errno;
 
 	control->found = 1;
-	if (node->child->sibling_next)
+	if (node->child && node->child->sibling_next)
 		return (couldnt(0, 0, &control->retval, 7));
 	errno = 0;
 	fullpath = get_checked_path(node, param->envvar_path_head->content,

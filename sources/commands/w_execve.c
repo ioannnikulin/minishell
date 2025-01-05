@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 22:30:29 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/22 15:19:26 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/05 20:30:11 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,8 @@ int	w_execve(char *fullpath, char **argv, char **envvars, t_param *param)
 		return (ft_assign_i(&param->opts.errno, 1, 0));
 	if (pid == 0)
 	{
-		if ((param->opts.debug_output_level & DBG_EXECVE_PREPRINT) &&
-			dbg(fullpath, argv, envvars))
+		if ((param->opts.debug_output_level & DBG_EXECVE_PREPRINT)
+			&& dbg(fullpath, argv, envvars))
 			return (ft_assign_i(&param->opts.errno, 3, 0));
 		if (param->opts.sigint_handler)
 			signal(SIGINT, param->opts.sigint_handler);

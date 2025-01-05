@@ -6,13 +6,15 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 15:22:58 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/28 17:29:51 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/05 20:22:27 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+# include <stdio.h>
+# include <stddef.h>
 # include <stdlib.h>
 # include <unistd.h>
 # include <signal.h>
@@ -69,7 +71,7 @@ typedef struct s_param
 t_param	*param_alloc(void);
 int		param_init(t_param *param);
 int		opts_fill(int argc, const char **argv, t_param *param);
-int		param_get_envvars(t_param *param);
+int		param_get_envvars(t_param *param, char **envp);
 int		finalize(t_param *param, int mode, char *message, int retval);
 int		input_to_text_tree(t_param *param);
 int		expand_tree(t_param *param);

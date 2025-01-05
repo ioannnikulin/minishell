@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 00:03:03 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/15 22:47:41 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/05 20:23:09 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,8 @@ int	unit_tests(void)
 	FT_PRINTF("expand_tree in progress\n");
 	expand_tree_test();
 	FT_PRINTF("expand_tree tests completed\n");
+	FT_PRINTF("get_envvars in progress\n");
+	get_envvars_test();
+	FT_PRINTF("get_envvars_test completed\n");
 	return (0);
 }

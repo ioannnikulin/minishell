@@ -1,28 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tests_internal.h                                   :+:      :+:    :+:   */
+/*   ft_dlist_ncmp_1.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/21 00:04:08 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/05 20:22:43 by inikulin         ###   ########.fr       */
+/*   Created: 2024/01/27 12:41:58 by inikulin          #+#    #+#             */
+/*   Updated: 2024/12/22 16:07:16 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TESTS_INTERNAL_H
-# define TESTS_INTERNAL_H
-# include "../sources/minishell.h"
-# include <assert.h>
-# include <fcntl.h>
-# include <regex.h>
-# include <sys/wait.h>
+#include "libft.h"
+#include <stdint.h>
 
-int	    input_to_text_tree_test(void);
-int		expand_tree_test(void);
-void    tokenize_cmd_test(void);
-void	tokens_to_tree_test(void);
-void	ft_split_str_test(void);
-int		get_envvars_test(void);
+int	ft_voidptr_strcmp(void *a, void *b)
+{
+	return (ft_strcmp((char *)a, (char *)b));
+}
 
-#endif
+int	ft_dlist_ncmp_str(t_dlist *a, t_dlist *b, int n)
+{
+	return (ft_dlist_ncmp(a, b, n, ft_voidptr_strcmp));
+}

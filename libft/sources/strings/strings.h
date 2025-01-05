@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 20:55:01 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/19 11:39:26 by taretiuk         ###   ########.fr       */
+/*   Updated: 2025/01/02 15:22:10 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int		ft_strncmp(const char *s1, const char *s2, size_t n);
 char	*ft_strnstr(const char *big, const char *little, size_t len);
 char	*ft_strdup(const char *s);
 char	*ft_substr(const char *s, unsigned int start, size_t len);
+char	*ft_strcpy(char *dst, const char *src);
 char	*ft_strjoin(const char *s1, const char *s2);
 char	*ft_strjoin_multi(const char **ss, int sz, const char *delim);
 char	*ft_strjoin_multi_free_outer(char **ss, int sz, const char *delim);

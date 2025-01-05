@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 00:09:30 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/28 18:25:25 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/05 20:32:30 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 static int	invalid(char *src)
 {
-	w_perror(ft_s6(ft_s4("export: ", src, ": ", 
-		ERR_EXPORT_INVALID), "\n", 0));
+	w_perror(ft_s6(ft_s4("export: ", src, ": ",
+				ERR_EXPORT_INVALID), "\n", 0));
 	return (1);
 }
 

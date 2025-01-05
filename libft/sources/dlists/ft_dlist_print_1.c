@@ -1,28 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tests_internal.h                                   :+:      :+:    :+:   */
+/*   ft_dlist_print_1.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/21 00:04:08 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/05 20:22:43 by inikulin         ###   ########.fr       */
+/*   Created: 2023/11/13 19:01:40 by inikulin          #+#    #+#             */
+/*   Updated: 2024/12/22 13:40:14 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TESTS_INTERNAL_H
-# define TESTS_INTERNAL_H
-# include "../sources/minishell.h"
-# include <assert.h>
-# include <fcntl.h>
-# include <regex.h>
-# include <sys/wait.h>
+#include "libft.h"
 
-int	    input_to_text_tree_test(void);
-int		expand_tree_test(void);
-void    tokenize_cmd_test(void);
-void	tokens_to_tree_test(void);
-void	ft_split_str_test(void);
-int		get_envvars_test(void);
+static void	printpi(void *p)
+{
+	ft_printf("%i", *(int *)p);
+}
 
-#endif
+int	ft_dlist_print_pi(t_dlist *lst, char *delim)
+{
+	return (ft_dlist_print(lst, 0, delim, printpi));
+}
