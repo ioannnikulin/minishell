@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 22:57:54 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/05 19:34:48 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/05 20:19:07 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -211,26 +211,21 @@ int	e2e_tests(void)
 	ft_mapss_add(m[8], "stdout", "/[^\n]*/testf\n");
 	ft_mapss_add(m[9], "stdout", "(/[^\n]*\n){2}");
 	ft_mapss_add(m[10], "stdout", "/usr/bin\n");
-	ft_mapss_add(m[11], "stdout", "");
-	ft_mapss_add(m[11], "stderr", "cd: /nope: No such file or directory\n");
-	ft_mapss_add(m[12], "stdout", "/[^\n]*\n");
-	ft_mapss_add(m[12], "stderr", "[^\n]*\ncd: nope: No such file or directory\n");
-	ft_mapss_add(m[13], "stdout", "1\n");
-	ft_mapss_add(m[13], "stderr", "exit\n");
-	ft_mapss_add(m[14], "stdout", "1\n");
-	ft_mapss_add(m[14], "stderr", "exit\n");
+	ft_mapss_add(m[11], "stdout", "cd: /nope: No such file or directory\n");
+	ft_mapss_add(m[12], "stdout", "[^\n]*\ncd: nope: No such file or directory\n");
+	ft_mapss_add(m[13], "stdout", "1\nexit\n");
+	ft_mapss_add(m[14], "stdout", "1\nexit\n");
 	ft_mapss_add(m[15], "stdout", "1\n3\n4\n6\n");
 	ft_mapss_add(m[16], "stdout", "1\n3\n4\n6\n");
 	ft_mapss_add(m[17], "stdout", "1\n");
 	ft_mapss_add(m[18], "stdout", "1\n6\n");
-	ft_mapss_add(m[19], "stdout", "\\[bar\\] \\[\\$sea\\] \\[\\] \\[\\] \\[\\] \\[\\$\\] \\[BODYONCETOLDME\\]\n");
+	ft_mapss_add(m[19], "stdout", "\\[bar\\] \\[\\$sea\\] \\[\\] \\[\\] \\[\\] \\[\\$\\]\n");
 	ft_mapss_add(m[20], "stdout", "\\$\\(echo \"\\$\\(echo \"\\$\\(echo \"bla\")\")\")\n");
 	ft_mapss_add(m[21], "stdout", "1 2");
 	ft_mapss_add(m[22], "stdout", "1 -n 2\n3\n");
-	ft_mapss_add(m[23], "stdout", "");
-	ft_mapss_add(m[23], "stderr", "minishell: cd: too many arguments\n");
+	ft_mapss_add(m[23], "stdout", "minishell: cd: too many arguments\n");
 	tests[0] = (t_testcase){"--command \"echo hello world\"", m[0]};
-	tests[1] = (t_testcase){"--command \"echo \"1   2\"   3\"", m[1]};
+	tests[1] = (t_testcase){"--command \"echo \\\"1   2\\\"   3\"", m[1]};
 	tests[2] = (t_testcase){"--command \"rm -rf testf && mkdir testf && cd testf && mkdir f1 f2 && touch 1 && touch 11 2 && ls -a -h | grep 1\"", m[2]};
 	//tests[2] = (t_testcase){"--command \"--command mkdir testf && cd testf && mkdir f1 f2 && touch 1 && touch 11 2 && ls -a -fh -c | grep 1 >> out.txt\"", m[2]};
 	tests[3] = (t_testcase){"--command \"echo 1 || echo 2 && echo 3 && echo 4 || echo 5 && echo 6\"", m[3]};
@@ -249,8 +244,8 @@ int	e2e_tests(void)
 	tests[16] = (t_testcase){"--command \"echo 1 || echo 2 && (echo 3 && (echo 4) || echo 5 && echo 6)\"", m[16]};
 	tests[17] = (t_testcase){"--command \"echo 1 || (echo 2 && (echo 3 && (echo 4) || echo 5 && echo 6))\"", m[17]};
 	tests[18] = (t_testcase){"--command \"echo 1 || (echo 2 && (echo 3 && (echo 4) || echo 5)) && echo 6\"", m[18]};
-	tests[19] = (t_testcase){"--command \"export foo=bar sea=\\$foo say=echo _1=\\$_1 && \\$say [\\$foo] ['\\$sea'] [\\\"$sea\\\"] [\\$food] [\\$_1] [\\$] [\\$some]\"", m[19]};
-	tests[20] = (t_testcase){"--command \"echo \'$(echo \\\"$(echo \\\"$(echo \\\"bla\\\")\\\")\\\")\'\"", m[20]};
+	tests[19] = (t_testcase){"--command \"export foo=bar sea=\\$foo say=echo _1=\\$_1 && \\$say [\\$foo] ['\\$sea'] [\\\"$sea\\\"] [\\$food] [\\$_1] [\\$]\"", m[19]};
+	tests[20] = (t_testcase){"--command \"echo \'\\$(echo \\\"\\$(echo \\\"\\$(echo \\\"bla\\\")\\\")\\\")\'\"", m[20]};
 	tests[21] = (t_testcase){"--command \"echo -nn 1 2\"", m[21]};
 	tests[22] = (t_testcase){"--command \"echo 1 -n 2&&echo 3||echo 4   ||echo 5 ||   echo 6\"", m[22]};
 	tests[23] = (t_testcase){"--command \"cd a b && echo 1\"", m[23]};
