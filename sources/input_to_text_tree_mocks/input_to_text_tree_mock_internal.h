@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_to_text_tree_mock_internal.h                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 00:19:45 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/29 20:01:49 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/05 16:54:20 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,5 @@ int	mock_24(char *input, t_treenode *root, int *errno);
 int	mock_25(char *input, t_treenode *root, int *errno);
 int	mock_26(char *input, t_treenode *root, int *errno);
 int	mock_27(char *input, t_treenode *root, int *errno);
+int	mock_28(char *input, t_treenode *root, int *errno);
 #endif
