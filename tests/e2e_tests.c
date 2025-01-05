@@ -14,7 +14,7 @@
 #define START 0
 #define TRAP_START 0
 //#define DEBUG
-#define SZ 22
+#define SZ 24
 #define PRINT_MALLOC_FAILURE_NO
 #define PRINT_TEST_NO
 
@@ -207,26 +207,28 @@ int	e2e_tests(void)
 	ft_mapss_add(m[4], "stdout", "1\n3\n4\n6\n");
 	ft_mapss_add(m[5], "stdout", "1\n3\n4\n");
 	ft_mapss_add(m[6], "stdout", "Linux\n");
-	ft_mapss_add(m[7], "stdout", "HOME=/home/ioann\nsome=BODYONCETOLDME\nPATH=/usr/local/bin:/usr/sbin:/usr/bin:/sbin/bin\nPWD=/[^\n]*\none\ntwo   three\nfour\n");
-	ft_mapss_add(m[9], "stdout", "HOME=/home/ioann\nfoo=zah\nsome=BODYONCETOLDME\nPATH=/usr/local/bin:/usr/sbin:/usr/bin:/sbin/bin\nPWD=/[^\n]*\none\ntwo   three\nfour\n");
-	ft_mapss_add(m[10], "stdout", "/[^\n]*\n");
-	ft_mapss_add(m[11], "stdout", "/[^\n]*/testf\n");
-	ft_mapss_add(m[12], "stdout", "(/[^\n]*\n){2}");
-	ft_mapss_add(m[13], "stdout", "/usr/bin\n");
-	ft_mapss_add(m[14], "stdout", "cd: /nope: No such file or directory\n");
-	ft_mapss_add(m[15], "stdout", "[^\n]*\ncd: nope: No such file or directory\n");
-	ft_mapss_add(m[16], "stdout", "HOME=/home/ioann\nsome=BODYONCETOLDME\nPATH=/usr/local/bin:/usr/sbin:/usr/bin:/sbin/bin\nsome=BODYONCETOLDME\n");
-	ft_mapss_add(m[17], "stdout", "1\nexit\n");
-	ft_mapss_add(m[18], "stdout", "1\nexit\n");
-	ft_mapss_add(m[19], "stdout", "1\n3\n4\n6\n");
-	ft_mapss_add(m[20], "stdout", "1\n3\n4\n6\n");
-	ft_mapss_add(m[21], "stdout", "1\n");
-	ft_mapss_add(m[22], "stdout", "1\n6\n");
-	ft_mapss_add(m[23], "stdout", "\\[bar\\] \\[\\$sea\\] \\[\\] \\[\\] \\[\\] \\[\\] \\[\\$\\] \\[/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin/bin\\] \\[BODYONCETOLDME\\]\n");
-	ft_mapss_add(m[24], "stdout", "\\$\\(echo \"\\$\\(echo \"\\$\\(echo \"bla\")\")\")\n");
-	ft_mapss_add(m[25], "stdout", "1 2");
-	ft_mapss_add(m[26], "stdout", "1 -n 2\n3\n");
-	ft_mapss_add(m[27], "stdout", "minishell: cd: too many arguments\n");
+	ft_mapss_add(m[7], "stdout", "/[^\n]*\n");
+	ft_mapss_add(m[8], "stdout", "/[^\n]*/testf\n");
+	ft_mapss_add(m[9], "stdout", "(/[^\n]*\n){2}");
+	ft_mapss_add(m[10], "stdout", "/usr/bin\n");
+	ft_mapss_add(m[11], "stdout", "");
+	ft_mapss_add(m[11], "stderr", "cd: /nope: No such file or directory\n");
+	ft_mapss_add(m[12], "stdout", "/[^\n]*\n");
+	ft_mapss_add(m[12], "stderr", "[^\n]*\ncd: nope: No such file or directory\n");
+	ft_mapss_add(m[13], "stdout", "1\n");
+	ft_mapss_add(m[13], "stderr", "exit\n");
+	ft_mapss_add(m[14], "stdout", "1\n");
+	ft_mapss_add(m[14], "stderr", "exit\n");
+	ft_mapss_add(m[15], "stdout", "1\n3\n4\n6\n");
+	ft_mapss_add(m[16], "stdout", "1\n3\n4\n6\n");
+	ft_mapss_add(m[17], "stdout", "1\n");
+	ft_mapss_add(m[18], "stdout", "1\n6\n");
+	ft_mapss_add(m[19], "stdout", "\\[bar\\] \\[\\$sea\\] \\[\\] \\[\\] \\[\\] \\[\\$\\] \\[BODYONCETOLDME\\]\n");
+	ft_mapss_add(m[20], "stdout", "\\$\\(echo \"\\$\\(echo \"\\$\\(echo \"bla\")\")\")\n");
+	ft_mapss_add(m[21], "stdout", "1 2");
+	ft_mapss_add(m[22], "stdout", "1 -n 2\n3\n");
+	ft_mapss_add(m[23], "stdout", "");
+	ft_mapss_add(m[23], "stderr", "minishell: cd: too many arguments\n");
 	tests[0] = (t_testcase){"echo hello world", m[0]};
 	tests[1] = (t_testcase){"echo \"1   2\"   3", m[1]};
 	tests[2] = (t_testcase){"rm -rf testf && mkdir testf && cd testf && mkdir f1 f2 && touch 1 && touch 11 2 && ls -a -h | grep 1", m[2]};
