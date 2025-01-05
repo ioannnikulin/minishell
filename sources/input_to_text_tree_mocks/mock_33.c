@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 16:21:46 by taretiuk          #+#    #+#             */
-/*   Updated: 2025/01/05 19:39:23 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/05 20:08:05 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static t_treenode	*p1(t_treenode *cur, t_treenode *root)
 	return (tmp);
 }
 
-int	mock_28_tree(t_treenode *root)
+int	mock_33_tree(t_treenode *root)
 {
 	t_treenode	*cur;
 
