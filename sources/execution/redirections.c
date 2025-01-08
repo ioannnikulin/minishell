@@ -19,7 +19,8 @@ static int	child(t_executor *e, int tgt)
 		perror("dup2 failed\n");
 		return (ft_assign_i(&e->errno, 1, 1));
 	}
-	if (tgt != e->chain_length - 1 && dup2(e->fds[tgt][OUT], STDOUT_FILENO) == -1)
+	if (tgt != e->chain_length - 1 && dup2(e->fds[tgt][OUT], STDOUT_FILENO)
+		== -1)
 	{
 		perror("dup2 failed\n");
 		return (ft_assign_i(&e->errno, 1, 2));
