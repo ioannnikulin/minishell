@@ -20,7 +20,7 @@ MAPSS_NAMES = ft_mapss_print.c ft_mapss_add.c ft_mapss_insert.c ft_mapss_finaliz
 MAPSS_SRCS = $(addprefix $(SOURCES_F)/$(MAPSS_F)/, $(MAPSS_NAMES))
 
 TREE_F = tree
-TREE_NAMES = ft_tree_print.c ft_treenode_free.c ft_treenode_insert.c ft_tree_make.c ft_tree_apply.c ft_tree_print_wrappers.c ft_treenode_insert_wrappers.c ft_tree_cmp.c
+TREE_NAMES = ft_tree_print.c ft_treenode_free.c ft_treenode_insert.c ft_tree_make.c ft_tree_apply.c ft_tree_print_wrappers.c ft_treenode_insert_wrappers.c ft_tree_cmp.c ft_treenode_cut.c
 TREE_SRCS = $(addprefix $(SOURCES_F)/$(TREE_F)/, $(TREE_NAMES))
 
 MEM_F = memory
@@ -44,7 +44,7 @@ SYM_NAMES = ft_isalpha.c ft_isalnum.c ft_isascii.c ft_isdigit.c ft_is_in.c ft_is
 SYM_SRCS = $(addprefix $(SOURCES_F)/$(SYM_F)/, $(SYM_NAMES))
 
 PRINTF_F = printf
-PRINTF_NAMES = aux_printf.c ft_printf.c pad_n_put.c put_c.c put_d.c put_percent.c put_s.c put_u.c put_x.c put_p.c
+PRINTF_NAMES = aux_printf.c ft_printf.c pad_n_put.c put_c.c put_d.c put_percent.c put_s.c put_u.c put_x.c put_p.c ft_print_arr.c
 PRINTF_SRCS = $(addprefix $(SOURCES_F)/$(PRINTF_F)/, $(PRINTF_NAMES))
 
 GNL_F = get_next_line
@@ -95,7 +95,7 @@ DLIST_TEST_SRCS = $(addprefix $(TESTS_F)/$(DLIST_F)/, $(subst .c,_test.c,$(DLIST
 MAPSS_TEST_NAMES = mapss_test.c ft_mapss_add_test.c ft_mapss_print_test.c ft_mapss_gen_test.c ft_mapss_get_test.c ft_mapss_del_test.c ft_mapss_ncmp_test.c
 MAPSS_TEST_SRCS = $(addprefix $(TESTS_F)/$(MAPSS_F)/, $(MAPSS_TEST_NAMES))
 
-TREE_TEST_NAMES = tree_test.c ft_tree_print_test.c ft_treenode_insert_child_before_first_test.c ft_treenode_insert_child_idx_test.c
+TREE_TEST_NAMES = tree_test.c ft_tree_print_test.c ft_treenode_insert_child_before_first_test.c ft_treenode_insert_child_idx_test.c ft_treenode_cut_test.c
 TREE_TEST_SRCS = $(addprefix $(TESTS_F)/$(TREE_F)/, $(TREE_TEST_NAMES))
 
 MEM_TEST_NAMES = ft_bzero_test.c ft_memchr_test.c ft_memcmp_test.c ft_memcpy_test.c ft_memmove_test.c ft_memset_test.c memory_test.c

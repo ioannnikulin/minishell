@@ -6,15 +6,14 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 06:11:45 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/12/19 20:43:33 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/12/28 13:56:09 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tests_internal.h"
 #include "../sources/tokenizing/tokenizing.h"
-// #define DEBUG
-#define TEST
-#define NUM_TEST_CASES 14
+//#define DEBUG
+#define NUM_TEST_CASES 15
 #define MAX_ARGS 15
 #define START 0
 #define STOP NUM_TEST_CASES
@@ -68,6 +67,7 @@ static t_strings	init_string_array()
 	str_array.strs[11].str = strdup(")(())(");
 	str_array.strs[12].str = strdup("cat ( file1.txt file2.txt ) | grep \"keyword\"");
 	str_array.strs[13].str = strdup("[\"a\"]");
+	str_array.strs[14].str = strdup("(echo 1 && echo 1) | wc | wc");
 	return (str_array);
 }
 
@@ -94,6 +94,7 @@ void	tokenize_cmd_test()
 		{")", "(", "(", ")", ")", "(", NULL},
 		{"cat", "(", "file1.txt", "file2.txt", ")", "|", "grep", "\"keyword\"", NULL},
 		{"[\"a\"]", NULL},
+		{"(", "echo", "1", "&&", "echo", "1", ")", "|", "wc", "|", "wc", NULL},
 	};
 	for (int i = START; i < NUM_TEST_CASES; i ++)
 	{

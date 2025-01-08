@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 15:22:58 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/20 15:41:13 by taretiuk         ###   ########.fr       */
+/*   Updated: 2025/01/05 18:14:05 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define MINISHELL_H
 
 # include <stdio.h>
+# include <stddef.h>
 # include <stdlib.h>
 # include <unistd.h>
 # include <signal.h>
@@ -22,7 +23,6 @@
 # include "../libft/libft.h"
 # include "resources.h"
 # include "commands/commands.h"
-
 # include "tokenizing/tokenizing.h"
 # include "tree_make/tree_processing.h"
 
@@ -33,7 +33,8 @@
 # define DBG_PRINT_NODE_BEFORE_EXECUTION 16
 # define DBG_PRINT_TOKEN_BEFORE_EXPANSION 32
 # define DBG_ONE_CMD_ECHO 64
-# define DBG_FULL 127
+# define DBG_EXEC_CHAIN_PRINT_FDS 128
+# define DBG_FULL 255
 
 typedef unsigned long long	t_ull;
 
@@ -59,6 +60,10 @@ typedef struct s_param
 }	t_param;
 
 # define TEXT_TREE_ROOT "ROOT"
+# define TEXT_TREE_BLOCK "("
+
+// unused, keeping just in case
+# define TEXT_TREE_BLOCK_REDIR "["
 
 t_param	*param_alloc(void);
 int		param_init(t_param *param);
@@ -66,12 +71,10 @@ int		opts_fill(int argc, const char **argv, t_param *param);
 int		param_get_envvars(t_param *param, char **envp);
 int		finalize(t_param *param, int mode, char *message, int retval);
 int		input_to_text_tree(t_param *param);
-int		tokenize_cmd(const char *s, char ***p_ss);
+int		expand_tree(t_param *param);
 int		exec_text_tree(t_param *param);
-int		execute_text_tree_node(t_param *param, t_treenode *node);
 int		param_get_cur_dir(t_param *param);
 int		collect_path(t_dlist *head, char **where);
-int		unpack_block(t_treenode *node, char *open, char *close);
 int		expand(t_treenode *node, t_param *param);
 int		w_execve(char *fullpath, char **argv, char **envvars, t_param *param);
 void	pre(t_param *param);

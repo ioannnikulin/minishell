@@ -3,50 +3,46 @@
 /*                                                        :::      ::::::::   */
 /*   mock_28.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/05 16:21:46 by taretiuk          #+#    #+#             */
-/*   Updated: 2025/01/05 17:01:08 by taretiuk         ###   ########.fr       */
+/*   Created: 2024/09/14 23:07:09 by inikulin          #+#    #+#             */
+/*   Updated: 2024/12/13 15:46:10 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "input_to_text_tree_mock_internal.h"
 
-static t_treenode	*p1(t_treenode *cur, t_treenode *root)
-{
-	t_treenode	*tmp;
-
-	if (ft_treenode_insert_child_idx_s_dup(root, "(", 0) == -1)
-		return (0);
-	cur = root->child;
-	tmp = cur;
-	if (ft_treenode_insert_child_idx_s_dup(cur, "echo", 0) == -1
-		|| ft_treenode_insert_child_idx_s_dup(cur->child, "1", 0) == -1
-		|| ft_treenode_insert_child_idx_s_dup(cur, "&&", 1) == -1
-		|| ft_treenode_insert_child_idx_s_dup(cur, "(", 2) == -1
-	)
-		return (0);
-	cur = cur->child->sibling_next->sibling_next;
-	if (ft_treenode_insert_child_idx_s_dup(cur, "echo", 0) == -1
-		|| ft_treenode_insert_child_idx_s_dup(cur->child, "1", 0) == -1
-	)
-		return (0);
-	if (ft_treenode_insert_child_idx_s_dup(tmp, "|", 3) == -1
-		|| ft_treenode_insert_child_idx_s_dup(tmp, "wc", 4) == -1
-		|| ft_treenode_insert_child_idx_s_dup(root, "|", 1) == -1
-		|| ft_treenode_insert_child_idx_s_dup(root, "wc", 2) == -1)
-		return (0);
-	return (tmp);
-}
-
 int	mock_28_tree(t_treenode *root)
 {
-	t_treenode	*cur;
-
-	cur = 0;
-	cur = p1(cur, root);
-	if (!cur)
+	if (ft_treenode_insert_child_idx_s_dup(root, "echo", 0) == -1
+		|| ft_treenode_insert_child_idx_s_dup(root->child, "1", 0) == -1
+		|| ft_treenode_insert_child_idx_s_dup(root, "&&", 1) == -1
+		|| ft_treenode_insert_child_idx_s_dup(root, "echo", 2) == -1
+		|| ft_treenode_insert_child_idx_s_dup(root->child
+			->sibling_next->sibling_next, "1", 2) == -1
+		|| ft_treenode_insert_child_idx_s_dup(root, "|", 3) == -1
+		|| ft_treenode_insert_child_idx_s_dup(root, "wc", 4) == -1
+		|| ft_treenode_insert_child_idx_s_dup(root, "|", 5) == -1
+		|| ft_treenode_insert_child_idx_s_dup(root, "wc", 6) == -1
+	)
 		return (1);
+	return (0);
+}
+
+int	mock_28_tree_expanded(t_treenode *root)
+{
+	int		i;
+
+	i = mock_28_tree(root);
+	if (i)
+		return (i);
+	ft_treenode_insert_child_idx_s_nop(root, TEXT_TREE_BLOCK_REDIR, 2);
+	root = root->child->sibling_next->sibling_next;
+	root->child = ft_treenode_cut(root->parent, 3, 6);
+	root = root->sibling_prev;
+	ft_treenode_insert_child_idx_s_nop(root->parent, TEXT_TREE_BLOCK_REDIR, 2);
+	root = root->sibling_next;
+	root->child = ft_treenode_cut(root->parent, 3, 6);
 	return (0);
 }
 

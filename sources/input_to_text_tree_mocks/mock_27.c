@@ -26,6 +26,11 @@ int	mock_27_tree(t_treenode *root)
 	return (0);
 }
 
+int	mock_27_tree_expanded(t_treenode *root)
+{
+	return (mock_27_tree(root));
+}
+
 /* returns 1 on success - to allow condition usage outside */
 int	mock_27(char *input, t_treenode *root, int *errno)
 {

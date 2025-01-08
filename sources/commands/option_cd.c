@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 00:08:15 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/05 14:58:00 by taretiuk         ###   ########.fr       */
+/*   Updated: 2025/01/05 18:10:00 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,28 +72,26 @@ static int	couldnt(t_treenode *node, char *fullpath, int *ret, int errno)
 // return value is ignored
 // check on nonexisting folders
 // check on unset HOME
-int	option_cd(t_control control, t_treenode *node, t_param *param)
+int	option_cd(t_executor *control, t_treenode *node, t_param *param)
 {
 	char	*fullpath;
 	t_dlist	*envvars;
 	int		errno;
 
-	if (*control.found || !control.choice)
-		return (0);
-	*control.found = 1;
+	control->found = 1;
 	if (node->child && node->child->sibling_next)
-		return (couldnt(0, 0, control.retval, 7));
+		return (couldnt(0, 0, &control->retval, 7));
 	errno = 0;
 	fullpath = get_checked_path(node, param->envvar_path_head->content,
 			param->envvars, &errno);
 	if (!fullpath || chdir(fullpath) != 0)
-		return (couldnt(node, fullpath, control.retval, errno));
+		return (couldnt(node, fullpath, &control->retval, errno));
 	envvars = param->envvar_path_head->next;
 	ft_dlist_delone(param->envvar_path_head, ft_free_s);
 	param->envvar_path_head = envvars;
 	envvars->prev = 0;
 	param_get_cur_dir(param);
-	*control.retval = 0;
+	control->retval = 0;
 	free(fullpath);
 	return (1);
 }
