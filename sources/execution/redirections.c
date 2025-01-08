@@ -14,12 +14,12 @@
 
 static int	child(t_executor *e, int tgt)
 {
-	if (tgt != 0 && dup2(e->fds[tgt][IN], STDIN_FILENO))
+	if (tgt != 0 && dup2(e->fds[tgt][IN], STDIN_FILENO) == -1)
 	{
 		perror("dup2 failed\n");
 		return (ft_assign_i(&e->errno, 1, 1));
 	}
-	if (tgt != e->chain_length - 1 && dup2(e->fds[tgt][OUT], STDOUT_FILENO))
+	if (tgt != e->chain_length - 1 && dup2(e->fds[tgt][OUT], STDOUT_FILENO) == -1)
 	{
 		perror("dup2 failed\n");
 		return (ft_assign_i(&e->errno, 1, 2));
