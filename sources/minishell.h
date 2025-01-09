@@ -65,6 +65,8 @@ typedef struct s_param
 # define TEXT_TREE_ROOT "ROOT"
 # define TEXT_TREE_BLOCK "("
 
+# define TEXT_TREE_BLOCK_REDIR "["
+
 t_param	*param_alloc(void);
 int		param_init(t_param *param);
 int		opts_fill(int argc, const char **argv, t_param *param);
