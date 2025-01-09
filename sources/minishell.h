@@ -65,9 +65,6 @@ typedef struct s_param
 # define TEXT_TREE_ROOT "ROOT"
 # define TEXT_TREE_BLOCK "("
 
-// unused, keeping just in case
-# define TEXT_TREE_BLOCK_REDIR "["
-
 t_param	*param_alloc(void);
 int		param_init(t_param *param);
 int		opts_fill(int argc, const char **argv, t_param *param);
@@ -80,7 +77,6 @@ int		param_get_cur_dir(t_param *param);
 int		collect_path(t_dlist *head, char **where);
 int		expand(t_treenode *node, t_param *param);
 int		w_execve(char *fullpath, char **argv, char **envvars, t_param *param);
-int		w_perror(char **ss);
 void	pre(t_param *param);
 void	post(t_param *param);
 #endif
