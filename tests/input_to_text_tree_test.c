@@ -39,7 +39,7 @@ static int	a_test(t_param *param, char *input, int (*treegen)(t_treenode *), int
 
 int	input_to_text_tree_test(void)
 {
-	t_param	*param = ft_calloc(sizeof(t_param), 1);
+	t_param	*param = calloc(1, sizeof(t_param));
 	param->text_tree = ft_tree_make();
 	assert(a_test(param, MOCK_00_TEXT, mock_00_tree, 0) == 0);
 	assert(a_test(param, MOCK_01_TEXT, mock_01_tree, 1) == 0);

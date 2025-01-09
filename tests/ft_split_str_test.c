@@ -69,7 +69,7 @@ static t_strings	create_string_array()
 	t_strings	str_array;
 	str_array.count = NUM_TEST_CASES;
 	str_array.error = 0;
-	str_array.strs = ft_calloc_if(sizeof(t_string) * str_array.count, 1);
+	str_array.strs = calloc(str_array.count, sizeof(t_string));
 	if (str_array.strs == NULL)
 	{
 		fprintf(stderr, "Memory allocation failed for str_array.strs\n");

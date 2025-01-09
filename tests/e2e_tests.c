@@ -79,7 +79,7 @@ static int	file_compare(char *exp_content, char *act_fname)
 	fseek(f, 0, SEEK_END);
 	long fsize = ftell(f);
 	fseek(f, 0, SEEK_SET);
-	char *act = ft_calloc(sizeof(char), fsize + 1);
+	char *act = calloc(fsize + 1, sizeof(char));
 	assert(act);
 	fread(act, fsize, 1, f);
 	act[fsize] = 0;
@@ -192,7 +192,7 @@ static void	malloc_failure_recoveries(char *cmd, int mallocs, int from_mallocs)
 		free(is);
 		assert(!!tmp);
 		system(tmp);
-		char *err = ft_calloc(sizeof(char *), 256);
+		char *err = calloc(256, sizeof(char *));
 		int fd = open("e2e.stderr", O_RDONLY, 0600);
 		read(fd, err, 256);
 		int i = 0;

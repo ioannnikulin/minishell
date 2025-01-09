@@ -47,7 +47,7 @@ static t_strings	init_string_array()
 	t_strings	str_array;
 	str_array.count = NUM_TEST_CASES;
 	str_array.error = 0;
-	str_array.strs = ft_calloc_if(sizeof(t_string) * str_array.count, 1);
+	str_array.strs = calloc(str_array.count, sizeof(t_string));
 	assert(str_array.strs != NULL);
 	for (int i = 0; i < (int)str_array.count; i++)
 	{

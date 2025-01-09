@@ -2,8 +2,8 @@ CC = cc
 NAME = minishell
 COMPILE_FLAGS = -Wall -Wextra -Werror -g -c
 LINK_FLAGS = -lft -Llibft -lreadline
-PREFIX = @
-PREPROC_DEFINES = -DPRINTF_ALLOWED
+PREFIX = 
+PREPROC_DEFINES = 
 
 SOURCE_F = sources
 TEST_F = tests
@@ -52,7 +52,7 @@ COMMANDS_NAMES = option_cd.c option_echo.c option_env.c option_exit.c option_exp
 COMMANDS_F = commands
 COMMANDS_SRCS = $(addprefix $(COMMANDS_F)/,$(COMMANDS_NAMES))
 
-SRC_NAMES = $(EXTERNAL_OPTIONS_SRCS) $(INTERNAL_SETTINGS_SRCS) input_to_text_tree.c $(INPUT_TO_TEXT_TREE_MOCK_SRCS) $(SPLIT_SRCS) $(TOKENIZING_SRCS) $(TREE_MAKE_SRCS) $(TREE_EXPANSION_SRCS) $(COMMAND_EXPANSION_SRCS) $(EXECUTION_SRCS) $(COMMANDS_SRCS) w_perror.c
+SRC_NAMES = $(EXTERNAL_OPTIONS_SRCS) $(INTERNAL_SETTINGS_SRCS) input_to_text_tree.c $(INPUT_TO_TEXT_TREE_MOCK_SRCS) $(SPLIT_SRCS) $(TOKENIZING_SRCS) $(TREE_MAKE_SRCS) $(TREE_EXPANSION_SRCS) $(COMMAND_EXPANSION_SRCS) $(EXECUTION_SRCS) $(COMMANDS_SRCS)
 ENDPOINT_NAME = main.c
 
 SRC_SRCS = $(addprefix $(SOURCE_F)/, $(SRC_NAMES))
@@ -91,7 +91,7 @@ $(OBJ_DIRS):
 	$(PREFIX)mkdir -p $(OBJ_DIRS)
 
 pre:
-	$(PREFIX)cd libft && make all_stdprintf
+	$(PREFIX)cd libft && make all
 
 $(NAME): $(OBJS) $(ENDPOINT_OBJ)
 	$(PREFIX)$(CC) $(OBJS) $(ENDPOINT_OBJ) -o $@ $(LINK_FLAGS)
@@ -151,7 +151,7 @@ memcheck_interactive:
 	$(PREFIX)valgrind --suppressions=tests/valgrind.supp --leak-check=full --show-leak-kinds=all ./$(NAME) --interactive
 
 fulltest_common:
-	$(PREFIX)cd libft && make fulltest_trapped_stdprintf
+	$(PREFIX)cd libft && make fulltest_trapped
 	$(PREFIX)make fclean testfclean
 	$(PREFIX)cd sources && norminette
 	$(PREFIX)make all_trapped
@@ -187,7 +187,7 @@ all_trapped:
 	$(PREFIX)make PREPROC_DEFINES="$(PREPROC_DEFINES) -DFT_CALLOC_IF_TRAPPED" all
 
 vania:
-	$(PREFIX)cd libft && make fulltest_trapped_stdprintf_nonorm
+	$(PREFIX)cd libft && make fulltest_trapped_nonorm
 	$(PREFIX)make fclean testfclean
 	$(PREFIX)make minivania
 

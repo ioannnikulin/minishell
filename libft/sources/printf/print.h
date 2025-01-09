@@ -15,8 +15,10 @@
 # ifdef PRINTF_ALLOWED
 #  include <stdio.h>
 #  define FT_PRINTF printf
+#  define FT_FPRINTF fprintf
 # else
 #  define FT_PRINTF ft_printf
+#  define FT_FPRINTF ft_fprintf
 
 int	ft_printf(const char *s, ...);
 int	ft_fprintf(int fd, const char *s, ...);

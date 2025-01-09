@@ -16,25 +16,17 @@
 static int	dbg(char *fullpath, char **argv, char **envvars)
 {
 	int		i;
-	char	*status[2];
 
-	w_perror(ft_s4("starting: ", fullpath, "\nargs:\n", 0));
+	FT_FPRINTF(STDERR, "starting: %s\nargs:\n", fullpath);
 	i = -1;
 	while (argv[++ i])
-		w_perror(ft_s3(" ", argv[i], 0));
-	perror("\nenvvars:\n");
+		FT_FPRINTF(STDERR, "%s ", argv[i]);
+	FT_FPRINTF(STDERR, "\nenvvars:\n");
 	i = -1;
 	while (envvars[++ i])
-		w_perror(ft_s3(" ", envvars[i], 0));
-	status[0] = ft_itoa(fcntl(STDIN_FILENO, F_GETFD));
-	status[1] = ft_itoa(fcntl(STDOUT_FILENO, F_GETFD));
-	if (!status[0] || !status[1])
-		return (1);
-	w_perror(ft_s4("\nin status: ", status[0], "\n", 0));
-	w_perror(ft_s4("\nout status: ", status[1], "\n", 0));
-	perror("\n\n");
-	free(status[0]);
-	free(status[1]);
+		FT_FPRINTF(STDERR, "%s ", envvars[i]);
+	FT_FPRINTF(STDERR, "\nin status: %i\n", fcntl(STDIN_FILENO, F_GETFD));
+	FT_FPRINTF(STDERR, "\nout status: %i\n\n\n", fcntl(STDOUT_FILENO, F_GETFD));
 	return (0);
 }
 

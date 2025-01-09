@@ -14,8 +14,7 @@
 
 static int	invalid(char *src)
 {
-	w_perror(ft_s6(ft_s4("export: ", src, ": ",
-				ERR_EXPORT_INVALID), "\n", 0));
+	FT_FPRINTF(STDERR, "export: %s: %s\n", src, ERR_EXPORT_INVALID);
 	return (1);
 }
 
@@ -48,7 +47,7 @@ static int	path(char *key, char *val, t_dlist **path_head)
 
 static int	err_malloc(char *key, char *val, int *errno)
 {
-	w_perror(ft_s4("export: ", ERR_MALLOC, "\n", 0));
+	FT_FPRINTF(STDERR, "export: %s\n", ERR_MALLOC);
 	ft_assign_i(errno, 1, 0);
 	free(key);
 	free(val);

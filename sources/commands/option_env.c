@@ -23,7 +23,7 @@ int	option_env(t_executor *control, t_treenode *node, t_param *param)
 	lines = get_envvars_for_execve(param);
 	if (!lines)
 	{
-		w_perror(ft_s4("env: ", ERR_MALLOC, "%s\n", 0));
+		FT_FPRINTF(STDERR, "env: %s\n", ERR_MALLOC);
 		return (1);
 	}
 	i = -1;

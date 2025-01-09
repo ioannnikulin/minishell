@@ -1,7 +1,7 @@
 CC = cc
 NAME = libft.a
 CFLAGS = -Wall -Wextra -Werror -g
-FTPREFIX = @
+FTPREFIX = 
 PREPROC_DEFINES =
 
 SOURCES_F = sources
