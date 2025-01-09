@@ -12,13 +12,21 @@
 
 #include "execution_internal.h"
 
-static void	child(t_executor *e, int tgt)
+static int	child(t_executor *e, int tgt)
 {
-	if (tgt != 0)
-		dup2(e->fds[tgt][IN], STDIN_FILENO);
-	if (tgt != e->chain_length - 1)
-		dup2(e->fds[tgt][OUT], STDOUT_FILENO);
-	close_pipes(e);
+	if (tgt != 0 && dup2(e->fds[tgt][IN], STDIN_FILENO) == -1)
+	{
+		perror("dup2 failed\n");
+		return (ft_assign_i(&e->errno, 1, 1));
+	}
+	if (tgt != e->chain_length - 1 && dup2(e->fds[tgt][OUT], STDOUT_FILENO)
+		== -1)
+	{
+		perror("dup2 failed\n");
+		return (ft_assign_i(&e->errno, 1, 2));
+	}
+	if (close_pipes(e))
+		return (ft_assign_i(&e->errno, 1, 3));
 	execute_text_tree_node(e);
 	exit(0);
 }
@@ -29,7 +37,8 @@ static int	chain_parent(t_executor *e)
 	int	res;
 	int	cur_res;
 
-	close_pipes(e);
+	if (close_pipes(e) || e->errno)
+		return (ft_assign_i(&e->errno, 1, 1));
 	i = -1;
 	while (++i < e->chain_length)
 	{
@@ -60,8 +69,8 @@ static int	exec_chain(t_executor *e)
 			e->pids[i] = fork();
 			if (e->pids[i] == -1)
 				return (ft_assign_i(&e->errno, 1, 1));
-			if (e->pids[i] == 0)
-				child(e, i);
+			if (e->pids[i] == 0 && child(e, i))
+				return (ft_assign_i(&e->errno, 1, 2));
 		}
 		if (i != e->chain_length - 1)
 			e->node = e->node->sibling_next->sibling_next;

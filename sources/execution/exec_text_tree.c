@@ -47,8 +47,6 @@ int	exec_rec(t_executor *e)
 {
 	t_treenode	*parent;
 
-	if (!e)
-		return (0);
 	if (e->node && e->node->sibling_next
 		&& is_pipe_or_redir(e->node->sibling_next->content))
 		redirections(e);

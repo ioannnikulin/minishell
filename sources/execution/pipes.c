@@ -19,10 +19,16 @@ int	close_pipes(t_executor *e)
 	i = -1;
 	while (++i < e->chain_length)
 	{
-		if (e->fds[i][IN] != STDIN_FILENO)
-			close(e->fds[i][IN]);
-		if (e->fds[i][OUT] != STDOUT_FILENO)
-			close(e->fds[i][OUT]);
+		if (e->fds[i][IN] != STDIN_FILENO && close(e->fds[i][IN]))
+		{
+			perror("close failed");
+			return (ft_assign_i(&e->errno, 1, 1));
+		}
+		if (e->fds[i][OUT] != STDOUT_FILENO && close(e->fds[i][OUT]))
+		{
+			perror("close failed");
+			return (ft_assign_i(&e->errno, 1, 1));
+		}
 	}
 	return (0);
 }
