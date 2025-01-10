@@ -33,7 +33,7 @@ static char	*read_input(void)
 			line[nread - 1] = '\0';
 		return (line);
 	}
-	perror(TXT_INVITATION);
+	FT_FPRINTF(STDERR, TXT_INVITATION);
 	return (readline(0));
 }
 

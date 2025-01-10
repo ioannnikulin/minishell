@@ -30,7 +30,7 @@ int	option_exit(t_executor *control, t_treenode *node, t_param *param)
 		ft_assign_i(&control->retval, 1, FT_FPRINTF(STDERR,
 				"%s: exit: %s", TXT_MINISHELL, ERR_EXIT_NO_NUMBER));
 	else
-		perror("exit\n");
+		FT_FPRINTF(STDERR, "exit\n");
 	control->retval %= 256;
 	param->opts.exiting = 1;
 	return (1);

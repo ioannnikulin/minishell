@@ -44,7 +44,7 @@ COMMAND_EXPANSION_NAMES = substitute_envvars.c expand.c
 COMMAND_EXPANSION_F = command_expansion
 COMMAND_EXPANSION_SRCS = $(addprefix $(COMMAND_EXPANSION_F)/, $(COMMAND_EXPANSION_NAMES))
 
-EXECUTION_NAMES = exec_text_tree.c exec_text_tree_node.c exec_text_tree_controls.c redirections.c pipes.c files.c
+EXECUTION_NAMES = exec_text_tree.c exec_text_tree_node.c exec_text_tree_controls.c redirections.c pipes.c files.c is_pipe.c is_file.c
 EXECUTION_F = execution
 EXECUTION_SRCS = $(addprefix $(EXECUTION_F)/, $(EXECUTION_NAMES))
 
@@ -193,3 +193,13 @@ vania:
 
 minivania:
 	$(PREFIX)make all test && ./$(TEST_FNAME)
+
+CMD = "rm -f out.txt && echo a > out.txt"
+#"rm -rf testf out.txt && mkdir testf && cd testf && mkdir f1 f2 && touch 1 && touch 11 2 && ls -a -h | grep 1 | grep 1 > out.txt"
+
+run:
+	$(PREFIX)./minishell --debug 136 --command $(CMD)
+debug:
+	$(PREFIX)gdbtui --args ./minishell --debug 136 --command $(CMD)
+memcheck:
+	$(PREFIX)valgrind --suppressions=tests/valgrind.supp --child-silent-after-fork=yes --track-fds=yes --leak-check=full --show-leak-kinds=all ./minishell --debug 136 --command $(CMD)

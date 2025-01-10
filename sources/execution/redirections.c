@@ -14,19 +14,24 @@
 
 static int	child(t_executor *e, int tgt)
 {
-	if (tgt != 0 && dup2(e->fds[tgt][IN], STDIN_FILENO) == -1)
+	FT_FPRINTF(STDERR, "starting child %i\n", tgt);
+	if ((e->fds[tgt][TYPE] & (PIPE | LAST_IN_PIPE))
+		&& dup2(e->fds[tgt][IN], STDIN_FILENO) == -1)
 	{
-		perror("dup2 failed\n");
-		return (ft_assign_i(&e->errno, 1, 1));
+		FT_FPRINTF(STDERR, "%i: dup2 failed for input file descriptor %i\n",
+			tgt, e->fds[tgt][IN]);
+		return (ft_assign_i(&e->errno, 4, 4));
 	}
-	if (tgt != e->chain_length - 1 && dup2(e->fds[tgt][OUT], STDOUT_FILENO)
-		== -1)
+	if ((e->fds[tgt][TYPE] & (PIPE | FIRST_IN_PIPE | TO_FILE))
+		&& dup2(e->fds[tgt][OUT], STDOUT_FILENO) == -1)
 	{
-		perror("dup2 failed\n");
-		return (ft_assign_i(&e->errno, 1, 2));
+		
+		FT_FPRINTF(STDERR, "%i: dup2 failed for output file descriptor %i\n",
+			tgt, e->fds[tgt][OUT]);
+		return (ft_assign_i(&e->errno, 5, 5));
 	}
-	if (close_pipes(e))
-		return (ft_assign_i(&e->errno, 1, 3));
+	if (close_pipes(e, tgt))
+		return (ft_assign_i(&e->errno, 6, 6));
 	execute_text_tree_node(e);
 	exit(0);
 }
@@ -35,19 +40,21 @@ static int	chain_parent(t_executor *e)
 {
 	int	i;
 	int	res;
-	int	cur_res;
 
-	if (close_pipes(e) || e->errno)
-		return (ft_assign_i(&e->errno, 1, 1));
 	i = -1;
 	while (++i < e->chain_length)
 	{
-		cur_res = parent(e->pids[i], &e->errno);
-		if (i == e->chain_length - 1)
-			res = cur_res;
-		if (e->errno != 0)
-			return (1);
+		if (!(e->fds[i][TYPE] & ANY_FILE))
+		{
+			res = parent(e->pids[i], &e->errno);
+			if (e->errno != 0)
+				return (1);
+		}
+		if (i < e->chain_length - 1)
+			e->node = e->node->sibling_next->sibling_next;
 	}
+	if (close_pipes(e, -1) || e->errno)
+		return (ft_assign_i(&e->errno, 1, 1));
 	e->param->opts.retval = res;
 	e->retval = res;
 	return (res);
@@ -55,25 +62,28 @@ static int	chain_parent(t_executor *e)
 
 static int	exec_chain(t_executor *e)
 {
-	int	i;
+	int			i;
+	t_treenode	*node;
 
 	free(e->pids);
 	e->pids = ft_calloc_if(sizeof(pid_t) * e->chain_length, 1);
 	if (!e->pids)
-		return (ft_assign_i(&e->errno, 2, 2));
+		return (ft_assign_i(&e->errno, 7, 7));
 	i = -1;
+	node = e->node;
 	while (++i < e->chain_length)
 	{
-		if (takes_part_in_pipe(e->node))
+		if (!(e->fds[i][TYPE] & ANY_FILE))
 		{
+			FT_FPRINTF(STDERR, "forking %i\n", i);
 			e->pids[i] = fork();
 			if (e->pids[i] == -1)
-				return (ft_assign_i(&e->errno, 1, 1));
+				return (ft_assign_i(&e->errno, 8, 8));
 			if (e->pids[i] == 0 && child(e, i))
-				return (ft_assign_i(&e->errno, 1, 2));
+				return (ft_assign_i(&e->errno, 8, 8));
 		}
 		if (i != e->chain_length - 1)
-			e->node = e->node->sibling_next->sibling_next;
+			node = node->sibling_next->sibling_next;
 	}
 	return (chain_parent(e));
 }
@@ -89,13 +99,13 @@ static int	alloc(t_treenode *node, int ***fds, int *sz)
 		(*sz)++;
 		node = node->sibling_next->sibling_next;
 	}
-	*fds = ft_calloc_if(sizeof(int [2]) * (*sz + 1), 1);
+	*fds = ft_calloc_if(sizeof(int *) * (*sz + 1), 1);
 	if (!*fds)
 		return (1);
 	i = -1;
 	while (++i < *sz + 1)
 	{
-		(*fds)[i] = ft_calloc_if(sizeof(int) * 2, 1);
+		(*fds)[i] = ft_calloc_if(sizeof(int) * 3, 1);
 		if (!(*fds)[i])
 			return (2);
 	}
@@ -120,17 +130,20 @@ int	redirections(t_executor *e)
 		e->fds[i][OUT] = OUT;
 		if (i + 1 != e->chain_length)
 			e->fds[i + 1][IN] = IN;
-		if (takes_part_in_pipe(e->node))
+		if (takes_part_in_pipe(node))
 		{
-			if (setup_pipe(e, i) != 0)
+			if (setup_pipe(e, node, i) != 0)
 				return (ft_assign_i(&e->errno, 2, 2));
 		}
-		else if (node->sibling_next && setup_file(e, node, i) != 0)
-			return (ft_assign_i(&e->errno, 3, 3));
+		if (takes_part_in_file(node))
+		{
+			if (setup_file(e, node, i) != 0)
+				return (ft_assign_i(&e->errno, 13, 13));
+		}
 		if (node->sibling_next)
 			node = node->sibling_next->sibling_next;
 	}
 	if (e->param->opts.debug_output_level & DBG_EXEC_CHAIN_PRINT_FDS)
-		ft_print_arr_i_2(e->fds, e->chain_length, 2);
+		ft_print_arr_i_2(e->fds, e->chain_length, 3);
 	return (exec_chain(e));
 }

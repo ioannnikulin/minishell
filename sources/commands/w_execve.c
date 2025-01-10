@@ -42,8 +42,10 @@ int	parent(pid_t pid, int *errno)
 			break ;
 	}
 	if (done == -1)
-		return (ft_assign_i(errno, 3, 0));
-	return (status >> 8);
+		return (ft_assign_i(errno, 23, 0));
+	if ((status & 0x7f) == 0)
+		return (status >> 8);
+	return (ft_assign_i(errno, 24, 0));
 }
 
 // emulate execve failure to make sure no memory leaks here
@@ -60,7 +62,7 @@ int	w_execve(char *fullpath, char **argv, char **envvars, t_param *param)
 	{
 		if ((param->opts.debug_output_level & DBG_EXECVE_PREPRINT)
 			&& dbg(fullpath, argv, envvars))
-			return (ft_assign_i(&param->opts.errno, 3, 0));
+			return (ft_assign_i(&param->opts.errno, 33, 0));
 		if (param->opts.sigint_handler)
 			signal(SIGINT, param->opts.sigint_handler);
 		execve(fullpath, argv, envvars);

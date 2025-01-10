@@ -11,10 +11,10 @@
 /* ************************************************************************** */
 
 #include "tests_internal.h"
-#define START 0
+#define START 3
 #define TRAP_START 0
-//#define DEBUG
-#define SZ 24
+#define DEBUG
+#define SZ 26
 #define PRINT_MALLOC_FAILURE_NO
 #define PRINT_TEST_NO
 
@@ -121,14 +121,14 @@ static int	t_execve(char *cmd)
 	assert(pid != -1);
 	if (pid == 0)
 	{
-		int argc = 4;//6;
+		int argc = 6;
 		char **argv = calloc(sizeof(char *), argc);
 		assert(argv);
 		argv[0] = "./e2e_f/minishell";
-		// argv[1] = "--debug";
-		// argv[2] = "256";
+		argv[1] = "--debug";
+		argv[2] = "256";
 		argv[argc - 3] = "--command";
-		argv[argc - 2] = cmd;
+		argv[argc - 2] = ft_strjoin("cd e2e_f && ", cmd);
 		argv[argc - 1] = 0;
 		execve(argv[0], argv, environ);
 		exit(1);
@@ -224,7 +224,8 @@ int	e2e_tests(void)
 	t_testcase empty_test = (t_testcase){"exit", empty_m, 0};
 	ft_mapss_add(m[0], "stdout", "hello world\n");
 	ft_mapss_add(m[1], "stdout", "1   2 3\n");
-	ft_mapss_add(m[2], "stdout", "1\n11\nf1\n");
+	ft_mapss_add(m[2], "testf/out.txt", "1\n11\nf1\n");
+	ft_mapss_add(m[2], "stdout", "");
 	ft_mapss_add(m[3], "stdout", "1\n3\n4\n6\n");
 	ft_mapss_add(m[4], "stdout", "1\n3\n4\n6\n");
 	ft_mapss_add(m[5], "stdout", "1\n3\n4\n");
@@ -251,10 +252,13 @@ int	e2e_tests(void)
 	ft_mapss_add(m[22], "stdout", "1 -n 2\n3\n");
 	ft_mapss_add(m[23], "stderr", "minishell: cd: too many arguments\n");
 	ft_mapss_add(m[23], "stdout", "");
+	ft_mapss_add(m[24], "stdout", "");
+	ft_mapss_add(m[24], "out.a", "2");
+	ft_mapss_add(m[25], "stdout", "");
+	ft_mapss_add(m[25], "out.a", "1\n2");
 	tests[0] = (t_testcase){"echo hello world", m[0], 0};
 	tests[1] = (t_testcase){"echo \"1   2\"   3", m[1], 0};
-	tests[2] = (t_testcase){"rm -rf testf && mkdir testf && cd testf && mkdir f1 f2 && touch 1 && touch 11 2 && ls -a -h | grep 1", m[2], 0};
-	//tests[2] = (t_testcase){"--command mkdir testf && cd testf && mkdir f1 f2 && touch 1 && touch 11 2 && ls -a -fh -c | grep 1 >> out.txt", m[2], 0};
+	tests[2] = (t_testcase){"rm -rf testf out.txt && mkdir testf && cd testf && mkdir f1 f2 && touch 1 && touch 11 2 && ls -a -h | grep 1 >> out.txt", m[2], 0};
 	tests[3] = (t_testcase){"echo 1 || echo 2 && echo 3 && echo 4 || echo 5 && echo 6", m[3], 0};
 	tests[4] = (t_testcase){"echo 1 || echo 2 && (echo 3 && echo 4 || echo 5 && echo 6)", m[4], 0};
 	tests[5] = (t_testcase){"echo 1 || echo 2 && (echo 3 && echo 4 || (echo 5 && echo 6))", m[5], 0};
@@ -276,6 +280,9 @@ int	e2e_tests(void)
 	tests[21] = (t_testcase){"echo -nn 1 2", m[21], 0};
 	tests[22] = (t_testcase){"echo 1 -n 2&&echo 3||echo 4   ||echo 5 ||   echo 6", m[22], 0};
 	tests[23] = (t_testcase){"cd a b && echo 1", m[23], 1};
+	tests[24] = (t_testcase){"rm -f out.a && echo 1 > out.a && echo 2 > out.a", m[24], 0};
+	tests[25] = (t_testcase){"rm -f out.a && echo 1 >> out.a && echo 2 >> out.a", m[25], 0};
+
 	// multiple pipes (see mocks 29-30) will not be tested here, they produce strange errors in this testing suite, though they run normally when being started as separate commands. something to do with STDOUT being intercepted for tests probably.
 	
 	int	empty_call_mallocs = 0;

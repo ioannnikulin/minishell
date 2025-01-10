@@ -12,34 +12,54 @@
 
 #include "execution_internal.h"
 
-int	close_pipes(t_executor *e)
+// ANY_FILE suspicious
+int	close_pipes(t_executor *e, int source)
 {
 	int	i;
 
 	i = -1;
 	while (++i < e->chain_length)
 	{
-		if (e->fds[i][IN] != STDIN_FILENO && close(e->fds[i][IN]))
+		if (e->fds[i][IN] != STDIN_FILENO && fcntl(e->fds[i][IN], F_GETFD) != -1)
 		{
-			perror("close failed");
-			return (ft_assign_i(&e->errno, 1, 1));
+			FT_FPRINTF(STDERR, "%i in closing %i, type %i\n", source, e->fds[i][IN], e->fds[i][TYPE]);
+			if (close(e->fds[i][IN]))
+			{
+				FT_FPRINTF(STDERR, "%i in close failed %i\n", source, e->fds[i][IN]);
+				return (ft_assign_i(&e->errno, 1, 1));
+			}
+			e->fds[i][IN] = STDIN_FILENO;
 		}
-		if (e->fds[i][OUT] != STDOUT_FILENO && close(e->fds[i][OUT]))
+		if (e->fds[i][OUT] != STDOUT_FILENO && fcntl(e->fds[i][OUT], F_GETFD) != -1)
 		{
-			perror("close failed");
-			return (ft_assign_i(&e->errno, 1, 1));
+			FT_FPRINTF(STDERR, "%i out closing %i, type %i\n", source, e->fds[i][OUT], e->fds[i][TYPE]);
+			if (close(e->fds[i][OUT]))
+			{
+				FT_FPRINTF(STDERR, "%i out close failed %i\n", source, e->fds[i][OUT]);
+				return (ft_assign_i(&e->errno, 2, 2));
+			}
+			e->fds[i][OUT] = STDOUT_FILENO;
 		}
 	}
 	return (0);
 }
 
-int	setup_pipe(t_executor *e, int i)
+int	setup_pipe(t_executor *e, t_treenode *node, int i)
 {
 	int	p[2];
 
-	if (pipe(p) < 0)
-		return (ft_assign_i(&e->errno, 2, 2));
-	e->fds[i][OUT] = p[OUT];
-	e->fds[i + 1][IN] = p[IN];
+	if (to_pipe(node))
+	{
+		if (pipe(p) < 0)
+			return (ft_assign_i(&e->errno, 2, 2));
+		e->fds[i][OUT] = p[OUT];
+		e->fds[i + 1][IN] = p[IN];
+	}
+	if (!from_pipe(node))
+		e->fds[i][TYPE] |= FIRST_IN_PIPE;
+	if (!to_pipe(node))
+		e->fds[i][TYPE] |= LAST_IN_PIPE;
+	if (e->fds[i][TYPE] == 0)
+		e->fds[i][TYPE] |= PIPE;
 	return (0);
 }

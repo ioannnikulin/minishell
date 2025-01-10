@@ -33,6 +33,15 @@ typedef struct s_executor
 
 # define IN 0
 # define OUT 1
+# define TYPE 2
+# define FIRST_IN_PIPE 1
+# define PIPE 2
+# define LAST_IN_PIPE 4
+# define LAST_FILE 8
+# define DUMMY_FILE 16
+# define ANY_FILE 24
+# define ANY_PIPE 7
+# define TO_FILE 32
 
 t_executor	*make_executor(t_treenode *node, t_param *param);
 int			executor_finalize(t_executor *e);
@@ -42,8 +51,14 @@ int			exec_rec(t_executor *e);
 int			redirections(t_executor *e);
 int			is_pipe_or_redir(char *s);
 int			is_pipe(char *s);
+int			is_file(char *c);
+int 		from_pipe(t_treenode *node);
+int 		to_pipe(t_treenode *node);
+int 		from_file(t_treenode *node);
+int 		to_file(t_treenode *node);
 int			takes_part_in_pipe(t_treenode *node);
+int			takes_part_in_file(t_treenode *node);
+int			setup_pipe(t_executor *e, t_treenode *node, int i);
 int			setup_file(t_executor *e, t_treenode *node, int i);
-int			close_pipes(t_executor *e);
-int			setup_pipe(t_executor *e, int i);
+int			close_pipes(t_executor *e, int source);
 #endif

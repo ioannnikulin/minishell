@@ -61,7 +61,8 @@ int	exec_rec(t_executor *e)
 	else if (nonbrace(e) != 0)
 		return (2);
 	if (e->errno || e->param->opts.errno)
-		return (0 * FT_PRINTF("ERROR\n") + 3);
+		return (0 * FT_FPRINTF(STDERR, "Execution error %i\n",
+			*ft_max_int(&e->errno, &e->param->opts.errno)) + 3);
 	if (skip_logical_siblings(e) != 0)
 		return (1);
 	if (e->param->opts.exiting || !e->node)
