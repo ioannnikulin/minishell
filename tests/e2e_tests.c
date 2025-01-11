@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   e2e_tests.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inikulin <inikulin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: inikulin <inikulin@stiudent.42.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 22:57:54 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/11 18:46:27 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/11 20:22:47 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ static void check_stderr(char *fname)
 	int found_text2 = 0;
 
 	while ((read = getline(&line, &len, file)) != -1) {
+		printf("%s", line);
 		if (strstr(line, "All heap blocks were freed -- no leaks are possible")) {
 			found_text1 = 1;
 		}
