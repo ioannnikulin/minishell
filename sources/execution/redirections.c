@@ -15,20 +15,24 @@
 static int	child(t_executor *e, int tgt)
 {
 	FT_FPRINTF(STDERR, "starting child %i\n", tgt);
-	if ((e->fds[tgt][TYPE] & (PIPE | LAST_IN_PIPE))
-		&& dup2(e->fds[tgt][IN], STDIN_FILENO) == -1)
+	if (e->fds[tgt][TYPE] & (PIPE | LAST_IN_PIPE))
 	{
-		FT_FPRINTF(STDERR, "%i: dup2 failed for input file descriptor %i\n",
-			tgt, e->fds[tgt][IN]);
-		return (ft_assign_i(&e->errno, 4, 4));
+		FT_FPRINTF(STDERR, "%i: dup2 in %i\n", tgt, e->fds[tgt][IN]);
+		if (dup2(e->fds[tgt][IN], STDIN_FILENO) == -1)
+		{
+			FT_FPRINTF(STDERR, "%i: dup2 failed in %i\n", tgt, e->fds[tgt][IN]);
+			return (ft_assign_i(&e->errno, 4, 4));
+		}
 	}
-	if ((e->fds[tgt][TYPE] & (PIPE | FIRST_IN_PIPE | TO_FILE))
-		&& dup2(e->fds[tgt][OUT], STDOUT_FILENO) == -1)
+	if (e->fds[tgt][TYPE] & (PIPE | FIRST_IN_PIPE | TO_FILE))
 	{
-		
-		FT_FPRINTF(STDERR, "%i: dup2 failed for output file descriptor %i\n",
-			tgt, e->fds[tgt][OUT]);
-		return (ft_assign_i(&e->errno, 5, 5));
+		FT_FPRINTF(STDERR, "%i: dup2 out %i\n", tgt, e->fds[tgt][OUT]);
+		if (dup2(e->fds[tgt][OUT], STDOUT_FILENO) == -1)
+		{
+			
+			FT_FPRINTF(STDERR, "%i: dup2 failed out %i\n", tgt, e->fds[tgt][OUT]);
+			return (ft_assign_i(&e->errno, 5, 5));
+		}
 	}
 	if (close_pipes(e, tgt))
 		return (ft_assign_i(&e->errno, 6, 6));

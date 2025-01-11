@@ -12,7 +12,6 @@
 
 #include "execution_internal.h"
 
-// ANY_FILE suspicious
 int	close_pipes(t_executor *e, int source)
 {
 	int	i;

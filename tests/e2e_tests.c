@@ -11,10 +11,10 @@
 /* ************************************************************************** */
 
 #include "tests_internal.h"
-#define START 3
+#define START 2
 #define TRAP_START 0
 #define DEBUG
-#define SZ 26
+#define SZ 27
 #define PRINT_MALLOC_FAILURE_NO
 #define PRINT_TEST_NO
 
@@ -126,7 +126,7 @@ static int	t_execve(char *cmd)
 		assert(argv);
 		argv[0] = "./e2e_f/minishell";
 		argv[1] = "--debug";
-		argv[2] = "256";
+		argv[2] = "128";
 		argv[argc - 3] = "--command";
 		argv[argc - 2] = ft_strjoin("cd e2e_f && ", cmd);
 		argv[argc - 1] = 0;
@@ -256,6 +256,8 @@ int	e2e_tests(void)
 	ft_mapss_add(m[24], "out.a", "2");
 	ft_mapss_add(m[25], "stdout", "");
 	ft_mapss_add(m[25], "out.a", "1\n2");
+	ft_mapss_add(m[26], "stdout", "");
+	ft_mapss_add(m[26], "out.a", "1");
 	tests[0] = (t_testcase){"echo hello world", m[0], 0};
 	tests[1] = (t_testcase){"echo \"1   2\"   3", m[1], 0};
 	tests[2] = (t_testcase){"rm -rf testf out.txt && mkdir testf && cd testf && mkdir f1 f2 && touch 1 && touch 11 2 && ls -a -h | grep 1 >> out.txt", m[2], 0};
@@ -282,6 +284,7 @@ int	e2e_tests(void)
 	tests[23] = (t_testcase){"cd a b && echo 1", m[23], 1};
 	tests[24] = (t_testcase){"rm -f out.a && echo 1 > out.a && echo 2 > out.a", m[24], 0};
 	tests[25] = (t_testcase){"rm -f out.a && echo 1 >> out.a && echo 2 >> out.a", m[25], 0};
+	tests[26] = (t_testcase){"rm -f out.a && echo 1 | grep 1 > out.a", m[26], 0};
 
 	// multiple pipes (see mocks 29-30) will not be tested here, they produce strange errors in this testing suite, though they run normally when being started as separate commands. something to do with STDOUT being intercepted for tests probably.
 	
