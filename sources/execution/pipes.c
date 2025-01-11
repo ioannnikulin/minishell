@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:39:01 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/11 18:10:28 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/11 18:50:29 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	setup_pipe(t_executor *e, int i)
 	e->fds[i][OUT] = p[OUT];
 	e->fds[i + 1][IN] = p[IN];
 	if (e->param->opts.debug_output_level & DBG_EXEC_CHAIN_PRINT_FD_OPS)
-		FT_FPRINTF(STDERR, "made pipe %i>%i for %i\n", 
+		FT_FPRINTF(STDERR, "made pipe %i>%i for %i\n",
 			e->fds[i + 1][IN], e->fds[i][OUT], i);
 	return (0);
 }
