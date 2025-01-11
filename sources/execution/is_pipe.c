@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:52:39 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/11 16:07:57 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/11 18:11:15 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,12 @@ int	is_pipe_or_redir(char *c)
 	return (is_pipe(c) || is_redirection(c));
 }
 
-int from_pipe(t_treenode *node)
+int	from_pipe(t_treenode *node)
 {
 	return (node->sibling_prev && is_pipe(node->sibling_prev->content));
 }
 
-int to_pipe(t_treenode *node)
+int	to_pipe(t_treenode *node)
 {
 	return (node->sibling_next && is_pipe(node->sibling_next->content));
 }

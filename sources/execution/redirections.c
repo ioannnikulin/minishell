@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:39:01 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/11 17:43:04 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/11 17:44:47 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,7 @@ int	redirections(t_executor *e)
 			if (setup_pipe(e, i) != 0)
 				return (ft_assign_i(&e->errno, 2, 2));
 		}
-		else if (node->sibling_next && setup_file(e, node, i) != 0)
+		if (to_file(node) && setup_file(e, node, i) != 0)
 			return (ft_assign_i(&e->errno, 3, 3));
 		if (node->sibling_next)
 			node = node->sibling_next->sibling_next;

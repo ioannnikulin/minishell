@@ -197,5 +197,5 @@ run:
 	$(PREFIX)./minishell --debug 136 --command $(CMD)
 debug:
 	$(PREFIX)gdbtui --args ./minishell --debug 136 --command $(CMD)
-memcheck:
+mem:
 	$(PREFIX)valgrind --suppressions=tests/valgrind.supp --child-silent-after-fork=yes --track-fds=yes --leak-check=full --show-leak-kinds=all ./minishell --debug 136 --command $(CMD)

@@ -11,5 +11,5 @@ test
 tests/tool_print_environment
 e2e_f
 testf
-e2e.stdout
-e2e.stderr
+*.stdout
+*.stderr

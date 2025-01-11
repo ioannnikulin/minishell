@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 17:46:39 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/11 17:38:20 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/11 18:07:35 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int			from_pipe(t_treenode *node);
 int			to_pipe(t_treenode *node);
 int			takes_part_in_pipe(t_treenode *node);
 int			is_file(char *c);
-int		 	from_file(t_treenode *node);
-int 		to_file(t_treenode *node);
+int			from_file(t_treenode *node);
+int			to_file(t_treenode *node);
 int			takes_part_in_file(t_treenode *node);
 #endif
