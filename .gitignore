@@ -8,10 +8,8 @@ minishell
 minishell_tester
 minishell_tester-main
 test
-testf
 tests/tool_print_environment
-e2e_f/*
+e2e_f
 testf
 e2e.stdout
 e2e.stderr
-*.txt

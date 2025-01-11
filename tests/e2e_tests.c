@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   e2e_tests.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: inikulin <inikulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 22:57:54 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/05 21:16:59 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/11 15:33:51 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #define START 0
 #define TRAP_START 0
 //#define DEBUG
-#define SZ 24
+#define SZ 25
 #define PRINT_MALLOC_FAILURE_NO
 #define PRINT_TEST_NO
 
@@ -251,6 +251,7 @@ int	e2e_tests(void)
 	ft_mapss_add(m[22], "stdout", "1 -n 2\n3\n");
 	ft_mapss_add(m[23], "stderr", "minishell: cd: too many arguments\n");
 	ft_mapss_add(m[23], "stdout", "");
+	ft_mapss_add(m[24], "stdout", "      1       3      24");
 	tests[0] = (t_testcase){"echo hello world", m[0], 0};
 	tests[1] = (t_testcase){"echo \"1   2\"   3", m[1], 0};
 	tests[2] = (t_testcase){"rm -rf testf && mkdir testf && cd testf && mkdir f1 f2 && touch 1 && touch 11 2 && ls -a -h | grep 1", m[2], 0};
@@ -276,6 +277,7 @@ int	e2e_tests(void)
 	tests[21] = (t_testcase){"echo -nn 1 2", m[21], 0};
 	tests[22] = (t_testcase){"echo 1 -n 2&&echo 3||echo 4   ||echo 5 ||   echo 6", m[22], 0};
 	tests[23] = (t_testcase){"cd a b && echo 1", m[23], 1};
+	tests[24] = (t_testcase){"echo 1 | wc | wc", m[24], 0};
 	// multiple pipes (see mocks 29-30) will not be tested here, they produce strange errors in this testing suite, though they run normally when being started as separate commands. something to do with STDOUT being intercepted for tests probably.
 	
 	int	empty_call_mallocs = 0;
