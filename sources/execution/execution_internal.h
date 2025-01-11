@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 17:46:39 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/11 16:07:11 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/11 17:38:20 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int			exec_rec(t_executor *e);
 int			redirections(t_executor *e);
 int			takes_part_in_pipe(t_treenode *node);
 int			setup_file(t_executor *e, t_treenode *node, int i);
-int			close_pipes(t_executor *e);
+int			close_fds(t_executor *e, int tgt);
 int			setup_pipe(t_executor *e, int i);
 int			fd_ok(int fd);
 

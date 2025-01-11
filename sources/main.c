@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: inikulin <inikulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 15:21:17 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/28 19:32:49 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/11 17:30:26 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static char	*read_input(void)
 			line[nread - 1] = '\0';
 		return (line);
 	}
-	perror(TXT_INVITATION);
+	FT_FPRINTF(STDERR, "%s", TXT_INVITATION);
 	return (readline(0));
 }
 
