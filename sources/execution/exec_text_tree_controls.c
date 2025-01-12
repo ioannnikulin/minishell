@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_text_tree_controls.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inikulin <inikulin@stiudent.42.fr>         +#+  +:+       +#+        */
+/*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:39:01 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/12 13:25:32 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/12 13:57:18 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

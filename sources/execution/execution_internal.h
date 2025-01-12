@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution_internal.h                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inikulin <inikulin@stiudent.42.fr>         +#+  +:+       +#+        */
+/*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 17:46:39 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/12 13:08:50 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/12 13:57:08 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
