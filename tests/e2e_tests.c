@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   e2e_tests.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inikulin <inikulin@stiudent.42.fr>         +#+  +:+       +#+        */
+/*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 22:57:54 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/12 12:36:39 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/05 21:16:59 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tests_internal.h"
-#define START 30
+#define START 0
 #define TRAP_START 0
 //#define DEBUG
-#define SZ 31
+#define SZ 24
 #define PRINT_MALLOC_FAILURE_NO
 #define PRINT_TEST_NO
 
@@ -27,7 +27,7 @@ typedef struct s_testcase
 	int		exp_ret;
 }	t_testcase;
 
-static void	catch(char* fname, int *out, int *save)
+void	catch(char* fname, int *out, int *save)
 {
 	remove(fname);
 	fflush(stdout);
@@ -37,7 +37,7 @@ static void	catch(char* fname, int *out, int *save)
 	assert (-1 != dup2(*out, fileno(stdout)));
 }
 
-static void	catch_err(char* fname, int *out, int *save)
+void	catch_err(char* fname, int *out, int *save)
 {
 	remove(fname);
 	fflush(stderr);
@@ -47,7 +47,7 @@ static void	catch_err(char* fname, int *out, int *save)
 	assert (-1 != dup2(*out, fileno(stderr)));
 }
 
-static void finally(int *out, int *save)
+void	finally(int *out, int *save)
 {
 	fflush(stdout);
 	close(*out);
@@ -55,42 +55,7 @@ static void finally(int *out, int *save)
 	close(*save);
 }
 
-static void check_stderr(char *fname)
-{
-	FILE *file = fopen(fname, "r");
-	assert(file);
-	char *line = NULL;
-	size_t len = 0;
-	ssize_t read;
-	int no_leaks = 0;
-	int fds_3 = 0, fds_5 = 0, inherited = 0, pipe = 0;
-
-	while ((read = getline(&line, &len, file)) != -1) {
-		//fprintf(stderr, "[echo]%s", line);
-		if (strstr(line, "All heap blocks were freed -- no leaks are possible"))
-			no_leaks = 1;
-		// this is for local starts
-		if (strstr(line, "FILE DESCRIPTORS: 3 open (3 std) at exit."))
-			fds_3 = 1;
-		// these three conditions are for github starts;
-		// somehow github adds two file descriptors, but they are not marked as spawned in the program by pipe(),
-		// so I think we can skip them, this is something technical about github 
-		if (strstr(line, "FILE DESCRIPTORS: 5 open (3 std) at exit."))
-			fds_5 = 1;
-		if (strstr(line, "<inherited from parent>"))
-			inherited ++;
-		if (strstr(line, "pipe.c"))
-			pipe ++;
-		if (no_leaks && (fds_3 || (fds_5 && inherited == 2 && pipe == 0)))
-			break;
-	}
-	free(line);
-	fclose(file);
-	assert(no_leaks);
-	assert(fds_3 || (fds_5 && inherited == 2 && pipe == 0));
-}
-
-static void finally_err(int *out, int *save)
+void	finally_err(int *out, int *save)
 {
 	fflush(stderr);
 	close(*out);
@@ -165,6 +130,9 @@ static int	t_execve(char *cmd)
 		argv[argc - 3] = "--command";
 		argv[argc - 2] = cmd;
 		argv[argc - 1] = 0;
+		/*for (int i = 0; i < argc; i ++)
+			printf("[%s]", argv[i]);
+		printf("\n");*/
 		execve(argv[0], argv, environ);
 		exit(1);
 	} else {
@@ -174,22 +142,6 @@ static int	t_execve(char *cmd)
 		finally_err(&outerr, &saveerr);
 		return (WEXITSTATUS(status));
 	}
-}
-
-static int	valgrind(char *cmd, int trap)
-{
-	system("rm -rf e2e_f testf && rm -f e2e.stdout e2e.stderr test.stdout test.stderr");
-	assert(system("mkdir e2e_f") == 0);
-	assert(system("cp minishell e2e_f/minishell") == 0);
-	char *s_trap = ft_itoa(trap);
-	assert(!!s_trap);
-	char *tmp = ft_strjoin_multi_free_outer(ft_s5(ft_s4("bash -c 'cd e2e_f && valgrind --leak-check=full --show-leak-kinds=all --child-silent-after-fork=yes --track-fds=yes -s ./minishell --trap", s_trap, "--command", cmd), "' 1>test.stdout 2>test.stderr"), 5, " ");
-	free(s_trap);
-	assert(!!tmp);
-	system(tmp);
-	free(tmp);
-	check_stderr("test.stderr");
-	return (0);
 }
 
 static void	successful_execution(t_testcase *test, int *mallocs)
@@ -206,7 +158,6 @@ static void	successful_execution(t_testcase *test, int *mallocs)
 	char	*exp_err = ft_mapss_get(test->exp, "stderr");
 	if (test->exp_ret)
 		file_compare(exp_err, "e2e.stderr");
-	valgrind(test->cmd, -1);
 	t_dlist	*entry;
 	char	*key;
 	entry = test->exp->head;
@@ -236,7 +187,25 @@ static void	malloc_failure_recoveries(char *cmd, int mallocs, int from_mallocs)
 		#ifdef PRINT_MALLOC_FAILURE_NO
 		printf("\t == %i == \n", i);
 		#endif
-		valgrind(cmd, i);	
+		char *is = ft_itoa(i);
+		char *tmp = ft_strjoin_multi_free_outer(ft_s4("bash -c 'cd e2e_f && valgrind --leak-check=full --show-leak-kinds=all --child-silent-after-fork=yes -s -q ./minishell --trap", is, cmd, "' 1>e2e.stdout 2>e2e.stderr"), 4, " ");
+		free(is);
+		assert(!!tmp);
+		system(tmp);
+		char *err = calloc(256, sizeof(char *));
+		int fd = open("e2e.stderr", O_RDONLY, 0600);
+		read(fd, err, 256);
+		int i = 0;
+		// expected output
+	  	// ==130278== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: ... from ...)
+		// so we navigate to first colon and check if there is a zero after it
+		// (suppressed are the messages from readline and regexp, which are not ours)
+		while (err[i] != ':' && i < 256) i ++;
+		assert(i < 256 && err[i + 1] == ' ' && err[i + 2] == '0' && err[i + 3] == ' ');
+		// TODO: check no files were created
+		free(tmp);
+		free(err);
+		close(fd);
 	}
 	system("rm -rf e2e_f && rm -f e2e.stdout e2e.stderr");
 }
@@ -269,7 +238,8 @@ int	e2e_tests(void)
 	ft_mapss_add(m[10], "stdout", "/usr/bin\n");
 	ft_mapss_add(m[11], "stdout", "");
 	ft_mapss_add(m[11], "stderr", "cd: /nope: No such file or directory\n");
-	ft_mapss_add(m[12], "stdout", "/home/.*");
+	ft_mapss_add(m[12], "stdout", "");
+	ft_mapss_add(m[12], "stderr", "[^\n]*\ncd: nope: No such file or directory\n");
 	ft_mapss_add(m[13], "stdout", "1\n");
 	ft_mapss_add(m[13], "stderr", "exit\n");
 	ft_mapss_add(m[14], "stdout", "1\n");
@@ -284,18 +254,6 @@ int	e2e_tests(void)
 	ft_mapss_add(m[22], "stdout", "1 -n 2\n3\n");
 	ft_mapss_add(m[23], "stderr", "minishell: cd: too many arguments\n");
 	ft_mapss_add(m[23], "stdout", "");
-	ft_mapss_add(m[24], "stdout", "      1       3      24");
-	ft_mapss_add(m[25], "stdout", "");
-	ft_mapss_add(m[25], "out.txt", "1\n");
-	ft_mapss_add(m[26], "stdout", "");
-	ft_mapss_add(m[26], "out.txt", "1\n");
-	ft_mapss_add(m[27], "stdout", "");
-	ft_mapss_add(m[27], "out.txt", "2\n");
-	ft_mapss_add(m[28], "stdout", "");
-	ft_mapss_add(m[28], "out.txt", "1\n2\n");
-	ft_mapss_add(m[29], "stdout", "");
-	ft_mapss_add(m[29], "out.txt", "1\n");
-	ft_mapss_add(m[30], "stdout", "      1       1       2\n");
 	tests[0] = (t_testcase){"echo hello world", m[0], 0};
 	tests[1] = (t_testcase){"echo \"1   2\"   3", m[1], 0};
 	tests[2] = (t_testcase){"rm -rf testf && mkdir testf && cd testf && mkdir f1 f2 && touch 1 && touch 11 2 && ls -a -h | grep 1", m[2], 0};
@@ -321,19 +279,9 @@ int	e2e_tests(void)
 	tests[21] = (t_testcase){"echo -nn 1 2", m[21], 0};
 	tests[22] = (t_testcase){"echo 1 -n 2&&echo 3||echo 4   ||echo 5 ||   echo 6", m[22], 0};
 	tests[23] = (t_testcase){"cd a b && echo 1", m[23], 1};
-	tests[24] = (t_testcase){"echo 1 | wc | wc", m[24], 0};
-	tests[25] = (t_testcase){"rm -f out.txt && echo 1 > out.txt", m[25], 0};
-	tests[26] = (t_testcase){"rm -f out.txt && echo 1 >> out.txt", m[26], 0};
-	tests[27] = (t_testcase){"rm -f out.txt && echo 1 > out.txt && echo 2 > out.txt", m[27], 0};
-	tests[28] = (t_testcase){"rm -f out.txt && echo 1 >> out.txt && echo 2 >> out.txt", m[28], 0};
-	tests[29] = (t_testcase){"rm -f out.txt && echo 1 | wc > out.txt", m[29], 0};
-	tests[30] = (t_testcase){"echo 1 | wc", m[30], 0};
 	// multiple pipes (see mocks 29-30) will not be tested here, they produce strange errors in this testing suite, though they run normally when being started as separate commands. something to do with STDOUT being intercepted for tests probably.
 	
 	int	empty_call_mallocs = 0;
-	#ifdef PRINT_TEST_NO
-	printf("\t ======== preliminary empty start ======== \n");
-	#endif
 	successful_execution(&empty_test, &empty_call_mallocs);
 	#ifdef FT_CALLOC_IF_TRAPPED
 	malloc_failure_recoveries(empty_test.cmd, empty_call_mallocs, 0);
@@ -348,8 +296,8 @@ int	e2e_tests(void)
 		#ifdef PRINT_TEST_NO
 		printf("\t ======== %i ======== \n", i);
 		#endif
-		#ifndef HOME_FOLDER_AVAILABLE_NOT_GITHUB
-		if (i == 12)
+		#ifndef VANIA
+		if (i == 12) // cd without arguments is 'go home'. mocked home /home/ioann only available for vania, so skipping everywhere else. can remove this when envvars will be actually read, not mocked.
 		{
 			ft_mapss_finalize_i(m[i], 0, 0);
 			continue ;

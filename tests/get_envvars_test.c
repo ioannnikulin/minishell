@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_envvars_test.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inikulin <inikulin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/20 18:25:04 by taretiuk          #+#    #+#             */
-/*   Updated: 2025/01/11 17:30:26 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/03 18:20:24 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,12 +101,12 @@ int	get_envvars_test(void)
 		t_mapss *exp_envvars_map = ft_mapss_gen(t[i].exp_envvars, t[i].exp_envvars_sz);
 		t_dlist *exp_path_list = ft_dlist_generate(t[i].exp_path, -1);
 		#ifdef DEBUG
-		FT_PRINTF("\n=======Test======= %i\n", i);
-		FT_PRINTF("expected path:\n");
+		ft_printf("\n=======Test======= %i\n", i);
+		ft_printf("expected path:\n");
 		ft_dlist_print_s(exp_path_list, " ");
-		FT_PRINTF("\nexpected envvars:\n");
+		ft_printf("\nexpected envvars:\n");
 		ft_mapss_print(exp_envvars_map);
-		FT_PRINTF("\n");
+		ft_printf("\n");
 		#endif
 		int src_sz = -1;
 		while (t[i].src[++src_sz]);
@@ -122,11 +122,11 @@ int	get_envvars_test(void)
 			free(src[j]);
 		free(src);
 		#ifdef DEBUG
-		FT_PRINTF("\nactual path:\n");
+		ft_printf("\nactual path:\n");
 		ft_dlist_print_s(param->envvar_path_head, " ");
-		FT_PRINTF("\nactual envvars:\n");
+		ft_printf("\nactual envvars:\n");
 		ft_mapss_print(param->envvars);
-		FT_PRINTF("\n");
+		ft_printf("\n");
 		#endif
 		assert(ft_mapss_ncmp(exp_envvars_map, param->envvars, t[i].exp_envvars_sz) == 0);
 		assert(ft_dlist_ncmp_str(exp_path_list, param->envvar_path_head, t[i].exp_path_sz) == 0);
