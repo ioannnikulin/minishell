@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 22:57:54 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/12 14:38:28 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/12 14:46:09 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -258,7 +258,8 @@ int	e2e_tests(void)
 	t_testcase empty_test = (t_testcase){"exit", empty_m, 0};
 	ft_mapss_add(m[0], "stdout", "hello world\n");
 	ft_mapss_add(m[1], "stdout", "1   2 3\n");
-	ft_mapss_add(m[2], "stdout", "1\n11\nf1\n");
+	ft_mapss_add(m[2], "stdout", "");
+	ft_mapss_add(m[2], "testf/out.txt", "1\n11\nf1\n");
 	ft_mapss_add(m[3], "stdout", "1\n3\n4\n6\n");
 	ft_mapss_add(m[4], "stdout", "1\n3\n4\n6\n");
 	ft_mapss_add(m[5], "stdout", "1\n3\n4\n");
@@ -295,8 +296,7 @@ int	e2e_tests(void)
 	ft_mapss_add(m[28], "out.txt", "1\n2\n");
 	tests[0] = (t_testcase){"echo hello world", m[0], 0};
 	tests[1] = (t_testcase){"echo \"1   2\"   3", m[1], 0};
-	tests[2] = (t_testcase){"rm -rf testf && mkdir testf && cd testf && mkdir f1 f2 && touch 1 && touch 11 2 && ls -a -h | grep 1", m[2], 0};
-	//tests[2] = (t_testcase){"--command mkdir testf && cd testf && mkdir f1 f2 && touch 1 && touch 11 2 && ls -a -fh -c | grep 1 >> out.txt", m[2], 0};
+	tests[2] = (t_testcase){"rm -rf testf && mkdir testf && cd testf && mkdir f1 f2 && touch 1 && touch 11 2 && ls -a -h | grep 1 >> out.txt", m[2], 0};
 	tests[3] = (t_testcase){"echo 1 || echo 2 && echo 3 && echo 4 || echo 5 && echo 6", m[3], 0};
 	tests[4] = (t_testcase){"echo 1 || echo 2 && (echo 3 && echo 4 || echo 5 && echo 6)", m[4], 0};
 	tests[5] = (t_testcase){"echo 1 || echo 2 && (echo 3 && echo 4 || (echo 5 && echo 6))", m[5], 0};
