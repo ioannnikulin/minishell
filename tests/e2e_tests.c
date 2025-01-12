@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@stiudent.42.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 22:57:54 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/12 11:55:02 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/12 12:27:32 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -286,13 +286,13 @@ int	e2e_tests(void)
 	ft_mapss_add(m[23], "stdout", "");
 	ft_mapss_add(m[24], "stdout", "      1       3      24");
 	ft_mapss_add(m[25], "stdout", "");
-	ft_mapss_add(m[25], "out.txt", "1");
+	ft_mapss_add(m[25], "out.txt", "1\n");
 	ft_mapss_add(m[26], "stdout", "");
-	ft_mapss_add(m[26], "out.txt", "1");
+	ft_mapss_add(m[26], "out.txt", "1\n");
 	ft_mapss_add(m[27], "stdout", "");
-	ft_mapss_add(m[27], "out.txt", "2");
+	ft_mapss_add(m[27], "out.txt", "2\n");
 	ft_mapss_add(m[28], "stdout", "");
-	ft_mapss_add(m[28], "out.txt", "12");
+	ft_mapss_add(m[28], "out.txt", "1\n2\n");
 	tests[0] = (t_testcase){"echo hello world", m[0], 0};
 	tests[1] = (t_testcase){"echo \"1   2\"   3", m[1], 0};
 	tests[2] = (t_testcase){"rm -rf testf && mkdir testf && cd testf && mkdir f1 f2 && touch 1 && touch 11 2 && ls -a -h | grep 1", m[2], 0};
