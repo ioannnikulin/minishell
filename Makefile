@@ -2,7 +2,7 @@ CC = cc
 NAME = minishell
 COMPILE_FLAGS = -Wall -Wextra -Werror -g -c
 LINK_FLAGS = -lft -Llibft -lreadline
-PREFIX = 
+PREFIX = @
 PREPROC_DEFINES = 
 
 SOURCE_F = sources
