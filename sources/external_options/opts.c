@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 19:06:16 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/06 13:42:54 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/05 20:33:06 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,14 @@ int	opt_single(const char **act, int *f, int t, t_param *param)
 		param->opts.errno = 1;
 	*f = t;
 	return (1);
+}
+
+int	dbg(int argc, const char **argv)
+{
+	int	i;
+
+	i = -1;
+	while (++i < argc)
+		FT_PRINTF("[%s]\n", argv[i]);
+	return (0);
 }

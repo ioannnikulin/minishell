@@ -13,11 +13,11 @@
 
 int	tree_test(void)
 {
-	ft_printf("tree: ft_treenode_insert_child_idx in testing\n");
+	FT_PRINTF("tree: ft_treenode_insert_child_idx in testing\n");
 	ft_treenode_insert_child_idx_test();
-	ft_printf("tree: ft_treenode_insert_child_before_first in testing\n");
+	FT_PRINTF("tree: ft_treenode_insert_child_before_first in testing\n");
 	ft_treenode_insert_child_before_first_test();
-	ft_printf("tree: ft_treenode_cut in testing\n");
+	FT_PRINTF("tree: ft_treenode_cut in testing\n");
 	ft_treenode_cut_test();
 	return (0);
 }

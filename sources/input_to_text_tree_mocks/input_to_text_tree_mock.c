@@ -15,9 +15,9 @@
 static int	ret(int e, char *in)
 {
 	if (e)
-		printf("%s\n", ERR_MALLOC);
+		FT_PRINTF("%s\n", ERR_MALLOC);
 	else
-		printf("%s: %s\n", in, ERR_COMMAND_NOT_FOUND);
+		FT_PRINTF("%s: %s\n", in, ERR_COMMAND_NOT_FOUND);
 	return (3);
 }
 

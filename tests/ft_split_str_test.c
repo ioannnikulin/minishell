@@ -47,21 +47,21 @@ static void	print_array(char **res, int act_sz, char **exp, int exp_sz)
 	if (!res)
 		return ;
 	int	i = 0;
-	ft_printf("Result:\n");
+	FT_PRINTF("Result:\n");
 	while (i < act_sz)
 	{
-		ft_printf("%s\n", res[i]);
+		FT_PRINTF("%s\n", res[i]);
 		i++;
 	}
 
 	i = 0;
-	ft_printf("\nExpected:\n");
+	FT_PRINTF("\nExpected:\n");
 	while (i < exp_sz)
 	{
-		ft_printf("%s\n", exp[i]);
+		FT_PRINTF("%s\n", exp[i]);
 		i++;
 	}
-	ft_printf("\n");
+	FT_PRINTF("\n");
 }
 
 static t_strings	create_string_array()
@@ -69,7 +69,7 @@ static t_strings	create_string_array()
 	t_strings	str_array;
 	str_array.count = NUM_TEST_CASES;
 	str_array.error = 0;
-	str_array.strs = ft_calloc_if(sizeof(t_string) * str_array.count, 1);
+	str_array.strs = calloc(str_array.count, sizeof(t_string));
 	if (str_array.strs == NULL)
 	{
 		fprintf(stderr, "Memory allocation failed for str_array.strs\n");
@@ -132,7 +132,7 @@ void	ft_split_str_test(void)
 	for (int i = START; i < STOP; i ++)
 	{
 		#ifdef DEBUG
-		ft_printf("\n=========Test %i=============\n\n", i);
+		FT_PRINTF("\n=========Test %i=============\n\n", i);
 		#endif
 		int act_sz = 0;
 		char **split_op = ft_split_str(str_arr.strs[i].str, op_arr, &act_sz);

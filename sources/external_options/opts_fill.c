@@ -62,7 +62,7 @@ static int	one_opt(const char **argv, int *i, int argc, t_param *param)
 		return (0);
 	if (*i == argc - 1)
 	{
-		ft_printf("%s: %s\n", argv[*i], ERR_CMD_ARG_MISSING);
+		FT_PRINTF("%s: %s\n", argv[*i], ERR_CMD_ARG_MISSING);
 		return (2);
 	}
 	if (opt_trap(argv, i, param))
@@ -73,7 +73,7 @@ static int	one_opt(const char **argv, int *i, int argc, t_param *param)
 		return (0);
 	if (opt_single(argv, i, argc, param))
 		return (0);
-	ft_printf("%s: %s\n", argv[*i], ERR_CMD_ARG_UNKNOWN);
+	FT_PRINTF("%s: %s\n", argv[*i], ERR_CMD_ARG_UNKNOWN);
 	return (3);
 }
 
@@ -91,5 +91,7 @@ int	opts_fill(int argc, const char **argv, t_param *param)
 	}
 	if (param->opts.errno)
 		return (1);
+	if (param->opts.debug_output_level & DBG_PRINT_ARGV)
+		dbg(argc, argv);
 	return (0);
 }

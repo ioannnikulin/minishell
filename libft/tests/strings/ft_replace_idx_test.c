@@ -43,7 +43,7 @@ int	ft_replace_idx_test(void)
 	for (int i = START; i < SZ; i ++)
 	{
 		#ifdef DEBUG
-		ft_printf("%i\n", i);
+		FT_PRINTF("%i\n", i);
 		#endif
 		char	*s = (t[i].where ? ft_strdup(t[i].where) : 0);
 		char	**src = &s;

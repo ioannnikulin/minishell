@@ -33,14 +33,14 @@ int	ft_sbuf_test(void)
 	for (int i = START; i < SZ; i ++)
 	{
 		#ifdef DEBUG
-		ft_printf("== %i ==\n", i);
+		FT_PRINTF("== %i ==\n", i);
 		#endif
 		t_sbuf *sbuf = ft_sbuf_make(t[i].src);
 		assert(sbuf && sbuf->content);
 		for (int j = 0; j < t[i].adds; j ++)
 		{
 			#ifdef DEBUG
-			ft_printf("-- %i --\n", j);
+			FT_PRINTF("-- %i --\n", j);
 			#endif
 			if (j > 0)
 				assert(ft_sbuf_append(sbuf, t[i].add[j - 1]) == sbuf);

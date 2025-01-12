@@ -1,21 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tania_main.c                                       :+:      :+:    :+:   */
+/*   FT_PRINTF.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: inikulin <inikulin@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/24 00:41:54 by inikulin          #+#    #+#             */
-/*   Updated: 2024/10/22 23:16:15 by taretiuk         ###   ########.fr       */
+/*   Created: 2023/11/24 12:46:27 by inikulin          #+#    #+#             */
+/*   Updated: 2024/12/20 16:51:28 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "aux_printf.h"
+#include "stdio.h"
 
-int	main(int argc, const char **argv)
-{
-	FT_PRINTF("tanya works here\n");
-	(void)argv;
-	(void)argc;
-	return (0);
-}
+#ifdef PRINTF_ALLOWED
+#endif

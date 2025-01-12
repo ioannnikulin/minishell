@@ -24,11 +24,9 @@ void	pre(t_param *param)
 	ft_calloc_if_trap_setup(param->opts.calloc_trap);
 }
 
-// dup2 to self is a flush
 void	post(t_param *param)
 {
 	(void)param;
-	dup2(STDOUT_FILENO, STDOUT_FILENO);
 	ft_calloc_if_trap_count();
 }
 #else

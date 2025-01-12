@@ -16,11 +16,11 @@ int	unit_tests(void);
 
 int	main(void)
 {
-	ft_printf("unit tests in progress\n");
+	FT_PRINTF("unit tests in progress\n");
 	unit_tests();
-	ft_printf("unit tests completed\n");
-	ft_printf("e2e tests in progress\n");
+	FT_PRINTF("unit tests completed\n");
+	FT_PRINTF("e2e tests in progress\n");
 	e2e_tests();
-	ft_printf("e2e tests completed\n");
+	FT_PRINTF("e2e tests completed\n");
 	return (0);
 }

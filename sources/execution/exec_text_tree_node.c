@@ -52,7 +52,7 @@ int	execute_text_tree_node(t_executor *e)
 	t_tree	t;
 
 	if (!e->node || !e->node->content)
-		return (ft_printf("%s\n", ERR_NO_COMMAND_FOUND) * 0);
+		return (FT_PRINTF("%s\n", ERR_NO_COMMAND_FOUND) * 0);
 	if (expand(e->node, e->param))
 		return (ft_assign_i(&e->param->opts.errno, 1, 0));
 	t.root = e->node;
@@ -60,6 +60,6 @@ int	execute_text_tree_node(t_executor *e)
 		ft_tree_print_s(&t);
 	chooser(e);
 	if (!e->found)
-		printf("%s: %s\n", (char *)e->node->content, ERR_COMMAND_NOT_FOUND);
+		FT_PRINTF("%s: %s\n", (char *)e->node->content, ERR_COMMAND_NOT_FOUND);
 	return (e->retval);
 }

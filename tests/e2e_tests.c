@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 22:57:54 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/05 20:19:07 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/05 21:16:59 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,13 @@
 #define PRINT_MALLOC_FAILURE_NO
 #define PRINT_TEST_NO
 
+extern char **environ;
+
 typedef struct s_testcase
 {
 	char	*cmd;
 	t_mapss	*exp;
+	int		exp_ret;
 }	t_testcase;
 
 static void	catch(char* fname, int *out, int *save)
@@ -34,7 +37,6 @@ static void	catch(char* fname, int *out, int *save)
 	assert (-1 != dup2(*out, fileno(stdout)));
 }
 
-#ifdef FT_CALLOC_IF_TRAPPED
 static void	catch_err(char* fname, int *out, int *save)
 {
 	remove(fname);
@@ -44,7 +46,6 @@ static void	catch_err(char* fname, int *out, int *save)
 	*save = dup(fileno(stderr));
 	assert (-1 != dup2(*out, fileno(stderr)));
 }
-#endif
 
 static void	finally(int *out, int *save)
 {
@@ -54,7 +55,6 @@ static void	finally(int *out, int *save)
 	close(*save);
 }
 
-#ifdef FT_CALLOC_IF_TRAPPED
 static void	finally_err(int *out, int *save)
 {
 	fflush(stderr);
@@ -62,7 +62,6 @@ static void	finally_err(int *out, int *save)
 	dup2(*save, fileno(stderr));
 	close(*save);
 }
-#endif
 
 static int	file_compare(char *exp_content, char *act_fname)
 {
@@ -80,7 +79,7 @@ static int	file_compare(char *exp_content, char *act_fname)
 	fseek(f, 0, SEEK_END);
 	long fsize = ftell(f);
 	fseek(f, 0, SEEK_SET);
-	char *act = ft_calloc(sizeof(char), fsize + 1);
+	char *act = calloc(fsize + 1, sizeof(char));
 	assert(act);
 	fread(act, fsize, 1, f);
 	act[fsize] = 0;
@@ -99,7 +98,7 @@ static int	file_compare(char *exp_content, char *act_fname)
 			diff = i;
 			break ;
 		}
-	ft_printf("comparison result %i, expected:{{%s}}\nactual:{{%s}}\nstrncmp %i\nstart to differ from index %i\n", comp_res, exp_re, act, ft_strncmp(exp_content, act, fsize), diff); // a strcmp giving not 0 is possible, since the actual result should be matched to regexp, not strcompared to it. Regexps contain special characters in most cases, hence direct comparison will fail. Hence strcmp result is not asserted to be 0 only regcomp is asseted. This output is for my reference.
+	FT_PRINTF("comparison result %i, expected:{{%s}}\nactual:{{%s}}\nstrncmp %i\nstart to differ from index %i\n", comp_res, exp_re, act, ft_strncmp(exp_content, act, fsize), diff); // a strcmp giving not 0 is possible, since the actual result should be matched to regexp, not strcompared to it. Regexps contain special characters in most cases, hence direct comparison will fail. Hence strcmp result is not asserted to be 0 only regcomp is asseted. This output is for my reference.
 	fflush(stdout);
 	#endif
 	assert(comp_res == 0);
@@ -113,62 +112,84 @@ static int	file_compare(char *exp_content, char *act_fname)
 	return (mallocs);
 }
 
+static int	t_execve(char *cmd)
+{
+	int out, save, outerr, saveerr;
+	catch("e2e.stdout", &out, &save);
+	catch_err("e2e.stderr", &outerr, &saveerr);
+	int	pid = fork();
+	assert(pid != -1);
+	if (pid == 0)
+	{
+		int argc = 4;//6;
+		char **argv = calloc(sizeof(char *), argc);
+		assert(argv);
+		argv[0] = "./e2e_f/minishell";
+		// argv[1] = "--debug";
+		// argv[2] = "256";
+		argv[argc - 3] = "--command";
+		argv[argc - 2] = cmd;
+		argv[argc - 1] = 0;
+		execve(argv[0], argv, environ);
+		exit(1);
+	} else {
+		int	status;
+		waitpid(pid, &status, 0);
+		finally(&out, &save);
+		finally_err(&outerr, &saveerr);
+		return (WEXITSTATUS(status));
+	}
+}
+
 static void	successful_execution(t_testcase *test, int *mallocs)
 {
-	int out, save;
-	system("(rm -r e2e_f testf && rm e2e.stdout e2e.stderr) 2> /dev/null");
+	system("rm -rf e2e_f testf && rm -f e2e.stdout e2e.stderr");
 	assert(system("mkdir e2e_f") == 0);
 	assert(system("cp minishell e2e_f/minishell") == 0);
-	catch("e2e.stdout", &out, &save);
-	char *tmp = ft_strjoin("./e2e_f/minishell ", test->cmd);
-	assert(!!tmp);
 	#ifdef DEBUG
-	fprintf(stderr, "executing [%s]\n", tmp);
+	fprintf(stderr, "executing [%s]\n", test->cmd);
 	#endif
-	assert(system(tmp) == 0);
-	finally(&out, &save);
+	int	ret = t_execve(test->cmd);
+	assert(ret == test->exp_ret);
 	*mallocs = file_compare(ft_mapss_get(test->exp, "stdout"), "e2e.stdout");
+	char	*exp_err = ft_mapss_get(test->exp, "stderr");
+	if (test->exp_ret)
+		file_compare(exp_err, "e2e.stderr");
 	t_dlist	*entry;
 	char	*key;
 	entry = test->exp->head;
 	while (entry)
 	{
 		key = ((t_mapss_entry *)entry->content)->key;
-		free(tmp);
-		tmp = ft_strjoin("e2e_f/", key);
+		char *tmp = ft_strjoin("e2e_f/", key);
 		assert(!!tmp);
-		if (ft_strcmp(key, "stdout") != 0)
+		if (ft_strcmp(key, "stdout") != 0 && ft_strcmp(key, "stderr") != 0)
 			file_compare(((t_mapss_entry *)entry->content)->value, tmp);
 		entry = entry->next;
+		free(tmp);
 		// TODO: assure no more files except mentioned in the map
 	}
-	free(tmp);
 }
 
 #ifdef FT_CALLOC_IF_TRAPPED
 static void	malloc_failure_recoveries(char *cmd, int mallocs, int from_mallocs)
 {
 	if (!cmd) return ;
-	int out, save, outerr, saveerr;
 	if (from_mallocs < TRAP_START) from_mallocs = TRAP_START;
 	for (int i = from_mallocs; i < mallocs + 2; i ++)
 	{
-		system("(rm -r e2e_f testf && rm e2e.stdout e2e.stderr) 2> /dev/null");
+		system("rm -rf e2e_f testf && rm -f e2e.stdout e2e.stderr");
 		assert(system("mkdir e2e_f") == 0);
 		assert(system("cp minishell e2e_f/minishell") == 0);
 		#ifdef PRINT_MALLOC_FAILURE_NO
 		printf("\t == %i == \n", i);
 		#endif
 		char *is = ft_itoa(i);
-		char *tmp = ft_strjoin_multi_free_outer(ft_s3("cd e2e_f && valgrind --leak-check=full --show-leak-kinds=all --child-silent-after-fork=yes -s -q ./minishell --trap", is, cmd), 3, " ");
+		char *tmp = ft_strjoin_multi_free_outer(ft_s4("bash -c 'cd e2e_f && valgrind --leak-check=full --show-leak-kinds=all --child-silent-after-fork=yes -s -q ./minishell --trap", is, cmd, "' 1>e2e.stdout 2>e2e.stderr"), 4, " ");
 		free(is);
 		assert(!!tmp);
-		catch("e2e.stdout", &out, &save);
-		catch_err("e2e.stderr", &outerr, &saveerr);
 		system(tmp);
-		finally(&out, &save);
-		finally_err(&outerr, &saveerr);
-		char *err = ft_calloc(sizeof(char *), 256);
+		char *err = calloc(256, sizeof(char *));
 		int fd = open("e2e.stderr", O_RDONLY, 0600);
 		read(fd, err, 256);
 		int i = 0;
@@ -183,7 +204,7 @@ static void	malloc_failure_recoveries(char *cmd, int mallocs, int from_mallocs)
 		free(err);
 		close(fd);
 	}
-	system("(rm -r e2e_f && rm e2e.stdout e2e.stderr) 2> /dev/null");
+	system("rm -rf e2e_f && rm -f e2e.stdout e2e.stderr");
 }
 #endif
 
@@ -198,8 +219,9 @@ int	e2e_tests(void)
 	}
 	t_mapss *empty_m = ft_mapss_init();
 	assert(!!empty_m);
-	ft_mapss_add(empty_m, "stdout", "exit");
-	t_testcase empty_test = (t_testcase){"--command \"exit\"", empty_m};
+	ft_mapss_add(empty_m, "stdout", "");
+	ft_mapss_add(empty_m, "stderr", "exit");
+	t_testcase empty_test = (t_testcase){"exit", empty_m, 0};
 	ft_mapss_add(m[0], "stdout", "hello world\n");
 	ft_mapss_add(m[1], "stdout", "1   2 3\n");
 	ft_mapss_add(m[2], "stdout", "1\n11\nf1\n");
@@ -211,10 +233,14 @@ int	e2e_tests(void)
 	ft_mapss_add(m[8], "stdout", "/[^\n]*/testf\n");
 	ft_mapss_add(m[9], "stdout", "(/[^\n]*\n){2}");
 	ft_mapss_add(m[10], "stdout", "/usr/bin\n");
-	ft_mapss_add(m[11], "stdout", "cd: /nope: No such file or directory\n");
-	ft_mapss_add(m[12], "stdout", "[^\n]*\ncd: nope: No such file or directory\n");
-	ft_mapss_add(m[13], "stdout", "1\nexit\n");
-	ft_mapss_add(m[14], "stdout", "1\nexit\n");
+	ft_mapss_add(m[11], "stdout", "");
+	ft_mapss_add(m[11], "stderr", "cd: /nope: No such file or directory\n");
+	ft_mapss_add(m[12], "stdout", "");
+	ft_mapss_add(m[12], "stderr", "[^\n]*\ncd: nope: No such file or directory\n");
+	ft_mapss_add(m[13], "stdout", "1\n");
+	ft_mapss_add(m[13], "stderr", "exit\n");
+	ft_mapss_add(m[14], "stdout", "1\n");
+	ft_mapss_add(m[14], "stderr", "exit\n");
 	ft_mapss_add(m[15], "stdout", "1\n3\n4\n6\n");
 	ft_mapss_add(m[16], "stdout", "1\n3\n4\n6\n");
 	ft_mapss_add(m[17], "stdout", "1\n");
@@ -223,32 +249,33 @@ int	e2e_tests(void)
 	ft_mapss_add(m[20], "stdout", "\\$\\(echo \"\\$\\(echo \"\\$\\(echo \"bla\")\")\")\n");
 	ft_mapss_add(m[21], "stdout", "1 2");
 	ft_mapss_add(m[22], "stdout", "1 -n 2\n3\n");
-	ft_mapss_add(m[23], "stdout", "minishell: cd: too many arguments\n");
-	tests[0] = (t_testcase){"--command \"echo hello world\"", m[0]};
-	tests[1] = (t_testcase){"--command \"echo \\\"1   2\\\"   3\"", m[1]};
-	tests[2] = (t_testcase){"--command \"rm -rf testf && mkdir testf && cd testf && mkdir f1 f2 && touch 1 && touch 11 2 && ls -a -h | grep 1\"", m[2]};
-	//tests[2] = (t_testcase){"--command \"--command mkdir testf && cd testf && mkdir f1 f2 && touch 1 && touch 11 2 && ls -a -fh -c | grep 1 >> out.txt\"", m[2]};
-	tests[3] = (t_testcase){"--command \"echo 1 || echo 2 && echo 3 && echo 4 || echo 5 && echo 6\"", m[3]};
-	tests[4] = (t_testcase){"--command \"echo 1 || echo 2 && (echo 3 && echo 4 || echo 5 && echo 6)\"", m[4]};
-	tests[5] = (t_testcase){"--command \"echo 1 || echo 2 && (echo 3 && echo 4 || (echo 5 && echo 6))\"", m[5]};
-	tests[6] = (t_testcase){"--command \"uname\"", m[6]};
-	tests[7] = (t_testcase){"--command \"pwd\"", m[7]};
-	tests[8] = (t_testcase){"--command \"mkdir testf && cd testf && pwd\"", m[8]};
-	tests[9] = (t_testcase){"--command \"pwd && mkdir testf && cd ./testf/.. && pwd\"", m[9]};
-	tests[10] = (t_testcase){"--command \"cd /bin && pwd\"", m[10]};
-	tests[11] = (t_testcase){"--command \"cd /nope && pwd\"", m[11]};
-	tests[12] = (t_testcase){"--command \"cd && pwd && cd nope && pwd\"", m[12]};
-	tests[13] = (t_testcase){"--command \"echo 1 && exit && echo 2\"", m[13]};
-	tests[14] = (t_testcase){"--command \"echo 1 && exit || echo 2\"", m[14]};
-	tests[15] = (t_testcase){"--command \"echo 1 || echo 2 && (echo 3 && (echo 4 || echo 5) && echo 6)\"", m[15]};
-	tests[16] = (t_testcase){"--command \"echo 1 || echo 2 && (echo 3 && (echo 4) || echo 5 && echo 6)\"", m[16]};
-	tests[17] = (t_testcase){"--command \"echo 1 || (echo 2 && (echo 3 && (echo 4) || echo 5 && echo 6))\"", m[17]};
-	tests[18] = (t_testcase){"--command \"echo 1 || (echo 2 && (echo 3 && (echo 4) || echo 5)) && echo 6\"", m[18]};
-	tests[19] = (t_testcase){"--command \"export foo=bar sea=\\$foo say=echo _1=\\$_1 && \\$say [\\$foo] ['\\$sea'] [\\\"$sea\\\"] [\\$food] [\\$_1] [\\$]\"", m[19]};
-	tests[20] = (t_testcase){"--command \"echo \'\\$(echo \\\"\\$(echo \\\"\\$(echo \\\"bla\\\")\\\")\\\")\'\"", m[20]};
-	tests[21] = (t_testcase){"--command \"echo -nn 1 2\"", m[21]};
-	tests[22] = (t_testcase){"--command \"echo 1 -n 2&&echo 3||echo 4   ||echo 5 ||   echo 6\"", m[22]};
-	tests[23] = (t_testcase){"--command \"cd a b && echo 1\"", m[23]};
+	ft_mapss_add(m[23], "stderr", "minishell: cd: too many arguments\n");
+	ft_mapss_add(m[23], "stdout", "");
+	tests[0] = (t_testcase){"echo hello world", m[0], 0};
+	tests[1] = (t_testcase){"echo \"1   2\"   3", m[1], 0};
+	tests[2] = (t_testcase){"rm -rf testf && mkdir testf && cd testf && mkdir f1 f2 && touch 1 && touch 11 2 && ls -a -h | grep 1", m[2], 0};
+	//tests[2] = (t_testcase){"--command mkdir testf && cd testf && mkdir f1 f2 && touch 1 && touch 11 2 && ls -a -fh -c | grep 1 >> out.txt", m[2], 0};
+	tests[3] = (t_testcase){"echo 1 || echo 2 && echo 3 && echo 4 || echo 5 && echo 6", m[3], 0};
+	tests[4] = (t_testcase){"echo 1 || echo 2 && (echo 3 && echo 4 || echo 5 && echo 6)", m[4], 0};
+	tests[5] = (t_testcase){"echo 1 || echo 2 && (echo 3 && echo 4 || (echo 5 && echo 6))", m[5], 0};
+	tests[6] = (t_testcase){"uname", m[6], 0};
+	tests[7] = (t_testcase){"pwd", m[7], 0};
+	tests[8] = (t_testcase){"mkdir testf && cd testf && pwd", m[8], 0};
+	tests[9] = (t_testcase){"pwd && mkdir testf && cd ./testf/.. && pwd", m[9], 0};
+	tests[10] = (t_testcase){"cd /bin && pwd", m[10], 0};
+	tests[11] = (t_testcase){"cd /nope && pwd", m[11], 1};
+	tests[12] = (t_testcase){"cd && pwd && cd nope && pwd", m[12], 1};
+	tests[13] = (t_testcase){"echo 1 && exit 300 && echo 2", m[13], 44};
+	tests[14] = (t_testcase){"echo 1 && exit || echo 2", m[14], 0};
+	tests[15] = (t_testcase){"echo 1 || echo 2 && (echo 3 && (echo 4 || echo 5) && echo 6)", m[15], 0};
+	tests[16] = (t_testcase){"echo 1 || echo 2 && (echo 3 && (echo 4) || echo 5 && echo 6)", m[16], 0};
+	tests[17] = (t_testcase){"echo 1 || (echo 2 && (echo 3 && (echo 4) || echo 5 && echo 6))", m[17], 0};
+	tests[18] = (t_testcase){"echo 1 || (echo 2 && (echo 3 && (echo 4) || echo 5)) && echo 6", m[18], 0};
+	tests[19] = (t_testcase){"export foo=bar sea=$foo say=echo _1=$_1 && $say [$foo] ['$sea'] [\"$sea\"] [$food] [$_1] [$]", m[19], 0};
+	tests[20] = (t_testcase){"echo '$(echo \"$(echo \"$(echo \"bla\")\")\")'", m[20], 0};
+	tests[21] = (t_testcase){"echo -nn 1 2", m[21], 0};
+	tests[22] = (t_testcase){"echo 1 -n 2&&echo 3||echo 4   ||echo 5 ||   echo 6", m[22], 0};
+	tests[23] = (t_testcase){"cd a b && echo 1", m[23], 1};
 	// multiple pipes (see mocks 29-30) will not be tested here, they produce strange errors in this testing suite, though they run normally when being started as separate commands. something to do with STDOUT being intercepted for tests probably.
 	
 	int	empty_call_mallocs = 0;
@@ -280,6 +307,6 @@ int	e2e_tests(void)
 		#endif
 		ft_mapss_finalize_i(m[i], 0, 0);
 	}
-	system("(rm -r e2e_f && rm e2e.stdout e2e.stderr) 2> /dev/null");
+	system("rm -rf e2e_f && rm -f e2e.stdout e2e.stderr");
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 15:21:17 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/22 13:52:08 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/28 19:32:49 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,12 @@ static char	*read_input(void)
 			line[nread - 1] = '\0';
 		return (line);
 	}
-	return (readline(TXT_INVITATION));
+	perror(TXT_INVITATION);
+	return (readline(0));
 }
 
 static int	interactive(t_param *param)
 {
-	int	ret;
-
 	while (1)
 	{
 		free(param->cur_command);
@@ -55,32 +54,29 @@ static int	interactive(t_param *param)
 			continue ;
 		if (isatty(STDIN_FILENO))
 			add_history(param->cur_command);
-		ret = input_to_text_tree(param);
-		if (ret)
+		if (input_to_text_tree(param))
 			break ;
-		ret = exec_text_tree(param);
+		param->opts.retval = exec_text_tree(param);
 		if (param->opts.exiting)
 			break ;
 	}
-	return (0);
+	return (param->opts.retval);
 }
 
 static int	one_cmd(t_param *param)
 {
-	int	ret;
-
 	if (param->opts.debug_output_level & DBG_ONE_CMD_ECHO)
-		ft_printf("[%s]\n", param->cur_command);
-	ret = input_to_text_tree(param);
-	if (ret)
+		FT_PRINTF("[%s]\n", param->cur_command);
+	param->opts.retval = input_to_text_tree(param);
+	if (param->opts.retval)
 		return (1);
-	exec_text_tree(param);
-	return (0);
+	param->opts.retval = exec_text_tree(param);
+	return (param->opts.retval);
 }
 
 static void	usage(void)
 {
-	ft_printf("minishell usage:\n--interactive\n\tuser types in a command after command.\n\
+	FT_PRINTF("minishell usage:\n--interactive\n\tuser types in a command after command.\n\
 --debug 1023\n\tbitmask for debug output verbosity.\n\
 --command echo hello world\n\trun just one command and exit immediately.\n\
 --trap 5\n\tmalloc with given number will fail. debugging option.\n\
@@ -90,6 +86,7 @@ static void	usage(void)
 int	main(int argc, const char **argv, char **envp)
 {
 	t_param	*param;
+	int		ret;
 
 	param = param_alloc();
 	if (!param)
@@ -105,10 +102,12 @@ int	main(int argc, const char **argv, char **envp)
 	else if (param->cur_command)
 		one_cmd(param);
 	else if (param->opts.file)
-		ft_printf("%s: %s\n", param->opts.file, ERR_NO_SCRIPT);
+		FT_PRINTF("%s: %s\n", param->opts.file, ERR_NO_SCRIPT);
 	else
 		usage();
+	ret = param->opts.retval;
 	finalize(param, 0, 0, 0);
 	post(param);
-	return (0);
+	exit(ret);
+	return (ret);
 }

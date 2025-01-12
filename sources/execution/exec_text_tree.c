@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:39:01 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/03 16:50:40 by taretiuk         ###   ########.fr       */
+/*   Updated: 2025/01/05 20:22:07 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,23 +61,22 @@ int	exec_rec(t_executor *e)
 	else if (nonbrace(e) != 0)
 		return (2);
 	if (e->errno || e->param->opts.errno)
-		return (0 * printf("ERROR\n") + 3);
+		return (0 * FT_PRINTF("ERROR\n") + 3);
 	if (skip_logical_siblings(e) != 0)
 		return (1);
 	if (e->param->opts.exiting || !e->node)
-		return (ft_if_i(e->param->opts.exiting, 0, 0));
+		return (e->retval);
 	return (exec_rec(e));
 }
 
 int	exec_text_tree(t_param *param)
 {
-	int			res;
 	t_executor	*executor;
 
 	if (!param || !param->text_tree || !param->text_tree->root
 		|| !param->text_tree->root->child)
 	{
-		printf("%s\n", ERR_TEXT_TREE_EMPTY);
+		FT_PRINTF("%s\n", ERR_TEXT_TREE_EMPTY);
 		return (1);
 	}
 	if (param->opts.debug_output_level & DBG_PRINT_TREE_BEFORE_EXEC)
@@ -85,7 +84,8 @@ int	exec_text_tree(t_param *param)
 	executor = make_executor(param->text_tree->root->child, param);
 	if (!executor)
 		return (2);
-	res = exec_rec(executor);
+	exec_rec(executor);
+	param->opts.retval = executor->retval;
 	executor_finalize(executor);
-	return (res);
+	return (param->opts.retval);
 }

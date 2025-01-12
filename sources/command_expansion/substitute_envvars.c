@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 15:01:39 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/24 20:02:45 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/28 17:29:38 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static char	*get_value(char *key, t_param *param)
 			return (0);
 	}
 	else if (ft_strcmp(key, "?") == 0)
-		return (ft_lltoa_strdup(param->opts.last_pipe_status));
+		return (ft_lltoa_strdup(param->opts.retval));
 	else
 	{
 		value = ft_mapss_get(param->envvars, key);

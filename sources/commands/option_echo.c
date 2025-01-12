@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 00:08:39 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/15 13:50:21 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/28 19:46:02 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,20 +23,19 @@ int	option_echo(t_executor *control, t_treenode *node, t_param *param)
 	(void)param;
 	n = 0;
 	child = node->child;
-	while (child && ft_strncmp(child->content, "-n", 2) == 0)
+	while (child && ft_strcmp(child->content, "-n") == 0)
 	{
 		n = 1;
 		child = child->sibling_next;
 	}
 	while (child && child->sibling_next)
 	{
-		printf("%s ", (char *)child->content);
+		FT_PRINTF("%s ", (char *)child->content);
 		child = child->sibling_next;
 	}
 	if (child)
-		printf("%s", (char *)child->content);
+		FT_PRINTF("%s", (char *)child->content);
 	if (!n)
-		printf("\n");
-	dup2(1, 1);
+		FT_PRINTF("\n");
 	return (ft_assign_i(&control->retval, 0, 1));
 }

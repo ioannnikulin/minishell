@@ -34,7 +34,7 @@ int	ft_treenode_insert_child_before_first_test(void)
 	t_treenode *tgt = ft_treenode_make(ft_new_pi(-1), 0, &ft_free_pi_null);
 	for (int i = 0; i < SZ; i ++) {
 		#ifdef DEBUG
-		ft_printf("%i: ", i);
+		FT_PRINTF("%i: ", i);
 		#endif
 		int ret = ft_treenode_insert_child_before_first(tgt, ft_treenode_make(ft_new_pi_pvoid(t[i].value), 0, &ft_free_pi_null), &ft_less_eq_pvoid_pi);
 		t_treenode *cur = tgt->child;
@@ -42,17 +42,17 @@ int	ft_treenode_insert_child_before_first_test(void)
 		while (++j < t[i].exp_sz && cur) {
 			int	act = *(int*)cur->content;
 			#ifdef DEBUG
-			ft_printf("%i %i; ", t[i].exp[j], act);
+			FT_PRINTF("%i %i; ", t[i].exp[j], act);
 			#endif
 			assert(act == t[i].exp[j]);
 			cur = cur->sibling_next;
 		}
 		#ifdef DEBUG
-		ft_printf("\n");
+		FT_PRINTF("\n");
 		#endif
 		assert(tgt->children_qtty == j && j == t[i].exp_sz && !cur);
 		#ifdef DEBUG
-		ft_printf("%i %i\n", t[i].exp_ret, ret);
+		FT_PRINTF("%i %i\n", t[i].exp_ret, ret);
 		#endif
 		assert(t[i].exp_ret == ret);
 	}

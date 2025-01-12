@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 00:08:15 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/05 18:10:00 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/05 20:31:32 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,14 +56,15 @@ static char	*get_checked_path(t_treenode *node, char *pwd, t_mapss *envvars,
 static int	couldnt(t_treenode *node, char *fullpath, int *ret, int errno)
 {
 	if (errno == 4 || errno == 6 || errno == 0)
-		ft_printf("%s: cd: %s: %s\n", TXT_MINISHELL,
-			(char *)node->child->content, ERR_CD_NOWHERE);
+		FT_FPRINTF(STDERR, "%s: cd: %s: %s\n",
+			TXT_MINISHELL, node->child->content, ERR_CD_NOWHERE);
 	else if (errno == 1)
-		ft_printf("%s: cd: %s\n", TXT_MINISHELL, ERR_CD_NO_HOME);
+		FT_FPRINTF(STDERR, "%s: cd: %s\n",
+			TXT_MINISHELL, ERR_CD_NO_HOME);
 	else if (errno == 7)
-		ft_printf("%s: cd: %s\n", TXT_MINISHELL, ERR_CD_TOO_MANY_ARGS);
+		FT_FPRINTF(STDERR, "%s: cd: %s\n", TXT_MINISHELL, ERR_CD_TOO_MANY_ARGS);
 	else
-		ft_printf("%s: cd: %s\n", TXT_MINISHELL, ERR_MALLOC);
+		FT_FPRINTF(STDERR, "%s: cd: %s\n", TXT_MINISHELL, ERR_MALLOC);
 	*ret = 1;
 	free(fullpath);
 	return (1);

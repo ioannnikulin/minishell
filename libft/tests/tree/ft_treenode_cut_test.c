@@ -32,7 +32,7 @@ static int	cmp(int exp[], int exp_sz, t_treenode *act)
 	if (exp_sz == 0)
 	{
 		#ifdef DEBUG
-		ft_printf("expected empty\n");
+		FT_PRINTF("expected empty\n");
 		#endif
 		assert(act == 0);
 	}
@@ -42,13 +42,13 @@ static int	cmp(int exp[], int exp_sz, t_treenode *act)
 		while (++j < exp_sz && act) {
 			int	act_i = *(int*)act->content;
 			#ifdef DEBUG
-			ft_printf("%i %i; ", exp[j], act_i);
+			FT_PRINTF("%i %i; ", exp[j], act_i);
 			#endif
 			assert(exp[j] == act_i);
 			act = act->sibling_next;
 		}
 		#ifdef DEBUG
-		ft_printf("\n");
+		FT_PRINTF("\n");
 		#endif
 		assert(j == exp_sz && !act);
 	}
@@ -70,18 +70,18 @@ int	ft_treenode_cut_test(void)
 	
 	for (int i = START; i < SZ; i ++) {
 		#ifdef DEBUG
-		ft_printf("===%i===\n", i);
+		FT_PRINTF("===%i===\n", i);
 		#endif
 		t_treenode *tgt = ft_treenode_make(ft_new_pi(-1), 0, &ft_free_pi_null);
 		for (int j = 0; j < t[i].src_sz; j ++)
 			assert(ft_treenode_insert_child_idx(tgt, ft_treenode_make(ft_new_pi_pvoid(t[i].src[j]), 0, &ft_free_pi_null), j) == j);
 		t_treenode *cut = ft_treenode_cut(tgt, t[i].fromIncl, t[i].toExcl);
 		#ifdef DEBUG
-		ft_printf("returned cutout: ");
+		FT_PRINTF("returned cutout: ");
 		#endif
 		cmp(t[i].exp_ret, t[i].exp_ret_sz, cut);
 		#ifdef DEBUG
-		ft_printf("leftover: ");
+		FT_PRINTF("leftover: ");
 		#endif
 		cmp(t[i].exp_left, t[i].exp_left_sz, tgt->child);
 		ft_treenode_free_rec(&tgt);

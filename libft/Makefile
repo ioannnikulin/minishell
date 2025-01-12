@@ -1,7 +1,7 @@
 CC = cc
 NAME = libft.a
 CFLAGS = -Wall -Wextra -Werror -g
-FTPREFIX = @
+FTPREFIX = 
 PREPROC_DEFINES =
 
 SOURCES_F = sources
@@ -24,7 +24,7 @@ TREE_NAMES = ft_tree_print.c ft_treenode_free.c ft_treenode_insert.c ft_tree_mak
 TREE_SRCS = $(addprefix $(SOURCES_F)/$(TREE_F)/, $(TREE_NAMES))
 
 MEM_F = memory
-MEM_NAMES = ft_bzero.c ft_calloc.c ft_memchr.c ft_memcmp.c ft_memcpy.c ft_memmove.c ft_memset.c ft_swap.c ft_swap_1.c ft_assign.c ft_cmp.c ft_new.c ft_free.c ft_free_s.c ft_free_s_1.c ft_free_null.c ft_tuples.c
+MEM_NAMES = ft_bzero.c ft_calloc.c ft_memchr.c ft_memcmp.c ft_memcpy.c ft_memmove.c ft_memset.c ft_swap.c ft_swap_1.c ft_assign.c ft_cmp.c ft_new.c ft_free.c ft_free_s.c ft_free_s_1.c ft_free_null.c ft_tuples.c ft_tuples_1.c
 MEM_SRCS = $(addprefix $(SOURCES_F)/$(MEM_F)/, $(MEM_NAMES)) $(FT_CALLOC_IF_CHOSEN)
 FT_CALLOC_IF_STD_SRC = $(addprefix $(SOURCES_F)/$(MEM_F)/, ft_calloc_if.c)
 FT_CALLOC_IF_TRAPPED_SRC = $(addprefix $(TESTS_F)/$(MEM_F)/, ft_calloc_if_trapped.c)
@@ -44,7 +44,7 @@ SYM_NAMES = ft_isalpha.c ft_isalnum.c ft_isascii.c ft_isdigit.c ft_is_in.c ft_is
 SYM_SRCS = $(addprefix $(SOURCES_F)/$(SYM_F)/, $(SYM_NAMES))
 
 PRINTF_F = printf
-PRINTF_NAMES = aux_printf.c ft_printf.c pad_n_put.c put_c.c put_d.c put_percent.c put_s.c put_u.c put_x.c put_p.c ft_print_arr.c
+PRINTF_NAMES = aux_printf.c ft_printf.c pad_n_put.c put_c.c put_d.c put_percent.c put_s.c put_u.c put_x.c put_p.c ft_print_arr.c ft_printf_std_allowed.c ft_printf_custom_only.c
 PRINTF_SRCS = $(addprefix $(SOURCES_F)/$(PRINTF_F)/, $(PRINTF_NAMES))
 
 GNL_F = get_next_line
@@ -128,13 +128,13 @@ SEGFAULTOBJS = $(SEGFAULTS:.c=.o)
 #SEGFAULTNAMES = $(SEGFAULTS:.c=.sf)
 
 $(TESTOBJS): %.o: %.c
-	$(FTPREFIX)$(CC) $(CFLAGS) -c $< -o $@ $(TESTINCLUDES)
+	$(FTPREFIX)$(CC) $(CFLAGS) -c $< -o $@ $(TESTINCLUDES) $(PREPROC_DEFINES)
 
 #$(SEGFAULTOBJS): %.o: %.c
 #	$(FTPREFIX)$(CC) -Werror -c $< -o $@ $(TESTINCLUDES) -g
 
 $(AUXOBJ): %.o: %.c
-	$(FTPREFIX)$(CC) $(CFLAGS) -c $< -o $@ $(TESTINCLUDES)
+	$(FTPREFIX)$(CC) $(CFLAGS) -c $< -o $@ $(TESTINCLUDES) $(PREPROC_DEFINES)
 
 testfclean:
 	$(FTPREFIX)rm -f $(TESTOBJS)

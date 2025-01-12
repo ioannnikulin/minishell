@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 00:08:59 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/15 13:56:46 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/28 16:00:49 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@ int	option_env(t_executor *control, t_treenode *node, t_param *param)
 	lines = get_envvars_for_execve(param);
 	if (!lines)
 	{
-		printf("env: %s\n", ERR_MALLOC);
+		FT_FPRINTF(STDERR, "env: %s\n", ERR_MALLOC);
 		return (1);
 	}
 	i = -1;
 	while (lines[++ i])
-		printf("%s\n", lines[i]);
+		FT_PRINTF("%s\n", lines[i]);
 	ft_free_ss_uptonull_null((void ***)&lines);
 	control->retval = 0;
 	return (1);
