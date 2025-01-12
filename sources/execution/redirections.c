@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@stiudent.42.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:39:01 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/12 13:09:32 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/12 13:30:59 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static int	chain_parent(t_executor *e)
 	i = -1;
 	while (++i < e->chain_length)
 	{
-		if (!from_file(e->node))
+		if (takes_part_in_pipe(e->node))
 		{
 			e->retval = parent(e->pids[i], &e->errno);
 			if (e->errno != 0)
@@ -75,7 +75,7 @@ static int	exec_chain(t_executor *e)
 	node = e->node;
 	while (++i < e->chain_length)
 	{
-		if (!from_file(node))
+		if (takes_part_in_pipe(node))
 		{
 			e->pids[i] = fork();
 			if (e->pids[i] == -1)
@@ -131,12 +131,12 @@ int	redirections(t_executor *e)
 		e->fds[i][OUT] = OUT;
 		if (i + 1 != e->chain_length)
 			e->fds[i + 1][IN] = IN;
-		if (to_pipe(node))
+		if (takes_part_in_pipe(node))
 		{
 			if (setup_pipe(e, i) != 0)
 				return (ft_assign_i(&e->errno, 2, 2));
 		}
-		if (to_file(node) && setup_file(e, node, i) != 0)
+		else if (node->sibling_next && setup_file(e, node, i) != 0)
 			return (ft_assign_i(&e->errno, 3, 3));
 		if (node->sibling_next)
 			node = node->sibling_next->sibling_next;
