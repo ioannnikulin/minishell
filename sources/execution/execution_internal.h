@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution_internal.h                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inikulin <inikulin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: inikulin <inikulin@stiudent.42.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 17:46:39 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/11 18:07:35 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/12 13:08:50 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int			exec_rec(t_executor *e);
 int			redirections(t_executor *e);
 int			takes_part_in_pipe(t_treenode *node);
 int			setup_file(t_executor *e, t_treenode *node, int i);
-int			close_fds(t_executor *e, int tgt);
+int			close_pipes(t_executor *e);
 int			setup_pipe(t_executor *e, int i);
 int			fd_ok(int fd);
 

@@ -6,15 +6,15 @@
 /*   By: inikulin <inikulin@stiudent.42.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 22:57:54 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/12 12:27:32 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/12 12:36:39 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tests_internal.h"
-#define START 25
+#define START 30
 #define TRAP_START 0
 //#define DEBUG
-#define SZ 29
+#define SZ 31
 #define PRINT_MALLOC_FAILURE_NO
 #define PRINT_TEST_NO
 
@@ -293,6 +293,9 @@ int	e2e_tests(void)
 	ft_mapss_add(m[27], "out.txt", "2\n");
 	ft_mapss_add(m[28], "stdout", "");
 	ft_mapss_add(m[28], "out.txt", "1\n2\n");
+	ft_mapss_add(m[29], "stdout", "");
+	ft_mapss_add(m[29], "out.txt", "1\n");
+	ft_mapss_add(m[30], "stdout", "      1       1       2\n");
 	tests[0] = (t_testcase){"echo hello world", m[0], 0};
 	tests[1] = (t_testcase){"echo \"1   2\"   3", m[1], 0};
 	tests[2] = (t_testcase){"rm -rf testf && mkdir testf && cd testf && mkdir f1 f2 && touch 1 && touch 11 2 && ls -a -h | grep 1", m[2], 0};
@@ -323,6 +326,8 @@ int	e2e_tests(void)
 	tests[26] = (t_testcase){"rm -f out.txt && echo 1 >> out.txt", m[26], 0};
 	tests[27] = (t_testcase){"rm -f out.txt && echo 1 > out.txt && echo 2 > out.txt", m[27], 0};
 	tests[28] = (t_testcase){"rm -f out.txt && echo 1 >> out.txt && echo 2 >> out.txt", m[28], 0};
+	tests[29] = (t_testcase){"rm -f out.txt && echo 1 | wc > out.txt", m[29], 0};
+	tests[30] = (t_testcase){"echo 1 | wc", m[30], 0};
 	// multiple pipes (see mocks 29-30) will not be tested here, they produce strange errors in this testing suite, though they run normally when being started as separate commands. something to do with STDOUT being intercepted for tests probably.
 	
 	int	empty_call_mallocs = 0;

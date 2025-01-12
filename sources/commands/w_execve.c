@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   w_execve.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inikulin <inikulin@stiudent.42.fr>         +#+  +:+       +#+        */
+/*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 22:30:29 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/12 12:08:08 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/05 20:30:11 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ static int	dbg(char *fullpath, char **argv, char **envvars)
 	i = -1;
 	while (envvars[++ i])
 		FT_FPRINTF(STDERR, "%s ", envvars[i]);
-	FT_FPRINTF(STDERR, "\nin status: %i\n", fcntl(STDIN, F_GETFD));
-	FT_FPRINTF(STDERR, "\nout status: %i\n\n\n", fcntl(STDOUT, F_GETFD));
+	FT_FPRINTF(STDERR, "\nin status: %i\n", fcntl(STDIN_FILENO, F_GETFD));
+	FT_FPRINTF(STDERR, "\nout status: %i\n\n\n", fcntl(STDOUT_FILENO, F_GETFD));
 	return (0);
 }
 
@@ -42,10 +42,8 @@ int	parent(pid_t pid, int *errno)
 			break ;
 	}
 	if (done == -1)
-		return (ft_assign_i(errno, 23, 0));
-	if ((status & 0x7f) == 0)
-		return (status >> 8);
-	return (ft_assign_i(errno, 24, 0));
+		return (ft_assign_i(errno, 3, 0));
+	return (status >> 8);
 }
 
 // emulate execve failure to make sure no memory leaks here
@@ -62,7 +60,7 @@ int	w_execve(char *fullpath, char **argv, char **envvars, t_param *param)
 	{
 		if ((param->opts.debug_output_level & DBG_EXECVE_PREPRINT)
 			&& dbg(fullpath, argv, envvars))
-			return (ft_assign_i(&param->opts.errno, 33, 0));
+			return (ft_assign_i(&param->opts.errno, 3, 0));
 		if (param->opts.sigint_handler)
 			signal(SIGINT, param->opts.sigint_handler);
 		execve(fullpath, argv, envvars);

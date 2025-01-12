@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@stiudent.42.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:39:01 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/12 12:12:36 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/12 13:09:32 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static int	child(t_executor *e, int tgt)
 			return (ft_assign_i(&e->errno, 1, 2));
 		}
 	}
-	if (close_fds(e, tgt))
+	if (close_pipes(e))
 		return (ft_assign_i(&e->errno, 1, 3));
 	execute_text_tree_node(e);
 	exit(0);
@@ -44,7 +44,7 @@ static int	chain_parent(t_executor *e)
 {
 	int	i;
 
-	if (close_fds(e, -1) || e->errno)
+	if (close_pipes(e) || e->errno)
 		return (ft_assign_i(&e->errno, 1, 1));
 	i = -1;
 	while (++i < e->chain_length)
