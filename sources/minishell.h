@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inikulin <inikulin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: inikulin <inikulin@stiudent.42.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 15:22:58 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/11 17:33:18 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/12 12:08:27 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@
 # include "tree_make/tree_processing.h"
 
 # define STDERR STDERR_FILENO
+# define STDOUT STDOUT_FILENO
+# define STDIN STDIN_FILENO
 
 # define DBG_EXTERNAL_SEARCH_FOLDERS 1
 # define DBG_PRINT_TREE_BEFORE_EXEC 2

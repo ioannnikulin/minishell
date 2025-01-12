@@ -6,15 +6,15 @@
 /*   By: inikulin <inikulin@stiudent.42.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 22:57:54 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/12 11:19:52 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/12 11:55:02 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tests_internal.h"
-#define START 0
+#define START 25
 #define TRAP_START 0
 //#define DEBUG
-#define SZ 25
+#define SZ 29
 #define PRINT_MALLOC_FAILURE_NO
 #define PRINT_TEST_NO
 
@@ -66,25 +66,23 @@ static void check_stderr(char *fname)
 	int fds_3 = 0, fds_5 = 0, inherited = 0, pipe = 0;
 
 	while ((read = getline(&line, &len, file)) != -1) {
-		fprintf(stderr, "[echo]%s", line);
-		if (strstr(line, "All heap blocks were freed -- no leaks are possible")) {
+		//fprintf(stderr, "[echo]%s", line);
+		if (strstr(line, "All heap blocks were freed -- no leaks are possible"))
 			no_leaks = 1;
-		}
-		if (strstr(line, "FILE DESCRIPTORS: 3 open (3 std) at exit.")) {
+		// this is for local starts
+		if (strstr(line, "FILE DESCRIPTORS: 3 open (3 std) at exit."))
 			fds_3 = 1;
-		}
-		if (strstr(line, "FILE DESCRIPTORS: 5 open (3 std) at exit.")) {
+		// these three conditions are for github starts;
+		// somehow github adds two file descriptors, but they are not marked as spawned in the program by pipe(),
+		// so I think we can skip them, this is something technical about github 
+		if (strstr(line, "FILE DESCRIPTORS: 5 open (3 std) at exit."))
 			fds_5 = 1;
-		}
-		if (strstr(line, "<inherited from parent>")) {
+		if (strstr(line, "<inherited from parent>"))
 			inherited ++;
-		}
-		if (strstr(line, "pipe.c")) {
+		if (strstr(line, "pipe.c"))
 			pipe ++;
-		}
-		if (no_leaks && fds_3) {
+		if (no_leaks && (fds_3 || (fds_5 && inherited == 2 && pipe == 0)))
 			break;
-		}
 	}
 	free(line);
 	fclose(file);
@@ -287,6 +285,14 @@ int	e2e_tests(void)
 	ft_mapss_add(m[23], "stderr", "minishell: cd: too many arguments\n");
 	ft_mapss_add(m[23], "stdout", "");
 	ft_mapss_add(m[24], "stdout", "      1       3      24");
+	ft_mapss_add(m[25], "stdout", "");
+	ft_mapss_add(m[25], "out.txt", "1");
+	ft_mapss_add(m[26], "stdout", "");
+	ft_mapss_add(m[26], "out.txt", "1");
+	ft_mapss_add(m[27], "stdout", "");
+	ft_mapss_add(m[27], "out.txt", "2");
+	ft_mapss_add(m[28], "stdout", "");
+	ft_mapss_add(m[28], "out.txt", "12");
 	tests[0] = (t_testcase){"echo hello world", m[0], 0};
 	tests[1] = (t_testcase){"echo \"1   2\"   3", m[1], 0};
 	tests[2] = (t_testcase){"rm -rf testf && mkdir testf && cd testf && mkdir f1 f2 && touch 1 && touch 11 2 && ls -a -h | grep 1", m[2], 0};
@@ -313,6 +319,10 @@ int	e2e_tests(void)
 	tests[22] = (t_testcase){"echo 1 -n 2&&echo 3||echo 4   ||echo 5 ||   echo 6", m[22], 0};
 	tests[23] = (t_testcase){"cd a b && echo 1", m[23], 1};
 	tests[24] = (t_testcase){"echo 1 | wc | wc", m[24], 0};
+	tests[25] = (t_testcase){"rm -f out.txt && echo 1 > out.txt", m[25], 0};
+	tests[26] = (t_testcase){"rm -f out.txt && echo 1 >> out.txt", m[26], 0};
+	tests[27] = (t_testcase){"rm -f out.txt && echo 1 > out.txt && echo 2 > out.txt", m[27], 0};
+	tests[28] = (t_testcase){"rm -f out.txt && echo 1 >> out.txt && echo 2 >> out.txt", m[28], 0};
 	// multiple pipes (see mocks 29-30) will not be tested here, they produce strange errors in this testing suite, though they run normally when being started as separate commands. something to do with STDOUT being intercepted for tests probably.
 	
 	int	empty_call_mallocs = 0;

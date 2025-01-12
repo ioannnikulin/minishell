@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   w_execve.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inikulin <inikulin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: inikulin <inikulin@stiudent.42.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 22:30:29 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/11 17:30:26 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/12 12:08:08 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ static int	dbg(char *fullpath, char **argv, char **envvars)
 	i = -1;
 	while (envvars[++ i])
 		FT_FPRINTF(STDERR, "%s ", envvars[i]);
-	FT_FPRINTF(STDERR, "\nin status: %i\n", fcntl(STDIN_FILENO, F_GETFD));
-	FT_FPRINTF(STDERR, "\nout status: %i\n\n\n", fcntl(STDOUT_FILENO, F_GETFD));
+	FT_FPRINTF(STDERR, "\nin status: %i\n", fcntl(STDIN, F_GETFD));
+	FT_FPRINTF(STDERR, "\nout status: %i\n\n\n", fcntl(STDOUT, F_GETFD));
 	return (0);
 }
 

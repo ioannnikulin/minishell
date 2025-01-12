@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inikulin <inikulin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: inikulin <inikulin@stiudent.42.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 15:21:17 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/11 17:30:26 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/12 12:07:18 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static char	*read_input(void)
 	size_t	len;
 	ssize_t	nread;
 
-	if (!isatty(STDIN_FILENO))
+	if (!isatty(STDIN))
 	{
 		len = 0;
 		nread = getline(&line, &len, stdin);
@@ -52,7 +52,7 @@ static int	interactive(t_param *param)
 			break ;
 		if (ft_strlen(param->cur_command) == 0)
 			continue ;
-		if (isatty(STDIN_FILENO))
+		if (isatty(STDIN))
 			add_history(param->cur_command);
 		if (input_to_text_tree(param))
 			break ;
