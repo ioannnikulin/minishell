@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   e2e_tests.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inikulin <inikulin@stiudent.42.fr>         +#+  +:+       +#+        */
+/*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 22:57:54 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/12 12:27:32 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/12 14:38:28 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tests_internal.h"
-#define START 25
+#define START 0
 #define TRAP_START 0
 //#define DEBUG
 #define SZ 29

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inikulin <inikulin@stiudent.42.fr>         +#+  +:+       +#+        */
+/*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:39:01 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/12 12:12:36 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/12 14:35:31 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	child(t_executor *e, int tgt)
 		if (dup2(e->fds[tgt][IN], STDIN) == -1)
 		{
 			FT_FPRINTF(STDERR, "%i: dup failed\n", tgt);
-			return (ft_assign_i(&e->errno, 1, 1));
+			exit (ft_assign_i(&e->errno, 1, 1));
 		}
 	}
 	if (tgt != e->chain_length - 1)
@@ -31,10 +31,10 @@ static int	child(t_executor *e, int tgt)
 		if (dup2(e->fds[tgt][OUT], STDOUT) == -1)
 		{
 			FT_FPRINTF(STDERR, "%i: dup failed\n", tgt);
-			return (ft_assign_i(&e->errno, 1, 2));
+			exit (ft_assign_i(&e->errno, 1, 2));
 		}
 	}
-	if (close_fds(e, tgt))
+	if (close_fds(e, tgt) || scroll_chain(e, tgt))
 		return (ft_assign_i(&e->errno, 1, 3));
 	execute_text_tree_node(e);
 	exit(0);
