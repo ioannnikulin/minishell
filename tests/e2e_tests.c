@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@stiudent.42.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 22:57:54 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/11 20:29:32 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/12 11:19:52 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,25 +62,34 @@ static void check_stderr(char *fname)
 	char *line = NULL;
 	size_t len = 0;
 	ssize_t read;
-	int found_text1 = 0;
-	int found_text2 = 0;
+	int no_leaks = 0;
+	int fds_3 = 0, fds_5 = 0, inherited = 0, pipe = 0;
 
 	while ((read = getline(&line, &len, file)) != -1) {
 		fprintf(stderr, "[echo]%s", line);
 		if (strstr(line, "All heap blocks were freed -- no leaks are possible")) {
-			found_text1 = 1;
+			no_leaks = 1;
 		}
 		if (strstr(line, "FILE DESCRIPTORS: 3 open (3 std) at exit.")) {
-			found_text2 = 1;
+			fds_3 = 1;
 		}
-		if (found_text1 && found_text2) {
+		if (strstr(line, "FILE DESCRIPTORS: 5 open (3 std) at exit.")) {
+			fds_5 = 1;
+		}
+		if (strstr(line, "<inherited from parent>")) {
+			inherited ++;
+		}
+		if (strstr(line, "pipe.c")) {
+			pipe ++;
+		}
+		if (no_leaks && fds_3) {
 			break;
 		}
 	}
 	free(line);
 	fclose(file);
-	assert(found_text1 && "leaks detected");
-	assert(found_text2 && "open file descriptors detected");
+	assert(no_leaks);
+	assert(fds_3 || (fds_5 && inherited == 2 && pipe == 0));
 }
 
 static void finally_err(int *out, int *save)
