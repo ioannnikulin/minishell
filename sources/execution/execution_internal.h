@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 17:46:39 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/12 13:57:08 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/12 13:59:38 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,5 @@ int			fd_ok(int fd);
 
 int			is_pipe_or_redir(char *s);
 int			is_pipe(char *s);
-int			is_pipe_or_redir(char *c);
-int			from_pipe(t_treenode *node);
-int			to_pipe(t_treenode *node);
 int			takes_part_in_pipe(t_treenode *node);
-int			is_file(char *c);
-int			from_file(t_treenode *node);
-int			to_file(t_treenode *node);
-int			takes_part_in_file(t_treenode *node);
 #endif
