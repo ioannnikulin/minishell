@@ -27,7 +27,7 @@ typedef struct s_testcase
 	int		exp_ret;
 }	t_testcase;
 
-void	catch(char* fname, int *out, int *save)
+static void	catch(char* fname, int *out, int *save)
 {
 	remove(fname);
 	fflush(stdout);
@@ -37,7 +37,7 @@ void	catch(char* fname, int *out, int *save)
 	assert (-1 != dup2(*out, fileno(stdout)));
 }
 
-void	catch_err(char* fname, int *out, int *save)
+static void	catch_err(char* fname, int *out, int *save)
 {
 	remove(fname);
 	fflush(stderr);
@@ -47,7 +47,7 @@ void	catch_err(char* fname, int *out, int *save)
 	assert (-1 != dup2(*out, fileno(stderr)));
 }
 
-void	finally(int *out, int *save)
+static void	finally(int *out, int *save)
 {
 	fflush(stdout);
 	close(*out);
@@ -55,7 +55,7 @@ void	finally(int *out, int *save)
 	close(*save);
 }
 
-void	finally_err(int *out, int *save)
+static void	finally_err(int *out, int *save)
 {
 	fflush(stderr);
 	close(*out);
@@ -130,9 +130,6 @@ static int	t_execve(char *cmd)
 		argv[argc - 3] = "--command";
 		argv[argc - 2] = cmd;
 		argv[argc - 1] = 0;
-		/*for (int i = 0; i < argc; i ++)
-			printf("[%s]", argv[i]);
-		printf("\n");*/
 		execve(argv[0], argv, environ);
 		exit(1);
 	} else {
