@@ -1,23 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_dlist_print_1.c                                 :+:      :+:    :+:   */
+/*   is_redir.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: inikulin <inikulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/13 19:01:40 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/11 17:30:26 by inikulin         ###   ########.fr       */
+/*   Created: 2025/01/11 15:52:17 by inikulin          #+#    #+#             */
+/*   Updated: 2025/01/11 18:11:12 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "execution_internal.h"
 
-static void	printpi(void *p)
+int	is_file(char *c)
 {
-	FT_PRINTF("%i", *(int *)p);
+	return (ft_strcmp(c, ">") == 0 || ft_strcmp(c, ">>") == 0);
 }
 
-int	ft_dlist_print_pi(t_dlist *lst, char *delim)
+int	from_file(t_treenode *node)
 {
-	return (ft_dlist_print(lst, 0, delim, printpi));
+	return (node->sibling_prev && is_file(node->sibling_prev->content));
+}
+
+int	to_file(t_treenode *node)
+{
+	return (node->sibling_next && is_file(node->sibling_next->content));
+}
+
+int	takes_part_in_file(t_treenode *node)
+{
+	return (to_file(node) || from_file(node));
 }

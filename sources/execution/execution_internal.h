@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 17:46:39 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/22 19:37:47 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/12 14:11:39 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,21 @@ int			execute_node(t_executor *executor);
 int			execute_text_tree_node(t_executor *executor);
 int			exec_rec(t_executor *e);
 int			redirections(t_executor *e);
-int			is_pipe_or_redir(char *s);
-int			is_pipe(char *s);
 int			takes_part_in_pipe(t_treenode *node);
 int			setup_file(t_executor *e, t_treenode *node, int i);
-int			close_pipes(t_executor *e);
+int			close_fds(t_executor *e, int tgt);
 int			setup_pipe(t_executor *e, int i);
+int			fd_ok(int fd);
+int			scroll_chain(t_executor *e, int tgt);
+
+int			is_pipe_or_redir(char *s);
+int			is_pipe(char *s);
+int			is_pipe_or_redir(char *c);
+int			from_pipe(t_treenode *node);
+int			to_pipe(t_treenode *node);
+int			takes_part_in_pipe(t_treenode *node);
+int			is_file(char *c);
+int			from_file(t_treenode *node);
+int			to_file(t_treenode *node);
+int			takes_part_in_file(t_treenode *node);
 #endif

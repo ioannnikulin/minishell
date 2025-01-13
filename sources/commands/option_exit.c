@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   option_exit.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: inikulin <inikulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 00:09:12 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/05 20:31:53 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/11 17:30:26 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	option_exit(t_executor *control, t_treenode *node, t_param *param)
 		ft_assign_i(&control->retval, 1, FT_FPRINTF(STDERR,
 				"%s: exit: %s", TXT_MINISHELL, ERR_EXIT_NO_NUMBER));
 	else
-		perror("exit\n");
+		FT_FPRINTF(STDERR, "exit\n");
 	control->retval %= 256;
 	param->opts.exiting = 1;
 	return (1);

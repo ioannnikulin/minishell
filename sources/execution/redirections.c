@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:39:01 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/28 17:30:26 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/12 14:35:31 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,27 @@
 
 static int	child(t_executor *e, int tgt)
 {
-	if (tgt != 0 && dup2(e->fds[tgt][IN], STDIN_FILENO) == -1)
+	if (tgt != 0)
 	{
-		perror("dup2 failed\n");
-		return (ft_assign_i(&e->errno, 1, 1));
+		if (e->param->opts.debug_output_level & DBG_EXEC_CHAIN_PRINT_FD_OPS)
+			FT_FPRINTF(STDERR, "%i: dup in %i\n", tgt, e->fds[tgt][IN]);
+		if (dup2(e->fds[tgt][IN], STDIN) == -1)
+		{
+			FT_FPRINTF(STDERR, "%i: dup failed\n", tgt);
+			exit (ft_assign_i(&e->errno, 1, 1));
+		}
 	}
-	if (tgt != e->chain_length - 1 && dup2(e->fds[tgt][OUT], STDOUT_FILENO)
-		== -1)
+	if (tgt != e->chain_length - 1)
 	{
-		perror("dup2 failed\n");
-		return (ft_assign_i(&e->errno, 1, 2));
+		if (e->param->opts.debug_output_level & DBG_EXEC_CHAIN_PRINT_FD_OPS)
+			FT_FPRINTF(STDERR, "%i: dup out %i\n", tgt, e->fds[tgt][OUT]);
+		if (dup2(e->fds[tgt][OUT], STDOUT) == -1)
+		{
+			FT_FPRINTF(STDERR, "%i: dup failed\n", tgt);
+			exit (ft_assign_i(&e->errno, 1, 2));
+		}
 	}
-	if (close_pipes(e))
+	if (close_fds(e, tgt) || scroll_chain(e, tgt))
 		return (ft_assign_i(&e->errno, 1, 3));
 	execute_text_tree_node(e);
 	exit(0);
@@ -34,37 +43,39 @@ static int	child(t_executor *e, int tgt)
 static int	chain_parent(t_executor *e)
 {
 	int	i;
-	int	res;
-	int	cur_res;
 
-	if (close_pipes(e) || e->errno)
+	if (close_fds(e, -1) || e->errno)
 		return (ft_assign_i(&e->errno, 1, 1));
 	i = -1;
 	while (++i < e->chain_length)
 	{
-		cur_res = parent(e->pids[i], &e->errno);
-		if (i == e->chain_length - 1)
-			res = cur_res;
-		if (e->errno != 0)
-			return (1);
+		if (!from_file(e->node))
+		{
+			e->retval = parent(e->pids[i], &e->errno);
+			if (e->errno != 0)
+				return (1);
+		}
+		if (i != e->chain_length - 1)
+			e->node = e->node->sibling_next->sibling_next;
 	}
-	e->param->opts.retval = res;
-	e->retval = res;
-	return (res);
+	e->param->opts.retval = e->retval;
+	return (e->retval);
 }
 
 static int	exec_chain(t_executor *e)
 {
-	int	i;
+	int			i;
+	t_treenode	*node;
 
 	free(e->pids);
 	e->pids = ft_calloc_if(sizeof(pid_t) * e->chain_length, 1);
 	if (!e->pids)
 		return (ft_assign_i(&e->errno, 2, 2));
 	i = -1;
+	node = e->node;
 	while (++i < e->chain_length)
 	{
-		if (takes_part_in_pipe(e->node))
+		if (!from_file(node))
 		{
 			e->pids[i] = fork();
 			if (e->pids[i] == -1)
@@ -73,7 +84,7 @@ static int	exec_chain(t_executor *e)
 				return (ft_assign_i(&e->errno, 1, 2));
 		}
 		if (i != e->chain_length - 1)
-			e->node = e->node->sibling_next->sibling_next;
+			node = node->sibling_next->sibling_next;
 	}
 	return (chain_parent(e));
 }
@@ -120,17 +131,17 @@ int	redirections(t_executor *e)
 		e->fds[i][OUT] = OUT;
 		if (i + 1 != e->chain_length)
 			e->fds[i + 1][IN] = IN;
-		if (takes_part_in_pipe(e->node))
+		if (to_pipe(node))
 		{
 			if (setup_pipe(e, i) != 0)
 				return (ft_assign_i(&e->errno, 2, 2));
 		}
-		else if (node->sibling_next && setup_file(e, node, i) != 0)
+		if (to_file(node) && setup_file(e, node, i) != 0)
 			return (ft_assign_i(&e->errno, 3, 3));
 		if (node->sibling_next)
 			node = node->sibling_next->sibling_next;
 	}
-	if (e->param->opts.debug_output_level & DBG_EXEC_CHAIN_PRINT_FDS)
+	if (e->param->opts.debug_output_level & DBG_EXEC_CHAIN_PRINT_FD_OPS)
 		ft_print_arr_i_2(e->fds, e->chain_length, 2);
 	return (exec_chain(e));
 }

@@ -3,32 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   exec_text_tree_controls.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:39:01 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/28 15:50:20 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/12 14:37:33 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../tree_make/tree_processing_internal.h"
 
-int	is_pipe(char *c)
+int	scroll_chain(t_executor *e, int tgt)
 {
-	return (ft_strncmp(c, "|", 2) == 0);
+	while (tgt-- > 0)
+		e->node = e->node->sibling_next->sibling_next;
+	return (0);
 }
 
-int	is_pipe_or_redir(char *c)
+int	fd_ok(int fd)
 {
-	return (is_pipe(c) || is_redirection(c));
-}
-
-int	takes_part_in_pipe(t_treenode *node)
-{
-	int	res;
-
-	res = ((node->sibling_next && is_pipe(node->sibling_next->content))
-			|| (node->sibling_prev && is_pipe(node->sibling_prev->content)));
-	return (res);
+	return (fcntl(fd, F_GETFD) != -1);
 }
 
 t_executor	*make_executor(t_treenode *node, t_param *param)

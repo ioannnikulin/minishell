@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_text_tree.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: inikulin <inikulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:39:01 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/05 20:22:07 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/11 18:05:54 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,8 @@ int	exec_rec(t_executor *e)
 	else if (nonbrace(e) != 0)
 		return (2);
 	if (e->errno || e->param->opts.errno)
-		return (0 * FT_PRINTF("ERROR\n") + 3);
+		return (0 * FT_FPRINTF(STDERR, "Execution error %i\n",
+				*ft_max_int(&e->errno, &e->param->opts.errno)) + 3);
 	if (skip_logical_siblings(e) != 0)
 		return (1);
 	if (e->param->opts.exiting || !e->node)
