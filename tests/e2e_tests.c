@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 22:57:54 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/12 14:46:09 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/13 14:15:57 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,10 @@
 #define SZ 29
 #define PRINT_MALLOC_FAILURE_NO
 #define PRINT_TEST_NO
+#define MAX_CHECKED_MALLOCS_PRELIM 200
+// if preliminary shell start (with exit) gives 500, 
+// only 0-200 (empty run) + 500-... (actual commands) will be trapped -
+// assuming 300 go to envvars, and there's no need to check ALL of them
 
 extern char **environ;
 
@@ -139,7 +143,7 @@ static int	file_compare(char *exp_content, char *act_fname)
 	assert(comp_res == 0);
 	free(exp_re);
 	int i;
-	for (i = fsize - 2; act[i] >= '0' && act[i] <= '9'; i --); // When started with traps, the output always ends in a number. Counter of callocs. Here I navigate fron the end of file to the last non-digit to find the start of this number to parse it out.
+	for (i = fsize - 2; i >= 0 && act[i] >= '0' && act[i] <= '9'; i --); // When started with traps, the output always ends in a number. Counter of callocs. Here I navigate fron the end of file to the last non-digit to find the start of this number to parse it out.
 	char *sub = ft_substr(act, i, fsize - i);
 	int mallocs = ft_atoi(sub, 0);
 	free(sub);
@@ -331,7 +335,7 @@ int	e2e_tests(void)
 	#endif
 	successful_execution(&empty_test, &empty_call_mallocs);
 	#ifdef FT_CALLOC_IF_TRAPPED
-	malloc_failure_recoveries(empty_test.cmd, empty_call_mallocs, 0);
+	malloc_failure_recoveries(empty_test.cmd, (empty_call_mallocs > MAX_CHECKED_MALLOCS_PRELIM ? MAX_CHECKED_MALLOCS_PRELIM : empty_call_mallocs), 0);
 	#endif
 	ft_mapss_finalize_i(empty_m, 0, 0);
 	for (int i = 0; i < START; i ++)
