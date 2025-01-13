@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 17:46:39 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/13 18:23:16 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/13 21:57:27 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,17 @@ typedef struct s_executor
 # define IN_FILE 64
 # define IGNORED_FILE 128
 
+# define NO_IN_FILE 104
+
 t_executor	*make_executor(t_treenode *node, t_param *param);
 int			executor_finalize(t_executor *e);
 int			execute_node(t_executor *executor);
 int			execute_text_tree_node(t_executor *executor);
 int			exec_rec(t_executor *e);
 int			redirections(t_executor *e);
+
+int			child(t_executor *e, int tgt);
+int			chain_parent(t_executor *e);
 
 int			setup_out_file(t_executor *e, t_treenode *node, int i);
 int			setup_in_file(t_executor *e, t_treenode *node, int i);

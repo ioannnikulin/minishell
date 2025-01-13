@@ -6,12 +6,12 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 22:57:54 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/13 19:31:26 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/13 21:49:21 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "e2e_internal.h"
-#define START 0
+#define START 30
 #define TRAP_START 0
 //#define DEBUG
 #define SZ 34

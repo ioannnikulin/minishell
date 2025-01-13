@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_text_tree.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inikulin <inikulin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:39:01 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/11 18:05:54 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/13 22:14:07 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,9 @@ int	exec_rec(t_executor *e)
 	t_treenode	*parent;
 
 	if (e->node && e->node->sibling_next
-		&& is_pipe_or_redir(e->node->sibling_next->content))
-		redirections(e);
+		&& is_pipe_or_redir(e->node->sibling_next->content)
+		&& redirections(e) && e->errno && ft_assign_i(&e->retval, 1, 1))
+		return (ft_if_i(e->errno == NO_IN_FILE, 1, e->errno));
 	else if (ft_strcmp(e->node->content, TEXT_TREE_BLOCK) == 0)
 	{
 		parent = e->node;
