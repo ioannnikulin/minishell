@@ -6,18 +6,11 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:39:01 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/12 14:37:33 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/13 18:05:55 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../tree_make/tree_processing_internal.h"
-
-int	scroll_chain(t_executor *e, int tgt)
-{
-	while (tgt-- > 0)
-		e->node = e->node->sibling_next->sibling_next;
-	return (0);
-}
 
 int	fd_ok(int fd)
 {

@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:39:01 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/12 14:35:31 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/13 18:01:11 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static int	chain_parent(t_executor *e)
 	i = -1;
 	while (++i < e->chain_length)
 	{
-		if (!from_file(e->node))
+		if (!is_out_file(e->node))
 		{
 			e->retval = parent(e->pids[i], &e->errno);
 			if (e->errno != 0)
@@ -75,7 +75,7 @@ static int	exec_chain(t_executor *e)
 	node = e->node;
 	while (++i < e->chain_length)
 	{
-		if (!from_file(node))
+		if (!is_out_file(node))
 		{
 			e->pids[i] = fork();
 			if (e->pids[i] == -1)
@@ -100,13 +100,13 @@ static int	alloc(t_treenode *node, int ***fds, int *sz)
 		(*sz)++;
 		node = node->sibling_next->sibling_next;
 	}
-	*fds = ft_calloc_if(sizeof(int [2]) * (*sz + 1), 1);
+	*fds = ft_calloc_if(sizeof(int *) * (*sz + 1), 1);
 	if (!*fds)
 		return (1);
 	i = -1;
 	while (++i < *sz + 1)
 	{
-		(*fds)[i] = ft_calloc_if(sizeof(int) * 2, 1);
+		(*fds)[i] = ft_calloc_if(sizeof(int) * 3, 1);
 		if (!(*fds)[i])
 			return (2);
 	}
@@ -126,22 +126,22 @@ int	redirections(t_executor *e)
 		return (ft_assign_i(&e->errno, 1, 1));
 	node = e->node;
 	i = -1;
-	while (++i < e->chain_length)
+	while (++i < e->chain_length && ft_assign_i(&e->fds[i][OUT], OUT, 1))
 	{
-		e->fds[i][OUT] = OUT;
 		if (i + 1 != e->chain_length)
 			e->fds[i + 1][IN] = IN;
-		if (to_pipe(node))
-		{
-			if (setup_pipe(e, i) != 0)
-				return (ft_assign_i(&e->errno, 2, 2));
-		}
-		if (to_file(node) && setup_file(e, node, i) != 0)
+		if (setup_pipe(e, node, i) != 0)
+			return (ft_assign_i(&e->errno, 2, 2));
+		if (sends_to_out_file(node) && setup_out_file(e, node, i) != 0)
 			return (ft_assign_i(&e->errno, 3, 3));
+		if (reads_from_in_file(node) && setup_in_file(e, node, i) != 0)
+			return (ft_assign_i(&e->errno, 4, 4));
+		if (rollback_input_files_fds(e, node, i))
+			return (ft_assign_i(&e->errno, 5, 5));
 		if (node->sibling_next)
 			node = node->sibling_next->sibling_next;
 	}
 	if (e->param->opts.debug_output_level & DBG_EXEC_CHAIN_PRINT_FD_OPS)
-		ft_print_arr_i_2(e->fds, e->chain_length, 2);
+		ft_print_arr_i_2(e->fds, e->chain_length, 3);
 	return (exec_chain(e));
 }

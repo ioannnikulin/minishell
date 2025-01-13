@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   files.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inikulin <inikulin@stiudent.42.fr>         +#+  +:+       +#+        */
+/*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:39:01 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/12 12:25:39 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/13 18:05:32 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static int	mode(char *s)
 	return (0);
 }
 
-int	setup_file(t_executor *e, t_treenode *node, int i)
+int	setup_out_file(t_executor *e, t_treenode *node, int i)
 {
 	e->fds[i][OUT] = open(node->sibling_next->sibling_next->content,
 			mode(node->sibling_next->content), 0600);
@@ -35,8 +35,46 @@ int	setup_file(t_executor *e, t_treenode *node, int i)
 	{
 		close(e->fds[i][OUT]);
 		e->fds[i + 1][IN] = e->fds[i - 1][IN];
+		e->fds[i][TYPE] |= TO_OUT_FILE | IGNORED_FILE;
 		return (0);
 	}
 	e->fds[i + 1][IN] = e->fds[i][OUT];
+	e->fds[i][TYPE] |= TO_OUT_FILE;
+	return (0);
+}
+
+int	setup_in_file(t_executor *e, t_treenode *node, int i)
+{
+	e->fds[i][IN] = open(node->sibling_next->sibling_next->content,
+			mode(node->sibling_next->content), 0600);
+	if (e->fds[i][IN] == -1)
+		return (ft_assign_i(&e->errno, 2, 2));
+	e->fds[i + 1][OUT] = e->fds[i][IN];
+	return (0);
+}
+
+int	rollback_input_files_fds(t_executor *e, t_treenode *node, int i)
+{
+	int	fd;
+
+	if (!is_in_file(node) || (node->sibling_next
+			&& is_in_file(node->sibling_next->sibling_next)))
+		return (0);
+	fd = e->fds[i][OUT];
+	while (node->sibling_prev && is_in_file(node->sibling_prev->sibling_prev))
+	{
+		i -= 2;
+		if (close(e->fds[i][OUT]) == -1)
+			return (ft_assign_i(&e->errno, 3, 3));
+		e->fds[i][OUT] = fd;
+		e->fds[i][IN] = fd;
+		e->fds[i][TYPE] |= FROM_IN_FILE | IGNORED_FILE;
+		node = node->sibling_prev->sibling_prev;
+	}
+	i -= 2;
+	if (close(e->fds[i][IN]) == -1)
+		return (ft_assign_i(&e->errno, 4, 4));
+	e->fds[i][IN] = fd;
+	e->fds[i][TYPE] |= FROM_IN_FILE;
 	return (0);
 }

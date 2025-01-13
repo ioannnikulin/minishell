@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inikulin <inikulin@stiudent.42.fr>         +#+  +:+       +#+        */
+/*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:39:01 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/12 12:08:08 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/13 18:01:57 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,18 @@ int	close_fds(t_executor *e, int tgt)
 	return (0);
 }
 
-int	setup_pipe(t_executor *e, int i)
+int	setup_pipe(t_executor *e, t_treenode *node, int i)
 {
 	int	p[2];
 
+	if (!to_pipe(node))
+		return (0);
 	if (pipe(p) < 0)
 		return (ft_assign_i(&e->errno, 2, 2));
 	e->fds[i][OUT] = p[OUT];
 	e->fds[i + 1][IN] = p[IN];
+	e->fds[i][TYPE] |= TO_PIPE;
+	e->fds[i + 1][TYPE] |= FROM_PIPE;
 	if (e->param->opts.debug_output_level & DBG_EXEC_CHAIN_PRINT_FD_OPS)
 		FT_FPRINTF(STDERR, "made pipe %i>%i for %i\n",
 			e->fds[i + 1][IN], e->fds[i][OUT], i);

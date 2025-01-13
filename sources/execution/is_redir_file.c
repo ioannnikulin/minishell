@@ -1,39 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_redir.c                                         :+:      :+:    :+:   */
+/*   is_redir_file.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:52:17 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/13 17:09:17 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/13 16:59:22 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution_internal.h"
 
-int	is_to_out_redir(char *c)
+int	is_out_file(t_treenode *node)
 {
-	return (ft_strcmp(c, ">") == 0 || ft_strcmp(c, ">>") == 0);
+	return (node->sibling_prev && is_to_out_redir(node->sibling_prev->content));
 }
 
-int	is_from_in_redir(char *c)
+int	is_in_file(t_treenode *node)
 {
-	return (ft_strcmp(c, "<") == 0);
-}
-
-int	reads_from_in_file(t_treenode *node)
-{
-	return (node->sibling_next
-		&& is_from_in_redir(node->sibling_next->content));
-}
-
-int	sends_to_out_file(t_treenode *node)
-{
-	return (node->sibling_next && is_to_out_redir(node->sibling_next->content));
-}
-
-int	takes_part_in_file(t_treenode *node)
-{
-	return (sends_to_out_file(node) || is_out_file(node));
+	return (node->sibling_prev
+		&& is_from_in_redir(node->sibling_prev->content));
 }
