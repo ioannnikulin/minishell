@@ -1,17 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   opts_fill.c                                        :+:      :+:    :+:   */
+/*   opts_fancy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 18:24:06 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/22 13:51:42 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/13 15:37:51 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "opts.h"
 
+#ifdef FANCY_IFACE
 // returns 1 if matched
 static int	opt_interactive(const char *act, t_param *param)
 {
@@ -95,3 +96,4 @@ int	opts_fill(int argc, const char **argv, t_param *param)
 		dbg(argc, argv);
 	return (0);
 }
+#endif

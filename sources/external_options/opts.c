@@ -6,12 +6,13 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 19:06:16 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/05 20:33:06 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/13 15:41:41 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "opts.h"
 
+#ifdef FANCY_IFACE
 // returns 1 if matched
 int	opt_debug(const char **act, int *i, t_param *param)
 {
@@ -38,6 +39,7 @@ int	opt_single(const char **act, int *f, int t, t_param *param)
 	*f = t;
 	return (1);
 }
+#endif
 
 int	dbg(int argc, const char **argv)
 {

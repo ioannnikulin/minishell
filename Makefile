@@ -8,7 +8,7 @@ PREPROC_DEFINES =
 SOURCE_F = sources
 TEST_F = tests
 
-EXTERNAL_OPTIONS_NAMES = opts.c opts_fill.c pre_post.c
+EXTERNAL_OPTIONS_NAMES = opts_bashlike.c opts_fancy.c opts.c pre_post.c
 EXTERNAL_OPTIONS_F = external_options
 EXTERNAL_OPTIONS_SRCS = $(addprefix $(EXTERNAL_OPTIONS_F)/, $(EXTERNAL_OPTIONS_NAMES))
 
@@ -184,7 +184,7 @@ tania: $(OBJ_DIRS) $(TANIA_OBJ_F) $(OBJS) $(TANIA_ENDPOINT_OBJ)
 ########################################
 
 all_trapped:
-	$(PREFIX)make PREPROC_DEFINES="$(PREPROC_DEFINES) -DFT_CALLOC_IF_TRAPPED" all
+	$(PREFIX)make PREPROC_DEFINES="$(PREPROC_DEFINES) -DFT_CALLOC_IF_TRAPPED -DFANCY_IFACE" all
 
 vania:
 	$(PREFIX)cd libft && make fulltest_trapped_nonorm
