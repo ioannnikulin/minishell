@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:03:08 by taretiuk          #+#    #+#             */
-/*   Updated: 2025/01/15 19:13:59 by taretiuk         ###   ########.fr       */
+/*   Updated: 2025/01/15 20:22:29 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	print_err_message(char *error, char *token, int i, int ret)
 	return (ret);
 }
 
-bool	check_consequent_tokens(char *s1, char *s2)
+bool	check_sequent_tokens(char *s1, char *s2)
 {
 	if ((is_operator(s1) || is_redirection(s1)
 			|| is_opening_parenthesis(s1) || is_closing_parenthesis(s1))
@@ -29,7 +29,7 @@ bool	check_consequent_tokens(char *s1, char *s2)
 	return (true);
 }
 
-bool	check_first_node(char *s)
+bool	check_cmd_edges(char *s)
 {
 	if (is_operator(s) || is_redirection(s)
 		|| is_closing_parenthesis(s) || is_opening_parenthesis(s))
@@ -44,11 +44,11 @@ bool	check_invalid_input(char **tokens)
 	i = 0;
 	while (tokens[i] != NULL)
 	{
-		if (i == 0 && !check_first_node(tokens[i]))
+		if ((i == 0 || tokens[i + 1] == NULL) && !check_cmd_edges(tokens[i]))
 			return (0);
 		else if (tokens[i + 1] != NULL)
 		{
-			if (!check_consequent_tokens(tokens[i], tokens[i + 1]))
+			if (!check_sequent_tokens(tokens[i], tokens[i + 1]))
 				return (0);
 		}
 		i++;
