@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   option_echo.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 00:08:39 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/28 19:46:02 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/14 14:48:35 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,18 @@
 
 // return value is ignored
 // is there a way for echo to fail?
+static int	arg_n(const char *s1, char c)
+{
+	size_t	i;
+
+	i = 1;
+	if (!s1 || s1[0] != '-' || s1[1] == '\0')
+		return (0);
+	while (s1[i] && s1[i] == c)
+		i ++;
+	return (s1[i] == '\0');
+}
+
 int	option_echo(t_executor *control, t_treenode *node, t_param *param)
 {
 	int			n;
@@ -23,7 +35,7 @@ int	option_echo(t_executor *control, t_treenode *node, t_param *param)
 	(void)param;
 	n = 0;
 	child = node->child;
-	while (child && ft_strcmp(child->content, "-n") == 0)
+	while (child && arg_n(child->content, 'n'))
 	{
 		n = 1;
 		child = child->sibling_next;
