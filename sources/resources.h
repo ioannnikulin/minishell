@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 14:26:40 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/28 16:05:35 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/15 17:24:15 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 # define ERR_UNTERMINATED_BLOCK "block not terminated"
 # define ERR_EXIT_NO_NUMBER "numeric argument required"
 # define ERR_EXIT_TOO_MANY_ARGS "too many arguments"
+# define ERR_UNEXPECTED_TOKEN "syntax error near unexpected token"
 
 # define TXT_INVITATION "minishell > "
 # define TXT_MINISHELL "minishell"

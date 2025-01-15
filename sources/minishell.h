@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inikulin <inikulin@stiudent.42.fr>         +#+  +:+       +#+        */
+/*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 15:22:58 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/12 12:08:27 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/15 17:22:25 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include "commands/commands.h"
 # include "tokenizing/tokenizing.h"
 # include "tree_make/tree_processing.h"
+# include "command_validation/command_validation.h"
 
 # define STDERR STDERR_FILENO
 # define STDOUT STDOUT_FILENO
