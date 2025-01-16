@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:03:08 by taretiuk          #+#    #+#             */
-/*   Updated: 2025/01/15 20:33:04 by taretiuk         ###   ########.fr       */
+/*   Updated: 2025/01/16 12:35:16 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,21 +21,18 @@ int	print_err_message(char *error, char *token, int i, int ret)
 
 bool	check_sequent_tokens(char *s1, char *s2)
 {
-	if ((is_operator(s1) || is_redirection(s1)
-			|| is_opening_parenthesis(s1) || is_closing_parenthesis(s1))
-		&& (is_operator(s2) || is_redirection(s2)
-			|| is_opening_parenthesis(s2) || is_closing_parenthesis(s2)))
+	if ((is_operator(s1) || is_redirection(s1))
+		&& (is_operator(s2) || is_redirection(s2)))
 		return (print_err_message(ERR_UNEXPECTED_TOKEN, s1, 0, 0));
 	return (true);
 }
 
 bool	check_cmd_edges(char *s, int i)
 {
-	if (is_operator(s) || is_redirection(s)
-		|| is_closing_parenthesis(s) || is_opening_parenthesis(s))
+	if (is_operator(s) || is_redirection(s))
 	{
 		if (i == 0)
-			return (print_err_message(ERR_UNEXPECTED_TOKEN, s, 1, 0));
+			return (print_err_message(ERR_UNEXPECTED_TOKEN, s, 0, 0));
 		else
 			return (print_err_message(ERR_UNEXPECTED_TOKEN, "newline", 0, 0));
 	}

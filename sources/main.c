@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inikulin <inikulin@stiudent.42.fr>         +#+  +:+       +#+        */
+/*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 15:21:17 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/12 12:07:18 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/16 13:21:59 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,13 @@
 
 extern volatile sig_atomic_t	g_interrupt_flag;
 
-static char	*read_input(void)
+static char	*read_input(char *cur_command)
 {
 	char	*line;
 	size_t	len;
 	ssize_t	nread;
 
+	free(cur_command);
 	if (!isatty(STDIN))
 	{
 		len = 0;
@@ -41,8 +42,7 @@ static int	interactive(t_param *param)
 {
 	while (1)
 	{
-		free(param->cur_command);
-		param->cur_command = read_input();
+		param->cur_command = read_input(param->cur_command);
 		if (g_interrupt_flag)
 		{
 			g_interrupt_flag = 0;
@@ -54,7 +54,10 @@ static int	interactive(t_param *param)
 			continue ;
 		if (isatty(STDIN))
 			add_history(param->cur_command);
-		if (input_to_text_tree(param))
+		param->opts.errno = input_to_text_tree(param);
+		if (param->opts.errno == -1)
+			continue ;
+		else if (param->opts.errno)
 			break ;
 		param->opts.retval = exec_text_tree(param);
 		if (param->opts.exiting)
