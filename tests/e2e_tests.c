@@ -6,13 +6,12 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 22:57:54 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/17 22:06:56 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/17 23:52:40 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "e2e_internal.h"
 #define START 0
-#define TRAP_START 0
 #define DEBUG
 #define SZ 34
 #define PRINT_TEST_NO
@@ -61,7 +60,6 @@ int	e2e_tests(void)
 		#ifdef FT_CALLOC_IF_TRAPPED
 		if (tests[i].check_mallocs)
 			malloc_failure_recoveries(tests[i].cmd, mallocs, empty_call_mallocs);
-		malloc_failure_recoveries(tests[i].cmd, mallocs, empty_call_mallocs);
 		#endif
 		ft_mapss_finalize_i(m[i], 0, 0);
 	}
@@ -193,12 +191,12 @@ int	populate(void)
 
 	ft_mapss_add(m[32], "stdout", "");
 	ft_mapss_add(m[32], "one.txt", "1\n2\n");
-	ft_mapss_add(m[32], "one.txt", "2\n");
+	ft_mapss_add(m[32], "two.txt", "2\n");
 	tests[32] = (t_testcase){"rm -f one.txt two.txt && echo 1 >> one.txt && echo 2 >> one.txt && cat < one.txt | grep 2 > two.txt", m[32], 0, 0};
 
 	ft_mapss_add(m[33], "stdout", "");
 	ft_mapss_add(m[33], "one.txt", "1\n2\n");
-	ft_mapss_add(m[33], "one.txt", "2\n");
+	ft_mapss_add(m[33], "two.txt", "2\n");
 	tests[33] = (t_testcase){"rm -f one.txt two.txt && echo 1 >> one.txt && echo 2 >> one.txt && cat < one.txt | grep 2 > two.txt | grep 2", m[33], 0, 0};
 
 	return (0);

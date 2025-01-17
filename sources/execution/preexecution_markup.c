@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 22:32:33 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/17 22:39:49 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/17 23:47:35 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static int	rollback_pipe(t_treenode *node)
 	return (0);
 }
 
-int	markup(t_executor *e)
+static int	stage1(t_executor *e)
 {
 	t_treenode	*node;
 
@@ -82,16 +82,21 @@ int	markup(t_executor *e)
 		if (is_out_file(node))
 			*get_node_type(node) |= OUT_FILE;
 		node = next_node(node);
-		fd_info(e);
 	}
-	FT_FPRINTF(2, "\n");
+	return (0);
+}
+
+int	markup(t_executor *e)
+{
+	t_treenode	*node;
+
+	stage1(e);
 	node = e->node;
 	while (node)
 	{
 		rollback_pipe(node);
 		chain_ends(node);
 		node = next_node(node);
-		fd_info(e);
 	}
 	fd_info(e);
 	return (0);

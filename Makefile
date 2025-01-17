@@ -197,7 +197,7 @@ vania:
 minivania:
 	$(PREFIX)make all_fancy test && ./$(TEST_FNAME)
 
-CMD = "cat < one.txt | grep 1 > two.txt | grep 1"
+CMD = "cat < one.txt | grep 1 > two.txt"
 run:
 	$(PREFIX)./minishell --debug 136 --command $(CMD)
 debug:

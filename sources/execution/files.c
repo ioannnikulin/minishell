@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:39:01 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/17 22:50:40 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/17 23:48:12 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,8 +99,8 @@ int	rollback_input_files_fds(t_executor *e, t_treenode *node)
 	}
 	if (!node)
 		return (ft_assign_i(&e->errno, 4, 4));
-	if (close(*get_node_in_fd(node)) == -1)
-		return (ft_assign_i(&e->errno, 4, 4));
+	if (*get_node_in_fd(node) != STDIN && close(*get_node_in_fd(node)) == -1)
+		return (ft_assign_i(&e->errno, 5, 5));
 	*get_node_in_fd(node) = fd;
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 18:17:25 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/15 19:18:58 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/17 23:49:31 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,9 @@ typedef struct s_testcase
 	int		check_mallocs;
 }	t_testcase;
 
-int	populate(void);
+int		populate(void);
 void	successful_execution(t_testcase *test, int *mallocs);
+void	malloc_failure_recoveries(char *cmd, int mallocs, int from_mallocs);
 void	catch(char* fname, int *out, int *save);
 void	catch_err(char* fname, int *out, int *save);
 void	finally(int *out, int *save);

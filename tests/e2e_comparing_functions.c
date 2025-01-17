@@ -6,12 +6,13 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 18:16:14 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/13 18:29:09 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/17 23:50:20 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "e2e_internal.h"
 #define PRINT_MALLOC_FAILURE_NO
+#define TRAP_START 0
 
 extern char **environ;
 
@@ -176,7 +177,7 @@ void	successful_execution(t_testcase *test, int *mallocs)
 }
 
 #ifdef FT_CALLOC_IF_TRAPPED
-static void	malloc_failure_recoveries(char *cmd, int mallocs, int from_mallocs)
+void	malloc_failure_recoveries(char *cmd, int mallocs, int from_mallocs)
 {
 	if (!cmd) return ;
 	if (from_mallocs < TRAP_START) from_mallocs = TRAP_START;

@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 00:09:12 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/17 14:42:44 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/17 23:47:14 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	option_exit(t_executor *control, t_treenode *node, t_param *param)
 	}
 	if (node->child)
 		control->retval = ft_atoi(*get_node_txt(node->child),
-			&param->opts.errno);
+				&param->opts.errno);
 	if (param->opts.errno)
 		ft_assign_i(&control->retval, 1, FT_FPRINTF(STDERR,
 				"%s: exit: %s", TXT_MINISHELL, ERR_EXIT_NO_NUMBER));
