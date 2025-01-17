@@ -48,7 +48,7 @@ COMMAND_VALIDATION_NAMES = check_invalid_input.c
 COMMAND_VALIDATION_F = command_validation
 COMMAND_VALIDATION_SRCS = $(addprefix $(COMMAND_VALIDATION_F)/, $(COMMAND_VALIDATION_NAMES))
 
-EXECUTION_NAMES = exec_text_tree.c exec_text_tree_node.c exec_text_tree_controls.c redirections.c pipes.c files.c is_pipe.c is_redir.c
+EXECUTION_NAMES = exec_text_tree.c exec_text_tree_node.c exec_text_tree_controls.c redirections.c pipes.c files.c is_pipe.c is_redir.c parent_n_child.c
 EXECUTION_F = execution
 EXECUTION_SRCS = $(addprefix $(EXECUTION_F)/, $(EXECUTION_NAMES))
 
@@ -196,7 +196,7 @@ vania:
 	$(PREFIX)make minivania
 
 minivania:
-	$(PREFIX)make all test && ./$(TEST_FNAME)
+	$(PREFIX)make PREPROC_DEFINES="$(PREPROC_DEFINES) -DFANCY_IFACE" all test && ./$(TEST_FNAME)
 run:
 	$(PREFIX)./minishell --debug 136 --command $(CMD)
 debug:

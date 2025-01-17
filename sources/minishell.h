@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 15:22:58 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/15 17:22:25 by taretiuk         ###   ########.fr       */
+/*   Updated: 2025/01/17 11:28:17 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@
 # define STDERR STDERR_FILENO
 # define STDOUT STDOUT_FILENO
 # define STDIN STDIN_FILENO
+
+# define MALFORMED_INPUT -1
 
 # define DBG_EXTERNAL_SEARCH_FOLDERS 1
 # define DBG_PRINT_TREE_BEFORE_EXEC 2

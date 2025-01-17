@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution_internal.h                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 17:46:39 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/12 14:11:39 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/17 12:03:20 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ int			close_fds(t_executor *e, int tgt);
 int			setup_pipe(t_executor *e, int i);
 int			fd_ok(int fd);
 int			scroll_chain(t_executor *e, int tgt);
+int			child(t_executor *e, int tgt);
+int			chain_parent(t_executor *e);
 
 int			is_pipe_or_redir(char *s);
 int			is_pipe(char *s);

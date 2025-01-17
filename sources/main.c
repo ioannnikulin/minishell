@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 15:21:17 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/16 13:21:59 by taretiuk         ###   ########.fr       */
+/*   Updated: 2025/01/17 11:46:42 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,9 @@ static int	interactive(t_param *param)
 			continue ;
 		if (isatty(STDIN))
 			add_history(param->cur_command);
-		param->opts.errno = input_to_text_tree(param);
-		if (param->opts.errno == -1)
+		if (input_to_text_tree(param) == MALFORMED_INPUT
+			&& ft_assign_i(&param->opts.retval, 1, 1)
+			&& ft_assign_i(&param->opts.errno, 0, 0))
 			continue ;
 		else if (param->opts.errno)
 			break ;
@@ -71,7 +72,7 @@ static int	one_cmd(t_param *param)
 	if (param->opts.debug_output_level & DBG_ONE_CMD_ECHO)
 		FT_PRINTF("[%s]\n", param->cur_command);
 	param->opts.retval = input_to_text_tree(param);
-	if (param->opts.retval)
+	if (param->opts.retval && ft_assign_i(&param->opts.retval, 1, 1))
 		return (1);
 	param->opts.retval = exec_text_tree(param);
 	return (param->opts.retval);

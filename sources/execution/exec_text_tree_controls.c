@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_text_tree_controls.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:39:01 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/12 14:37:33 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/17 12:17:33 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,16 +40,6 @@ t_executor	*make_executor(t_treenode *node, t_param *param)
 
 int	executor_finalize(t_executor *e)
 {
-	int	i;
-
-	i = -1;
-	if (e->fds)
-	{
-		while (++i < e->chain_length + 1)
-			free(e->fds[i]);
-	}
-	free(e->fds);
-	free(e->pids);
 	free(e);
 	return (0);
 }

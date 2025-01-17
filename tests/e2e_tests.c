@@ -6,19 +6,19 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 22:57:54 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/16 19:29:22 by taretiuk         ###   ########.fr       */
+/*   Updated: 2025/01/17 12:18:36 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tests_internal.h"
-#define START 29
-#define TRAP_START 29
-#define DEBUG
-#define SZ 32
+#define START 0
+#define TRAP_START 0
+//#define DEBUG
+#define SZ 33
 #define PRINT_MALLOC_FAILURE_NO
 #define PRINT_TEST_NO
 #define MAX_CHECKED_MALLOCS_PRELIM 200
-// if preliminary shell start (with exit) gives 500, 
+// if preliminary shell start (with exit) gives 500,
 // only 0-200 (empty run) + 500-... (actual commands) will be trapped -
 // assuming 300 go to envvars, and there's no need to check ALL of them
 
@@ -78,7 +78,7 @@ static void check_stderr(char *fname)
 			fds_3 = 1;
 		// these three conditions are for github starts;
 		// somehow github adds two file descriptors, but they are not marked as spawned in the program by pipe(),
-		// so I think we can skip them, this is something technical about github 
+		// so I think we can skip them, this is something technical about github
 		if (strstr(line, "FILE DESCRIPTORS: 5 open (3 std) at exit."))
 			fds_5 = 1;
 		if (strstr(line, "<inherited from parent>"))
@@ -187,7 +187,7 @@ static int	valgrind(char *cmd, int trap)
 	assert(system("cp minishell e2e_f/minishell") == 0);
 	char *s_trap = ft_itoa(trap);
 	assert(!!s_trap);
-	char *tmp = ft_strjoin_multi_free_outer(ft_s5(ft_s4("bash -c 'cd e2e_f && valgrind --leak-check=full --show-leak-kinds=all --child-silent-after-fork=yes --track-fds=yes -s ./minishell --trap", s_trap, "--command", cmd), "' 1>test.stdout 2>test.stderr"), 5, " ");
+	char *tmp = ft_strjoin_multi_free_outer(ft_s5(ft_s4("bash -c 'cd e2e_f && valgrind --leak-check=full --show-leak-kinds=all --child-silent-after-fork=yes --track-fds=yes -s ./minishell --trap", s_trap, "--command \"", cmd), "\"' 1>test.stdout 2>test.stderr"), 5, " ");
 	free(s_trap);
 	assert(!!tmp);
 	system(tmp);
@@ -240,7 +240,7 @@ static void	malloc_failure_recoveries(char *cmd, int mallocs, int from_mallocs)
 		#ifdef PRINT_MALLOC_FAILURE_NO
 		printf("\t == %i == \n", i);
 		#endif
-		valgrind(cmd, i);	
+		valgrind(cmd, i);
 	}
 	system("rm -rf e2e_f && rm -f e2e.stdout e2e.stderr");
 }
@@ -298,10 +298,14 @@ int	e2e_tests(void)
 	ft_mapss_add(m[27], "out.txt", "2\n");
 	ft_mapss_add(m[28], "stdout", "");
 	ft_mapss_add(m[28], "out.txt", "1\n2\n");
-	ft_mapss_add(m[29], "stderr", "minishell: syntax error near unexpected token '|'\n");
-	ft_mapss_add(m[30], "stderr", "minishell: syntax error near unexpected token '|'\n");
-	ft_mapss_add(m[31], "stderr", "syntax error near unexpected token 'newline'\n");
-	ft_mapss_add(m[32], "stderr", "syntax error near unexpected token '&&'\n");
+	ft_mapss_add(m[29], "stdout", "");
+	ft_mapss_add(m[29], "stderr", "minishell: syntax error near unexpected token `|'\n");
+	ft_mapss_add(m[30], "stdout", "");
+	ft_mapss_add(m[30], "stderr", "minishell: syntax error near unexpected token `|'\n");
+	ft_mapss_add(m[31], "stdout", "");
+	ft_mapss_add(m[31], "stderr", "minishell: syntax error near unexpected token `newline'\n");
+	ft_mapss_add(m[32], "stdout", "");
+	ft_mapss_add(m[32], "stderr", "minishell: syntax error near unexpected token `&&'\n");
 	tests[0] = (t_testcase){"echo hello world", m[0], 0};
 	tests[1] = (t_testcase){"echo \"1   2\"   3", m[1], 0};
 	tests[2] = (t_testcase){"rm -rf testf && mkdir testf && cd testf && mkdir f1 f2 && touch 1 && touch 11 2 && ls -a -h | grep 1 >> out.txt", m[2], 0};
@@ -331,12 +335,12 @@ int	e2e_tests(void)
 	tests[26] = (t_testcase){"rm -f out.txt && echo 1 >> out.txt", m[26], 0};
 	tests[27] = (t_testcase){"rm -f out.txt && echo 1 > out.txt && echo 2 > out.txt", m[27], 0};
 	tests[28] = (t_testcase){"rm -f out.txt && echo 1 >> out.txt && echo 2 >> out.txt", m[28], 0};
-	tests[29] = (t_testcase){"|", m[29], 0};
-	tests[30] = (t_testcase){"ls | | ls", m[30], 0};
-	tests[31] = (t_testcase){"pwd >", m[31], 0};
-	tests[32] = (t_testcase){"echo && &&", m[32], 0};
+	tests[29] = (t_testcase){"|", m[29], 1};
+	tests[30] = (t_testcase){"ls | | ls", m[30], 1};
+	tests[31] = (t_testcase){"pwd >", m[31], 1};
+	tests[32] = (t_testcase){"echo && &&", m[32], 1};
 	// multiple pipes (see mocks 29-30) will not be tested here, they produce strange errors in this testing suite, though they run normally when being started as separate commands. something to do with STDOUT being intercepted for tests probably.
-	
+
 	int	empty_call_mallocs = 0;
 	#ifdef PRINT_TEST_NO
 	printf("\t ======== preliminary empty start ======== \n");
@@ -346,7 +350,7 @@ int	e2e_tests(void)
 	malloc_failure_recoveries(empty_test.cmd, (empty_call_mallocs > MAX_CHECKED_MALLOCS_PRELIM ? MAX_CHECKED_MALLOCS_PRELIM : empty_call_mallocs), 0);
 	#endif
 	ft_mapss_finalize_i(empty_m, 0, 0);
-	for (int i = 29; i < START; i ++)
+	for (int i = 0; i < START; i ++)
 	{
 		ft_mapss_finalize_i(m[i], 0, 0);
 	}

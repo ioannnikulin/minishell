@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:03:08 by taretiuk          #+#    #+#             */
-/*   Updated: 2025/01/16 12:35:16 by taretiuk         ###   ########.fr       */
+/*   Updated: 2025/01/17 11:14:47 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	print_err_message(char *error, char *token, int i, int ret)
 {
 	if (i == 0)
-		FT_FPRINTF(STDERR, "%s: %s '%s'\n", TXT_MINISHELL, error, token);
+		FT_FPRINTF(STDERR, "%s: %s `%s'\n", TXT_MINISHELL, error, token);
 	return (ret);
 }
 
