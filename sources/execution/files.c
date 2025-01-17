@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:39:01 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/13 22:04:28 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/17 21:47:53 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,59 +25,82 @@ static int	mode(char *s)
 	return (0);
 }
 
-int	setup_out_file(t_executor *e, t_treenode *node, int i)
+static int	ignored_file(t_executor *e, t_treenode *node, int fd)
 {
-	e->fds[i][OUT] = open(node->sibling_next->sibling_next->content,
-			mode(node->sibling_next->content), 0600);
-	if (e->fds[i][OUT] == -1)
-		return (ft_assign_i(&e->errno, 2, 2));
-	if (node->sibling_prev && is_redirection(node->sibling_prev->content))
-	{
-		close(e->fds[i][OUT]);
-		e->fds[i + 1][IN] = e->fds[i - 1][IN];
-		e->fds[i][TYPE] |= TO_OUT_FILE | IGNORED_FILE;
-		return (0);
-	}
-	e->fds[i + 1][IN] = e->fds[i][OUT];
-	e->fds[i][TYPE] |= TO_OUT_FILE;
+	if (close(fd) == -1)
+		return (ft_assign_i(&e->errno, 3, 3));
+	fd = *get_node_out_fd(prev_node(node));
+	*get_node_in_fd(node) = fd;
+	*get_node_out_fd(node) = fd;
+	*get_node_in_fd(next_node(node)) = fd;
+	*get_node_out_fd(next_node(node)) = fd;
+	*get_node_type(node) |= IGNORED_FILE;
 	return (0);
 }
 
-int	setup_in_file(t_executor *e, t_treenode *node, int i)
-{
-	e->fds[i + 1][OUT] = open(node->sibling_next->sibling_next->content,
-			mode(node->sibling_next->content), 0600);
-	if (e->fds[i + 1][OUT] == -1)
-	{
-		FT_FPRINTF(STDERR, "%s: %s: %s\n", TXT_MINISHELL,
-			node->sibling_next->sibling_next->content, ERR_NO_IN_FILE);
-		return (ft_assign_i(&e->errno, NO_IN_FILE, NO_IN_FILE));
-	}
-	return (0);
-}
-
-int	rollback_input_files_fds(t_executor *e, t_treenode *node, int i)
+int	setup_out_file(t_executor *e, t_treenode *node)
 {
 	int	fd;
 
-	if (!is_in_file(node) || (node->sibling_next
-			&& is_in_file(node->sibling_next->sibling_next)))
+	if ((*get_node_type(node) & TO_OUT_FILE) == 0)
 		return (0);
-	fd = e->fds[i][OUT];
-	while (node->sibling_prev && is_in_file(node->sibling_prev->sibling_prev))
+	fd = open(*get_node_txt(next_node(node)),
+			mode(*get_node_txt(node->sibling_next)), 0600);
+	if (fd == -1)
+		return (ft_assign_i(&e->errno, 2, 2));
+	*get_node_out_fd(node) = fd;
+	if (*get_node_type(node) & OUT_FILE)
+		return (ignored_file(e, node, fd));
+	*get_node_in_fd(next_node(node)) = fd;
+	*get_node_out_fd(next_node(node)) = fd;
+	return (0);
+}
+
+// fd is written only to the file node for now. to command node - in rollback
+int	setup_in_file(t_executor *e, t_treenode *node)
+{
+	int	fd;
+
+	if ((*get_node_type(node) & IN_FILE) == 0)
+		return (0);
+	fd = open(*get_node_txt(node),
+			mode(*get_node_txt(node->sibling_prev)), 0600);
+	if (fd == -1)
 	{
-		i --;
-		if (close(e->fds[i][OUT]) == -1)
-			return (ft_assign_i(&e->errno, 3, 3));
-		e->fds[i][OUT] = fd;
-		e->fds[i][IN] = fd;
-		e->fds[i][TYPE] |= FROM_IN_FILE | IGNORED_FILE;
-		node = node->sibling_prev->sibling_prev;
+		FT_FPRINTF(STDERR, "%s: %s: %s\n", TXT_MINISHELL,
+			*get_node_txt(node), ERR_NO_IN_FILE);
+		return (ft_assign_i(&e->errno, NO_IN_FILE, NO_IN_FILE));
 	}
-	i --;
-	if (close(e->fds[i][IN]) == -1)
+	*get_node_out_fd(node) = fd;
+	*get_node_in_fd(node) = fd;
+	return (0);
+}
+
+// works only for last file of input file sequence,
+// e.g. ls < file1 < _file2_ > file3
+// also ls < _file1_ > file3
+int	rollback_input_files_fds(t_executor *e, t_treenode *node)
+{
+	int	fd;
+
+	if (!(*get_node_type(node) & IN_FILE)
+		|| (node->sibling_next && (*get_node_type(next_node(node)) & IN_FILE)))
+		return (0);
+	fd = *get_node_out_fd(node);
+	node = prev_node(node);
+	while (node && (*get_node_type(node) & IN_FILE))
+	{
+		if (close(*get_node_out_fd(node)) == -1)
+			return (ft_assign_i(&e->errno, 3, 3));
+		*get_node_out_fd(node) = fd;
+		*get_node_in_fd(node) = fd;
+		*get_node_type(node) |= IGNORED_FILE;
+		node = prev_node(node);
+	}
+	if (!node)
 		return (ft_assign_i(&e->errno, 4, 4));
-	e->fds[i][IN] = fd;
-	e->fds[i][TYPE] |= FROM_IN_FILE;
+	if (close(*get_node_in_fd(node)) == -1)
+		return (ft_assign_i(&e->errno, 4, 4));
+	*get_node_in_fd(node) = fd;
 	return (0);
 }

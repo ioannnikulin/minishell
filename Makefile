@@ -44,7 +44,7 @@ COMMAND_EXPANSION_NAMES = substitute_envvars.c expand.c
 COMMAND_EXPANSION_F = command_expansion
 COMMAND_EXPANSION_SRCS = $(addprefix $(COMMAND_EXPANSION_F)/, $(COMMAND_EXPANSION_NAMES))
 
-EXECUTION_NAMES = exec_text_tree.c exec_text_tree_node.c exec_text_tree_controls.c redirections.c pipes.c files.c is_pipe.c is_redir.c is_redir_file.c navigation.c parent_n_child.c
+EXECUTION_NAMES = exec_text_tree.c exec_text_tree_node.c exec_text_tree_controls.c redirections.c pipes.c files.c is_pipe.c is_redir.c is_redir_file.c navigation.c parent_n_child.c preexecution_markup.c
 EXECUTION_F = execution
 EXECUTION_SRCS = $(addprefix $(EXECUTION_F)/, $(EXECUTION_NAMES))
 
@@ -52,7 +52,7 @@ COMMANDS_NAMES = option_cd.c option_echo.c option_env.c option_exit.c option_exp
 COMMANDS_F = commands
 COMMANDS_SRCS = $(addprefix $(COMMANDS_F)/,$(COMMANDS_NAMES))
 
-SRC_NAMES = $(EXTERNAL_OPTIONS_SRCS) $(INTERNAL_SETTINGS_SRCS) input_to_text_tree.c $(INPUT_TO_TEXT_TREE_MOCK_SRCS) $(SPLIT_SRCS) $(TOKENIZING_SRCS) $(TREE_MAKE_SRCS) $(TREE_EXPANSION_SRCS) $(COMMAND_EXPANSION_SRCS) $(EXECUTION_SRCS) $(COMMANDS_SRCS)
+SRC_NAMES = $(EXTERNAL_OPTIONS_SRCS) $(INTERNAL_SETTINGS_SRCS) input_to_text_tree.c $(INPUT_TO_TEXT_TREE_MOCK_SRCS) $(SPLIT_SRCS) $(TOKENIZING_SRCS) $(TREE_MAKE_SRCS) $(TREE_EXPANSION_SRCS) $(COMMAND_EXPANSION_SRCS) $(EXECUTION_SRCS) $(COMMANDS_SRCS) treenode_insert.c treenode_ops.c treenode_ops_1.c
 ENDPOINT_NAME = main.c
 
 SRC_SRCS = $(addprefix $(SOURCE_F)/, $(SRC_NAMES))
@@ -197,9 +197,9 @@ vania:
 minivania:
 	$(PREFIX)make all_fancy test && ./$(TEST_FNAME)
 
-CMD = "cat < one.txt"
+CMD = "cat < one.txt | grep 1 > two.txt | grep 1"
 run:
-	$(PREFIX)./minishell --command $(CMD)
+	$(PREFIX)./minishell --debug 136 --command $(CMD)
 debug:
 	$(PREFIX)gdbtui --args ./minishell --debug 136 --command $(CMD)
 mem:

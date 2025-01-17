@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 23:07:09 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/10 17:42:44 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/15 20:21:33 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	mock_24_tree(t_treenode *root)
 {
-	if (ft_treenode_insert_child_idx_s_dup(root, "echo", 0) == -1
-		|| ft_treenode_insert_child_idx_s_dup(root->child,
+	if (treenode_insert_dup(root, "echo", 0) == -1
+		|| treenode_insert_dup(root->child,
 			"'$(echo \"$(echo \"$(echo \"bla\")\")\")'", 0) == -1
 	)
 		return (1);

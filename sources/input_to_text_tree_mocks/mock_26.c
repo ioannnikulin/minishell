@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 23:07:09 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/10 17:43:25 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/15 20:21:33 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 static int	p2(t_treenode *root)
 {
-	if (ft_treenode_insert_child_idx_s_dup(root, "3", 0) == -1)
+	if (treenode_insert_dup(root, "3", 0) == -1)
 		return (1);
 	root = root->sibling_next->sibling_next;
-	if (ft_treenode_insert_child_idx_s_dup(root, "4", 0) == -1)
+	if (treenode_insert_dup(root, "4", 0) == -1)
 		return (1);
 	root = root->sibling_next->sibling_next;
-	if (ft_treenode_insert_child_idx_s_dup(root, "5", 0) == -1
-		|| ft_treenode_insert_child_idx_s_dup(root->sibling_next->sibling_next,
+	if (treenode_insert_dup(root, "5", 0) == -1
+		|| treenode_insert_dup(root->sibling_next->sibling_next,
 			"6", 0) == -1)
 		return (1);
 	return (0);
@@ -29,18 +29,18 @@ static int	p2(t_treenode *root)
 
 int	mock_26_tree(t_treenode *root)
 {
-	if (ft_treenode_insert_child_idx_s_dup(root, "echo", 0) == -1
-		|| ft_treenode_insert_child_idx_s_dup(root->child, "1", 0) == -1
-		|| ft_treenode_insert_child_idx_s_dup(root->child, "-n", 1) == -1
-		|| ft_treenode_insert_child_idx_s_dup(root->child, "2", 2) == -1
-		|| ft_treenode_insert_child_idx_s_dup(root, "&&", 1) == -1
-		|| ft_treenode_insert_child_idx_s_dup(root, "echo", 2) == -1
-		|| ft_treenode_insert_child_idx_s_dup(root, "||", 3) == -1
-		|| ft_treenode_insert_child_idx_s_dup(root, "echo", 4) == -1
-		|| ft_treenode_insert_child_idx_s_dup(root, "||", 5) == -1
-		|| ft_treenode_insert_child_idx_s_dup(root, "echo", 6) == -1
-		|| ft_treenode_insert_child_idx_s_dup(root, "||", 7) == -1
-		|| ft_treenode_insert_child_idx_s_dup(root, "echo", 8) == -1
+	if (treenode_insert_dup(root, "echo", 0) == -1
+		|| treenode_insert_dup(root->child, "1", 0) == -1
+		|| treenode_insert_dup(root->child, "-n", 1) == -1
+		|| treenode_insert_dup(root->child, "2", 2) == -1
+		|| treenode_insert_dup(root, "&&", 1) == -1
+		|| treenode_insert_dup(root, "echo", 2) == -1
+		|| treenode_insert_dup(root, "||", 3) == -1
+		|| treenode_insert_dup(root, "echo", 4) == -1
+		|| treenode_insert_dup(root, "||", 5) == -1
+		|| treenode_insert_dup(root, "echo", 6) == -1
+		|| treenode_insert_dup(root, "||", 7) == -1
+		|| treenode_insert_dup(root, "echo", 8) == -1
 	)
 		return (1);
 	return (p2(root->child->sibling_next->sibling_next));

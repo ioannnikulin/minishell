@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokens_to_tree.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 12:22:57 by taretiuk          #+#    #+#             */
-/*   Updated: 2025/01/02 16:41:13 by taretiuk         ###   ########.fr       */
+/*   Updated: 2025/01/17 13:57:19 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,11 @@ int	process_tree(char *token, t_treenode **cur_1,
 	return (0);
 }
 
-static int	insert_first_node(char *token, t_treenode *root,
+static int	treenode_insert_dup_first_node(char *token, t_treenode *root,
 			t_treenode **cur_1, int *num)
 {
-	if (ft_treenode_insert_child_idx_s_dup(root, token, 0) == -1)
-	{
+	if (treenode_insert_dup(root, token, 0) == -1)
 		return (1);
-	}
 	if (is_opening_parenthesis(token))
 	{
 		*cur_1 = root->child;
@@ -66,10 +64,10 @@ int	tokens_to_tree(t_tree *tree, char **tokens)
 	t_treenode	*cur_2;
 
 	i = 0;
-	tree->root = ft_treenode_make(TEXT_TREE_ROOT, 0, ft_free_nop);
+	tree->root = treenode_make(TEXT_TREE_ROOT, 0, ft_free_nop);
 	if (!tree->root)
 		return (2);
-	insert_first_node(tokens[i++], tree->root, &cur_1, &num);
+	treenode_insert_dup_first_node(tokens[i++], tree->root, &cur_1, &num);
 	if (tree->root->child == NULL)
 		return (1);
 	cur_2 = tree->root->child;

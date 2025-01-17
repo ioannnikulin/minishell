@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   is_pipe.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inikulin <inikulin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:52:39 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/11 18:11:15 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/17 16:58:41 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,13 @@ int	is_pipe_or_redir(char *c)
 
 int	from_pipe(t_treenode *node)
 {
-	return (node->sibling_prev && is_pipe(node->sibling_prev->content));
+	return (node->sibling_prev && is_pipe(*get_node_txt(node->sibling_prev)));
 }
 
 int	to_pipe(t_treenode *node)
 {
-	return (node->sibling_next && is_pipe(node->sibling_next->content));
+	return (node->sibling_next
+		&& is_pipe(*get_node_txt(node->sibling_next)));
 }
 
 int	takes_part_in_pipe(t_treenode *node)

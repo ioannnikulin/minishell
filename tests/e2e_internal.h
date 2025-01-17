@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 18:17:25 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/13 19:29:48 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/15 19:18:58 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ typedef struct s_testcase
 	char	*cmd;
 	t_mapss	*exp;
 	int		exp_ret;
+	int		check_mallocs;
 }	t_testcase;
 
 int	populate(void);
