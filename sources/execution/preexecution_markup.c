@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 22:32:33 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/17 22:05:29 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/17 22:39:49 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,12 @@ static int	chain_ends(t_treenode *node)
 {
 	t_treenode	*next;
 
-	if ((!node->sibling_prev
-			|| !(*get_node_type(prev_node(node)) & CHAIN_START))
-		&& (*get_node_type(node) & (TO_PIPE | TO_OUT_FILE
-				| FROM_IN_FILE)))
+	if (node->sibling_next && (!node->sibling_prev
+			|| !is_pipe_or_redir(*get_node_txt(node->sibling_prev)))
+		&& is_pipe_or_redir(*get_node_txt(node->sibling_next)))
 		*get_node_type(node) |= CHAIN_START;
 	next = node->sibling_next;
-	if ((*get_node_type(node) & (FROM_PIPE | OUT_FILE | IN_FILE)) != 0
+	if ((*get_node_type(node) & (FROM_PIPE | OUT_FILE | IN_FILE | COMMAND)) != 0
 		&& (!next || !is_pipe_or_redir(*get_node_txt(next))))
 		*get_node_type(node) |= CHAIN_END;
 	return (0);
@@ -83,13 +82,16 @@ int	markup(t_executor *e)
 		if (is_out_file(node))
 			*get_node_type(node) |= OUT_FILE;
 		node = next_node(node);
+		fd_info(e);
 	}
+	FT_FPRINTF(2, "\n");
 	node = e->node;
 	while (node)
 	{
 		rollback_pipe(node);
 		chain_ends(node);
 		node = next_node(node);
+		fd_info(e);
 	}
 	fd_info(e);
 	return (0);

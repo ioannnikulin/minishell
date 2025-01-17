@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:39:01 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/17 21:58:16 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/17 22:14:22 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,6 @@ int	redirections(t_executor *e)
 			return (ft_assign_i(&e->errno, NO_IN_FILE, NO_IN_FILE));
 		if (rollback_input_files_fds(e, node))
 			return (ft_assign_i(&e->errno, 5, 5));
-		if (e->param->opts.debug_output_level & DBG_EXEC_CHAIN_PRINT_FD_OPS)
-			FT_FPRINTF(STDERR, "node %i: in %i out %i\n", i,
-				*get_node_in_fd(node), *get_node_out_fd(node));
 		if (*get_node_type(node) & CHAIN_END)
 			break ;
 		if (node->sibling_next)

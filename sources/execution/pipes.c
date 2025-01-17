@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:39:01 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/17 21:59:14 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/17 22:57:24 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,16 +57,13 @@ int	close_fds(t_executor *e, int msg_src)
 
 int	setup_dev_null(t_executor *e, t_treenode *node)
 {
-	int	fd;
-
 	if ((*get_node_type(node) & FROM_DEV_NULL) == 0)
 		return (0);
-	fd = open("/dev/null", O_RDONLY);
-	if (fd == -1)
-		return (ft_assign_i(&e->errno, 2, 2));
-	*get_node_in_fd(node) = fd;
+	*get_node_in_fd(node) = open("/dev/null", O_RDONLY);
+	if (*get_node_in_fd(node) == -1)
+		return (ft_assign_i(&e->errno, 1, 1));
 	if (e->param->opts.debug_output_level & DBG_EXEC_CHAIN_PRINT_FD_OPS)
-		FT_FPRINTF(STDERR, "made dev null %i for %i\n", fd, 0);
+		FT_FPRINTF(STDERR, "made dev null %i for %i\n", *get_node_in_fd(node), 0);
 	return (0);
 }
 
