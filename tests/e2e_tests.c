@@ -6,12 +6,12 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 22:57:54 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/17 12:18:36 by taretiuk         ###   ########.fr       */
+/*   Updated: 2025/01/17 13:33:04 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tests_internal.h"
-#define START 0
+#define START 24
 #define TRAP_START 0
 //#define DEBUG
 #define SZ 33
@@ -70,7 +70,7 @@ static void check_stderr(char *fname)
 	int fds_3 = 0, fds_5 = 0, inherited = 0, pipe = 0;
 
 	while ((read = getline(&line, &len, file)) != -1) {
-		//fprintf(stderr, "[echo]%s", line);
+		fprintf(stderr, "[echo]%s", line);
 		if (strstr(line, "All heap blocks were freed -- no leaks are possible"))
 			no_leaks = 1;
 		// this is for local starts
