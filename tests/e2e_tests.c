@@ -6,14 +6,14 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 22:57:54 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/17 23:52:40 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/18 00:02:47 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "e2e_internal.h"
 #define START 0
 #define DEBUG
-#define SZ 34
+#define SZ 41
 #define PRINT_TEST_NO
 #define MAX_CHECKED_MALLOCS_PRELIM 200
 // if preliminary shell start (with exit) gives 500, 
@@ -198,6 +198,27 @@ int	populate(void)
 	ft_mapss_add(m[33], "one.txt", "1\n2\n");
 	ft_mapss_add(m[33], "two.txt", "2\n");
 	tests[33] = (t_testcase){"rm -f one.txt two.txt && echo 1 >> one.txt && echo 2 >> one.txt && cat < one.txt | grep 2 > two.txt | grep 2", m[33], 0, 0};
+
+	ft_mapss_add(m[34], "stdout", "");
+	tests[34] = (t_testcase){"echo -n", m[34], 0, 0};
+
+	ft_mapss_add(m[35], "stdout", "");
+	tests[35] = (t_testcase){"echo -nn", m[35], 0, 0};
+
+	ft_mapss_add(m[36], "stdout", "");
+	tests[36] = (t_testcase){"echo -n -n -nnn -nnn", m[36], 0, 0};
+
+	ft_mapss_add(m[37], "stdout", "-nblabla\n");
+	tests[37] = (t_testcase){"echo -nblabla", m[37], 0, 0};
+
+	ft_mapss_add(m[38], "stdout", "- -n bla");
+	tests[38] = (t_testcase){"echo -n -n - -n bla", m[38], 0, 0};
+
+	ft_mapss_add(m[39], "stdout", "--n bla\n");
+	tests[39] = (t_testcase){"echo --n bla", m[39], 0, 0};
+
+	ft_mapss_add(m[40], "stdout", "bla");
+	tests[40] = (t_testcase){"echo \"-n\" bla", m[40], 0, 0};
 
 	return (0);
 }
