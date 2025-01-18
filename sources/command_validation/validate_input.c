@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:03:08 by taretiuk          #+#    #+#             */
-/*   Updated: 2025/01/18 14:12:20 by taretiuk         ###   ########.fr       */
+/*   Updated: 2025/01/18 14:14:08 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,14 +47,14 @@ bool	validate_input(char **tokens)
 	while (tokens[i] != NULL)
 	{
 		if (i == 0 && !check_cmd_edges(tokens[i], 0))
-			return (0);
+			return (false);
 		else if (tokens[i + 1] != NULL)
 		{
 			if (!check_sequent_tokens(tokens[i], tokens[i + 1]))
-				return (0);
+				return (false);
 		}
 		else if (tokens[i + 1] == NULL && !check_cmd_edges(tokens[i], 1))
-			return (0);
+			return (false);
 		i++;
 	}
 	return (true);

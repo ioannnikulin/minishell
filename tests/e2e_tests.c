@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 22:57:54 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/18 00:02:47 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/18 14:59:18 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_mapss *empty_m;
 int	e2e_tests(void)
 {
 	populate();
-	
+
 	int	empty_call_mallocs = 0;
 	#ifdef PRINT_TEST_NO
 	printf("\t ======== preliminary empty start ======== \n");
@@ -220,22 +220,22 @@ int	populate(void)
 
 	ft_mapss_add(m[40], "stdout", "bla");
 	tests[40] = (t_testcase){"echo \"-n\" bla", m[40], 0, 0};
-  
+
   ft_mapss_add(m[41], "stdout", "");
 	ft_mapss_add(m[41], "stderr", "minishell: syntax error near unexpected token `|'\n");
-	tests[41] = (t_testcase){"|", m[41], 1};
+	tests[41] = (t_testcase){"|", m[41], 1, 1};
 
   ft_mapss_add(m[42], "stdout", "");
 	ft_mapss_add(m[42], "stderr", "minishell: syntax error near unexpected token `|'\n");
-	tests[42] = (t_testcase){"ls | | ls", m[42], 1};
-  
+	tests[42] = (t_testcase){"ls | | ls", m[42], 1, 0};
+
   ft_mapss_add(m[43], "stdout", "");
 	ft_mapss_add(m[43], "stderr", "minishell: syntax error near unexpected token `newline'\n");
-  tests[43] = (t_testcase){"pwd >", m[43], 1};
-  
+  tests[43] = (t_testcase){"pwd >", m[43], 1, 0};
+
   ft_mapss_add(m[44], "stdout", "");
 	ft_mapss_add(m[44], "stderr", "minishell: syntax error near unexpected token `&&'\n");
-	tests[44] = (t_testcase){"echo && &&", m[44], 1};
-  
+	tests[44] = (t_testcase){"echo && &&", m[44], 1, 0};
+
 	return (0);
 }
