@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 15:21:17 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/17 17:18:53 by taretiuk         ###   ########.fr       */
+/*   Updated: 2025/01/18 15:58:39 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static int	interactive(t_param *param)
 		if (!param->cur_command)
 			break ;
 		if (isatty(STDIN) && ft_strlen(param->cur_command) == 0
-			&& FT_FPRINTF(STDERR, "\n"))
+			&& FT_FPRINTF(STDERR, "\n") && FT_FPRINTF(STDERR, "%s", TXT_INVITATION))
 			continue ;
 		if (isatty(STDIN))
 			add_history(param->cur_command);
