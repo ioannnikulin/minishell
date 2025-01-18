@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   resources.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 14:26:40 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/28 16:05:35 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/13 22:04:53 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 # define ERR_UNTERMINATED_BLOCK "block not terminated"
 # define ERR_EXIT_NO_NUMBER "numeric argument required"
 # define ERR_EXIT_TOO_MANY_ARGS "too many arguments"
+# define ERR_NO_IN_FILE "No such file or directory"
 
 # define TXT_INVITATION "minishell > "
 # define TXT_MINISHELL "minishell"

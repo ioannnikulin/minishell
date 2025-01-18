@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_to_text_tree_test.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 23:53:00 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/05 20:10:19 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/17 14:09:55 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +22,17 @@ static int	a_test(t_param *param, char *input, int (*treegen)(t_treenode *), int
 	(void)i;
 	t_tree *exp_tree = ft_tree_make();
 	assert(exp_tree);
-	t_treenode *exp_node = ft_treenode_make(TEXT_TREE_ROOT, 0, ft_free_nop);
+	t_treenode *exp_node = treenode_make(TEXT_TREE_ROOT, 0, ft_free_nop);
 	assert(exp_node);
 	exp_tree->root = exp_node;
 	treegen(exp_node);
 	param->cur_command = input;
 	assert(input_to_text_tree(param) == 0);
 	#ifdef DEBUG
-	ft_tree_print_s(exp_tree);
-	ft_tree_print_s(param->text_tree);
+	ft_tree_print(exp_tree, cmd_txt, "\t");
+	ft_tree_print(param->text_tree, cmd_txt, "\t");
 	#endif
-	assert(ft_tree_cmp_s(exp_tree, param->text_tree) == 0);
+	assert(ft_tree_cmp(exp_tree, param->text_tree, cmd_cmp) == 0);
 	ft_tree_free(&exp_tree);
 	return (0);
 }

@@ -1,38 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_text_tree_controls.c                          :+:      :+:    :+:   */
+/*   treenode_ops_1.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/23 13:39:01 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/15 22:31:36 by inikulin         ###   ########.fr       */
+/*   Created: 2025/01/17 14:10:25 by inikulin          #+#    #+#             */
+/*   Updated: 2025/01/17 23:46:53 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../tree_make/tree_processing_internal.h"
+#include "minishell.h"
 
-int	fd_ok(int fd)
+char	*cmd_txt(void *content)
 {
-	return (fcntl(fd, F_GETFD) != -1);
+	t_command	*cmd;
+
+	cmd = content;
+	return (cmd->txt);
 }
 
-t_executor	*make_executor(t_treenode *node, t_param *param)
+int	cmd_cmp(void *a, void *b)
 {
-	t_executor	*res;
-
-	res = ft_calloc_if(sizeof(t_executor), 1);
-	if (!res)
-		return (0);
-	res->retval = 0;
-	res->found = 0;
-	res->node = node;
-	res->param = param;
-	return (res);
-}
-
-int	executor_finalize(t_executor *e)
-{
-	free(e);
-	return (0);
+	return (ft_strcmp(cmd_txt(a), cmd_txt(b)));
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_text_tree_node.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:39:01 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/20 17:06:34 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/17 15:28:38 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int	chooser(t_executor *executor)
 {
 	char	*cmd;
 
-	cmd = executor->node->content;
+	cmd = *get_node_txt(executor->node);
 	if (ft_strcmp(cmd, "cd") == 0)
 		builtin(option_cd, executor);
 	else if (ft_strcmp(cmd, "echo") == 0)
@@ -51,15 +51,15 @@ int	execute_text_tree_node(t_executor *e)
 {
 	t_tree	t;
 
-	if (!e->node || !e->node->content)
+	if (!e->node || !e->node->content || !*get_node_txt(e->node))
 		return (FT_PRINTF("%s\n", ERR_NO_COMMAND_FOUND) * 0);
 	if (expand(e->node, e->param))
 		return (ft_assign_i(&e->param->opts.errno, 1, 0));
 	t.root = e->node;
 	if (e->param->opts.debug_output_level & DBG_PRINT_NODE_BEFORE_EXECUTION)
-		ft_tree_print_s(&t);
+		ft_tree_print(&t, cmd_txt, "\t");
 	chooser(e);
 	if (!e->found)
-		FT_PRINTF("%s: %s\n", (char *)e->node->content, ERR_COMMAND_NOT_FOUND);
+		FT_PRINTF("%s: %s\n", *get_node_txt(e->node), ERR_COMMAND_NOT_FOUND);
 	return (e->retval);
 }
