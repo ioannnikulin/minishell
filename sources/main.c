@@ -6,13 +6,25 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 15:21:17 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/18 17:28:19 by taretiuk         ###   ########.fr       */
+/*   Updated: 2025/01/18 18:03:54 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 extern volatile sig_atomic_t	g_interrupt_flag;
+
+static int	handle_input(t_param *param)
+{
+	int	ret;
+
+	ret = input_to_text_tree(param);
+	if (ret == MALFORMED_INPUT)
+		return (ft_assign_i(&param->opts.errno, 1, 1));
+	else if (ret == 3)
+		return (ft_assign_i(&param->opts.errno, SPACES_ONLY, 2));
+	return (0);
+}
 
 static int	interactive_body(t_param *param)
 {
@@ -29,12 +41,9 @@ static int	interactive_body(t_param *param)
 		return (0);
 	if (isatty(STDIN))
 		add_history(param->cur_command);
-	if (input_to_text_tree(param) == MALFORMED_INPUT
-		&& ft_assign_i(&param->opts.retval, 1, 1)
-		&& ft_assign_i(&param->opts.errno, 0, 0))
-		return (0);
-	else if (param->opts.errno)
-		return (1);
+	handle_input(param);
+	if (param->opts.errno)
+		return (ft_if_i(param->opts.errno == SPACES_ONLY, 0, 1));
 	param->opts.retval = exec_text_tree(param);
 	if (ft_assign_i(&param->opts.errno, 0, 1) && param->opts.exiting)
 		return (1);
