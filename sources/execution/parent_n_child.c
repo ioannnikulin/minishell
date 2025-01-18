@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parent_n_child.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 21:53:09 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/17 23:47:56 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/18 14:06:20 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int	child(t_executor *e, int tgt)
 {
-
 	if (*get_node_in_fd(e->node) != STDIN)
 	{
 		if (e->param->opts.debug_output_level & DBG_EXEC_CHAIN_PRINT_FD_OPS)
@@ -40,7 +39,6 @@ int	child(t_executor *e, int tgt)
 	execute_text_tree_node(e);
 	exit(0);
 }
-
 
 int	chain_parent(t_executor *e)
 {

@@ -1,45 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_invalid_input.c                              :+:      :+:    :+:   */
+/*   validate_input.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:03:08 by taretiuk          #+#    #+#             */
-/*   Updated: 2025/01/17 11:14:47 by taretiuk         ###   ########.fr       */
+/*   Updated: 2025/01/18 14:12:20 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "command_validation_internal.h"
 
-int	print_err_message(char *error, char *token, int i, int ret)
+static bool	print_err_message(char *token, bool ret)
 {
-	if (i == 0)
-		FT_FPRINTF(STDERR, "%s: %s `%s'\n", TXT_MINISHELL, error, token);
+	FT_FPRINTF(STDERR, "%s: %s `%s'\n", TXT_MINISHELL,
+		ERR_UNEXPECTED_TOKEN, token);
 	return (ret);
 }
 
-bool	check_sequent_tokens(char *s1, char *s2)
+static bool	check_sequent_tokens(char *s1, char *s2)
 {
 	if ((is_operator(s1) || is_redirection(s1))
 		&& (is_operator(s2) || is_redirection(s2)))
-		return (print_err_message(ERR_UNEXPECTED_TOKEN, s1, 0, 0));
+		return (print_err_message(s1, false));
 	return (true);
 }
 
-bool	check_cmd_edges(char *s, int i)
+static bool	check_cmd_edges(char *s, int i)
 {
 	if (is_operator(s) || is_redirection(s))
 	{
 		if (i == 0)
-			return (print_err_message(ERR_UNEXPECTED_TOKEN, s, 0, 0));
+			return (print_err_message(s, false));
 		else
-			return (print_err_message(ERR_UNEXPECTED_TOKEN, "newline", 0, 0));
+			return (print_err_message("newline", false));
 	}
 	return (true);
 }
 
-bool	check_invalid_input(char **tokens)
+bool	validate_input(char **tokens)
 {
 	int	i;
 

@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:01:08 by taretiuk          #+#    #+#             */
-/*   Updated: 2025/01/15 19:17:00 by taretiuk         ###   ########.fr       */
+/*   Updated: 2025/01/18 14:04:37 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,6 @@
 
 # include <stdbool.h>
 
-bool	check_invalid_input(char **tokens);
+bool	validate_input(char **tokens);
 
 #endif
