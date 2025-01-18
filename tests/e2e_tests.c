@@ -6,17 +6,17 @@
 /*   By: inikulin <inikulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 22:57:54 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/18 17:17:21 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/18 17:41:28 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "e2e_internal.h"
 #define START 0
 #define DEBUG
-#define SZ 41
+#define SZ 45
 #define PRINT_TEST_NO
 #define MAX_CHECKED_MALLOCS_PRELIM 200
-// if preliminary shell start (with exit) gives 500, 
+// if preliminary shell start (with exit) gives 500,
 // only 0-200 (empty run) + 500-... (actual commands) will be trapped -
 // assuming 300 go to envvars, and there's no need to check ALL of them
 
@@ -28,11 +28,12 @@ t_mapss *empty_m;
 int	e2e_tests(void)
 {
 	populate();
-	
+
 	int	empty_call_mallocs = 0;
 	#ifdef PRINT_TEST_NO
 	printf("\t ======== preliminary empty start ======== \n");
 	#endif
+
 	successful_execution(&empty_test, &empty_call_mallocs);
 	#ifdef FT_CALLOC_IF_TRAPPED
 	if (empty_test.check_mallocs)
@@ -220,6 +221,22 @@ int	populate(void)
 
 	ft_mapss_add(m[40], "stdout", "bla");
 	tests[40] = (t_testcase){"echo \"-n\" bla", m[40], 0, 0};
+
+	ft_mapss_add(m[41], "stdout", "");
+	ft_mapss_add(m[41], "stderr", "minishell: syntax error near unexpected token `|'\n");
+	tests[41] = (t_testcase){"|", m[41], 1, 1};
+
+	ft_mapss_add(m[42], "stdout", "");
+	ft_mapss_add(m[42], "stderr", "minishell: syntax error near unexpected token `|'\n");
+	tests[42] = (t_testcase){"ls | | ls", m[42], 1, 0};
+
+	ft_mapss_add(m[43], "stdout", "");
+	ft_mapss_add(m[43], "stderr", "minishell: syntax error near unexpected token `newline'\n");
+	tests[43] = (t_testcase){"pwd >", m[43], 1, 0};
+
+	ft_mapss_add(m[44], "stdout", "");
+	ft_mapss_add(m[44], "stderr", "minishell: syntax error near unexpected token `&&'\n");
+	tests[44] = (t_testcase){"echo && &&", m[44], 1, 0};
 
 	return (0);
 }

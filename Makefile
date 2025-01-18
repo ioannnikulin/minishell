@@ -3,7 +3,7 @@ NAME = minishell
 COMPILE_FLAGS = -Wall -Wextra -Werror -g -c
 LINK_FLAGS = -lft -Llibft -lreadline
 PREFIX = @
-PREPROC_DEFINES = 
+PREPROC_DEFINES =
 
 SOURCE_F = sources
 TEST_F = tests
@@ -44,6 +44,10 @@ COMMAND_EXPANSION_NAMES = substitute_envvars.c expand.c
 COMMAND_EXPANSION_F = command_expansion
 COMMAND_EXPANSION_SRCS = $(addprefix $(COMMAND_EXPANSION_F)/, $(COMMAND_EXPANSION_NAMES))
 
+COMMAND_VALIDATION_NAMES = validate_input.c
+COMMAND_VALIDATION_F = command_validation
+COMMAND_VALIDATION_SRCS = $(addprefix $(COMMAND_VALIDATION_F)/, $(COMMAND_VALIDATION_NAMES))
+
 EXECUTION_NAMES = exec_text_tree.c exec_text_tree_node.c exec_text_tree_controls.c redirections.c pipes.c files.c is_pipe.c is_redir.c is_redir_file.c navigation.c navigation_1.c parent_n_child.c preexecution_markup.c is_node_interacting.c heredoc.c
 EXECUTION_F = execution
 EXECUTION_SRCS = $(addprefix $(EXECUTION_F)/, $(EXECUTION_NAMES))
@@ -52,7 +56,7 @@ COMMANDS_NAMES = option_cd.c option_echo.c option_env.c option_exit.c option_exp
 COMMANDS_F = commands
 COMMANDS_SRCS = $(addprefix $(COMMANDS_F)/,$(COMMANDS_NAMES))
 
-SRC_NAMES = $(EXTERNAL_OPTIONS_SRCS) $(INTERNAL_SETTINGS_SRCS) input_to_text_tree.c $(INPUT_TO_TEXT_TREE_MOCK_SRCS) $(SPLIT_SRCS) $(TOKENIZING_SRCS) $(TREE_MAKE_SRCS) $(TREE_EXPANSION_SRCS) $(COMMAND_EXPANSION_SRCS) $(EXECUTION_SRCS) $(COMMANDS_SRCS) treenode_insert.c treenode_ops.c treenode_ops_1.c
+SRC_NAMES = $(EXTERNAL_OPTIONS_SRCS) $(INTERNAL_SETTINGS_SRCS) input_to_text_tree.c $(INPUT_TO_TEXT_TREE_MOCK_SRCS) $(SPLIT_SRCS) $(TOKENIZING_SRCS) $(TREE_MAKE_SRCS) $(TREE_EXPANSION_SRCS) $(COMMAND_EXPANSION_SRCS) $(EXECUTION_SRCS) $(COMMANDS_SRCS) $(COMMAND_VALIDATION_SRCS) treenode_insert.c treenode_ops.c treenode_ops_1.c main_utils.c
 ENDPOINT_NAME = main.c
 
 SRC_SRCS = $(addprefix $(SOURCE_F)/, $(SRC_NAMES))
@@ -78,12 +82,12 @@ TEST_ENDPOINT_OBJ = $(TEST_OBJ_F)$(TEST_ENDPOINT_NAME:.c=.o)
 TEST_TOOL_OBJS = $(addprefix $(TEST_OBJ_F), $(TEST_TOOL_NAMES:.c=.o))
 INCLUDES = -I . -I libft
 
-DIRS = $(EXTERNAL_OPTIONS_F) $(INTERNAL_SETTINGS_F) $(INPUT_TO_TEXT_TREE_MOCK_F) $(TOKENIZING_F) $(TREE_MAKE_F) $(TREE_EXPANSION_F) $(COMMAND_EXPANSION_F) $(EXECUTION_F) $(COMMANDS_F) $(SPLIT_F)
+DIRS = $(EXTERNAL_OPTIONS_F) $(INTERNAL_SETTINGS_F) $(INPUT_TO_TEXT_TREE_MOCK_F) $(TOKENIZING_F) $(TREE_MAKE_F) $(TREE_EXPANSION_F) $(COMMAND_EXPANSION_F) $(COMMAND_VALIDATION_F) $(EXECUTION_F) $(COMMANDS_F) $(SPLIT_F)
 
 OBJ_DIRS = $(addprefix $(OBJ_F), $(DIRS))
 
 vpath %.c $(SOURCE_F) $(SOURCE_F)/$(COMMANDS_F) $(SOURCE_F)/$(INPUT_TO_TEXT_TREE_MOCK_F) $(SOURCE_F)/$(TREE_MAKE_F)\
-			$(SOURCE_F)/$(TOKENIZING_F)
+			$(SOURCE_F)/$(TOKENIZING_F) $(SOURCE_F)/$(COMMAND_VALIDATION_F)
 
 all: pre $(NAME)
 

@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 18:16:14 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/18 13:53:57 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/18 17:44:58 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void check_stderr(char *fname)
 			fds_3 = 1;
 		// these three conditions are for github starts;
 		// somehow github adds two file descriptors, but they are not marked as spawned in the program by pipe(),
-		// so I think we can skip them, this is something technical about github 
+		// so I think we can skip them, this is something technical about github
 		if (strstr(line, "FILE DESCRIPTORS: 5 open (3 std) at exit."))
 			fds_5 = 1;
 		if (strstr(line, "<inherited from parent>"))
@@ -81,18 +81,18 @@ static int	file_compare(char *exp_content, char *act_fname)
 	fflush(stdout);
 	#endif
 	assert(comp_res == 0);
-	free(exp_re);
-	#ifdef FT_CALLOC_IF_TRAPPED
-	int i;
-	for (i = fsize - 2; i >= 0 && act[i] >= '0' && act[i] <= '9'; i --); // When started with traps, the output always ends in a number. Counter of callocs. Here I navigate fron the end of file to the last non-digit to find the start of this number to parse it out.
-	char *sub = ft_substr(act, i, fsize - i);
-	int mallocs = ft_atoi(sub, 0);
-	free(sub);
-	free(act);
-	return (mallocs);
-	#else
-	return (0);
-	#endif
+    free(exp_re);
+    #ifdef FT_CALLOC_IF_TRAPPED
+    int i;
+    for (i = fsize - 2; i >= 0 && act[i] >= '0' && act[i] <= '9'; i --); // When started with traps, the output always ends in a number. Counter of callocs. Here I navigate fron the end of file to the last non-digit to find the start of this number to parse it out.
+    char *sub = ft_substr(act, i, fsize - i);
+    int mallocs = ft_atoi(sub, 0);
+    free(sub);
+    free(act);
+    return (mallocs);
+    #else
+    return (0);
+    #endif
 }
 
 static int	t_execve(char *cmd)
@@ -131,7 +131,7 @@ static int	valgrind(char *cmd, int trap)
 	assert(system("cp minishell e2e_f/minishell") == 0);
 	char *s_trap = ft_itoa(trap);
 	assert(!!s_trap);
-	char *tmp = ft_strjoin_multi_free_outer(ft_s5(ft_s4("bash -c 'cd e2e_f && valgrind --leak-check=full --show-leak-kinds=all --child-silent-after-fork=yes --track-fds=yes -s ./minishell --trap", s_trap, "--command", cmd), "' 1>test.stdout 2>test.stderr"), 5, " ");
+	char *tmp = ft_strjoin_multi_free_outer(ft_s5(ft_s4("bash -c 'cd e2e_f && valgrind --leak-check=full --show-leak-kinds=all --child-silent-after-fork=yes --track-fds=yes -s ./minishell --trap", s_trap, "--command \"", cmd), "\"' 1>test.stdout 2>test.stderr"), 5, " ");
 	free(s_trap);
 	assert(!!tmp);
 	system(tmp);
@@ -150,13 +150,13 @@ void	successful_execution(t_testcase *test, int *mallocs)
 	#endif
 	int	ret = t_execve(test->cmd);
 	#ifdef DEBUG
-	if (test->exp_ret == UNSTABLE_RETURN_0_1)
-		fprintf(stderr, "expecting return 0 or 1, got %i\n", ret);
-	else
-		fprintf(stderr, "expecting return %i, got %i\n", test->exp_ret, ret);
-	#endif
-	assert(test->exp_ret == UNSTABLE_RETURN_0_1 || ret == test->exp_ret);
-	assert(test->exp_ret != UNSTABLE_RETURN_0_1 || (ret == 0 || ret == 1));
+    if (test->exp_ret == UNSTABLE_RETURN_0_1)
+        fprintf(stderr, "expecting return 0 or 1, got %i\n", ret);
+    else
+        fprintf(stderr, "expecting return %i, got %i\n", test->exp_ret, ret);
+    #endif
+    assert(test->exp_ret == UNSTABLE_RETURN_0_1 || ret == test->exp_ret);
+    assert(test->exp_ret != UNSTABLE_RETURN_0_1 || (ret == 0 || ret == 1));
 	*mallocs = file_compare(ft_mapss_get(test->exp, "stdout"), "e2e.stdout");
 	char	*exp_err = ft_mapss_get(test->exp, "stderr");
 	if (test->exp_ret)
@@ -191,7 +191,7 @@ void	malloc_failure_recoveries(char *cmd, int mallocs, int from_mallocs)
 		#ifdef PRINT_MALLOC_FAILURE_NO
 		printf("\t == %i == \n", i);
 		#endif
-		valgrind(cmd, i);	
+		valgrind(cmd, i);
 	}
 	system("rm -rf e2e_f && rm -f e2e.stdout e2e.stderr");
 }

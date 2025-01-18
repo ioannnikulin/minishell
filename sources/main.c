@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inikulin <inikulin@stiudent.42.fr>         +#+  +:+       +#+        */
+/*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/03 15:21:17 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/12 12:07:18 by inikulin         ###   ########.fr       */
+/*   Created: 2025/01/18 15:14:27 by taretiuk          #+#    #+#             */
+/*   Updated: 2025/01/18 15:29:26 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,50 +14,41 @@
 
 extern volatile sig_atomic_t	g_interrupt_flag;
 
-static char	*read_input(void)
+static int	interactive_body(t_param *param)
 {
-	char	*line;
-	size_t	len;
-	ssize_t	nread;
-
-	if (!isatty(STDIN))
+	param->cur_command = read_input(param->cur_command);
+	if (g_interrupt_flag)
 	{
-		len = 0;
-		nread = getline(&line, &len, stdin);
-		if (nread == -1)
-		{
-			free(line);
-			return (NULL);
-		}
-		if (line[nread - 1] == '\n')
-			line[nread - 1] = '\0';
-		return (line);
+		g_interrupt_flag = 0;
+		return (0);
 	}
-	FT_FPRINTF(STDERR, "%s", TXT_INVITATION);
-	return (readline(0));
+	if (!param->cur_command)
+		return (1);
+	if (isatty(STDIN) && ft_strlen(param->cur_command) == 0
+		&& FT_FPRINTF(STDERR, "\n"))
+		return (0);
+	if (isatty(STDIN))
+		add_history(param->cur_command);
+	if (input_to_text_tree(param) == MALFORMED_INPUT
+		&& ft_assign_i(&param->opts.retval, 1, 1)
+		&& ft_assign_i(&param->opts.errno, 0, 0))
+		return (0);
+	else if (param->opts.errno)
+		return (1);
+	param->opts.retval = exec_text_tree(param);
+	if (ft_assign_i(&param->opts.errno, 0, 1) && param->opts.exiting)
+		return (1);
+	return (0);
 }
 
+/* errno set to 0 in the end - so that the execution continues
+* if the parent thread fails to get back a success from child
+*/
 static int	interactive(t_param *param)
 {
 	while (1)
 	{
-		free(param->cur_command);
-		param->cur_command = read_input();
-		if (g_interrupt_flag)
-		{
-			g_interrupt_flag = 0;
-			continue ;
-		}
-		if (!param->cur_command)
-			break ;
-		if (ft_strlen(param->cur_command) == 0)
-			continue ;
-		if (isatty(STDIN))
-			add_history(param->cur_command);
-		if (input_to_text_tree(param))
-			break ;
-		param->opts.retval = exec_text_tree(param);
-		if (param->opts.exiting)
+		if (interactive_body(param))
 			break ;
 	}
 	return (param->opts.retval);
@@ -68,19 +59,10 @@ static int	one_cmd(t_param *param)
 	if (param->opts.debug_output_level & DBG_ONE_CMD_ECHO)
 		FT_PRINTF("[%s]\n", param->cur_command);
 	param->opts.retval = input_to_text_tree(param);
-	if (param->opts.retval)
+	if (param->opts.retval && ft_assign_i(&param->opts.retval, 1, 1))
 		return (1);
 	param->opts.retval = exec_text_tree(param);
 	return (param->opts.retval);
-}
-
-static void	usage(void)
-{
-	FT_PRINTF("minishell usage:\n--interactive\n\tuser types in a command after command.\n\
---debug 1023\n\tbitmask for debug output verbosity.\n\
---command echo hello world\n\trun just one command and exit immediately.\n\
---trap 5\n\tmalloc with given number will fail. debugging option.\n\
---file script.sh\n\trun commands from given file.\n");
 }
 
 int	main(int argc, const char **argv, char **envp)
