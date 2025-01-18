@@ -5,13 +5,10 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2025/01/18 15:13:41 by taretiuk         ###   ########.fr       */
+/*   Created: 2025/01/18 15:14:27 by taretiuk          #+#    #+#             */
+/*   Updated: 2025/01/18 15:14:30 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-
-
 
 #include "minishell.h"
 
