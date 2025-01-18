@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 15:25:19 by taretiuk          #+#    #+#             */
-/*   Updated: 2025/01/18 15:25:48 by taretiuk         ###   ########.fr       */
+/*   Updated: 2025/01/18 21:05:11 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,25 +15,17 @@
 char	*read_input(char *cur_command)
 {
 	char	*line;
-	size_t	len;
-	ssize_t	nread;
+	int		i;
 
 	free(cur_command);
-	if (!isatty(STDIN))
-	{
-		len = 0;
-		nread = getline(&line, &len, stdin);
-		if (nread == -1)
-		{
-			free(line);
-			return (NULL);
-		}
-		if (line[nread - 1] == '\n')
-			line[nread - 1] = '\0';
+	line = readline(TXT_INVITATION);
+	i = -1;
+	while (line[++ i] && line[i] == ' ')
+		;
+	if (line[i])
 		return (line);
-	}
-	FT_FPRINTF(STDERR, "%s", TXT_INVITATION);
-	return (readline(0));
+	free(line);
+	return (NULL);
 }
 
 void	usage(void)

@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 15:21:17 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/18 19:52:27 by taretiuk         ###   ########.fr       */
+/*   Updated: 2025/01/18 21:10:42 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,16 @@ static int	handle_input(t_param *param)
 	ret = input_to_text_tree(param);
 	if (ret == MEMORY_ERROR)
 		return (ft_assign_i(&param->opts.errno, 1, 1));
-	else if (ret == MALFORMED_INPUT || ret == SPACES_ONLY || ret == EMPTY_LINE)
-		return (ft_assign_i(&param->opts.errno, SPACES_ONLY, 2));
+	else if (ret == MALFORMED_INPUT)
+		return (ft_assign_i(&param->opts.errno, MALFORMED_INPUT, 2));
 	return (0);
 }
 
 static int	interactive_body(t_param *param)
 {
 	param->cur_command = read_input(param->cur_command);
+	if (!param->cur_command)
+		return (0);
 	if (g_interrupt_flag)
 	{
 		g_interrupt_flag = 0;
@@ -43,7 +45,7 @@ static int	interactive_body(t_param *param)
 		add_history(param->cur_command);
 	handle_input(param);
 	if (param->opts.errno)
-		return (ft_if_i(param->opts.errno == SPACES_ONLY, 0, 1));
+		return (ft_if_i(param->opts.errno == MALFORMED_INPUT, 0, 1));
 	param->opts.retval = exec_text_tree(param);
 	if (ft_assign_i(&param->opts.errno, 0, 1) && param->opts.exiting)
 		return (1);
