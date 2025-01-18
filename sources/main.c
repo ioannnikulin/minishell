@@ -5,10 +5,13 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/03 15:21:17 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/17 11:46:42 by taretiuk         ###   ########.fr       */
+/*   Created: Invalid date        by                   #+#    #+#             */
+/*   Updated: 2025/01/18 15:13:41 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+
+
 
 #include "minishell.h"
 
@@ -38,19 +41,20 @@ static char	*read_input(char *cur_command)
 	return (readline(0));
 }
 
+/* errno set to 0 in the end - so that the execution continues
+* if the parent thread fails to get back a success from child
+*/
 static int	interactive(t_param *param)
 {
 	while (1)
 	{
 		param->cur_command = read_input(param->cur_command);
-		if (g_interrupt_flag)
-		{
-			g_interrupt_flag = 0;
+		if (g_interrupt_flag && ft_assign_i(&g_interrupt_flag, 0, 1))
 			continue ;
-		}
 		if (!param->cur_command)
 			break ;
-		if (ft_strlen(param->cur_command) == 0)
+		if (isatty(STDIN) && ft_strlen(param->cur_command) == 0
+			&& FT_FPRINTF(STDERR, "\n"))
 			continue ;
 		if (isatty(STDIN))
 			add_history(param->cur_command);
@@ -61,7 +65,7 @@ static int	interactive(t_param *param)
 		else if (param->opts.errno)
 			break ;
 		param->opts.retval = exec_text_tree(param);
-		if (param->opts.exiting)
+		if (ft_assign_i(&param->opts.errno, 0, 1) && param->opts.exiting)
 			break ;
 	}
 	return (param->opts.retval);

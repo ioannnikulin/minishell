@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 18:10:38 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/15 22:44:31 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/17 17:06:05 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ static void	parent_sigint(int sig)
 	rl_on_new_line();
 	rl_replace_line("", 0);
 	rl_redisplay();
+	FT_FPRINTF(STDERR, "%s", TXT_INVITATION);
 }
 
 int	param_init(t_param *param)
