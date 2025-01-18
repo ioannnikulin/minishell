@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution_internal.h                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: inikulin <inikulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 17:46:39 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/18 11:38:08 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/18 16:07:31 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,13 @@ int			fd_info(t_executor *e);
 
 int			child(t_executor *e, int tgt);
 int			chain_parent(t_executor *e);
+int			child_heredoc(t_executor *e, t_treenode *node);
 
 int			setup_out_file(t_executor *e, t_treenode *node);
 int			setup_in_file(t_executor *e, t_treenode *node);
 int			setup_pipe(t_executor *e, t_treenode *node, int i);
 int			setup_dev_null(t_executor *e, t_treenode *node);
+int			setup_heredoc(t_executor *e, t_treenode *node);
 
 int			fd_ok(int fd);
 int			close_fds(t_executor *e, int msg_src);
@@ -98,4 +100,12 @@ t_treenode	*next_command(t_treenode *node);
 t_treenode	*prev_command(t_treenode *node);
 t_treenode	*next_node(t_treenode *node);
 t_treenode	*prev_node(t_treenode *node);
+
+typedef struct s_duparg
+{
+	int	from;
+	int	notfrom;
+	int	to;
+	int	msg_src;
+}	t_duparg;
 #endif

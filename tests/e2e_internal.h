@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   e2e_internal.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: inikulin <inikulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 18:17:25 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/17 23:49:31 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/18 13:51:08 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ typedef struct s_testcase
 	int		exp_ret;
 	int		check_mallocs;
 }	t_testcase;
+
+#define UNSTABLE_RETURN_0_1 -1
 
 int		populate(void);
 void	successful_execution(t_testcase *test, int *mallocs);

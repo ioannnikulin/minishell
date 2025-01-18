@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   preexecution_markup.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: inikulin <inikulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 22:32:33 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/18 12:40:26 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/18 16:32:56 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ static int	chain_ends(t_treenode *node)
 		&& is_pipe_or_redir(*get_node_txt(node->sibling_next)))
 		*get_node_type(node) |= CHAIN_START;
 	next = node->sibling_next;
-	if ((*get_node_type(node) & (FROM_PIPE | OUT_FILE | IN_FILE | COMMAND)) != 0
+	if ((*get_node_type(node) & (FROM_PIPE | OUT_FILE | IN_FILE
+				| COMMAND | HEREDOC)) != 0
 		&& (!next || !is_pipe_or_redir(*get_node_txt(next))))
 		*get_node_type(node) |= CHAIN_END;
 	return (0);
@@ -53,9 +54,9 @@ static int	rollback_pipe(t_treenode *node)
 		*get_node_type(node) &= ~TO_PIPE;
 		*get_node_type(node) &= ~COMMAND;
 		if (*get_node_type(node) & IN_FILE)
-			*get_node_type(prev_command(node)) |= TO_PIPE;
+			add_node_type(prev_command(node), TO_PIPE);
 		else
-			*get_node_type(next_command(node)) |= FROM_DEV_NULL;
+			add_node_type(next_command(node), FROM_DEV_NULL);
 	}
 	return (0);
 }
@@ -67,21 +68,15 @@ static int	stage1(t_executor *e)
 	node = e->node;
 	while (node)
 	{
-		*get_node_type(node) |= ft_if_i((to_pipe(node)), TO_PIPE, 0);
-		*get_node_type(node) |= ft_if_i(from_pipe(node), FROM_PIPE, 0);
-		*get_node_type(node) |= ft_if_i(sends_to_out_file(node), TO_OUT_FILE, 0);
-		if (reads_from_in_file(node))
-			*get_node_type(node) |= FROM_IN_FILE;
-		if (*get_node_type(node))
-			*get_node_type(node) |= COMMAND;
-		if (is_in_file(node))
-			*get_node_type(node) |= IN_FILE;
-		if (is_out_file(node))
-			*get_node_type(node) |= OUT_FILE;
-		if (reads_from_heredoc(node))
-			*get_node_type(node) |= FROM_HEREDOC;
-		if (is_heredoc_eof(node))
-			*get_node_type(node) |= HEREDOC;
+		add_node_type(node, ft_if_i((to_pipe(node)), TO_PIPE, 0));
+		add_node_type(node, ft_if_i(from_pipe(node), FROM_PIPE, 0));
+		add_node_type(node, ft_if_i(sends_to_out_file(node), TO_OUT_FILE, 0));
+		add_node_type(node, ft_if_i(reads_from_in_file(node), FROM_IN_FILE, 0));
+		add_node_type(node, ft_if_i(reads_from_heredoc(node), FROM_HEREDOC, 0));
+		add_node_type(node, ft_if_i(*get_node_type(node), COMMAND, 0));
+		add_node_type(node, ft_if_i(is_in_file(node), IN_FILE, 0));
+		add_node_type(node, ft_if_i(is_out_file(node), OUT_FILE, 0));
+		add_node_type(node, ft_if_i(is_heredoc_eof(node), HEREDOC, 0));
 		node = next_node(node);
 	}
 	return (0);

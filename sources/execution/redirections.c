@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: inikulin <inikulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:39:01 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/17 22:14:22 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/18 16:34:26 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ static int	exec_chain(t_executor *e)
 	i = 0;
 	while (e->node)
 	{
-		if ((*get_node_type(e->node) & (IN_FILE | OUT_FILE)) == 0)
+		if ((*get_node_type(e->node)
+				& (IN_FILE | OUT_FILE)) == 0)
 		{
 			*get_node_pid(e->node) = fork();
 			if (*get_node_pid(e->node) == -1)
@@ -48,6 +49,8 @@ int	redirections(t_executor *e)
 	i = -1;
 	while (1)
 	{
+		if (setup_heredoc(e, node) != 0)
+			return (ft_assign_i(&e->errno, 4, 4));
 		if (setup_dev_null(e, node) != 0)
 			return (ft_assign_i(&e->errno, 1, 1));
 		if (setup_pipe(e, node, ++i) != 0)
@@ -60,8 +63,7 @@ int	redirections(t_executor *e)
 			return (ft_assign_i(&e->errno, 5, 5));
 		if (*get_node_type(node) & CHAIN_END)
 			break ;
-		if (node->sibling_next)
-			node = node->sibling_next->sibling_next;
+		node = next_node(node);
 	}
 	fd_info(e);
 	return (exec_chain(e));

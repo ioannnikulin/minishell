@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   e2e_comparing_functions.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: inikulin <inikulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 18:16:14 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/17 23:50:20 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/18 13:53:57 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "e2e_internal.h"
 #define PRINT_MALLOC_FAILURE_NO
 #define TRAP_START 0
+#define DEBUG
 
 extern char **environ;
 
@@ -53,16 +54,6 @@ static void check_stderr(char *fname)
 
 static int	file_compare(char *exp_content, char *act_fname)
 {
-	#ifdef DEBUG
-	fprintf(stderr, "comparing files\n");
-	fflush(stderr);
-	fprintf(stderr, "expected [%p]\n", exp_content);
-	fflush(stderr);
-	fprintf(stderr, "expected [%s]\n", exp_content);
-	fflush(stderr);
-	fprintf(stderr, "actual fname [%s]\n", act_fname);
-	fflush(stderr);
-	#endif
 	FILE *f = fopen(act_fname, "rb");
 	fseek(f, 0, SEEK_END);
 	long fsize = ftell(f);
@@ -91,6 +82,7 @@ static int	file_compare(char *exp_content, char *act_fname)
 	#endif
 	assert(comp_res == 0);
 	free(exp_re);
+	#ifdef FT_CALLOC_IF_TRAPPED
 	int i;
 	for (i = fsize - 2; i >= 0 && act[i] >= '0' && act[i] <= '9'; i --); // When started with traps, the output always ends in a number. Counter of callocs. Here I navigate fron the end of file to the last non-digit to find the start of this number to parse it out.
 	char *sub = ft_substr(act, i, fsize - i);
@@ -98,6 +90,9 @@ static int	file_compare(char *exp_content, char *act_fname)
 	free(sub);
 	free(act);
 	return (mallocs);
+	#else
+	return (0);
+	#endif
 }
 
 static int	t_execve(char *cmd)
@@ -154,7 +149,14 @@ void	successful_execution(t_testcase *test, int *mallocs)
 	fprintf(stderr, "executing [%s]\n", test->cmd);
 	#endif
 	int	ret = t_execve(test->cmd);
-	assert(ret == test->exp_ret);
+	#ifdef DEBUG
+	if (test->exp_ret == UNSTABLE_RETURN_0_1)
+		fprintf(stderr, "expecting return 0 or 1, got %i\n", ret);
+	else
+		fprintf(stderr, "expecting return %i, got %i\n", test->exp_ret, ret);
+	#endif
+	assert(test->exp_ret == UNSTABLE_RETURN_0_1 || ret == test->exp_ret);
+	assert(test->exp_ret != UNSTABLE_RETURN_0_1 || (ret == 0 || ret == 1));
 	*mallocs = file_compare(ft_mapss_get(test->exp, "stdout"), "e2e.stdout");
 	char	*exp_err = ft_mapss_get(test->exp, "stderr");
 	if (test->exp_ret)

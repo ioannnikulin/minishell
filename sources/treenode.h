@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   treenode.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: inikulin <inikulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 13:53:47 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/17 14:13:26 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/18 12:45:57 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ t_treenode	*treenode_make(char *token, t_treenode *p,
 int			treenode_insert_dup(t_treenode *parent, char *token, int idx);
 int			treenode_insert_nop(t_treenode *parent, char *token, int idx);
 int			*get_node_type(t_treenode *node);
+int			add_node_type(t_treenode *node, int type);
 int			*get_node_in_fd(t_treenode *node);
 int			*get_node_out_fd(t_treenode *node);
 pid_t		*get_node_pid(t_treenode *node);
