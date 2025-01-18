@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 17:46:39 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/17 21:59:53 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/18 11:38:08 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ typedef struct s_executor
 # define CHAIN_START 256
 # define CHAIN_END 512
 # define FROM_DEV_NULL 1024
+# define FROM_HEREDOC 2048
+# define HEREDOC 4096
 
 # define NO_IN_FILE 104
 
@@ -68,21 +70,28 @@ int			close_fds(t_executor *e, int msg_src);
 int			scroll_chain(t_executor *e, int tgt);
 int			rollback_input_files_fds(t_executor *e, t_treenode *node);
 
+// operator strings
 int			is_pipe_or_redir(char *s);
 int			is_pipe(char *s);
-int			is_pipe_or_redir(char *c);
-int			from_pipe(t_treenode *node);
-int			to_pipe(t_treenode *node);
-int			takes_part_in_pipe(t_treenode *node);
 int			is_to_out_redir(char *c);
 int			is_from_in_redir(char *c);
+int			is_heredoc(char *c);
+
+// redirection nodes
 int			is_out_file(t_treenode *node);
 int			is_in_file(t_treenode *node);
 int			is_file(t_treenode *node);
+int			is_heredoc_eof(t_treenode *node);
+
+// supposedly command nodes
+int			from_pipe(t_treenode *node);
+int			to_pipe(t_treenode *node);
+int			takes_part_in_pipe(t_treenode *node);
 int			sends_to_out_file(t_treenode *node);
 int			reads_from_in_file(t_treenode *node);
 int			takes_part_in_file(t_treenode *node);
 int			takes_part_in_pipe(t_treenode *node);
+int			reads_from_heredoc(t_treenode *node);
 int			takes_part_in_pipe_or_file(t_treenode *node);
 
 t_treenode	*next_command(t_treenode *node);

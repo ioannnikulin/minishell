@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 22:32:33 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/17 23:47:35 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/18 12:40:26 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,12 +67,9 @@ static int	stage1(t_executor *e)
 	node = e->node;
 	while (node)
 	{
-		if (to_pipe(node))
-			*get_node_type(node) |= TO_PIPE;
-		if (from_pipe(node))
-			*get_node_type(node) |= FROM_PIPE;
-		if (sends_to_out_file(node))
-			*get_node_type(node) |= TO_OUT_FILE;
+		*get_node_type(node) |= ft_if_i((to_pipe(node)), TO_PIPE, 0);
+		*get_node_type(node) |= ft_if_i(from_pipe(node), FROM_PIPE, 0);
+		*get_node_type(node) |= ft_if_i(sends_to_out_file(node), TO_OUT_FILE, 0);
 		if (reads_from_in_file(node))
 			*get_node_type(node) |= FROM_IN_FILE;
 		if (*get_node_type(node))
@@ -81,6 +78,10 @@ static int	stage1(t_executor *e)
 			*get_node_type(node) |= IN_FILE;
 		if (is_out_file(node))
 			*get_node_type(node) |= OUT_FILE;
+		if (reads_from_heredoc(node))
+			*get_node_type(node) |= FROM_HEREDOC;
+		if (is_heredoc_eof(node))
+			*get_node_type(node) |= HEREDOC;
 		node = next_node(node);
 	}
 	return (0);
