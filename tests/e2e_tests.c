@@ -6,12 +6,12 @@
 /*   By: inikulin <inikulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 22:57:54 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/18 16:27:57 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/18 17:17:21 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "e2e_internal.h"
-#define START 33
+#define START 0
 #define DEBUG
 #define SZ 41
 #define PRINT_TEST_NO

@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 22:32:33 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/18 17:08:16 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/18 17:20:29 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,15 +47,17 @@ int	fd_info(t_executor *e)
 	return (0);
 }
 
-static int	rollback_pipe(t_treenode *node)
+static int	unmark_files_and_heredocs(t_treenode *node)
 {
-	if (*get_node_type(node) & (ANY_FILE | HEREDOC)
-		&& *get_node_type(node) & TO_PIPE)
+	int	subtype;
+
+	subtype = *get_node_type(node) & (TO_PIPE | TO_OUT_FILE);
+	if (*get_node_type(node) & (ANY_FILE | HEREDOC) && subtype)
 	{
-		*get_node_type(node) &= ~TO_PIPE;
+		*get_node_type(node) &= ~(TO_PIPE | TO_OUT_FILE);
 		*get_node_type(node) &= ~COMMAND;
 		if (*get_node_type(node) & (IN_FILE | HEREDOC))
-			add_node_type(prev_command(node), TO_PIPE);
+			add_node_type(prev_command(node), subtype);
 		else if (*get_node_type(node) & OUT_FILE)
 			add_node_type(next_command(node), FROM_DEV_NULL);
 	}
@@ -91,7 +93,7 @@ int	markup(t_executor *e)
 	node = e->node;
 	while (node)
 	{
-		rollback_pipe(node);
+		unmark_files_and_heredocs(node);
 		chain_ends(node);
 		node = next_node(node);
 	}

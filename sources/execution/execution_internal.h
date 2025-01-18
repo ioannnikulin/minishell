@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 17:46:39 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/18 16:07:31 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/18 17:31:31 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,8 @@ t_treenode	*next_command(t_treenode *node);
 t_treenode	*prev_command(t_treenode *node);
 t_treenode	*next_node(t_treenode *node);
 t_treenode	*prev_node(t_treenode *node);
+t_treenode	*next_out_file(t_treenode *node);
+t_treenode	*next_in_file(t_treenode *node);
 
 typedef struct s_duparg
 {
