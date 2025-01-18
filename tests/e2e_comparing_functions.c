@@ -6,14 +6,14 @@
 /*   By: inikulin <inikulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 18:16:14 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/18 17:44:58 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/18 17:53:03 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "e2e_internal.h"
 #define PRINT_MALLOC_FAILURE_NO
 #define TRAP_START 0
-#define DEBUG
+//#define DEBUG
 
 extern char **environ;
 

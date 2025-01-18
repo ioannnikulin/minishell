@@ -6,13 +6,13 @@
 /*   By: inikulin <inikulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 22:57:54 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/18 17:41:28 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/18 17:52:55 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "e2e_internal.h"
 #define START 0
-#define DEBUG
+//#define DEBUG
 #define SZ 45
 #define PRINT_TEST_NO
 #define MAX_CHECKED_MALLOCS_PRELIM 200
