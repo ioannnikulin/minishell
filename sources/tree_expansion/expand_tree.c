@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 20:11:36 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/22 20:24:36 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/17 17:38:02 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,17 @@ static int	expand_cmd(t_treenode *node, int *i)
 	int			j;
 
 	j = 0;
-	if (node && ft_strcmp(TEXT_TREE_BLOCK, node->content) == 0)
+	if (node && ft_strcmp(TEXT_TREE_BLOCK, *get_node_txt(node)) == 0)
 		expand_cmd(node->child, &j);
 	if (!node || !node->sibling_next)
 		return (0);
-	nc = node->sibling_next->content;
+	nc = *get_node_txt(node->sibling_next);
 	if (ft_strcmp(nc, "|") && !is_redirection(nc))
 	{
 		*i += 2;
-		return (expand_cmd(node->sibling_next->sibling_next, i));
+		return (expand_cmd(next_node(node), i));
 	}
-	if (ft_treenode_insert_child_idx_s_nop(node->parent,
+	if (treenode_insert_nop(node->parent,
 			TEXT_TREE_BLOCK_REDIR, *i) != *i)
 		return (1);
 	new = node->parent->child;

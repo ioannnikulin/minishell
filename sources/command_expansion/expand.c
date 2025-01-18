@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 17:06:11 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/05 20:32:20 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/17 15:28:01 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ static int	go(t_treenode *node, t_param *param)
 {
 	t_crawler	c;
 
-	c = crawler_make(node->content, param);
+	c = crawler_make(*get_node_txt(node), param);
 	if (!c.sbuf)
 		return (1);
 	while (1)
@@ -102,23 +102,23 @@ static int	go(t_treenode *node, t_param *param)
 	}
 	if (c.errno)
 		return (c.errno);
-	free(node->content);
-	node->content = ft_sbuf_get(c.sbuf);
+	free(*get_node_txt(node));
+	*get_node_txt(node) = ft_sbuf_get(c.sbuf);
 	ft_sbuf_finalize(&c.sbuf);
-	return (node->content == 0);
+	return (node->content == 0 || ((t_command *)node->content)->txt == 0);
 }
 
 int	expand(t_treenode *node, t_param *param)
 {
 	if (param->opts.debug_output_level & DBG_PRINT_TOKEN_BEFORE_EXPANSION)
-		FT_PRINTF("%s\n", (char *)node->content);
+		FT_PRINTF("%s\n", *get_node_txt(node));
 	if (go(node, param))
 		return (1);
 	node = node->child;
 	while (node)
 	{
 		if (param->opts.debug_output_level & DBG_PRINT_TOKEN_BEFORE_EXPANSION)
-			FT_PRINTF("%s\n", (char *)node->content);
+			FT_PRINTF("%s\n", *get_node_txt(node));
 		if (go(node, param))
 			return (2);
 		node = node->sibling_next;

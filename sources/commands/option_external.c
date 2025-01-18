@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 00:10:22 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/15 13:57:15 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/17 14:46:09 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static char	**get_argv(char *fullpath, t_treenode *node)
 	node = node->child;
 	while (i <= argc)
 	{
-		argv[i ++] = node->content;
+		argv[i ++] = *get_node_txt(node);
 		node = node->sibling_next;
 	}
 	return (argv);
@@ -89,7 +89,7 @@ int	option_external(t_executor *control, t_treenode *node, t_param *param)
 		ft_dlist_print_s(param->envvar_path_head, "\n");
 		FT_PRINTF("--\n");
 	}
-	fullpath = find_executable(node->content, param->envvar_path_head,
+	fullpath = find_executable(*get_node_txt(node), param->envvar_path_head,
 			&param->opts.errno);
 	if (!fullpath)
 		return (ft_assign_i(&control->found, 0, 0));
@@ -97,6 +97,6 @@ int	option_external(t_executor *control, t_treenode *node, t_param *param)
 	free(fullpath);
 	if (!param->opts.errno)
 		return (0);
-	FT_PRINTF("%s: ERROR %i\n", (char *)node->content, param->opts.errno);
+	FT_PRINTF("%s: ERROR %i\n", *get_node_txt(node), param->opts.errno);
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   option_cd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 00:08:15 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/05 20:31:32 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/17 14:40:04 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static char	*get_checked_path(t_treenode *node, char *pwd, t_mapss *envvars,
 
 	if (!node->child)
 		return (home(envvars, errno));
-	tgt = node->child->content;
+	tgt = *get_node_txt(node->child);
 	if (tgt[0] == '/')
 	{
 		if (access(tgt, X_OK) == 0)
@@ -57,7 +57,7 @@ static int	couldnt(t_treenode *node, char *fullpath, int *ret, int errno)
 {
 	if (errno == 4 || errno == 6 || errno == 0)
 		FT_FPRINTF(STDERR, "%s: cd: %s: %s\n",
-			TXT_MINISHELL, node->child->content, ERR_CD_NOWHERE);
+			TXT_MINISHELL, *get_node_txt(node->child), ERR_CD_NOWHERE);
 	else if (errno == 1)
 		FT_FPRINTF(STDERR, "%s: cd: %s\n",
 			TXT_MINISHELL, ERR_CD_NO_HOME);
