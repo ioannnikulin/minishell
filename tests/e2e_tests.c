@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 22:57:54 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/18 14:59:18 by taretiuk         ###   ########.fr       */
+/*   Updated: 2025/01/18 15:46:34 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,9 +196,10 @@ int	populate(void)
 	tests[32] = (t_testcase){"rm -f one.txt two.txt && echo 1 >> one.txt && echo 2 >> one.txt && cat < one.txt | grep 2 > two.txt", m[32], 0, 0};
 
 	ft_mapss_add(m[33], "stdout", "");
+	ft_mapss_add(m[33], "stderr", "");
 	ft_mapss_add(m[33], "one.txt", "1\n2\n");
 	ft_mapss_add(m[33], "two.txt", "2\n");
-	tests[33] = (t_testcase){"rm -f one.txt two.txt && echo 1 >> one.txt && echo 2 >> one.txt && cat < one.txt | grep 2 > two.txt | grep 2", m[33], 0, 0};
+	tests[33] = (t_testcase){"rm -f one.txt two.txt && echo 1 >> one.txt && echo 2 >> one.txt && cat < one.txt | grep 2 > two.txt | grep 2", m[33], UNSTABLE_RETURN_0_1, 0};
 
 	ft_mapss_add(m[34], "stdout", "");
 	tests[34] = (t_testcase){"echo -n", m[34], 0, 0};
