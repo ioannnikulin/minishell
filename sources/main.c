@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inikulin <inikulin@stiudent.42.fr>         +#+  +:+       +#+        */
+/*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 15:21:17 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/12 12:07:18 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/17 17:18:53 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,9 @@ static char	*read_input(void)
 	return (readline(0));
 }
 
+/* errno set to 0 in the end - so that the execution continues
+* if the parent thread fails to get back a success from child
+*/
 static int	interactive(t_param *param)
 {
 	while (1)
@@ -50,14 +53,15 @@ static int	interactive(t_param *param)
 		}
 		if (!param->cur_command)
 			break ;
-		if (ft_strlen(param->cur_command) == 0)
+		if (isatty(STDIN) && ft_strlen(param->cur_command) == 0
+			&& FT_FPRINTF(STDERR, "\n"))
 			continue ;
 		if (isatty(STDIN))
 			add_history(param->cur_command);
 		if (input_to_text_tree(param))
 			break ;
 		param->opts.retval = exec_text_tree(param);
-		if (param->opts.exiting)
+		if (ft_assign_i(&param->opts.errno, 0, 1) && param->opts.exiting)
 			break ;
 	}
 	return (param->opts.retval);
