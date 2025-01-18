@@ -6,18 +6,11 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:39:01 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/17 12:17:33 by taretiuk         ###   ########.fr       */
+/*   Updated: 2025/01/15 22:31:36 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../tree_make/tree_processing_internal.h"
-
-int	scroll_chain(t_executor *e, int tgt)
-{
-	while (tgt-- > 0)
-		e->node = e->node->sibling_next->sibling_next;
-	return (0);
-}
 
 int	fd_ok(int fd)
 {

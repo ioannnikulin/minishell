@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   resources.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 14:26:40 by inikulin          #+#    #+#             */
 /*   Updated: 2025/01/15 17:24:15 by taretiuk         ###   ########.fr       */
@@ -30,6 +30,7 @@
 # define ERR_EXIT_NO_NUMBER "numeric argument required"
 # define ERR_EXIT_TOO_MANY_ARGS "too many arguments"
 # define ERR_UNEXPECTED_TOKEN "syntax error near unexpected token"
+# define ERR_NO_IN_FILE "No such file or directory"
 
 # define TXT_INVITATION "minishell > "
 # define TXT_MINISHELL "minishell"

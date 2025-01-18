@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 22:21:08 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/13 15:56:16 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/17 14:17:06 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,12 @@ int	expand_tree_test(void)
 		#endif
 		param.text_tree = t[i].src;
 		assert(expand_tree(&param) == 0);
-		int cmpres = ft_tree_cmp_s(t[i].exp, param.text_tree);
+		int cmpres = ft_tree_cmp(t[i].exp, param.text_tree, cmd_cmp);
 		#ifdef DEBUG
 		if (cmpres != 0)
 		{
-			ft_tree_print_s(t[i].exp);
-			ft_tree_print_s(param.text_tree);
+			ft_tree_print(t[i].exp, cmd_txt, "\t");
+			ft_tree_print(param.text_tree, cmd_txt, "\t");
 		}
 		#endif
 		assert(cmpres == 0);
@@ -57,9 +57,9 @@ static int	populate_tests(t_testcase t[])
 	for (int i = 0; i < 33; i ++)
 	{
 		t[i].src = ft_tree_make();
-		t[i].src->root = ft_treenode_make(TEXT_TREE_ROOT, 0, ft_free_nop);
+		t[i].src->root = treenode_make(TEXT_TREE_ROOT, 0, ft_free_nop);
 		t[i].exp = ft_tree_make();
-		t[i].exp->root = ft_treenode_make(TEXT_TREE_ROOT, 0, ft_free_nop);
+		t[i].exp->root = treenode_make(TEXT_TREE_ROOT, 0, ft_free_nop);
 	}
 	mock_00_tree(t[0].src->root);
 	mock_00_tree_expanded(t[0].exp->root);

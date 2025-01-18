@@ -48,7 +48,7 @@ COMMAND_VALIDATION_NAMES = check_invalid_input.c
 COMMAND_VALIDATION_F = command_validation
 COMMAND_VALIDATION_SRCS = $(addprefix $(COMMAND_VALIDATION_F)/, $(COMMAND_VALIDATION_NAMES))
 
-EXECUTION_NAMES = exec_text_tree.c exec_text_tree_node.c exec_text_tree_controls.c redirections.c pipes.c files.c is_pipe.c is_redir.c parent_n_child.c
+EXECUTION_NAMES = exec_text_tree.c exec_text_tree_node.c exec_text_tree_controls.c redirections.c pipes.c files.c is_pipe.c is_redir.c is_redir_file.c navigation.c parent_n_child.c preexecution_markup.c
 EXECUTION_F = execution
 EXECUTION_SRCS = $(addprefix $(EXECUTION_F)/, $(EXECUTION_NAMES))
 
@@ -56,13 +56,13 @@ COMMANDS_NAMES = option_cd.c option_echo.c option_env.c option_exit.c option_exp
 COMMANDS_F = commands
 COMMANDS_SRCS = $(addprefix $(COMMANDS_F)/,$(COMMANDS_NAMES))
 
-SRC_NAMES = $(EXTERNAL_OPTIONS_SRCS) $(INTERNAL_SETTINGS_SRCS) input_to_text_tree.c $(INPUT_TO_TEXT_TREE_MOCK_SRCS) $(SPLIT_SRCS) $(TOKENIZING_SRCS) $(TREE_MAKE_SRCS) $(TREE_EXPANSION_SRCS) $(COMMAND_EXPANSION_SRCS) $(COMMAND_VALIDATION_SRCS) $(EXECUTION_SRCS) $(COMMANDS_SRCS)
+SRC_NAMES = $(EXTERNAL_OPTIONS_SRCS) $(INTERNAL_SETTINGS_SRCS) input_to_text_tree.c $(INPUT_TO_TEXT_TREE_MOCK_SRCS) $(SPLIT_SRCS) $(TOKENIZING_SRCS) $(TREE_MAKE_SRCS) $(TREE_EXPANSION_SRCS) $(COMMAND_EXPANSION_SRCS) $(EXECUTION_SRCS) $(COMMANDS_SRCS) $(COMMAND_VALIDATION_SRCS) treenode_insert.c treenode_ops.c treenode_ops_1.c
 ENDPOINT_NAME = main.c
 
 SRC_SRCS = $(addprefix $(SOURCE_F)/, $(SRC_NAMES))
 ENDPOINT_SRC = $(addprefix $(SOURCE_F)/, $(ENDPOINT_NAME))
 
-TEST_NAMES = input_to_text_tree_test.c ft_split_str_test.c tokenize_cmd_test.c unit_tests.c e2e_tests.c expand_tree_test.c get_envvars_test.c
+TEST_NAMES = input_to_text_tree_test.c ft_split_str_test.c tokenize_cmd_test.c unit_tests.c e2e_tests.c expand_tree_test.c get_envvars_test.c e2e_comparing_functions.c e2e_utils.c
 TEST_ENDPOINT_NAME = main_test.c
 TEST_SRCS = $(addprefix $(TEST_F)/, $(TEST_NAMES))
 TEST_ENDPOINT_SRC = $(addprefix $(TEST_F)/, $(TEST_ENDPOINT_NAME))
@@ -190,13 +190,18 @@ tania: $(OBJ_DIRS) $(TANIA_OBJ_F) $(OBJS) $(TANIA_ENDPOINT_OBJ)
 all_trapped:
 	$(PREFIX)make PREPROC_DEFINES="$(PREPROC_DEFINES) -DFT_CALLOC_IF_TRAPPED -DFANCY_IFACE" all
 
+all_fancy:
+	$(PREFIX)make PREPROC_DEFINES="$(PREPROC_DEFINES) -DFANCY_IFACE" all
+
 vania:
 	$(PREFIX)cd libft && make fulltest_trapped_nonorm
 	$(PREFIX)make fclean testfclean
 	$(PREFIX)make minivania
 
 minivania:
-	$(PREFIX)make PREPROC_DEFINES="$(PREPROC_DEFINES) -DFANCY_IFACE" all test && ./$(TEST_FNAME)
+	$(PREFIX)make all_fancy test && ./$(TEST_FNAME)
+
+CMD = "cat < one.txt | grep 1 > two.txt"
 run:
 	$(PREFIX)./minishell --debug 136 --command $(CMD)
 debug:

@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 23:07:09 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/05 20:09:55 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/15 20:21:33 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,18 @@
 
 int	mock_32_tree(t_treenode *root)
 {
-	if (ft_treenode_insert_child_idx_s_dup(root, "echo", 0) == -1
-		|| ft_treenode_insert_child_idx_s_dup(root->child, "1", 0) == -1
-		|| ft_treenode_insert_child_idx_s_dup(root, ">>", 1) == -1
-		|| ft_treenode_insert_child_idx_s_dup(root, "out.a", 2) == -1
-		|| ft_treenode_insert_child_idx_s_dup(root, "&&", 3) == -1
-		|| ft_treenode_insert_child_idx_s_dup(root, "echo", 4) == -1
-		|| ft_treenode_insert_child_idx_s_dup(root, ">>", 5) == -1
-		|| ft_treenode_insert_child_idx_s_dup(root, "out.a", 6) == -1
+	if (treenode_insert_dup(root, "echo", 0) == -1
+		|| treenode_insert_dup(root->child, "1", 0) == -1
+		|| treenode_insert_dup(root, ">>", 1) == -1
+		|| treenode_insert_dup(root, "out.a", 2) == -1
+		|| treenode_insert_dup(root, "&&", 3) == -1
+		|| treenode_insert_dup(root, "echo", 4) == -1
+		|| treenode_insert_dup(root, ">>", 5) == -1
+		|| treenode_insert_dup(root, "out.a", 6) == -1
 	)
 		return (1);
 	root = root->child->sibling_next->sibling_next->sibling_next->sibling_next;
-	if (ft_treenode_insert_child_idx_s_dup(root, "2", 0) == -1)
+	if (treenode_insert_dup(root, "2", 0) == -1)
 		return (1);
 	return (0);
 }
@@ -37,10 +37,10 @@ int	mock_32_tree_expanded(t_treenode *root)
 	i = mock_32_tree(root);
 	if (i)
 		return (i);
-	ft_treenode_insert_child_idx_s_nop(root, TEXT_TREE_BLOCK_REDIR, 0);
+	treenode_insert_nop(root, TEXT_TREE_BLOCK_REDIR, 0);
 	root = root->child;
 	root->child = ft_treenode_cut(root->parent, 1, 4);
-	ft_treenode_insert_child_idx_s_nop(root->parent, TEXT_TREE_BLOCK_REDIR, 2);
+	treenode_insert_nop(root->parent, TEXT_TREE_BLOCK_REDIR, 2);
 	root = root->sibling_next->sibling_next;
 	root->child = ft_treenode_cut(root->parent, 3, 6);
 	return (0);

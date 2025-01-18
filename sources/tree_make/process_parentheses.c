@@ -18,8 +18,7 @@ int	process_open_parentheses(char *token, t_treenode **cur_1,
 	t_treenode	*tmp;
 
 	tmp = NULL;
-	if (ft_treenode_insert_child_idx_s_dup(*cur_1, token,
-			(*cur_1)->children_qtty) == -1)
+	if (treenode_insert_dup(*cur_1, token, (*cur_1)->children_qtty) == -1)
 		return (1);
 	tmp = *cur_2;
 	while (tmp && tmp->sibling_next)

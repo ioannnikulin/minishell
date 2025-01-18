@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tree_processing_internal.h                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 11:55:53 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/12/03 14:50:35 by taretiuk         ###   ########.fr       */
+/*   Updated: 2025/01/15 19:59:29 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

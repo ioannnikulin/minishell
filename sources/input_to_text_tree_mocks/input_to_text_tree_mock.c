@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 23:07:09 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/10 17:22:33 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/17 13:57:02 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	input_to_text_tree_mock(t_tree **tree, char *in)
 	*tree = ft_tree_make();
 	if (!*tree)
 		return (4);
-	(*tree)->root = ft_treenode_make(TEXT_TREE_ROOT, 0, ft_free_nop);
+	(*tree)->root = treenode_make(TEXT_TREE_ROOT, 0, ft_free_nop);
 	if (!((*tree)->root))
 		return (2);
 	r = (*tree)->root;

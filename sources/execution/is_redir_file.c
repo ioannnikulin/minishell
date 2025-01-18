@@ -1,39 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_pipe.c                                          :+:      :+:    :+:   */
+/*   is_redir_file.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/11 15:52:39 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/17 16:58:41 by inikulin         ###   ########.fr       */
+/*   Created: 2025/01/11 15:52:17 by inikulin          #+#    #+#             */
+/*   Updated: 2025/01/17 17:14:09 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution_internal.h"
 
-int	is_pipe(char *c)
+int	is_out_file(t_treenode *node)
 {
-	return (ft_strcmp(c, "|") == 0);
+	return (node->sibling_prev
+		&& is_to_out_redir(*get_node_txt(node->sibling_prev)));
 }
 
-int	is_pipe_or_redir(char *c)
+int	is_in_file(t_treenode *node)
 {
-	return (is_pipe(c) || is_redirection(c));
+	return (node->sibling_prev
+		&& is_from_in_redir(*get_node_txt(node->sibling_prev)));
 }
 
-int	from_pipe(t_treenode *node)
+int	takes_part_in_pipe_or_file(t_treenode *node)
 {
-	return (node->sibling_prev && is_pipe(*get_node_txt(node->sibling_prev)));
+	return (takes_part_in_file(node) || takes_part_in_pipe(node));
 }
 
-int	to_pipe(t_treenode *node)
+int	is_file(t_treenode *node)
 {
-	return (node->sibling_next
-		&& is_pipe(*get_node_txt(node->sibling_next)));
-}
-
-int	takes_part_in_pipe(t_treenode *node)
-{
-	return (to_pipe(node) || from_pipe(node));
+	return (is_out_file(node) || is_in_file(node));
 }

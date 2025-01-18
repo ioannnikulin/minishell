@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   option_echo.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 00:08:39 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/14 14:48:35 by taretiuk         ###   ########.fr       */
+/*   Updated: 2025/01/17 23:56:37 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,18 +35,18 @@ int	option_echo(t_executor *control, t_treenode *node, t_param *param)
 	(void)param;
 	n = 0;
 	child = node->child;
-	while (child && arg_n(child->content, 'n'))
+	while (child && arg_n(*get_node_txt(child), 'n'))
 	{
 		n = 1;
 		child = child->sibling_next;
 	}
 	while (child && child->sibling_next)
 	{
-		FT_PRINTF("%s ", (char *)child->content);
+		FT_PRINTF("%s ", *get_node_txt(child));
 		child = child->sibling_next;
 	}
 	if (child)
-		FT_PRINTF("%s", (char *)child->content);
+		FT_PRINTF("%s", *get_node_txt(child));
 	if (!n)
 		FT_PRINTF("\n");
 	return (ft_assign_i(&control->retval, 0, 1));

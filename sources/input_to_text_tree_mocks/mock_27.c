@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 23:07:09 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/19 20:42:47 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/15 20:21:33 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 int	mock_27_tree(t_treenode *root)
 {
-	if (ft_treenode_insert_child_idx_s_dup(root, "cd", 0) == -1
-		|| ft_treenode_insert_child_idx_s_dup(root->child, "a", 0) == -1
-		|| ft_treenode_insert_child_idx_s_dup(root->child, "b", 1) == -1
-		|| ft_treenode_insert_child_idx_s_dup(root, "&&", 1) == -1
-		|| ft_treenode_insert_child_idx_s_dup(root, "echo", 2) == -1
-		|| ft_treenode_insert_child_idx_s_dup(root->child
+	if (treenode_insert_dup(root, "cd", 0) == -1
+		|| treenode_insert_dup(root->child, "a", 0) == -1
+		|| treenode_insert_dup(root->child, "b", 1) == -1
+		|| treenode_insert_dup(root, "&&", 1) == -1
+		|| treenode_insert_dup(root, "echo", 2) == -1
+		|| treenode_insert_dup(root->child
 			->sibling_next->sibling_next, "1", 0) == -1
 	)
 		return (1);
