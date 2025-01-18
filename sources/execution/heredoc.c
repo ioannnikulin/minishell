@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 14:06:24 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/18 17:03:47 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/18 17:50:31 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ int	setup_heredoc(t_executor *e, t_treenode *node)
 
 int	child_heredoc(t_executor *e, t_treenode *node)
 {
-
 	if (close(*get_node_out_fd(node)) == -1)
 		return (ft_assign_i(&e->errno, 1, 1));
 	return (0);
