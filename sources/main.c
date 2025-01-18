@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 15:21:17 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/18 18:03:54 by taretiuk         ###   ########.fr       */
+/*   Updated: 2025/01/18 19:52:27 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ static int	handle_input(t_param *param)
 	int	ret;
 
 	ret = input_to_text_tree(param);
-	if (ret == MALFORMED_INPUT)
+	if (ret == MEMORY_ERROR)
 		return (ft_assign_i(&param->opts.errno, 1, 1));
-	else if (ret == 3)
+	else if (ret == MALFORMED_INPUT || ret == SPACES_ONLY || ret == EMPTY_LINE)
 		return (ft_assign_i(&param->opts.errno, SPACES_ONLY, 2));
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 15:22:58 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/18 18:03:15 by taretiuk         ###   ########.fr       */
+/*   Updated: 2025/01/18 19:44:54 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,10 @@
 # define STDIN STDIN_FILENO
 
 # define MALFORMED_INPUT -1
-# define SPACES_ONLY -2
+# define MEMORY_ERROR -2
+# define SPACES_ONLY -3
+# define EMPTY_LINE -4
+# define TREE_FAIL -5
 
 # define DBG_EXTERNAL_SEARCH_FOLDERS 1
 # define DBG_PRINT_TREE_BEFORE_EXEC 2

@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 06:08:59 by taretiuk          #+#    #+#             */
-/*   Updated: 2025/01/18 17:07:34 by taretiuk         ###   ########.fr       */
+/*   Updated: 2025/01/18 18:37:39 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	tokenize_cmd(const char *s, char ***p_ss)
 	int	ret;
 
 
-	ret = if_empty_string(s, p_ss) != 0;
+	ret = if_empty_string(s, p_ss);
 	if (ret != 0)
 		return (ret);
 	if (is_only_spaces(s))
