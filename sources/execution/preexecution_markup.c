@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 22:32:33 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/18 16:32:56 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/18 17:08:16 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,14 @@ int	fd_info(t_executor *e)
 
 static int	rollback_pipe(t_treenode *node)
 {
-	if (*get_node_type(node) & ANY_FILE && *get_node_type(node) & TO_PIPE)
+	if (*get_node_type(node) & (ANY_FILE | HEREDOC)
+		&& *get_node_type(node) & TO_PIPE)
 	{
 		*get_node_type(node) &= ~TO_PIPE;
 		*get_node_type(node) &= ~COMMAND;
-		if (*get_node_type(node) & IN_FILE)
+		if (*get_node_type(node) & (IN_FILE | HEREDOC))
 			add_node_type(prev_command(node), TO_PIPE);
-		else
+		else if (*get_node_type(node) & OUT_FILE)
 			add_node_type(next_command(node), FROM_DEV_NULL);
 	}
 	return (0);

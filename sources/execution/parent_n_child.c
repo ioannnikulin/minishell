@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 21:53:09 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/18 16:26:38 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/18 17:02:18 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ static int	dupit(t_executor *e, t_duparg a)
 				a.notfrom == STDIN, "in", "out"), a.from);
 	if (dup2(a.to, a.from) == -1)
 	{
-		FT_FPRINTF(STDERR, "%i: dup failed\n", a.msg_src);
+		FT_FPRINTF(STDERR, "%i: dup %s failed\n", a.msg_src, ft_if_s(
+				a.notfrom == STDIN, "in", "out"));
 		exit (ft_assign_i(&e->errno, 1, 1));
 	}
 	return (0);

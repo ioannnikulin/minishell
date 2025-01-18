@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:39:01 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/18 16:34:26 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/18 17:03:13 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static int	exec_chain(t_executor *e)
 	while (e->node)
 	{
 		if ((*get_node_type(e->node)
-				& (IN_FILE | OUT_FILE)) == 0)
+				& (IN_FILE | OUT_FILE | HEREDOC)) == 0)
 		{
 			*get_node_pid(e->node) = fork();
 			if (*get_node_pid(e->node) == -1)
