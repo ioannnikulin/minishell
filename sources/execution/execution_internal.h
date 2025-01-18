@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution_internal.h                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: inikulin <inikulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 17:46:39 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/17 12:03:20 by taretiuk         ###   ########.fr       */
+/*   Updated: 2025/01/18 17:42:14 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ typedef struct s_executor
 # define CHAIN_START 256
 # define CHAIN_END 512
 # define FROM_DEV_NULL 1024
+# define FROM_HEREDOC 2048
+# define HEREDOC 4096
 
 # define NO_IN_FILE 104
 
@@ -57,36 +59,55 @@ int			fd_info(t_executor *e);
 
 int			child(t_executor *e, int tgt);
 int			chain_parent(t_executor *e);
+int			child_heredoc(t_executor *e, t_treenode *node);
 
 int			setup_out_file(t_executor *e, t_treenode *node);
 int			setup_in_file(t_executor *e, t_treenode *node);
 int			setup_pipe(t_executor *e, t_treenode *node, int i);
 int			setup_dev_null(t_executor *e, t_treenode *node);
+int			setup_heredoc(t_executor *e, t_treenode *node);
 
 int			fd_ok(int fd);
 int			close_fds(t_executor *e, int msg_src);
 int			scroll_chain(t_executor *e, int tgt);
 int			rollback_input_files_fds(t_executor *e, t_treenode *node);
 
+// operator strings
 int			is_pipe_or_redir(char *s);
 int			is_pipe(char *s);
-int			is_pipe_or_redir(char *c);
-int			from_pipe(t_treenode *node);
-int			to_pipe(t_treenode *node);
-int			takes_part_in_pipe(t_treenode *node);
 int			is_to_out_redir(char *c);
 int			is_from_in_redir(char *c);
+int			is_heredoc(char *c);
+
+// redirection nodes
 int			is_out_file(t_treenode *node);
 int			is_in_file(t_treenode *node);
 int			is_file(t_treenode *node);
+int			is_heredoc_eof(t_treenode *node);
+
+// supposedly command nodes
+int			from_pipe(t_treenode *node);
+int			to_pipe(t_treenode *node);
+int			takes_part_in_pipe(t_treenode *node);
 int			sends_to_out_file(t_treenode *node);
 int			reads_from_in_file(t_treenode *node);
 int			takes_part_in_file(t_treenode *node);
 int			takes_part_in_pipe(t_treenode *node);
+int			reads_from_heredoc(t_treenode *node);
 int			takes_part_in_pipe_or_file(t_treenode *node);
 
 t_treenode	*next_command(t_treenode *node);
 t_treenode	*prev_command(t_treenode *node);
 t_treenode	*next_node(t_treenode *node);
 t_treenode	*prev_node(t_treenode *node);
+t_treenode	*next_out_file(t_treenode *node);
+t_treenode	*next_in_file(t_treenode *node);
+
+typedef struct s_duparg
+{
+	int	from;
+	int	notfrom;
+	int	to;
+	int	msg_src;
+}	t_duparg;
 #endif

@@ -1,32 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_if.c                                            :+:      :+:    :+:   */
+/*   navigation_1.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: inikulin <inikulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/17 10:57:29 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/18 17:48:37 by inikulin         ###   ########.fr       */
+/*   Created: 2025/01/13 17:46:13 by inikulin          #+#    #+#             */
+/*   Updated: 2025/01/18 17:49:55 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_if_i(int choice, int a, int b)
-{
-	if (choice)
-		return (a);
-	return (b);
-}
+#include "execution_internal.h"
 
-char	ft_if_c(int choice, char a, char b)
+t_treenode	*next_in_file(t_treenode *node)
 {
-	if (choice)
-		return (a);
-	return (b);
-}
-
-char	*ft_if_s(int choice, char *a, char *b)
-{
-	if (choice)
-		return (a);
-	return (b);
+	if (!node->sibling_next || !node->sibling_next->sibling_next)
+		return (0);
+	if (*get_node_type(node) & CHAIN_END)
+		return (0);
+	node = next_node(node);
+	while (node && node->sibling_next && (*get_node_type(node) & IN_FILE) == 0)
+		node = next_node(node);
+	if ((*get_node_type(node) & IN_FILE) == 0)
+		return (0);
+	return (node);
 }
