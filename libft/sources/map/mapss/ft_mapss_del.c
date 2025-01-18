@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_mapss_del.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: inikulin <inikulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 16:31:10 by inikulin          #+#    #+#             */
-/*   Updated: 2024/10/27 01:59:27 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/18 20:37:58 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ int	ft_mapss_del(t_mapss *map, const char *key)
 				cur_node->prev->next = cur_node->next;
 			if (cur_node->next)
 				cur_node->next->prev = cur_node->prev;
+			else
+				map->tail = cur_node->prev;
 			ft_mapss_node_del(cur_node);
 			map->size --;
 			return (0);

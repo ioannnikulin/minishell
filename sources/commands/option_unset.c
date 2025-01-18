@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 00:09:55 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/18 17:55:51 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/18 19:52:56 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	option_unset(t_executor *control, t_treenode *node, t_param *param)
 	{
 		key = *get_node_txt(node);
 		if (ft_strcmp(key, "PATH") == 0)
-			ft_dlist_clear_s(&param->envvar_path_head->next, 0);
+			ft_dlist_clear_s(&param->envvar_path_head, 0);
 		else
 			ft_mapss_del(param->envvars, key);
 		node = node->sibling_next;

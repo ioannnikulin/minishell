@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_text_tree.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: inikulin <inikulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:39:01 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/17 17:11:33 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/18 18:47:03 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static int	skip_logical_siblings(t_executor *e)
 static int	exec_rec_1(t_executor *e)
 {
 	if (e->errno || e->param->opts.errno)
-		return (0 * FT_FPRINTF(STDERR, "Execution error %i\n",
+		return (0 * ERR("Execution error %i\n",
 				*ft_max_int(&e->errno, &e->param->opts.errno)) + 3);
 	if (skip_logical_siblings(e) != 0)
 		return (1);

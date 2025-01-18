@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 22:32:33 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/18 17:20:29 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/18 18:47:03 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	fd_info(t_executor *e)
 	i = -1;
 	while (node)
 	{
-		FT_FPRINTF(STDERR, "%i: in %i out %i type %i\n", ++i,
+		ERR("%i: in %i out %i type %i\n", ++i,
 			*get_node_in_fd(node), *get_node_out_fd(node),
 			*get_node_type(node));
 		node = next_node(node);

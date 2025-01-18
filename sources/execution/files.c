@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:39:01 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/18 17:37:28 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/18 18:47:03 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	setup_in_file(t_executor *e, t_treenode *node)
 			mode(*get_node_txt(node->sibling_prev)), 0600);
 	if (fd == -1)
 	{
-		FT_FPRINTF(STDERR, "%s: %s: %s\n", TXT_MINISHELL,
+		ERR("%s: %s: %s\n", TXT_MINISHELL,
 			*get_node_txt(node), ERR_NO_IN_FILE);
 		return (ft_assign_i(&e->errno, NO_IN_FILE, NO_IN_FILE));
 	}

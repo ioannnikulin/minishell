@@ -97,6 +97,9 @@ $(OBJ_DIRS):
 pre:
 	$(PREFIX)cd libft && make all
 
+pre_stdprintf:
+	$(PREFIX)cd libft && make all_stdprintf
+
 $(NAME): $(OBJS) $(ENDPOINT_OBJ)
 	$(PREFIX)$(CC) $(OBJS) $(ENDPOINT_OBJ) -o $@ $(LINK_FLAGS)
 
@@ -166,8 +169,7 @@ fulltest_vania: fulltest_common
 fulltest: fulltest_common
 	$(PREFIX)make test_trapped memcheck
 
-PHONY: all pre clean fclean re test fulltest testclean testfclean retest memcheck memcheck_interactive fulltest_common fulltest_vania tania vania minivania all_trapped
-
+PHONY: all pre clean fclean re test fulltest testclean testfclean retest memcheck memcheck_interactive fulltest_common fulltest_vania tania vania minivania all_trapped all_fancy all_printf
 ########################################
 
 TANIA_OBJ_F = $(OBJ_F)tania/
@@ -189,6 +191,9 @@ tania: $(OBJ_DIRS) $(TANIA_OBJ_F) $(OBJS) $(TANIA_ENDPOINT_OBJ)
 
 all_trapped:
 	$(PREFIX)make PREPROC_DEFINES="$(PREPROC_DEFINES) -DFT_CALLOC_IF_TRAPPED -DFANCY_IFACE" all
+
+all_stdprintf: pre_stdprintf
+	$(PREFIX)make PREPROC_DEFINES="$(PREPROC_DEFINES) -DPRINTF_ALLOWED" $(NAME)
 
 all_fancy:
 	$(PREFIX)make PREPROC_DEFINES="$(PREPROC_DEFINES) -DFANCY_IFACE" all

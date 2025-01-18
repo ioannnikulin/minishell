@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   param_get_envvars.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: inikulin <inikulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/06 20:45:38 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/03 17:31:15 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/18 20:21:36 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,6 @@ static int	handle_envvar(t_param *param, char *key, char *value)
 		if (extract_path_env(param, value))
 			return (1);
 	}
-	else if (ft_strncmp(key, "PWD", 4) == 0)
-		return (0);
 	else if (ft_mapss_add(param->envvars, key, value))
 		return (1);
 	return (0);
