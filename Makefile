@@ -48,7 +48,7 @@ COMMAND_VALIDATION_NAMES = validate_input.c
 COMMAND_VALIDATION_F = command_validation
 COMMAND_VALIDATION_SRCS = $(addprefix $(COMMAND_VALIDATION_F)/, $(COMMAND_VALIDATION_NAMES))
 
-EXECUTION_NAMES = exec_text_tree.c exec_text_tree_node.c exec_text_tree_controls.c redirections.c pipes.c files.c is_pipe.c is_redir.c is_redir_file.c navigation.c navigation_1.c parent_n_child.c preexecution_markup.c is_node_interacting.c heredoc.c
+EXECUTION_NAMES = exec_text_tree.c exec_text_tree_node.c exec_text_tree_controls.c redirections.c pipes.c files.c is_pipe.c is_redir.c is_redir_file.c navigation.c navigation_1.c parent_n_child.c preexecution_markup.c is_node_interacting.c heredoc.c out_file_rollback.c
 EXECUTION_F = execution
 EXECUTION_SRCS = $(addprefix $(EXECUTION_F)/, $(EXECUTION_NAMES))
 
@@ -206,7 +206,7 @@ vania:
 minivania:
 	$(PREFIX)make all_fancy test && ./$(TEST_FNAME)
 
-CMD = "cat << END"
+CMD = "ls > out.txt | grep 1"
 run:
 	$(PREFIX)./minishell --debug 136 --command $(CMD)
 debug:

@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 17:46:39 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/19 15:07:47 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/19 17:13:18 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ int			fd_ok(int fd);
 int			close_fds(t_executor *e, int msg_src);
 int			scroll_chain(t_executor *e, int tgt);
 int			rollback_input_files_fds(t_executor *e, t_treenode *node);
+int			rollback_output_files_fds(t_executor *e, t_treenode *node);
 
 // operator strings
 int			is_pipe_or_redir(char *s);

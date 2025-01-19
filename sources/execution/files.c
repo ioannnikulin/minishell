@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   files.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inikulin <inikulin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:39:01 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/18 18:47:03 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/19 17:13:13 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,42 +25,31 @@ static int	mode(char *s)
 	return (0);
 }
 
-static int	ignored_file(t_executor *e, t_treenode *node, int fd)
-{
-	if (close(fd) == -1)
-		return (ft_assign_i(&e->errno, 3, 3));
-	fd = *get_node_out_fd(prev_node(node));
-	*get_node_in_fd(node) = fd;
-	*get_node_out_fd(node) = fd;
-	*get_node_in_fd(next_node(node)) = fd;
-	*get_node_out_fd(next_node(node)) = fd;
-	*get_node_type(node) |= IGNORED_FILE;
-	return (0);
-}
-
-/* runs for the command that redirects its output to an out file
-* mind the difference with setup_in_file
+/* runs for the file itself
+* ls > _a.txt_ > b.txt
 */
 int	setup_out_file(t_executor *e, t_treenode *node)
 {
 	int	fd;
 
-	if ((*get_node_type(node) & TO_OUT_FILE) == 0)
+	if ((*get_node_type(node) & OUT_FILE) == 0)
 		return (0);
-	fd = open(*get_node_txt(next_out_file(node)),
-			mode(*get_node_txt(next_out_file(node)->sibling_prev)), 0600);
+	fd = open(*get_node_txt(node),
+			mode(*get_node_txt(node->sibling_prev)), 0600);
 	if (fd == -1)
 		return (ft_assign_i(&e->errno, 2, 2));
+	if (*get_node_type(node) & IGNORED_FILE)
+	{
+		if (close(fd) == -1)
+			return (1);
+		return (0);
+	}
+	*get_node_in_fd(node) = fd;
 	*get_node_out_fd(node) = fd;
-	if (*get_node_type(node) & OUT_FILE)
-		return (ignored_file(e, node, fd));
-	*get_node_in_fd(next_node(node)) = fd;
-	*get_node_out_fd(next_node(node)) = fd;
 	return (0);
 }
 
 /* runs for the in file itself
-* mind the difference with setup_in_file
 *
 * fd is written only to the file node for now. to command node - in rollback
 */

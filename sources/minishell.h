@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 15:22:58 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/19 13:28:40 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/19 16:13:28 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ typedef struct s_param
 # define TEXT_TREE_BLOCK_REDIR "["
 
 void	usage(void);
-char	*read_input(char *cur_command);
+char	*read_input(char *cur_command, t_param *param);
 t_param	*param_alloc(void);
 int		param_init(t_param *param);
 int		opts_fill(int argc, const char **argv, t_param *param);
