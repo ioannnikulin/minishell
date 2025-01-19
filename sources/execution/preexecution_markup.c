@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   preexecution_markup.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inikulin <inikulin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 22:32:33 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/18 18:47:03 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/19 15:16:52 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,10 @@ static int	unmark_files_and_heredocs(t_treenode *node)
 {
 	int	subtype;
 
-	subtype = *get_node_type(node) & (TO_PIPE | TO_OUT_FILE);
+	subtype = *get_node_type(node) & (TO_PIPE | TO_OUT_FILE | FROM_HEREDOC);
 	if (*get_node_type(node) & (ANY_FILE | HEREDOC) && subtype)
 	{
-		*get_node_type(node) &= ~(TO_PIPE | TO_OUT_FILE);
+		*get_node_type(node) &= ~(TO_PIPE | TO_OUT_FILE | FROM_HEREDOC);
 		*get_node_type(node) &= ~COMMAND;
 		if (*get_node_type(node) & (IN_FILE | HEREDOC))
 			add_node_type(prev_command(node), subtype);

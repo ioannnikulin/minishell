@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution_internal.h                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inikulin <inikulin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 17:46:39 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/18 17:42:14 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/19 15:07:47 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ int			is_pipe(char *s);
 int			is_to_out_redir(char *c);
 int			is_from_in_redir(char *c);
 int			is_heredoc(char *c);
+int			is_last_heredoc(t_treenode *node);
 
 // redirection nodes
 int			is_out_file(t_treenode *node);

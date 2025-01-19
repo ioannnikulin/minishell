@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 22:30:29 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/19 14:03:29 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/19 14:39:14 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,8 @@ int	parent(pid_t pid, int *errno)
 		return (ft_assign_i(errno, 23, 0));
 	if ((status & 0x7f) == 0)
 		return (status >> 8);
-	if ((status & 0x7f) != 0)
-	{
-		if ((status & 0x7f) == SIGINT)
-			return (130);
-		return (ft_assign_i(errno, 24, 0));
-	}
+	if ((status & 0x7f) == SIGINT)
+		return (130);
 	return (ft_assign_i(errno, 24, 0));
 }
 
