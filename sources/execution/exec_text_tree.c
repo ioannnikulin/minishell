@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_text_tree.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inikulin <inikulin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:39:01 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/18 18:47:03 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/19 10:53:08 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ int	exec_text_tree(t_param *param)
 	if (!param || !param->text_tree || !param->text_tree->root
 		|| !param->text_tree->root->child)
 	{
-		FT_PRINTF("%s\n", ERR_TEXT_TREE_EMPTY);
+		ERR("%s\n", ERR_TEXT_TREE_EMPTY);
 		return (1);
 	}
 	if (param->opts.debug_output_level & DBG_PRINT_TREE_BEFORE_EXEC)

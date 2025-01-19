@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   option_external.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inikulin <inikulin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 00:10:22 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/18 19:52:09 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/19 10:52:41 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,6 @@ int	option_external(t_executor *control, t_treenode *node, t_param *param)
 	free(fullpath);
 	if (!param->opts.errno)
 		return (0);
-	FT_PRINTF("%s: ERROR %i\n", *get_node_txt(node), param->opts.errno);
+	ERR("%s: ERROR %i\n", *get_node_txt(node), param->opts.errno);
 	return (0);
 }
