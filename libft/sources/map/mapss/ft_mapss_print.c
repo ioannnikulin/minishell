@@ -20,11 +20,11 @@ void	ft_mapss_print(t_mapss *map)
 
 	i = -1;
 	current = map->head;
-	ft_printf("Map size: [%i]\n", map->size);
+	FT_PRINTF("Map size: [%i]\n", map->size);
 	while (++i < map->size)
 	{
 		entry = current->content;
-		ft_printf("key: [%s], value: [%s]\n", entry->key, entry->value);
+		FT_PRINTF("key: [%s], value: [%s]\n", entry->key, entry->value);
 		current = current->next;
 	}
 }

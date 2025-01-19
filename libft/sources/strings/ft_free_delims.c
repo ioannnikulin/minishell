@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 14:54:16 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/12/02 20:38:40 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/12/09 15:36:59 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,16 @@ void	ft_free_delims_arr(t_delims *arr)
 		return ;
 	free(arr->delims);
 	arr->delims = NULL;
+	arr->count = 0;
+	arr->error = 0;
+}
+
+void	ft_free_delim_c(t_skip_chars *arr)
+{
+	if (arr == NULL)
+		return ;
+	free(arr->exs);
+	arr->exs = NULL;
 	arr->count = 0;
 	arr->error = 0;
 }

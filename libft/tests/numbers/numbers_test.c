@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   numbers_test.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inikulin <inikulin@student.42berlin.d      +#+  +:+       +#+        */
+/*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 15:57:31 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/03 13:38:08 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/19 18:49:21 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int	numbers_test(void)
 {
+	printf("ceil/floor in testing\n");
+	ft_ceil_floor_test();
 	printf("atoi in testing\n");
 	ft_atoi_test();
 	printf("itoa in testing\n");
@@ -22,5 +24,9 @@ int	numbers_test(void)
 	ft_lltoa_base_test();
 	printf("ft_ulltoa_base in testing\n");
 	ft_ulltoa_base_test();
+	printf("ft_ulltoa_base_strdup in testing\n");
+	ft_ulltoa_base_strdup_test();
+	printf("ft_lltoa_base_strdup in testing\n");
+	ft_lltoa_base_strdup_test();
 	return (0);
 }

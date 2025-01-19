@@ -35,5 +35,5 @@ void	*ft_calloc_if(size_t size, int choice)
 
 void	ft_calloc_if_trap_count()
 {
-	ft_printf("Total ft_calloc_calls: %i\n", trap.cur);
+	FT_PRINTF("Total ft_calloc_calls: %i\n", trap.cur);
 }

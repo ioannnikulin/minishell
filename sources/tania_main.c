@@ -14,7 +14,7 @@
 
 int	main(int argc, const char **argv)
 {
-	printf("tanya works here\n");
+	FT_PRINTF("tanya works here\n");
 	(void)argv;
 	(void)argc;
 	return (0);

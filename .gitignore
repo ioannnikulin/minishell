@@ -5,9 +5,11 @@ libft.a
 libft/tests/test
 .vscode
 minishell
+minishell_tester
+minishell_tester-main
 test
 tests/tool_print_environment
-e2e_f/*
-e2e.stdout
-e2e.stderr
-*.txt
+e2e_f
+testf
+*.stdout
+*.stderr

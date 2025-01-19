@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 20:59:34 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/15 10:51:47 by inikulin         ###   ########.fr       */
+/*   Updated: 2024/12/15 17:18:05 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	ft_swap_c(char *a, char *b);
 int		ft_assign_i(int *where, int what, int retval);
 int		ft_assign_pc(char **where, char *what, int retval);
 char	*ft_assign_i_pc(int *where, int what, char *retval);
+int		ft_assign_sz(size_t *where, size_t what, int retval);
 
 int		ft_cmp_pvoid_pi(void *a, void *b);
 int		ft_less_eq_pvoid_pi(void *a, void *b);
@@ -53,6 +54,11 @@ void	ft_free_ss_uptonull_null(void ***c);
 
 char	**ft_s2(char *s1, char *s2);
 char	**ft_s3(char *s1, char *s2, char *s3);
+char	**ft_s4(char *s0, char *s1, char *s2, char *s3);
+char	**ft_s5(char **s0_3, char *s4);
+char	**ft_s6(char **s0_3, char *s4, char *s5);
+char	**ft_s7(char **s0_3, char *s4, char *s5, char *s6);
+
 char	***ft_ss2(char **s1, char **s2);
 char	***ft_ss3(char **s1, char **s2, char **s3);
 #endif

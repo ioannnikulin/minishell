@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unit_tests.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: inikulin <inikulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 00:03:03 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/03 15:56:48 by taretiuk         ###   ########.fr       */
+/*   Updated: 2025/01/18 20:22:59 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,20 @@
 
 int	unit_tests(void)
 {
-	printf("input_to_text_tree in progress\n");
+	FT_PRINTF("input_to_text_tree in progress\n");
 	input_to_text_tree_test();
-	ft_printf("input_to_text_tree tests completed\n");
-	printf("tokenize_cmd in progress\n");
+	FT_PRINTF("input_to_text_tree tests completed\n");
+	FT_PRINTF("split_str in progress\n");
+	ft_split_str_test();
+	FT_PRINTF("ft_split_str_test completed\n");
+	FT_PRINTF("tokenize_cmd in progress\n");
 	tokenize_cmd_test();
-	ft_printf("tokenize_cmd tests completed\n");
+	FT_PRINTF("tokenize_cmd tests completed\n");
+	FT_PRINTF("expand_tree in progress\n");
+	expand_tree_test();
+	FT_PRINTF("expand_tree tests completed\n");
+	FT_PRINTF("get_envvars in progress\n");
+	get_envvars_test();
+	FT_PRINTF("get_envvars_test completed\n");
 	return (0);
 }

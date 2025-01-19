@@ -23,35 +23,35 @@ static int	node_and_check(t_dlist *cur, int debug_lvl, void (*p)(void *))
 	if (cur->next != 0 && cur->next->prev != cur)
 		ret = 1;
 	if ((debug_lvl & ANGLES) > 0)
-		ft_printf("< ");
+		FT_PRINTF("< ");
 	if ((debug_lvl & PREV) > 0)
-		ft_printf("(%p) ", cur->prev);
+		FT_PRINTF("(%p) ", cur->prev);
 	if ((debug_lvl & ADDR) > 0)
-		ft_printf("[%p] ", cur);
+		FT_PRINTF("[%p] ", cur);
 	p(cur->content);
 	if ((debug_lvl & NEXT) > 0)
-		ft_printf(" (%p)", cur->next);
+		FT_PRINTF(" (%p)", cur->next);
 	if ((debug_lvl & ANGLES) > 0)
-		ft_printf(" >");
+		FT_PRINTF(" >");
 	return (ret);
 }
 
 static int	print_check(t_dlist *err, int debug_lvl)
 {
 	if ((debug_lvl & NEWLINE_BEFORE_CHECK) > 0)
-		ft_printf("\n");
+		FT_PRINTF("\n");
 	if (err)
 	{
-		ft_printf("First inconsistency in links found at object %p\n", err);
+		FT_PRINTF("First inconsistency in links found at object %p\n", err);
 		return (1);
 	}
-	ft_printf("Link incosistencies not found\n");
+	FT_PRINTF("Link incosistencies not found\n");
 	return (0);
 }
 
 static void	prints(void *p)
 {
-	ft_printf("%s", (char *)p);
+	FT_PRINTF("%s", (char *)p);
 }
 
 int	ft_dlist_print_s(t_dlist *lst, char *delim)
@@ -72,7 +72,7 @@ int	ft_dlist_print(t_dlist *lst, int dbg, char *delim, void (*p)(void *))
 	{
 		if (node_and_check(cur, dbg, p) && !err)
 			err = cur;
-		ft_printf("%s", delim);
+		FT_PRINTF("%s", delim);
 		cur = cur->next;
 	}
 	if ((dbg & CHECK) > 0)

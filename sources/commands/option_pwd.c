@@ -3,23 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   option_pwd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: inikulin <inikulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 00:09:44 by inikulin          #+#    #+#             */
-/*   Updated: 2024/10/22 23:22:28 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/18 20:30:02 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "commands.h"
 
 // return value is ignored
-int	option_pwd(t_control control, t_treenode *node, t_param *param)
+int	option_pwd(t_executor *control, t_treenode *node, t_param *param)
 {
-	if (*control.found || !control.choice)
-		return (0);
-	*control.found = 1;
-	printf("%s\n", (char *)param->envvar_path_head->content);
+	control->found = 1;
+	FT_PRINTF("%s\n", (char *)param->envvar_pwd->content);
 	(void)node;
-	*control.retval = 0;
+	control->retval = 0;
 	return (1);
 }

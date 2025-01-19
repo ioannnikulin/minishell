@@ -6,11 +6,12 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 00:10:22 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/29 17:30:57 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/19 12:41:15 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "commands.h"
+#include <sys/stat.h>
 
 static char	*find_executable(char *tgt, t_dlist *path, int *errno)
 {
@@ -49,18 +50,36 @@ static char	**get_argv(char *fullpath, t_treenode *node)
 	node = node->child;
 	while (i <= argc)
 	{
-		argv[i ++] = node->content;
+		argv[i ++] = *get_node_txt(node);
 		node = node->sibling_next;
 	}
 	return (argv);
 }
 
+static int	check_isdir(char *fullpath, t_param *param, t_treenode *node)
+{
+	struct stat	statbuf;
+
+	if (stat(fullpath, &statbuf) != 0)
+		return (ft_assign_i(&param->opts.errno, 6, 6));
+	if ((statbuf.st_mode & S_IFMT) == S_IFDIR)
+	{
+		ERR("%s: %s: %s\n", TXT_MINISHELL, *get_node_txt(node),
+			ERR_CANNOT_EXECUTE_A_DIRECTORY);
+		return (126);
+	}
+	return (0);
+}
+
 static int	run_executable(char *fullpath, t_treenode *node, t_param *param)
 {
-	char	**argv;
-	int		ret;
-	char	**envvars;
+	char		**argv;
+	int			ret;
+	char		**envvars;
 
+	ret = check_isdir(fullpath, param, node);
+	if (ret)
+		return (ret);
 	argv = get_argv(fullpath, node);
 	if (!argv)
 		return (ft_assign_i(&param->opts.errno, 5, 0));
@@ -78,27 +97,30 @@ static int	run_executable(char *fullpath, t_treenode *node, t_param *param)
 
 /* test with empty path, found in first, found in last, not found,
  * found but not allowed, empty command */
-int	option_external(t_control control, t_treenode *node, t_param *param)
+int	option_external(t_executor *control, t_treenode *node, t_param *param)
 {
 	char	*fullpath;
+	t_dlist	*search;
 
-	if (*control.found || !control.choice)
-		return (0);
-	*control.found = 1;
+	control->found = 1;
+	search = param->envvar_pwd;
+	search->next = param->envvar_root;
+	search->next->next = param->envvar_path_head;
 	if (param->opts.debug_output_level & DBG_EXTERNAL_SEARCH_FOLDERS)
 	{
-		ft_printf("searching for command in folders:\n");
-		ft_dlist_print_s(param->envvar_path_head, "\n");
-		ft_printf("--\n");
+		FT_PRINTF("searching for command in folders:\n");
+		ft_dlist_print_s(search, "\n");
+		FT_PRINTF("--\n");
 	}
-	fullpath = find_executable(node->content, param->envvar_path_head,
-			&param->opts.errno);
+	fullpath = find_executable(*get_node_txt(node), search, &param->opts.errno);
+	param->envvar_pwd->next = 0;
+	param->envvar_root->next = 0;
 	if (!fullpath)
-		return (0);
-	*control.retval = run_executable(fullpath, node, param);
+		return (ft_assign_i(&control->found, 0, 0));
+	control->retval = run_executable(fullpath, node, param);
 	free(fullpath);
 	if (!param->opts.errno)
 		return (0);
-	ft_printf("%s: ERROR %i\n", (char *)node->content, param->opts.errno);
+	ERR("%s: ERROR %i\n", *get_node_txt(node), param->opts.errno);
 	return (0);
 }

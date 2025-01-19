@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_free_s_1.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 18:43:58 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/05 21:58:09 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/02 14:33:20 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	ft_free_ss_uptonull_map(void **c, void (*f)(void **))
 		return ;
 	cc = (char **)c;
 	i = -1;
-	while (c[++ i])
+	while (cc[++ i])
 		f((void **)&cc[i]);
 	free(cc);
 }

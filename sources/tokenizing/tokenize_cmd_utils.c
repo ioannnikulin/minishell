@@ -6,71 +6,11 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 18:49:54 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/12/06 19:14:21 by taretiuk         ###   ########.fr       */
+/*   Updated: 2024/12/19 12:21:17 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "input_processing.h"
-
-t_delims	create_operator_array(void)
-{
-	t_delims	op_arr;
-
-	op_arr.count = 10;
-	op_arr.error = 0;
-	op_arr.delims = ft_calloc_if(sizeof(t_delim) * op_arr.count, 1);
-	if (op_arr.delims == NULL)
-	{
-		op_arr.error = 1;
-		return (op_arr);
-	}
-	op_arr.delims[0].delim = ">>";
-	op_arr.delims[1].delim = ">";
-	op_arr.delims[2].delim = "<<";
-	op_arr.delims[3].delim = "<";
-	op_arr.delims[4].delim = "||";
-	op_arr.delims[5].delim = ")";
-	op_arr.delims[6].delim = "&&";
-	op_arr.delims[7].delim = "&";
-	op_arr.delims[8].delim = "(";
-	op_arr.delims[9].delim = "|";
-	return (op_arr);
-}
-
-t_delims	create_delim_arr(void)
-{
-	t_delims	delim_array;
-
-	delim_array.count = 2;
-	delim_array.error = 0;
-	delim_array.delims = ft_calloc_if(sizeof(t_delim) * delim_array.count, 1);
-	if (delim_array.delims == NULL)
-	{
-		delim_array.error = 1;
-		return (delim_array);
-	}
-	delim_array.delims[0].delim = " ";
-	delim_array.delims[1].delim = "\t";
-	return (delim_array);
-}
-
-int	count_tokens(char **ss, t_delims arr, int *t_sz)
-{
-	int		i;
-	int		sz;
-
-	i = 0;
-	sz = 0;
-	while (ss[i] != NULL)
-	{
-		sz = count_words_skip_delim(ss[i], arr, '"');
-		*t_sz += sz;
-		i++;
-	}
-	if (*t_sz == 0)
-		*t_sz = 1;
-	return (0);
-}
+#include "tokenizing_internal.h"
 
 int	cleanup(t_delims *arr, char **ss, int retval)
 {

@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 00:09:30 by inikulin          #+#    #+#             */
-/*   Updated: 2024/11/11 03:26:52 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/19 12:26:53 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	invalid(char *src)
 {
-	printf("export: %s: %s\n", src, ERR_EXPORT_INVALID);
+	ERR("export: %s: %s\n", src, ERR_EXPORT_INVALID);
 	return (1);
 }
 
@@ -22,24 +22,24 @@ static int	invalid(char *src)
 static int	path(char *key, char *val, t_dlist **path_head)
 {
 	char	**vals;
-	char	*v;
 	int		sz;
+	int		i;
 
 	free(key);
 	vals = ft_split(val, ':', &sz);
 	free(val);
 	if (!vals)
 		return (1);
-	v = *vals;
+	i = 0;
 	ft_dlist_clear_s(path_head, 0);
-	while (v)
+	while (vals[i])
 	{
-		if (!ft_dlist_add_back_s(path_head, v))
+		if (!ft_dlist_add_back_s(path_head, vals[i]))
 		{
 			ft_free_ss_sz_null((void ***)&vals, sz);
 			return (2);
 		}
-		v ++;
+		i ++;
 	}
 	ft_free_ss_sz_null((void ***)&vals, sz);
 	return (0);
@@ -47,7 +47,7 @@ static int	path(char *key, char *val, t_dlist **path_head)
 
 static int	err_malloc(char *key, char *val, int *errno)
 {
-	printf("export: %s\n", ERR_MALLOC);
+	ERR("export: %s\n", ERR_MALLOC);
 	ft_assign_i(errno, 1, 0);
 	free(key);
 	free(val);
@@ -65,7 +65,7 @@ static int	one(char *src, t_mapss *map, t_dlist **path_head, int *errno)
 	int		i;
 
 	i = 0;
-	if (src[0] == '=')
+	if (!ft_isalpha(src[0]) && src[0] != '_')
 		return (invalid(src));
 	while (src[i] && src[i] != '=')
 	{
@@ -88,15 +88,14 @@ static int	one(char *src, t_mapss *map, t_dlist **path_head, int *errno)
 }
 
 // return value is ignored
-int	option_export(t_control control, t_treenode *node, t_param *param)
+int	option_export(t_executor *control, t_treenode *node, t_param *param)
 {
-	if (*control.found || !control.choice)
-		return (0);
-	*control.found = 1;
+	control->found = 1;
 	node = node->child;
-	while (node && !one(node->content, param->envvars,
-			&param->envvar_path_head, &param->opts.errno))
+	while (node && !one(*get_node_txt(node), param->envvars,
+			&param->envvar_path_head, &param->opts.errno)
+	)
 		node = node->sibling_next;
-	*control.retval = ft_if_i(node == 0, 0, 1);
+	control->retval = ft_if_i(node == 0, 0, 1);
 	return (1);
 }
