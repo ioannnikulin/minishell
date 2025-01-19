@@ -14,6 +14,18 @@
 
 extern volatile sig_atomic_t	g_interrupt_flag;
 
+static int	handle_input(t_param *param)
+{
+	int	ret;
+
+	ret = input_to_text_tree(param);
+	if (ret == MEMORY_ERROR)
+		return (ft_assign_i(&param->opts.errno, 1, 1));
+	else if (ret == MALFORMED_INPUT)
+		return (ft_assign_i(&param->opts.errno, MALFORMED_INPUT, 2));
+	return (0);
+}
+
 static int	interactive_body(t_param *param)
 {
 	param->cur_command = read_input(param->cur_command);
@@ -29,12 +41,9 @@ static int	interactive_body(t_param *param)
 		return (0);
 	if (isatty(STDIN))
 		add_history(param->cur_command);
-	if (input_to_text_tree(param) == MALFORMED_INPUT
-		&& ft_assign_i(&param->opts.retval, 1, 1)
-		&& ft_assign_i(&param->opts.errno, 0, 0))
-		return (0);
-	else if (param->opts.errno)
-		return (1);
+	handle_input(param);
+	if (param->opts.errno)
+		return (ft_if_i(param->opts.errno == MALFORMED_INPUT, 0, 1));
 	param->opts.retval = exec_text_tree(param);
 	if (ft_assign_i(&param->opts.errno, 0, 1) && param->opts.exiting)
 		return (1);
