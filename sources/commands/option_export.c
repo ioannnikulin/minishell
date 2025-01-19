@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   option_export.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inikulin <inikulin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 00:09:30 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/18 18:47:03 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/19 12:26:53 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,24 +22,24 @@ static int	invalid(char *src)
 static int	path(char *key, char *val, t_dlist **path_head)
 {
 	char	**vals;
-	char	*v;
 	int		sz;
+	int		i;
 
 	free(key);
 	vals = ft_split(val, ':', &sz);
 	free(val);
 	if (!vals)
 		return (1);
-	v = *vals;
+	i = 0;
 	ft_dlist_clear_s(path_head, 0);
-	while (v)
+	while (vals[i])
 	{
-		if (!ft_dlist_add_back_s(path_head, v))
+		if (!ft_dlist_add_back_s(path_head, vals[i]))
 		{
 			ft_free_ss_sz_null((void ***)&vals, sz);
 			return (2);
 		}
-		v ++;
+		i ++;
 	}
 	ft_free_ss_sz_null((void ***)&vals, sz);
 	return (0);

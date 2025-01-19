@@ -6,11 +6,12 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 00:10:22 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/19 10:52:41 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/19 12:41:15 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "commands.h"
+#include <sys/stat.h>
 
 static char	*find_executable(char *tgt, t_dlist *path, int *errno)
 {
@@ -55,12 +56,30 @@ static char	**get_argv(char *fullpath, t_treenode *node)
 	return (argv);
 }
 
+static int	check_isdir(char *fullpath, t_param *param, t_treenode *node)
+{
+	struct stat	statbuf;
+
+	if (stat(fullpath, &statbuf) != 0)
+		return (ft_assign_i(&param->opts.errno, 6, 6));
+	if ((statbuf.st_mode & S_IFMT) == S_IFDIR)
+	{
+		ERR("%s: %s: %s\n", TXT_MINISHELL, *get_node_txt(node),
+			ERR_CANNOT_EXECUTE_A_DIRECTORY);
+		return (126);
+	}
+	return (0);
+}
+
 static int	run_executable(char *fullpath, t_treenode *node, t_param *param)
 {
-	char	**argv;
-	int		ret;
-	char	**envvars;
+	char		**argv;
+	int			ret;
+	char		**envvars;
 
+	ret = check_isdir(fullpath, param, node);
+	if (ret)
+		return (ret);
 	argv = get_argv(fullpath, node);
 	if (!argv)
 		return (ft_assign_i(&param->opts.errno, 5, 0));

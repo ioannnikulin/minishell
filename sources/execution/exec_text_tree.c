@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:39:01 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/19 10:53:08 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/19 13:20:16 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,12 @@ int	exec_rec(t_executor *e)
 			return (1);
 		e->node = parent;
 	}
-	else if (nonbrace(e) != 0)
-		return (2);
+	else
+	{
+		nonbrace(e);
+		if (e->errno)
+			return (2);
+	}
 	return (exec_rec_1(e));
 }
 
