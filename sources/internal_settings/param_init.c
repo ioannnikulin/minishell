@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   param_init.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inikulin <inikulin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 18:10:38 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/18 19:54:27 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/19 11:08:32 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ static void	parent_sigint(int sig)
 	rl_on_new_line();
 	rl_replace_line("", 0);
 	rl_redisplay();
-	ERR("%s", TXT_INVITATION);
 }
 
 int	param_init(t_param *param)
@@ -91,7 +90,9 @@ int	param_init(t_param *param)
 		return (1);
 	if (!ft_dlist_add_back_s(&param->envvar_root, "/."))
 		return (3);
-	signal(SIGTSTP, SIG_IGN);
-	signal(SIGQUIT, SIG_IGN);
+	if (signal(SIGTSTP, SIG_IGN) == SIG_ERR)
+		return (4);
+	if (signal(SIGQUIT, SIG_IGN) == SIG_ERR)
+		return (5);
 	return (0);
 }
