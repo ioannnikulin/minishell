@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   resources.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: inikulin <inikulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 14:26:40 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/15 17:24:15 by taretiuk         ###   ########.fr       */
+/*   Updated: 2025/01/18 19:19:09 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define RESOURCES_H
 
 # define ERR_ENVVAR_INSERT "Error initializing environment variables"
-# define ERR_COMMAND_NOT_FOUND "command not found"
+# define ERR_COMMAND_NOT_FOUND "No such file or directory"
 # define ERR_NO_COMMAND_FOUND "Empty command string"
 # define ERR_TEXT_TREE_EMPTY "Command analysis failed"
 # define ERR_CD_NOWHERE "No such file or directory"
@@ -31,6 +31,7 @@
 # define ERR_EXIT_TOO_MANY_ARGS "too many arguments"
 # define ERR_UNEXPECTED_TOKEN "syntax error near unexpected token"
 # define ERR_NO_IN_FILE "No such file or directory"
+# define ERR_WHY_DID_YOU_UNSET_PATH "No such file or directory"
 
 # define TXT_INVITATION "minishell > "
 # define TXT_MINISHELL "minishell"

@@ -6,7 +6,7 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:03:08 by taretiuk          #+#    #+#             */
-/*   Updated: 2025/01/19 13:08:50 by taretiuk         ###   ########.fr       */
+/*   Updated: 2025/01/19 13:19:50 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static bool	print_err_message(char *token, bool ret)
 {
-	FT_FPRINTF(STDERR, "%s: %s `%s'\n", TXT_MINISHELL,
+	ERR("%s: %s `%s'\n", TXT_MINISHELL,
 		ERR_UNEXPECTED_TOKEN, token);
 	return (ret);
 }

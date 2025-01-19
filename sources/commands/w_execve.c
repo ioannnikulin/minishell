@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   w_execve.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inikulin <inikulin@stiudent.42.fr>         +#+  +:+       +#+        */
+/*   By: inikulin <inikulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 22:30:29 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/12 12:08:08 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/18 18:47:03 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,16 @@ static int	dbg(char *fullpath, char **argv, char **envvars)
 {
 	int		i;
 
-	FT_FPRINTF(STDERR, "starting: %s\nargs:\n", fullpath);
+	ERR("starting: %s\nargs:\n", fullpath);
 	i = -1;
 	while (argv[++ i])
-		FT_FPRINTF(STDERR, "%s ", argv[i]);
-	FT_FPRINTF(STDERR, "\nenvvars:\n");
+		ERR("%s ", argv[i]);
+	ERR("\nenvvars:\n");
 	i = -1;
 	while (envvars[++ i])
-		FT_FPRINTF(STDERR, "%s ", envvars[i]);
-	FT_FPRINTF(STDERR, "\nin status: %i\n", fcntl(STDIN, F_GETFD));
-	FT_FPRINTF(STDERR, "\nout status: %i\n\n\n", fcntl(STDOUT, F_GETFD));
+		ERR("%s ", envvars[i]);
+	ERR("\nin status: %i\n", fcntl(STDIN, F_GETFD));
+	ERR("\nout status: %i\n\n\n", fcntl(STDOUT, F_GETFD));
 	return (0);
 }
 

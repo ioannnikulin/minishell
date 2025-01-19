@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   param_init.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: inikulin <inikulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 18:10:38 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/17 17:06:05 by taretiuk         ###   ########.fr       */
+/*   Updated: 2025/01/18 19:54:27 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	param_get_cur_dir(t_param *param)
 		free(tgt);
 		return (2);
 	}
-	ft_dlist_add_front(&param->envvar_path_head, node);
+	param->envvar_pwd = node;
 	return (0);
 }
 
@@ -74,7 +74,7 @@ static void	parent_sigint(int sig)
 	rl_on_new_line();
 	rl_replace_line("", 0);
 	rl_redisplay();
-	FT_FPRINTF(STDERR, "%s", TXT_INVITATION);
+	ERR("%s", TXT_INVITATION);
 }
 
 int	param_init(t_param *param)
@@ -89,6 +89,8 @@ int	param_init(t_param *param)
 	param->envvars = ft_mapss_init();
 	if (!param->envvars)
 		return (1);
+	if (!ft_dlist_add_back_s(&param->envvar_root, "/."))
+		return (3);
 	signal(SIGTSTP, SIG_IGN);
 	signal(SIGQUIT, SIG_IGN);
 	return (0);
