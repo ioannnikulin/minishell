@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   e2e_tests.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inikulin <inikulin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 22:57:54 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/18 17:52:55 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/19 13:22:07 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "e2e_internal.h"
 #define START 0
 //#define DEBUG
-#define SZ 45
+#define SZ 48
 #define PRINT_TEST_NO
 #define MAX_CHECKED_MALLOCS_PRELIM 200
 // if preliminary shell start (with exit) gives 500,
@@ -237,6 +237,18 @@ int	populate(void)
 	ft_mapss_add(m[44], "stdout", "");
 	ft_mapss_add(m[44], "stderr", "minishell: syntax error near unexpected token `&&'\n");
 	tests[44] = (t_testcase){"echo && &&", m[44], 1, 0};
+	
+	ft_mapss_add(m[45], "stdout", "");
+	ft_mapss_add(m[45], "stderr", "minishell: [^/][^:]*/testf: Is a directory");
+	tests[45] = (t_testcase){"rm -rf testf && mkdir testf && ./testf", m[45], 126, 0};
+
+	ft_mapss_add(m[46], "stdout", "");
+	ft_mapss_add(m[46], "stderr", "minishell: /bin: Is a directory");
+	tests[46] = (t_testcase){"/bin", m[46], 126, 0};
+
+	ft_mapss_add(m[47], "stdout", "");
+	ft_mapss_add(m[47], "stderr", "minishell: env: No such file or directory\nLinux");
+	tests[47] = (t_testcase){"unset PATH && (env || /usr/bin/true) && export PATH=/usr/bin && uname", m[47], 0, 0};
 
 	return (0);
 }

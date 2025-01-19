@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   resources.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inikulin <inikulin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 14:26:40 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/18 19:19:09 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/19 12:16:35 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@
 # define ERR_UNEXPECTED_TOKEN "syntax error near unexpected token"
 # define ERR_NO_IN_FILE "No such file or directory"
 # define ERR_WHY_DID_YOU_UNSET_PATH "No such file or directory"
+# define ERR_CANNOT_EXECUTE_A_DIRECTORY "Is a directory"
 
 # define TXT_INVITATION "minishell > "
 # define TXT_MINISHELL "minishell"

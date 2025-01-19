@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 18:24:06 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/13 15:37:51 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/19 10:53:27 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static int	one_opt(const char **argv, int *i, int argc, t_param *param)
 		return (0);
 	if (*i == argc - 1)
 	{
-		FT_PRINTF("%s: %s\n", argv[*i], ERR_CMD_ARG_MISSING);
+		ERR("%s: %s\n", argv[*i], ERR_CMD_ARG_MISSING);
 		return (2);
 	}
 	if (opt_trap(argv, i, param))
@@ -74,7 +74,7 @@ static int	one_opt(const char **argv, int *i, int argc, t_param *param)
 		return (0);
 	if (opt_single(argv, i, argc, param))
 		return (0);
-	FT_PRINTF("%s: %s\n", argv[*i], ERR_CMD_ARG_UNKNOWN);
+	ERR("%s: %s\n", argv[*i], ERR_CMD_ARG_UNKNOWN);
 	return (3);
 }
 

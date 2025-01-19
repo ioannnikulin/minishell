@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inikulin <inikulin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/03 15:21:17 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/18 21:10:42 by taretiuk         ###   ########.fr       */
+/*   Created: 2025/01/18 15:14:27 by taretiuk          #+#    #+#             */
+/*   Updated: 2025/01/19 13:27:52 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,6 @@ static int	handle_input(t_param *param)
 static int	interactive_body(t_param *param)
 {
 	param->cur_command = read_input(param->cur_command);
-	if (!param->cur_command)
-		return (0);
 	if (g_interrupt_flag)
 	{
 		g_interrupt_flag = 0;
@@ -95,7 +93,7 @@ int	main(int argc, const char **argv, char **envp)
 	else if (param->cur_command)
 		one_cmd(param);
 	else if (param->opts.file)
-		FT_PRINTF("%s: %s\n", param->opts.file, ERR_NO_SCRIPT);
+		ERR("%s: %s\n", param->opts.file, ERR_NO_SCRIPT);
 	else
 		usage();
 	ret = param->opts.retval;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   substitute_envvars.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 15:01:39 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/28 17:29:38 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/19 12:57:38 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

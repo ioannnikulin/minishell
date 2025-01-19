@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   option_env.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inikulin <inikulin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 00:08:59 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/18 19:47:09 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/19 13:16:53 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	option_env(t_executor *control, t_treenode *node, t_param *param)
 	{
 		ERR("%s: env: %s\n", TXT_MINISHELL, ERR_WHY_DID_YOU_UNSET_PATH);
 		control->retval = 127;
-		return (1);
+		return (0);
 	}
 	lines = get_envvars_for_execve(param);
 	if (!lines)

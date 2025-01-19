@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inikulin <inikulin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 15:25:19 by taretiuk          #+#    #+#             */
-/*   Updated: 2025/01/18 21:05:11 by taretiuk         ###   ########.fr       */
+/*   Updated: 2025/01/19 13:27:49 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,9 @@ char	*read_input(char *cur_command)
 	int		i;
 
 	free(cur_command);
+	rl_outstream = stderr;
 	line = readline(TXT_INVITATION);
+	rl_outstream = stdin;
 	i = -1;
 	while (line[++ i] && line[i] == ' ')
 		;
