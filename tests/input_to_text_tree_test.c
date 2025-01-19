@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   input_to_text_tree_test.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 23:53:00 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/17 14:09:55 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/19 13:16:18 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tests_internal.h"
 #include "../sources/input_to_text_tree_mocks/input_to_text_tree_mock.h"
-//#define DEBUG
+// #define DEBUG
 
 static int	a_test(t_param *param, char *input, int (*treegen)(t_treenode *), int i)
 {
