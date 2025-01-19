@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 15:14:27 by taretiuk          #+#    #+#             */
-/*   Updated: 2025/01/19 13:27:52 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/19 16:20:37 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,36 +14,27 @@
 
 extern volatile sig_atomic_t	g_interrupt_flag;
 
-static int	handle_input(t_param *param)
-{
-	int	ret;
-
-	ret = input_to_text_tree(param);
-	if (ret == MEMORY_ERROR)
-		return (ft_assign_i(&param->opts.errno, 1, 1));
-	else if (ret == MALFORMED_INPUT)
-		return (ft_assign_i(&param->opts.errno, MALFORMED_INPUT, 2));
-	return (0);
-}
-
 static int	interactive_body(t_param *param)
 {
-	param->cur_command = read_input(param->cur_command);
+	param->cur_command = read_input(param->cur_command, param);
 	if (g_interrupt_flag)
 	{
 		g_interrupt_flag = 0;
 		return (0);
 	}
 	if (!param->cur_command)
-		return (1);
+		return (param->opts.exiting);
 	if (isatty(STDIN) && ft_strlen(param->cur_command) == 0
 		&& ERR("\n"))
 		return (0);
 	if (isatty(STDIN))
 		add_history(param->cur_command);
-	handle_input(param);
-	if (param->opts.errno)
-		return (ft_if_i(param->opts.errno == MALFORMED_INPUT, 0, 1));
+	if (input_to_text_tree(param) == MALFORMED_INPUT
+		&& ft_assign_i(&param->opts.retval, 1, 1)
+		&& ft_assign_i(&param->opts.errno, 0, 0))
+		return (0);
+	else if (param->opts.errno)
+		return (1);
 	param->opts.retval = exec_text_tree(param);
 	if (ft_assign_i(&param->opts.errno, 0, 1) && param->opts.exiting)
 		return (1);
