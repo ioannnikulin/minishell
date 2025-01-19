@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: inikulin <inikulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 15:21:17 by inikulin          #+#    #+#             */
 /*   Updated: 2025/01/18 21:10:42 by taretiuk         ###   ########.fr       */
@@ -39,7 +39,7 @@ static int	interactive_body(t_param *param)
 	if (!param->cur_command)
 		return (1);
 	if (isatty(STDIN) && ft_strlen(param->cur_command) == 0
-		&& FT_FPRINTF(STDERR, "\n"))
+		&& ERR("\n"))
 		return (0);
 	if (isatty(STDIN))
 		add_history(param->cur_command);

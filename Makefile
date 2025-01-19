@@ -48,7 +48,7 @@ COMMAND_VALIDATION_NAMES = validate_input.c
 COMMAND_VALIDATION_F = command_validation
 COMMAND_VALIDATION_SRCS = $(addprefix $(COMMAND_VALIDATION_F)/, $(COMMAND_VALIDATION_NAMES))
 
-EXECUTION_NAMES = exec_text_tree.c exec_text_tree_node.c exec_text_tree_controls.c redirections.c pipes.c files.c is_pipe.c is_redir.c is_redir_file.c navigation.c parent_n_child.c preexecution_markup.c
+EXECUTION_NAMES = exec_text_tree.c exec_text_tree_node.c exec_text_tree_controls.c redirections.c pipes.c files.c is_pipe.c is_redir.c is_redir_file.c navigation.c navigation_1.c parent_n_child.c preexecution_markup.c is_node_interacting.c heredoc.c
 EXECUTION_F = execution
 EXECUTION_SRCS = $(addprefix $(EXECUTION_F)/, $(EXECUTION_NAMES))
 
@@ -96,6 +96,9 @@ $(OBJ_DIRS):
 
 pre:
 	$(PREFIX)cd libft && make all
+
+pre_stdprintf:
+	$(PREFIX)cd libft && make all_stdprintf
 
 $(NAME): $(OBJS) $(ENDPOINT_OBJ)
 	$(PREFIX)$(CC) $(OBJS) $(ENDPOINT_OBJ) -o $@ $(LINK_FLAGS)
@@ -166,8 +169,7 @@ fulltest_vania: fulltest_common
 fulltest: fulltest_common
 	$(PREFIX)make test_trapped memcheck
 
-PHONY: all pre clean fclean re test fulltest testclean testfclean retest memcheck memcheck_interactive fulltest_common fulltest_vania tania vania minivania all_trapped
-
+PHONY: all pre clean fclean re test fulltest testclean testfclean retest memcheck memcheck_interactive fulltest_common fulltest_vania tania vania minivania all_trapped all_fancy all_printf
 ########################################
 
 TANIA_OBJ_F = $(OBJ_F)tania/
@@ -190,6 +192,9 @@ tania: $(OBJ_DIRS) $(TANIA_OBJ_F) $(OBJS) $(TANIA_ENDPOINT_OBJ)
 all_trapped:
 	$(PREFIX)make PREPROC_DEFINES="$(PREPROC_DEFINES) -DFT_CALLOC_IF_TRAPPED -DFANCY_IFACE" all
 
+all_stdprintf: pre_stdprintf
+	$(PREFIX)make PREPROC_DEFINES="$(PREPROC_DEFINES) -DPRINTF_ALLOWED" $(NAME)
+
 all_fancy:
 	$(PREFIX)make PREPROC_DEFINES="$(PREPROC_DEFINES) -DFANCY_IFACE" all
 
@@ -201,7 +206,7 @@ vania:
 minivania:
 	$(PREFIX)make all_fancy test && ./$(TEST_FNAME)
 
-CMD = "cat < one.txt | grep 1 > two.txt"
+CMD = "cat << END"
 run:
 	$(PREFIX)./minishell --debug 136 --command $(CMD)
 debug:

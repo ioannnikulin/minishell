@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   files.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: inikulin <inikulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:39:01 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/17 23:48:12 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/18 18:47:03 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,17 @@ static int	ignored_file(t_executor *e, t_treenode *node, int fd)
 	return (0);
 }
 
+/* runs for the command that redirects its output to an out file
+* mind the difference with setup_in_file
+*/
 int	setup_out_file(t_executor *e, t_treenode *node)
 {
 	int	fd;
 
 	if ((*get_node_type(node) & TO_OUT_FILE) == 0)
 		return (0);
-	fd = open(*get_node_txt(next_node(node)),
-			mode(*get_node_txt(node->sibling_next)), 0600);
+	fd = open(*get_node_txt(next_out_file(node)),
+			mode(*get_node_txt(next_out_file(node)->sibling_prev)), 0600);
 	if (fd == -1)
 		return (ft_assign_i(&e->errno, 2, 2));
 	*get_node_out_fd(node) = fd;
@@ -56,7 +59,11 @@ int	setup_out_file(t_executor *e, t_treenode *node)
 	return (0);
 }
 
-// fd is written only to the file node for now. to command node - in rollback
+/* runs for the in file itself
+* mind the difference with setup_in_file
+*
+* fd is written only to the file node for now. to command node - in rollback
+*/
 int	setup_in_file(t_executor *e, t_treenode *node)
 {
 	int	fd;
@@ -67,7 +74,7 @@ int	setup_in_file(t_executor *e, t_treenode *node)
 			mode(*get_node_txt(node->sibling_prev)), 0600);
 	if (fd == -1)
 	{
-		FT_FPRINTF(STDERR, "%s: %s: %s\n", TXT_MINISHELL,
+		ERR("%s: %s: %s\n", TXT_MINISHELL,
 			*get_node_txt(node), ERR_NO_IN_FILE);
 		return (ft_assign_i(&e->errno, NO_IN_FILE, NO_IN_FILE));
 	}

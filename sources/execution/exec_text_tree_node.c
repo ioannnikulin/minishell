@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_text_tree_node.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: inikulin <inikulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:39:01 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/17 15:28:38 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/18 19:21:50 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,10 @@ int	execute_text_tree_node(t_executor *e)
 		ft_tree_print(&t, cmd_txt, "\t");
 	chooser(e);
 	if (!e->found)
-		FT_PRINTF("%s: %s\n", *get_node_txt(e->node), ERR_COMMAND_NOT_FOUND);
+	{
+		FT_PRINTF("%s: %s: %s\n", TXT_MINISHELL, *get_node_txt(e->node),
+			ERR_COMMAND_NOT_FOUND);
+		e->retval = 127;
+	}
 	return (e->retval);
 }

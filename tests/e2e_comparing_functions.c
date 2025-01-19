@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   e2e_comparing_functions.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: inikulin <inikulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 18:16:14 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/18 15:46:18 by taretiuk         ###   ########.fr       */
+/*   Updated: 2025/01/18 17:53:03 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "e2e_internal.h"
 #define PRINT_MALLOC_FAILURE_NO
 #define TRAP_START 0
+//#define DEBUG
 
 extern char **environ;
 
@@ -53,16 +54,6 @@ static void check_stderr(char *fname)
 
 static int	file_compare(char *exp_content, char *act_fname)
 {
-	#ifdef DEBUG
-	fprintf(stderr, "comparing files\n");
-	fflush(stderr);
-	fprintf(stderr, "expected [%p]\n", exp_content);
-	fflush(stderr);
-	fprintf(stderr, "expected [%s]\n", exp_content);
-	fflush(stderr);
-	fprintf(stderr, "actual fname [%s]\n", act_fname);
-	fflush(stderr);
-	#endif
 	FILE *f = fopen(act_fname, "rb");
 	fseek(f, 0, SEEK_END);
 	long fsize = ftell(f);

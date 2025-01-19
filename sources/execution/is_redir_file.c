@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:52:17 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/17 17:14:09 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/18 17:49:40 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,13 @@ int	is_in_file(t_treenode *node)
 		&& is_from_in_redir(*get_node_txt(node->sibling_prev)));
 }
 
-int	takes_part_in_pipe_or_file(t_treenode *node)
-{
-	return (takes_part_in_file(node) || takes_part_in_pipe(node));
-}
-
 int	is_file(t_treenode *node)
 {
 	return (is_out_file(node) || is_in_file(node));
+}
+
+int	is_heredoc_eof(t_treenode *node)
+{
+	return (node->sibling_prev
+		&& is_heredoc(*get_node_txt(node->sibling_prev)));
 }
