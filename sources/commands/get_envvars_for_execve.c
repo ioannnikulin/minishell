@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_envvars_for_execve.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: inikulin <inikulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 23:38:22 by inikulin          #+#    #+#             */
-/*   Updated: 2024/12/02 12:12:06 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/18 20:22:10 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ char	**get_envvars_for_execve(t_param *param)
 	res[sz - 1] = 0;
 	if (!param->envvar_path_head)
 		return (res);
-	if (collect_path_with_header(param->envvar_path_head->next, &res[sz - 2]))
+	if (collect_path_with_header(param->envvar_path_head, &res[sz - 2]))
 	{
 		free_upto(res, sz - 2, 0);
 		ft_assign_i(&param->opts.errno, 3, 0);

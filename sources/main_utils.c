@@ -3,38 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: inikulin <inikulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 15:25:19 by taretiuk          #+#    #+#             */
-/*   Updated: 2025/01/18 15:25:48 by taretiuk         ###   ########.fr       */
+/*   Updated: 2025/01/18 19:11:29 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-char	*read_input(char *cur_command)
-{
-	char	*line;
-	size_t	len;
-	ssize_t	nread;
-
-	free(cur_command);
-	if (!isatty(STDIN))
-	{
-		len = 0;
-		nread = getline(&line, &len, stdin);
-		if (nread == -1)
-		{
-			free(line);
-			return (NULL);
-		}
-		if (line[nread - 1] == '\n')
-			line[nread - 1] = '\0';
-		return (line);
-	}
-	FT_FPRINTF(STDERR, "%s", TXT_INVITATION);
-	return (readline(0));
-}
 
 void	usage(void)
 {

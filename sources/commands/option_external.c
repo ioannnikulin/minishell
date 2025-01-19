@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   option_external.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: inikulin <inikulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 00:10:22 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/17 14:46:09 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/18 19:52:09 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,16 +81,21 @@ static int	run_executable(char *fullpath, t_treenode *node, t_param *param)
 int	option_external(t_executor *control, t_treenode *node, t_param *param)
 {
 	char	*fullpath;
+	t_dlist	*search;
 
 	control->found = 1;
+	search = param->envvar_pwd;
+	search->next = param->envvar_root;
+	search->next->next = param->envvar_path_head;
 	if (param->opts.debug_output_level & DBG_EXTERNAL_SEARCH_FOLDERS)
 	{
 		FT_PRINTF("searching for command in folders:\n");
-		ft_dlist_print_s(param->envvar_path_head, "\n");
+		ft_dlist_print_s(search, "\n");
 		FT_PRINTF("--\n");
 	}
-	fullpath = find_executable(*get_node_txt(node), param->envvar_path_head,
-			&param->opts.errno);
+	fullpath = find_executable(*get_node_txt(node), search, &param->opts.errno);
+	param->envvar_pwd->next = 0;
+	param->envvar_root->next = 0;
 	if (!fullpath)
 		return (ft_assign_i(&control->found, 0, 0));
 	control->retval = run_executable(fullpath, node, param);

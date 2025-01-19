@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: inikulin <inikulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 15:14:27 by taretiuk          #+#    #+#             */
-/*   Updated: 2025/01/18 15:29:26 by taretiuk         ###   ########.fr       */
+/*   Updated: 2025/01/18 19:11:54 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ extern volatile sig_atomic_t	g_interrupt_flag;
 
 static int	interactive_body(t_param *param)
 {
-	param->cur_command = read_input(param->cur_command);
+	free(param->cur_command);
+	param->cur_command = readline(TXT_INVITATION);
 	if (g_interrupt_flag)
 	{
 		g_interrupt_flag = 0;
@@ -25,7 +26,7 @@ static int	interactive_body(t_param *param)
 	if (!param->cur_command)
 		return (1);
 	if (isatty(STDIN) && ft_strlen(param->cur_command) == 0
-		&& FT_FPRINTF(STDERR, "\n"))
+		&& ERR("\n"))
 		return (0);
 	if (isatty(STDIN))
 		add_history(param->cur_command);

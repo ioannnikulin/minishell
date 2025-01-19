@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   option_export.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: inikulin <inikulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 00:09:30 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/17 14:43:35 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/18 18:47:03 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	invalid(char *src)
 {
-	FT_FPRINTF(STDERR, "export: %s: %s\n", src, ERR_EXPORT_INVALID);
+	ERR("export: %s: %s\n", src, ERR_EXPORT_INVALID);
 	return (1);
 }
 
@@ -47,7 +47,7 @@ static int	path(char *key, char *val, t_dlist **path_head)
 
 static int	err_malloc(char *key, char *val, int *errno)
 {
-	FT_FPRINTF(STDERR, "export: %s\n", ERR_MALLOC);
+	ERR("export: %s\n", ERR_MALLOC);
 	ft_assign_i(errno, 1, 0);
 	free(key);
 	free(val);

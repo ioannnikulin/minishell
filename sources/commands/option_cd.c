@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   option_cd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: inikulin <inikulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 00:08:15 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/17 14:40:04 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/18 20:29:06 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,15 +56,15 @@ static char	*get_checked_path(t_treenode *node, char *pwd, t_mapss *envvars,
 static int	couldnt(t_treenode *node, char *fullpath, int *ret, int errno)
 {
 	if (errno == 4 || errno == 6 || errno == 0)
-		FT_FPRINTF(STDERR, "%s: cd: %s: %s\n",
+		ERR("%s: cd: %s: %s\n",
 			TXT_MINISHELL, *get_node_txt(node->child), ERR_CD_NOWHERE);
 	else if (errno == 1)
-		FT_FPRINTF(STDERR, "%s: cd: %s\n",
+		ERR("%s: cd: %s\n",
 			TXT_MINISHELL, ERR_CD_NO_HOME);
 	else if (errno == 7)
-		FT_FPRINTF(STDERR, "%s: cd: %s\n", TXT_MINISHELL, ERR_CD_TOO_MANY_ARGS);
+		ERR("%s: cd: %s\n", TXT_MINISHELL, ERR_CD_TOO_MANY_ARGS);
 	else
-		FT_FPRINTF(STDERR, "%s: cd: %s\n", TXT_MINISHELL, ERR_MALLOC);
+		ERR("%s: cd: %s\n", TXT_MINISHELL, ERR_MALLOC);
 	*ret = 1;
 	free(fullpath);
 	return (1);
@@ -76,23 +76,25 @@ static int	couldnt(t_treenode *node, char *fullpath, int *ret, int errno)
 int	option_cd(t_executor *control, t_treenode *node, t_param *param)
 {
 	char	*fullpath;
-	t_dlist	*envvars;
 	int		errno;
 
 	control->found = 1;
 	if (node->child && node->child->sibling_next)
 		return (couldnt(0, 0, &control->retval, 7));
 	errno = 0;
-	fullpath = get_checked_path(node, param->envvar_path_head->content,
+	fullpath = get_checked_path(node, param->envvar_pwd->content,
 			param->envvars, &errno);
 	if (!fullpath || chdir(fullpath) != 0)
 		return (couldnt(node, fullpath, &control->retval, errno));
-	envvars = param->envvar_path_head->next;
-	ft_dlist_delone(param->envvar_path_head, ft_free_s);
-	param->envvar_path_head = envvars;
-	envvars->prev = 0;
-	param_get_cur_dir(param);
-	control->retval = 0;
 	free(fullpath);
+	if (ft_mapss_get(param->envvars, "OLDPWD") && ft_mapss_add(param->envvars,
+			"OLDPWD", param->envvar_pwd->content))
+		return (ft_assign_i(&param->opts.errno, 1, 1));
+	ft_dlist_delone(param->envvar_pwd, ft_free_s);
+	param_get_cur_dir(param);
+	if (ft_mapss_get(param->envvars, "PWD") && ft_mapss_add(param->envvars,
+			"PWD", param->envvar_pwd->content))
+		return (ft_assign_i(&param->opts.errno, 2, 2));
+	control->retval = 0;
 	return (1);
 }

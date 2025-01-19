@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: inikulin <inikulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 15:22:58 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/18 15:26:13 by taretiuk         ###   ########.fr       */
+/*   Updated: 2025/01/18 19:47:48 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ typedef struct s_param
 {
 	t_mapss	*envvars;
 	t_dlist	*envvar_path_head;
+	t_dlist	*envvar_pwd;
+	t_dlist	*envvar_root;
 	char	*cur_command;
 	t_tree	*text_tree;
 	t_opts	opts;
@@ -73,7 +75,6 @@ typedef struct s_param
 
 # define TEXT_TREE_BLOCK_REDIR "["
 
-char	*read_input(char *cur_command);
 void	usage(void);
 t_param	*param_alloc(void);
 int		param_init(t_param *param);
