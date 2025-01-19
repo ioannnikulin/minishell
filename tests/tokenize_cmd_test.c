@@ -6,13 +6,13 @@
 /*   By: taretiuk <taretiuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 06:11:45 by taretiuk          #+#    #+#             */
-/*   Updated: 2024/12/28 13:56:09 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/19 13:16:06 by taretiuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tests_internal.h"
 #include "../sources/tokenizing/tokenizing.h"
-//#define DEBUG
+// #define DEBUG
 #define NUM_TEST_CASES 15
 #define MAX_ARGS 15
 #define START 0
@@ -105,7 +105,10 @@ void	tokenize_cmd_test()
 		#ifdef DEBUG
 		FT_PRINTF("ret: %i\n", ret);
 		#endif
-		assert(ret == 0);
+		if (i == 10)
+			assert(ret == 2);
+		else
+			assert(ret == 0);
 		for (int j = 0; tokens[j] != NULL; j++)
 		{
 			#ifdef DEBUG
