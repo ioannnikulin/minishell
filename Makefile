@@ -91,6 +91,8 @@ vpath %.c $(SOURCE_F) $(SOURCE_F)/$(COMMANDS_F) $(SOURCE_F)/$(INPUT_TO_TEXT_TREE
 
 all: pre $(NAME)
 
+bonus: all
+
 $(OBJ_DIRS):
 	$(PREFIX)mkdir -p $(OBJ_DIRS)
 
@@ -169,7 +171,7 @@ fulltest_vania: fulltest_common
 fulltest: fulltest_common
 	$(PREFIX)make test_trapped memcheck
 
-PHONY: all pre clean fclean re test fulltest testclean testfclean retest memcheck memcheck_interactive fulltest_common fulltest_vania tania vania minivania all_trapped all_fancy all_printf
+PHONY: all pre clean fclean re test fulltest testclean testfclean retest memcheck memcheck_interactive fulltest_common fulltest_vania tania vania minivania all_trapped all_fancy all_printf bonus prere pretestfclean prefclean test_trapped run debug mem
 ########################################
 
 TANIA_OBJ_F = $(OBJ_F)tania/
