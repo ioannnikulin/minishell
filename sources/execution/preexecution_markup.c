@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 22:32:33 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/19 15:16:52 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/19 17:30:19 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,23 @@ static int	unmark_files_and_heredocs(t_treenode *node)
 	subtype = *get_node_type(node) & (TO_PIPE | TO_OUT_FILE | FROM_HEREDOC);
 	if (*get_node_type(node) & (ANY_FILE | HEREDOC) && subtype)
 	{
+		if ((*get_node_type(node) & (OUT_FILE | TO_OUT_FILE))
+			== (OUT_FILE | TO_OUT_FILE))
+			add_node_type(node, IGNORED_FILE);
+		if ((*get_node_type(node) & OUT_FILE) && next_node(node)
+			&& (*get_node_type(next_node(node)) & FROM_PIPE))
+		{
+			add_node_type(next_node(node), FROM_DEV_NULL);
+			*get_node_type(next_node(node)) &= ~FROM_PIPE;
+		}
 		*get_node_type(node) &= ~(TO_PIPE | TO_OUT_FILE | FROM_HEREDOC);
 		*get_node_type(node) &= ~COMMAND;
 		if (*get_node_type(node) & (IN_FILE | HEREDOC))
+		{
+			if (!prev_command(node))
+				return (1);
 			add_node_type(prev_command(node), subtype);
-		else if (*get_node_type(node) & OUT_FILE)
-			add_node_type(next_command(node), FROM_DEV_NULL);
+		}
 	}
 	return (0);
 }
@@ -90,6 +101,7 @@ int	markup(t_executor *e)
 	t_treenode	*node;
 
 	stage1(e);
+	fd_info(e);
 	node = e->node;
 	while (node)
 	{

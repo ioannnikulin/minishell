@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inikulin <inikulin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:39:01 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/18 17:43:34 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/19 16:38:06 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,12 @@ int	redirections(t_executor *e)
 			return (ft_assign_i(&e->errno, 4, 4));
 		if (setup_dev_null(e, node) != 0)
 			return (ft_assign_i(&e->errno, 1, 1));
-		if (setup_pipe(e, node, ++i) != 0)
-			return (ft_assign_i(&e->errno, 2, 2));
-		if (setup_out_file(e, node) != 0)
+		if (setup_pipe(e, node, ++i) != 0 || setup_out_file(e, node) != 0)
 			return (ft_assign_i(&e->errno, 3, 3));
 		if (setup_in_file(e, node) != 0)
 			return (ft_assign_i(&e->errno, NO_IN_FILE, NO_IN_FILE));
-		if (rollback_input_files_fds(e, node))
+		if (rollback_input_files_fds(e, node)
+			|| rollback_output_files_fds(e, node))
 			return (ft_assign_i(&e->errno, 5, 5));
 		if (*get_node_type(node) & CHAIN_END)
 			break ;
