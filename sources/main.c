@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inikulin <inikulin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 15:14:27 by taretiuk          #+#    #+#             */
-/*   Updated: 2025/01/18 19:11:54 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/19 13:27:52 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,7 @@ extern volatile sig_atomic_t	g_interrupt_flag;
 
 static int	interactive_body(t_param *param)
 {
-	free(param->cur_command);
-	param->cur_command = readline(TXT_INVITATION);
+	param->cur_command = read_input(param->cur_command);
 	if (g_interrupt_flag)
 	{
 		g_interrupt_flag = 0;
@@ -85,7 +84,7 @@ int	main(int argc, const char **argv, char **envp)
 	else if (param->cur_command)
 		one_cmd(param);
 	else if (param->opts.file)
-		FT_PRINTF("%s: %s\n", param->opts.file, ERR_NO_SCRIPT);
+		ERR("%s: %s\n", param->opts.file, ERR_NO_SCRIPT);
 	else
 		usage();
 	ret = param->opts.retval;

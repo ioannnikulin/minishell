@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_text_tree_node.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inikulin <inikulin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:39:01 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/18 19:21:50 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/19 10:55:14 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	execute_text_tree_node(t_executor *e)
 	t_tree	t;
 
 	if (!e->node || !e->node->content || !*get_node_txt(e->node))
-		return (FT_PRINTF("%s\n", ERR_NO_COMMAND_FOUND) * 0);
+		return (ERR("%s\n", ERR_NO_COMMAND_FOUND) * 0);
 	if (expand(e->node, e->param))
 		return (ft_assign_i(&e->param->opts.errno, 1, 0));
 	t.root = e->node;
@@ -61,7 +61,7 @@ int	execute_text_tree_node(t_executor *e)
 	chooser(e);
 	if (!e->found)
 	{
-		FT_PRINTF("%s: %s: %s\n", TXT_MINISHELL, *get_node_txt(e->node),
+		ERR("%s: %s: %s\n", TXT_MINISHELL, *get_node_txt(e->node),
 			ERR_COMMAND_NOT_FOUND);
 		e->retval = 127;
 	}

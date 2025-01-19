@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   e2e_comparing_functions.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inikulin <inikulin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 18:16:14 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/18 17:53:03 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/19 13:21:57 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,8 +155,10 @@ void	successful_execution(t_testcase *test, int *mallocs)
     else
         fprintf(stderr, "expecting return %i, got %i\n", test->exp_ret, ret);
     #endif
-    assert(test->exp_ret == UNSTABLE_RETURN_0_1 || ret == test->exp_ret);
-    assert(test->exp_ret != UNSTABLE_RETURN_0_1 || (ret == 0 || ret == 1));
+	if (test->exp_ret == UNSTABLE_RETURN_0_1)
+		assert(ret == 0 || ret == 1);
+	else
+		assert(ret == test->exp_ret);
 	*mallocs = file_compare(ft_mapss_get(test->exp, "stdout"), "e2e.stdout");
 	char	*exp_err = ft_mapss_get(test->exp, "stderr");
 	if (test->exp_ret)

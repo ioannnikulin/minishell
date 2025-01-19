@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_envvars_for_execve.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inikulin <inikulin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 23:38:22 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/18 20:22:10 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/19 12:58:19 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,12 +67,16 @@ int	collect_path(t_dlist *head, char **where)
 	int		sz;
 	char	*res;
 
-	sz = ft_dlist_size(head) - 1;
+	if (!head)
+	{
+		*where = ft_empty_string();
+		return (0);
+	}
+	sz = ft_dlist_size(head);
 	subs = ft_calloc_if(sizeof(char *) * sz, 1);
 	if (!subs)
 		return (1);
 	i = 0;
-	head = head->next;
 	while (head)
 	{
 		subs[i ++] = head->content;

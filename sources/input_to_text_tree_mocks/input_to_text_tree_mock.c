@@ -6,7 +6,7 @@
 /*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 23:07:09 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/17 13:57:02 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/19 10:53:38 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 static int	ret(int e, char *in)
 {
 	if (e)
-		FT_PRINTF("%s\n", ERR_MALLOC);
+		ERR("%s\n", ERR_MALLOC);
 	else
-		FT_PRINTF("%s: %s\n", in, ERR_COMMAND_NOT_FOUND);
+		ERR("%s: %s\n", in, ERR_COMMAND_NOT_FOUND);
 	return (3);
 }
 

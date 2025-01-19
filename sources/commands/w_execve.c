@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   w_execve.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inikulin <inikulin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: inikulin <inikulin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 22:30:29 by inikulin          #+#    #+#             */
-/*   Updated: 2025/01/18 18:47:03 by inikulin         ###   ########.fr       */
+/*   Updated: 2025/01/19 14:03:29 by inikulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,12 @@ int	parent(pid_t pid, int *errno)
 		return (ft_assign_i(errno, 23, 0));
 	if ((status & 0x7f) == 0)
 		return (status >> 8);
+	if ((status & 0x7f) != 0)
+	{
+		if ((status & 0x7f) == SIGINT)
+			return (130);
+		return (ft_assign_i(errno, 24, 0));
+	}
 	return (ft_assign_i(errno, 24, 0));
 }
 
@@ -60,6 +66,7 @@ int	w_execve(char *fullpath, char **argv, char **envvars, t_param *param)
 		return (ft_assign_i(&param->opts.errno, 1, 0));
 	if (pid == 0)
 	{
+		signal(SIGINT, SIG_DFL);
 		if ((param->opts.debug_output_level & DBG_EXECVE_PREPRINT)
 			&& dbg(fullpath, argv, envvars))
 			return (ft_assign_i(&param->opts.errno, 33, 0));
